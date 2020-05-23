@@ -202,9 +202,15 @@ a.article:hover {
 }
 
 #map {
-		height: 800px;
-		width: 800px;
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
 }
+
+#sidebarCollapse {
+        background: #7386D5;
+    }
 
 /* ---------------------------------------------------
     MEDIAQUERIES
