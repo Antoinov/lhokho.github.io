@@ -31,12 +31,12 @@ $(document).ready(function(){
 //        });
         city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
         city_name = city_name.replace("_"," ");
-        console.log(firebase.database().ref("city"))
+
 
         firebase.database().ref("city").orderByChild("ville").equalTo(city_name).on("value", function(snapshot) {
             console.log(snapshot.val())
             var data = snapshot.val();
-            data = data[Object.keys(data)];
+            data = data[Object.keys(data)[0]];
             console.log(data)
             console.log('function provide info launched')
             $( "#city_welcome" ).append(data['ville']);
