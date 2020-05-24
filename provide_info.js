@@ -1,6 +1,7 @@
 //<script src="{{ url_for('static', filename='js/provide_info.js') }}"></script>
 $(document).ready(function(){
     var city_name = window.location.search.substr(1).split("=")[1];
+    $('#background').css({'background-image': 'img/lyon.jpg'});
     // Your web app's Firebase configuration
     var firebaseConfig = {
         apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
