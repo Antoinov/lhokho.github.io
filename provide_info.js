@@ -1,17 +1,35 @@
 //<script src="{{ url_for('static', filename='js/provide_info.js') }}"></script>
-var city_name = window.location.search.substr(1).split("=")[1];
+$(document).ready(function(){
+    var city_name = window.location.search.substr(1).split("=")[1];
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
+        authDomain: "lhokho.firebaseapp.com",
+        databaseURL: "https://lhokho.firebaseio.com",
+        projectId: "lhokho",
+        storageBucket: "lhokho.appspot.com",
+        messagingSenderId: "914809444198",
+        appId: "1:914809444198:web:35ffb12ed619dd2de41aa7",
+        measurementId: "G-KEBX9V4BPX"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 
-function readFirebase(city_name) {
+    function readFirebase(city_name) {
 
-    firebase.database().child('destination').orderByChild('ville').equalTo(city_name).on("value", function(snapshot) {
-        console.log(snapshot.val());
-        snapshot.forEach(function(data) {
-            console.log(data.key);
+        firebase.database().child('destination').orderByChild('ville').equalTo(city_name).on("value", function(snapshot) {
+            console.log(snapshot.val());
+            snapshot.forEach(function(data) {
+                console.log(data.key);
+            });
         });
-    });
-}
+    }
 
-readFirebase(city_name)
+    readFirebase(city_name)
+});
+
+
 
 //
 //$(document).ready(function() {
