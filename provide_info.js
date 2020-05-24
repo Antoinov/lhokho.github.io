@@ -1,12 +1,7 @@
 //<script src="{{ url_for('static', filename='js/provide_info.js') }}"></script>
 var city_name = window.location.search.substr(1).split("=")[1];
 
-function saveToFirebase(city_name) {
-    var emailObject = {
-        email: email
-    };
-
-    ref
+function readFirebase(city_name) {
 
     firebase.database().child('destination').orderByChild('ville').equalTo(city_name).on("value", function(snapshot) {
         console.log(snapshot.val());
@@ -16,7 +11,7 @@ function saveToFirebase(city_name) {
     });
 }
 
-$(document).ready(readFirebase(city_name););
+readFirebase(city_name)
 
 //
 //$(document).ready(function() {
