@@ -18,7 +18,6 @@ $(document).ready(function(){
 
     console.log(dbRef)
     var city_name = window.location.search.substr(1).split("=")[1];
-    city_name = "Paris";
     background_name = city_name.replace('-','_')
     $('#background').css({'background-image': 'url(img/city/'+background_name+'.jpg)'});
 
