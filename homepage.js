@@ -34,7 +34,7 @@ $(document).ready(function(){
         var custom_icon = L.icon({"iconSize": [20, 20], "iconUrl":"img/placeholder.png"});
          marker_destination.setIcon(custom_icon);
         var popup = L.popup({"maxWidth": "100%"});
-        var city = name.toLowerCase().replace(' ','');
+        var city = name.toLowerCase().replace(' ','_');
         var html = $('<a id="html_'+name+'" style="width: 100.0%; height: 100.0%;" href="destination?city='+city+'" target="_blank""><br>'+name+'<br></a>')[0];
 
         popup.setContent(html);

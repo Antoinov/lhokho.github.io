@@ -19,13 +19,8 @@ $(document).ready(function(){
     console.log(dbRef)
     var city_name = window.location.search.substr(1).split("=")[1];
     //city_name = "Paris";
-
-    $('#background').css({'background-image': 'url(img/city/'+city_name+'.jpg)'});
-
-    const capitalize = (s) => {
-      if (typeof s !== 'string') return ''
-      return s.charAt(0).toUpperCase() + s.slice(1)
-    }
+    background_name = city_name.replace('-','_')
+    $('#background').css({'background-image': 'url(img/city/'+background_name+'.jpg)'});
 
 
     function readFirebase(city_name) {
@@ -35,7 +30,7 @@ $(document).ready(function(){
 //          console.log(snapshot.val())
 //        });
         city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
-        city_name = city_name.replace("_","-");
+        city_name = city_name.replace("_"," ");
 
 
         firebase.database().ref("city").orderByChild("ville").equalTo(city_name).once("value", function(snapshot) {
