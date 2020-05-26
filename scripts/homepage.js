@@ -31,7 +31,7 @@ $(document).ready(function(){
             {}
         );
         markers.push(marker_destination)
-        var custom_icon = L.icon({"iconSize": [20, 20], "iconUrl":"../images/icons/placeholder.png"});
+        var custom_icon = L.icon({"iconSize": [20, 20], "iconUrl":"images/icons/placeholder.png"});
          marker_destination.setIcon(custom_icon);
         var popup = L.popup({"maxWidth": "100%"});
         var city = name.toLowerCase().replace(' ','_');
