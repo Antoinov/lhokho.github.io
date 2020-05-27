@@ -44,7 +44,7 @@
                             <div class="mx-auto col-sm-3 text-center col-sm-offset-1">
                                 <p></p>
                                 <p></p>
-                                <a class="btn btn-primary btn-lg js-scroll-trigger" href="#items_container">C'est beau ! Montre moi en plus !</a>
+                                <a class="btn btn-primary btn-lg js-scroll-trigger" id="items-link" href="#items_container" >C'est beau ! Montre moi en plus !</a>
                                 <p></p>
                                 <p></p>
                                 <a class="btn btn-primary btn-lg js-scroll-trigger" href="#biere">Et où est la bodega ?</a>
@@ -67,8 +67,7 @@
                             <div class="col-sm"></div></div>
                     </div>
 
-                    </header>
-                    <section class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
+                 <section class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
                         <div class="container">
                             <div class="row"><div class="col-12"><p></p></div></div>
                             <div class="row justify-content-center" >
@@ -194,6 +193,7 @@
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
     <!-- jQuery CDN  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <!-- Popper.JS -->
@@ -213,7 +213,7 @@
             });
         });
     </script>
-    <script src="scripts/index.js"></script>
+    <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->
     <script src="scripts/provide_info.js"></script>
 </body>

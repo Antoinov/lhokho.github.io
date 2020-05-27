@@ -8,20 +8,6 @@ $(document).ready(function(){
     var stations_name = _STOP_CITY;
     var stations_pos = _STOP_POS;
 
-    //Populate menu bar
-
-    var unique_stations = [...new Set(stations_name)];
-
-    function populate_menu(city_name) {
-        console.log(city_name);
-        let city = city_name.toLowerCase().replace(' ','_');
-        let city_html = $('<li><a id="html_'+city+'" style="width: 100.0%; height: 100.0%;" href="destination?city='+city+'" target="_blank""><br>'+city_name+'<br></a></li>')[0];
-        $("#destSubmenu").append(city_html);
-    }
-
-    unique_stations.forEach(populate_menu);
-    $("#destSubmenu").scrollTop($('ul > li:nth-child(2)').position().top);
-
     //Create and shape leaflet map
     var map = L.map(
         "map",

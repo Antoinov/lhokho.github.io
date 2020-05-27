@@ -29,7 +29,7 @@ $(document).ready(function(){
             var data = snapshot.val();
             data = data[Object.keys(data)[0]];
             console.log(data)
-            console.log('function provide info launched')
+            console.log('retrieve general information in database')
             $( "#city_welcome" ).append(data['ville']);
             $( "#city_region" ).append(data['region']);
             $( "#city_departement" ).append(data['departement']);
@@ -38,6 +38,37 @@ $(document).ready(function(){
             $( "#city_gentile" ).append(data['gentile']);
             $( "#city_altitude" ).append(data['altitude']);
             $( "#city_superficie" ).append(data['superficie']);
+        });
+        //get items and interests information
+        firebase.database().ref("items").orderByChild("ville").equalTo(city_name.toLowerCase()).on("value", function(snapshot) {
+            var data = [];
+            snapshot.forEach(function(item) {
+                var itemVal = item.val();
+                data.push(itemVal);
+            });
+
+            data = data.sort(func);
+
+            function func(a, b) {
+                return Math.random();
+            }
+
+            if (data != null) {
+               console.log("items available")
+               for (let i = 0; i < 11; i++){
+                   let focus = data[i];
+                   console.log(focus);
+                   let str = "img_src_%s".replace('%s',(i + 1).toString())
+                   let str2 = "img_title_%s".replace('%s',(i + 1).toString())
+                   document.getElementById(str).title = focus['name'];
+                   document.getElementById(str).onclick = function() {window.open(focus['wiki_link'], '_blank')};
+                   document.getElementById(str).src = focus['image_src'];
+                   document.getElementById(str2).append(focus['name']);
+               }
+           } else {
+               document.getElementById("items_container").style.display = "none";
+               $("#items-link").hide();
+           }
         });
     }
 
@@ -70,21 +101,7 @@ $(document).ready(function(){
 //            $( "#city_altitude" ).append(data['altitude']);
 //            $( "#city_superficie" ).append(data['superficie']);
 //            $('#background').css({'background-image': data['city_img']});
-//            if (data['items']['availability'] != 0) {
-//                console.log('items available')
-//                console.log(data['items']['name'][13])
-//                for (let i = 0; i < 11; i++){
-//                    let str = "img_src_%s".replace('%s',(i + 1).toString())
-//                    let str2 = "img_title_%s".replace('%s',(i + 1).toString())
-//                    console.log(str)
-//                    document.getElementById(str).title = data['items']['name'][i];
-//                    document.getElementById(str).onclick = function() {window.open(data['items']['link'][i], '_blank')};
-//                    document.getElementById(str).src = data['items']['img'][i];
-//                    document.getElementById(str2).append(data['items']['name'][i]);
-//                }
-//            } else {
-//                document.getElementById("items_container").style.display = "none";
-//            }
+//
 //            if (data['beer']['availability'] != 0) {
 //                console.log('beer available')
 //                $( "#av_HH" ).append(data['beer']['average_price_HH']);
