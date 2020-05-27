@@ -13,10 +13,6 @@ $(document).ready(function(){
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
 
-    //create firebase database reference
-    var dbRef = firebase.database();
-
-    console.log(dbRef)
     var city_name = window.location.search.substr(1).split("=")[1];
     background_name = city_name.replace('-','_')
     $('#background').css({'background-image': 'url(images/city/'+background_name+'.jpg)'});
