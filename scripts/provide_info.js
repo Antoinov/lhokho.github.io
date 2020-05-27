@@ -18,12 +18,8 @@ $(document).ready(function(){
     $('#background').css({'background-image': 'url(images/city/'+background_name+'.jpg)'});
 
 
-    function readFirebase(city_name) {
+    function getCityInformation(city_name) {
 
-//        firebase.database().ref('destination').once('value').then(function(snapshot) {
-//          var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-//          console.log(snapshot.val())
-//        });
         city_name = city_name.charAt(0).toUpperCase() + city_name.slice(1);
         city_name = city_name.replace("_"," ");
 
@@ -42,11 +38,10 @@ $(document).ready(function(){
             $( "#city_gentile" ).append(data['gentile']);
             $( "#city_altitude" ).append(data['altitude']);
             $( "#city_superficie" ).append(data['superficie']);
-
         });
     }
 
-    readFirebase(city_name)
+    getCityInformation(city_name)
 });
 
 
