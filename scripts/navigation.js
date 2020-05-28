@@ -15,6 +15,7 @@ $(document).ready(function() {
     function populate_menu(city_name) {
         console.log(city_name);
         let city = city_name.toLowerCase().replace(' ', '_');
+        city = city.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         let city_html = $('<li><a id="html_' + city + '" style="width: 100.0%; height: 100.0%;" href="destination?city=' + city + '" target="_blank""><br>' + city_name + '<br></a></li>')[0];
         $("#destSubmenu").append(city_html);
     }
