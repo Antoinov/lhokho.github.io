@@ -8,6 +8,8 @@ $(document).ready(function(){
     var stations_name = _STOP_CITY;
     var stations_pos = _STOP_POS;
 
+
+
     //Create and shape leaflet map
     var map = L.map(
         "map",
@@ -28,33 +30,35 @@ $(document).ready(function(){
     var route = L.featureGroup().addTo(map)
 
     var markers = []
-    function add_destination(name,position){
+
+    function add_destination(city_id,city_data){
+
+        let city_name = city_data.city;
+        let city_pos = city_data.coords;
         var marker_destination = L.marker(
-            [position[1],position[0]],
+            [city_pos[1],city_pos[0]],
             {}
         );
         markers.push(marker_destination)
         var custom_icon = L.icon({"iconSize": [20, 20], "iconUrl":"images/icons/placeholder.png"});
          marker_destination.setIcon(custom_icon);
         var popup = L.popup({"maxWidth": "100%"});
-        var city = name.toLowerCase().replace(' ','_');
-        var html = $('<a id="html_'+name+'" style="width: 100.0%; height: 100.0%;" href="destination?city='+city+'" target="_blank""><br>'+name+'<br></a>')[0];
+        var html = $('<a id="html_'+city_name+'" style="width: 100.0%; height: 100.0%;" href="destination.html?city='+city_id+'" target="_blank""><br>'+city_name+'<br></a>')[0];
 
         popup.setContent(html);
         marker_destination.bindPopup(popup);
         route.addLayer(marker_destination);
     }
 
-    var destination_length = stations_name.length;
+    firebase.database().ref().child('city/station').once('value').then(function(datakey){
+        let idx = 0;
+        datakey.forEach(function(data){
+            add_destination(idx,data.val()[0]);
+            idx = idx +1;
+        });
+        map.fitBounds(route.getBounds());
+    });
 
-    for (var i = 0; i < destination_length; i++) {
-        var name = stations_name[i].replace("\"","").replace("'","").replace("'","").replace(']','').replace('[','')
-        console.log(name)
-        console.log(stations_pos[i])
-        add_destination(name,stations_pos[i])
-    }
-
-    map.fitBounds(route.getBounds());
 
 });
 
