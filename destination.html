@@ -24,15 +24,31 @@
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
     <!-- JQuery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-</head>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+</head>
+<script>
+    //paste this code under the head tag or in a separate js file.
+    // Wait for window load
+    $(document).ready(function() {
+        // Animate loader off screen
+        $("#background").hide();
+        $("#beer_container").hide();
+        $("#items_container").hide();
+        $(".se-pre-con").delay(5000).fadeOut("slow");
+        $("#background").delay(5000).fadeIn();
+        $("#beer_container").delay(5000).fadeIn();
+    });
+</script>
 <body>
 <div class="wrapper">
     <div id="side-nav"></div>
     <div id="content">
         <div id="top-nav"></div>
+        <div class="se-pre-con"></div>
         <!-- START CONTENT  -->
-             <div class="background">
+        <div class="background">
                     <div class="container-flex h-100" id="background" style="no-repeat center fixed; min-height: 90vh; background-position: center; background-size: cover">
                         <div class="row h-100">
                             <div class="col-5">
@@ -90,8 +106,8 @@
                                                     <span style="margin-left : 5px">En HH : <strong><label id="min_HH"></label></strong></span> euros<br>
                                                     <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
                                                 </p>
-                                                <p style="margin: 10px"><strong>Les favorites :</strong><br>
-                                                    <p style="margin-left : 20px" id="ranking"></p>
+                                                <p style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
+                                                    <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
                                                 </p>
                                             </div>
                                         </div>
@@ -204,6 +220,20 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
     <script type="text/javascript">
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
+            authDomain: "lhokho.firebaseapp.com",
+            databaseURL: "https://lhokho.firebaseio.com",
+            projectId: "lhokho",
+            storageBucket: "lhokho.appspot.com",
+            messagingSenderId: "914809444198",
+            appId: "1:914809444198:web:35ffb12ed619dd2de41aa7",
+            measurementId: "G-KEBX9V4BPX"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
         $("#top-nav").load("pages/top-nav.html");
         $("#side-nav").load("pages/side-nav.html");
         $(document).ready(function () {
@@ -214,7 +244,7 @@
     </script>
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->
-    <script src="scripts/provide_info.js"></script>
+    <script src="scripts/provideInfo.js"></script>
 </body>
 
 </html>
