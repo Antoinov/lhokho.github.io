@@ -46,12 +46,29 @@ $(document).ready(function(){
         });
     }
 
+    var tmp_duration_list = [0];
+
+    slider = L.control.slider(function(value) {
+        update_map(current_zone,value)
+    }, {
+        max: Math.round(Math.max(...tmp_duration_list)),
+        min: Math.round(Math.min(...tmp_duration_list)),
+        value: Math.round(Math.max(...tmp_duration_list)),
+        step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
+        size: '250px',
+        orientation:'vertical',
+        id: 'slider',
+        collapsed:false,
+        logo:'Durations'
+    }).addTo(map);
+
     function onClick(e) {
         current_zone.clearLayers();
         route.eachLayer(function (layer) {
             layer.setOpacity(0.2);
         });
-        var tmp_duration_list = [];
+        tmp_duration_list = [0];
+        slider.remove();
         e.sourceTarget.options.links.forEach(function (link) {
             e.sourceTarget.setOpacity(1);
             route.eachLayer(function (layer) {
@@ -73,6 +90,7 @@ $(document).ready(function(){
                     current_zone.addLayer(polyline);
                 }
             });
+
         });
 
         slider = L.control.slider(function(value) {
@@ -80,13 +98,13 @@ $(document).ready(function(){
         }, {
             max: Math.round(Math.max(...tmp_duration_list)),
             min: Math.round(Math.min(...tmp_duration_list)),
-            value: Math.round(Math.max(...tmp_duration_list)/2),
+            value: Math.round(Math.max(...tmp_duration_list)),
             step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
             size: '250px',
             orientation:'vertical',
             id: 'slider',
             collapsed:false,
-            logo:'Duration:'
+            logo:'Durations'
         }).addTo(map);
 
         map.fitBounds(current_zone.getBounds());
