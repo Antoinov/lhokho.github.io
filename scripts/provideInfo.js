@@ -5,6 +5,7 @@ $(document).ready(function(){
     informations = firebase.database().ref("city/info");
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");
+    station = firebase.database().ref("city/station")
 
     //retrieve general information
     informations.on("value", function(dataset) {
@@ -100,6 +101,42 @@ $(document).ready(function(){
         }
     }
 
+    //retrieve city location (lat,lon) information if it exists and populate the weather
+
+    station.on("value", function(dataset) {
+        dataset.forEach(function(childNodes){
+            if(childNodes.key === city_id){
+                console.log(childNodes.val());
+                getCityWeather(childNodes.val())
+            }
+        });
+    });
+    function getCityWeather(data_list){
+        if (data_list !== 0) {
+            console.log('location available')
+            var lat = data_list[0]['coords'][1]
+            var lon = data_list[0]['coords'][0]
+            var url = 'http://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
+            console.log(lat)
+            console.log(lon)
+            console.log(url)
+            $.getJSON(url, function(data){
+            for (let i = 0; i < 3; i++){
+                    var temp0 = ${data.daily.0.temp.day}
+                    let wth = "temp_%s".replace('%s',(i + 1).toString())
+                    let wth1 = "weather_%s".replace('%s',(i + 1).toString())
+                    let wth2 = "icon_%s".replace('%s',(i + 1).toString())
+                    let url = 'http://openweathermap.org/img/wn/%s.png'.replace('%s',(data['daily'][i]['weather'][0]['icon']).toString())
+                    document.getElementById(wth).append(data['daily'][i]['temp']['day']);
+                    document.getElementById(wth1).append(data['daily'][i]['weather'][0]['description']);
+                    document.getElementById(wth2).src = url;
+                }
+            })
+        }else{
+            console.log('weather unavailable')
+            document.getElementById("weather_container").style.display = "none";
+        }
+    }
 });
 
 
