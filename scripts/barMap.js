@@ -32,6 +32,7 @@ function update_map(markers,price){
                 layer.setOpacity(1);
                 var anotherOne = markers.getVisibleParent(layer);
                 arrayRemove(clusterToClean,anotherOne);
+
                 //anotherOne.setOpacity(1);
             }
         }
