@@ -140,14 +140,17 @@ $(document).ready(function(){
             console.log(lon)
             console.log(url)
             $.getJSON(url, function(data){
-            for (let i = 0; i < 3; i++){
-                    var temp0 = ${data.daily.0.temp.day}
+                console.log(data);
+                var today = new Date();
+
+                for (let i = 0; i < 3; i++){
+                    let date_str = (today.getDate()+i)+'/'+(today.getMonth()+1);
+                    let wt = "w_%s".replace('%s',(i + 1).toString())
                     let wth = "temp_%s".replace('%s',(i + 1).toString())
-                    let wth1 = "weather_%s".replace('%s',(i + 1).toString())
                     let wth2 = "icon_%s".replace('%s',(i + 1).toString())
-                    let url = 'http://openweathermap.org/img/wn/%s.png'.replace('%s',(data['daily'][i]['weather'][0]['icon']).toString())
-                    document.getElementById(wth).append(data['daily'][i]['temp']['day']);
-                    document.getElementById(wth1).append(data['daily'][i]['weather'][0]['description']);
+                    let url = 'http://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data['daily'][i]['weather'][0]['icon']).toString())
+                    document.getElementById(wt).append(date_str);
+                    document.getElementById(wth).append(Math.round(data['daily'][i]['temp']['day']));
                     document.getElementById(wth2).src = url;
                 }
             })
