@@ -6,6 +6,7 @@ $(document).ready(function(){
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");
     station = firebase.database().ref("city/station")
+    weather = firebase.database().ref("city/weather")
 
     //retrieve general information
     informations.on("value", function(dataset) {
@@ -120,16 +121,42 @@ $(document).ready(function(){
         }
     }
 
+    //Check if weather data already in the database
+
+    weather.on("value", function(dataset) {
+            dataset.forEach(function(childNodes){
+               var OneDay = new Date().getTime() + (1 * 24 * 60 * 60 * 1000)
+               if(childNodes.key === city_id && childNodes.last_update < OneDay){
+                    console.log(childNodes.val());
+                    PopulateCityWeather(childNodes.val())
+               }else{
+                station.on("value", function(dataset) {
+                    dataset.forEach(function(childNodes){
+                        if(childNodes.key === city_id){
+                            console.log(childNodes.val());
+                            getCityWeather(childNodes.val())
+                        }
+                        });
+                        });
+                    }
+                });
+            });
+
     //retrieve city location (lat,lon) information if it exists and populate the weather
 
-    station.on("value", function(dataset) {
-        dataset.forEach(function(childNodes){
-            if(childNodes.key === city_id){
-                console.log(childNodes.val());
-                getCityWeather(childNodes.val())
-            }
-        });
-    });
+    function PopulateCityWeather(data_list){
+     if (data_list !== 0) {
+            for (let i = 0; i < 3; i++){
+                    let wt = "w_%s".replace('%s',(i + 1).toString())
+                    let wth = "temp_%s".replace('%s',(i + 1).toString())
+                    let wth2 = "icon_%s".replace('%s',(i + 1).toString())
+                    let url = 'http://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data_list[i]['icon']).toString())
+                    document.getElementById(wt).append(date_list[i]['date']);
+                    document.getElementById(wth).append(Math.round(data_list[i]['temp']));
+                    document.getElementById(wth2).src = url;
+                }
+        }
+    }
     function getCityWeather(data_list){
         if (data_list !== 0) {
             console.log('location available')
@@ -142,7 +169,7 @@ $(document).ready(function(){
             $.getJSON(url, function(data){
                 console.log(data);
                 var today = new Date();
-
+                weather.child(city_id).set({'last_update': new Date().getTime() + (1 * 24 * 60 * 60 * 1000)}).then().catch();
                 for (let i = 0; i < 3; i++){
                     let date_str = (today.getDate()+i)+'/'+(today.getMonth()+1);
                     let wt = "w_%s".replace('%s',(i + 1).toString())
@@ -152,6 +179,8 @@ $(document).ready(function(){
                     document.getElementById(wt).append(date_str);
                     document.getElementById(wth).append(Math.round(data['daily'][i]['temp']['day']));
                     document.getElementById(wth2).src = url;
+                    var Object = {'date': date_str, 'temp' : Math.round(data['daily'][i]['temp']['day']),'icon':url}
+                    weather.child(city_id).set({i : Object}).then().catch();
                 }
             })
         }else{
