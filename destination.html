@@ -18,27 +18,42 @@
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
     <!-- Leaflet CSS-->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <!-- Leaflet Slider add-on-->
+    <link rel="stylesheet" href="scripts/leaflet-slider.css"/>
+    <script src="scripts/leaflet-slider.js"></script>
     <!-- JQuery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
+    <!-- Load Leaflet MarkerCluster and Esri Leaflet Cluster from CDN -->
+    <link rel="stylesheet" type="text/css"
+          href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+          integrity="sha512-BBToHPBStgMiw0lD4AtkRIZmdndhB6aQbXpX7omcrXeG2PauGBl2lzq2xUZTxaLxYz5IDHlmneCZ1IJ+P3kYtQ=="
+          crossorigin="">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+          integrity="sha512-RLEjtaFGdC4iQMJDbMzim/dOvAu+8Qp9sw7QE4wIMYcg2goVoivzwgSZq9CsIxp4xKAZPKh5J2f2lOko2Ze6FQ=="
+          crossorigin="">
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
+            integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
+            crossorigin=""></script>
 </head>
 <script>
     //paste this code under the head tag or in a separate js file.
     // Wait for window load
     $(document).ready(function() {
         // Animate loader off screen
-        $("#background").hide();
+        let bg = $("#background");
+        bg.hide();
         $("#beer_container").hide();
         $("#items_container").hide();
-        $(".se-pre-con").delay(5000).fadeOut("slow");
-        $("#background").delay(5000).fadeIn();
-        $("#beer_container").delay(5000).fadeIn();
+        $(".se-pre-con").delay(2000).fadeOut("slow");
+        bg.delay(2500).fadeIn();
     });
 </script>
 <body>
@@ -63,7 +78,7 @@
                                 <a class="btn btn-primary btn-lg js-scroll-trigger" id="items-link" href="#items_container" >C'est beau ! Montre moi en plus !</a>
                                 <p></p>
                                 <p></p>
-                                <a class="btn btn-primary btn-lg js-scroll-trigger" href="#biere">Et où est la bodega ?</a>
+                                <a class="btn btn-primary btn-lg js-scroll-trigger" id="beer_link" href="#biere">Et où est la bodega ?</a>
                                 <p></p>
                                 <p></p>
                             </div>
@@ -93,30 +108,28 @@
                                 </div>
                             </div>
                             <div class="row">
-                                    <div class="col md-auto">
-                                        <div class ='d-flex justify-content-between'>
-                                        <div class="col"><img src="images/icons/mug.png" height="100"></div>
-                                        <div class="md-auto col">
-                                            <div class="card" style="min-width: 300px; background-color: rgba(255, 255, 255, 0.6)">
-                                                <p style="margin: 10px"><strong>Prix moyen de la pinte</strong><br>
-                                                    <span style="margin-left : 5px">En HH : <strong><label id="av_HH"></label></strong></span> euros<br>
-                                                    <span style="margin-left : 5px">Hors HH : <label id="av_nHH"></label> euros</span>
-                                                </p>
-                                                <p style="margin: 10px"><strong>Prix minimum de la pinte</strong><br>
-                                                    <span style="margin-left : 5px">En HH : <strong><label id="min_HH"></label></strong></span> euros<br>
-                                                    <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
-                                                </p>
-                                                <p style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
-                                                    <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
-                                                </p>
-                                            </div>
-                                        </div>
+                                <div class="col col-sm-8">
+                                    <div class="folium-map bar" id="map"></div>
+                                </div>
+                                <div class="col col-sm-4">
+                                    <div class ='d-flex justify-content-between'>
+                                    <div class="md-auto col">
+                                        <div class="card" style="min-width: 300px; background-color: rgba(255, 255, 255, 0.6)">
+                                            <p style="margin: 10px"><strong>Prix moyen de la pinte</strong><br>
+                                                <span style="margin-left : 5px">En HH : <strong><label id="av_HH"></label></strong></span> euros<br>
+                                                <span style="margin-left : 5px">Hors HH : <label id="av_nHH"></label> euros</span>
+                                            </p>
+                                            <p style="margin: 10px"><strong>Prix minimum de la pinte</strong><br>
+                                                <span style="margin-left : 5px">En HH : <strong><label id="min_HH"></label></strong></span> euros<br>
+                                                <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
+                                            </p>
+                                            <p id="ranking_label" style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
+                                                <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
+                                            </p>
                                         </div>
                                     </div>
-                                    <div class="col md-auto">
-                                        <div class="col 1"><img src="images/icons/sign.png" height="100"></div>
-                                        <div class="mx-auto col-sm-4 text-center"><p class="text-white-50 mb-4 center">Col 2</p></div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -217,10 +230,15 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <!-- Leaflet JS -->
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
+        integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
+        crossorigin=""></script>
+    <script src="scripts/leaflet-slider.js"></script>
     <script type="text/javascript">
-        // Your web app's Firebase configuration
+        //Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
             authDomain: "lhokho.firebaseapp.com",
@@ -245,6 +263,7 @@
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->
     <script src="scripts/provideInfo.js"></script>
+    <script src="scripts/barMap.js"></script>
 </body>
 
 </html>
