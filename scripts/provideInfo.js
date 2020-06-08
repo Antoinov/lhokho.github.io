@@ -122,65 +122,71 @@ $(document).ready(function(){
     }
 
     //Check if weather data already in the database
-
+    let isThereData = false;
     weather.on("value", function(dataset) {
+        dataset.forEach(function(childNodes){
+           var OneDay = new Date().getTime() + (1 * 24 * 60 * 60 * 1000);
+           console.log(childNodes.val());
+           if(childNodes.key == city_id && childNodes.last_update < OneDay){
+                console.log(childNodes.val());
+                PopulateCityWeather(childNodes.val());
+                isThereData = true;
+           }
+        });
+    });
+
+    // Nothing found in database or outdated update
+    if(!isThereData){
+        console.log(station.child(city_id));
+
+        station.on("value", function(dataset) {
             dataset.forEach(function(childNodes){
-               var OneDay = new Date().getTime() + (1 * 24 * 60 * 60 * 1000)
-               if(childNodes.key === city_id && childNodes.last_update < OneDay){
-                    console.log(childNodes.val());
-                    PopulateCityWeather(childNodes.val())
-               }else{
-                station.on("value", function(dataset) {
-                    dataset.forEach(function(childNodes){
-                        if(childNodes.key === city_id){
-                            console.log(childNodes.val());
-                            getCityWeather(childNodes.val())
-                        }
-                        });
-                        });
-                    }
-                });
+                if(childNodes.key == city_id){
+                    addCityWeather(childNodes.val());
+                }
             });
 
-    //retrieve city location (lat,lon) information if it exists and populate the weather
+        });
 
+    }
+
+    //retrieve city location (lat,lon) information if it exists and populate the weather
     function PopulateCityWeather(data_list){
      if (data_list !== 0) {
-            for (let i = 0; i < 3; i++){
-                    let wt = "w_%s".replace('%s',(i + 1).toString())
-                    let wth = "temp_%s".replace('%s',(i + 1).toString())
-                    let wth2 = "icon_%s".replace('%s',(i + 1).toString())
-                    let url = 'http://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data_list[i]['icon']).toString())
-                    document.getElementById(wt).append(date_list[i]['date']);
-                    document.getElementById(wth).append(Math.round(data_list[i]['temp']));
-                    document.getElementById(wth2).src = url;
-                }
+        console.log('location available :  populate weather data from db');
+        for (let i = 0; i < 3; i++){
+                let wt = "w_%s".replace('%s',(i + 1).toString())
+                let wth = "temp_%s".replace('%s',(i + 1).toString())
+                let wth2 = "icon_%s".replace('%s',(i + 1).toString())
+                let url = 'https://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data_list[i]['icon']).toString())
+                document.getElementById(wt).append(date_list[i]['date']);
+                document.getElementById(wth).append(Math.round(data_list[i]['temp']));
+                document.getElementById(wth2).src = url;
+            }
         }
     }
-    function getCityWeather(data_list){
+    function addCityWeather(data_list){
         if (data_list !== 0) {
-            console.log('location available')
+            console.log('location available :  add weather data');
             var lat = data_list[0]['coords'][1]
             var lon = data_list[0]['coords'][0]
-            var url = 'http://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
-            console.log(lat)
-            console.log(lon)
-            console.log(url)
+            var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
             $.getJSON(url, function(data){
                 console.log(data);
                 var today = new Date();
-                weather.child(city_id).set({'last_update': new Date().getTime() + (1 * 24 * 60 * 60 * 1000)}).then().catch();
-                for (let i = 0; i < 3; i++){
-                    let date_str = (today.getDate()+i)+'/'+(today.getMonth()+1);
-                    let wt = "w_%s".replace('%s',(i + 1).toString())
-                    let wth = "temp_%s".replace('%s',(i + 1).toString())
-                    let wth2 = "icon_%s".replace('%s',(i + 1).toString())
-                    let url = 'http://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data['daily'][i]['weather'][0]['icon']).toString())
+                for (let k = 0; k < 3; k++){
+                    let date_str = (today.getDate()+k)+'/'+(today.getMonth()+1);
+                    let wt = "w_%s".replace('%s',(k + 1).toString())
+                    let wth = "temp_%s".replace('%s',(k + 1).toString())
+                    let wth2 = "icon_%s".replace('%s',(k + 1).toString())
+                    let url = 'https://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data['daily'][k]['weather'][0]['icon']).toString())
                     document.getElementById(wt).append(date_str);
-                    document.getElementById(wth).append(Math.round(data['daily'][i]['temp']['day']));
+                    document.getElementById(wth).append(Math.round(data['daily'][k]['temp']['day']));
                     document.getElementById(wth2).src = url;
-                    var Object = {'date': date_str, 'temp' : Math.round(data['daily'][i]['temp']['day']),'icon':url}
-                    weather.child(city_id).set({i : Object}).then().catch();
+                    var object = {'date': new Date().getTime(), 'temp' : Math.round(data['daily'][k]['temp']['day']),'icon':url}
+                    weather.child(city_id).child(k).set(object).then().catch((error) => {
+                        console.error(error);
+                    });
                 }
             })
         }else{

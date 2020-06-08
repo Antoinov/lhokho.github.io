@@ -32,7 +32,6 @@ function update_map(markers,price){
                 layer.setOpacity(1);
                 var anotherOne = markers.getVisibleParent(layer);
                 arrayRemove(clusterToClean,anotherOne);
-
                 //anotherOne.setOpacity(1);
             }
         }
@@ -59,7 +58,7 @@ $(document).ready(function(){
         var bar_HH_prices = [];
         var bar_nHH_prices = [];
         var bar_HH_hours = [];
-        console.log(info_bars)
+        //console.log(info_bars)
 
         info_station.on("value", function(dataset) {
             dataset.forEach(function(childNodes){
@@ -69,16 +68,16 @@ $(document).ready(function(){
                 current_city = node_data.ville;
             });
             info_bars.on("value", function(dataset) {
-                console.log('iterate over bar');
+                ////console.log('iterate over bar');
                 dataset.forEach(function(childNodes){
                     var node_data = childNodes.val();
-                    console.log(node_data);
-                    console.log('bar added');
+                    //console.log(node_data);
+                    //console.log('bar added');
                     bar_positions.push([node_data.latitude,node_data.longitude]);
                     bar_names.push(node_data.name);
                     bar_HH_prices.push(Number(node_data["HHprice_1"]));
                     bar_nHH_prices.push(Number(node_data["nHHprice_1"]));
-                    console.log(node_data["HHprice_1"]);
+                    //console.log(node_data["HHprice_1"]);
                     let start = node_data["HH_start"];
                     start = start.replace('[','').replace(']','').replace(',','h');
                     let end = node_data["HH_end"];
@@ -92,7 +91,7 @@ $(document).ready(function(){
         });
 
         function setupMap(){
-            console.log(station_positions[0])
+            //console.log(station_positions[0])
             var map = L.map(
                 "map",
                 {
@@ -162,7 +161,7 @@ $(document).ready(function(){
                 add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],bar_nHH_prices[j],markers)
             }
 
-            console.log(markers)
+            //console.log(markers)
             slider = L.control.slider(function(value) {
                 update_map(markers,value)
             }, {
