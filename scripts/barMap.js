@@ -174,8 +174,13 @@ $(document).ready(function(){
                 collapsed:false,
                 logo:'images/icons/mug.png'
             }).addTo(map);
+            console.log(markers)
+            if(markers.length > 0 ){
 
-            map.fitBounds(markers.getBounds());
+                map.fitBounds(markers.getBounds());
+            }
+
+
 
             //adding additional information embedded in the map
             var info = L.control({
