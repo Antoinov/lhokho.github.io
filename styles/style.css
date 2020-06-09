@@ -3,6 +3,8 @@
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -211,14 +213,23 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
+    height: 100%;
+    padding: 0px;
     min-height: 100vh;
     transition: all 0.3s;
+}
+.stick {
+    position: fixed;
+    top: 0;
+    opacity: 0.6;
+    width:100%;
+    max-height:25vh;
+    z-index:9999;
 }
 
 #map {
     width: 100%;
-    padding: 20px;
+    padding: 0px;
     min-height: 100vh;
     transition: all 0.3s;
 }
@@ -233,10 +244,10 @@ a.article:hover {
 
 @media (max-width: 768px) {
     #sidebar {
-        min-width: 80px;
-        max-width: 80px;
+        min-width: 100px;
+        max-width: 100px;
         text-align: center;
-        margin-left: -80px !important;
+        margin-left: -100px !important;
     }
     .dropdown-toggle::after {
         top: auto;
@@ -334,6 +345,8 @@ if it's not present, don't show loader */
     background: url(../images/icons/porco_rosso.gif) center no-repeat #fff;
     opacity: 0.9;
 }
+
+
 
 /* ---------------------------------------------------
     BAR MAP STYLE

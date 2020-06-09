@@ -6,11 +6,18 @@ $(document).ready(function(){
             center: [49.21164026, 3.98878814],
             crs: L.CRS.EPSG3857,
             zoom: 7,
-            zoomControl: true,
+            zoomControl: false,
             preferCanvas: false,
             scrollWheelZoom: false
         }
     );
+
+    L.control.zoom({
+        position: 'bottomright'
+    }).addTo(map);
+
+    L.control.scale().addTo(map);
+
     var tile_layer = L.tileLayer(
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
         {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
@@ -56,11 +63,13 @@ $(document).ready(function(){
         value: Math.round(Math.max(...tmp_duration_list)),
         step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
         size: '250px',
-        orientation:'vertical',
+        orientation:'horizontal',
         id: 'slider',
         collapsed:false,
         logo:'Durations'
     }).addTo(map);
+
+    slider.remove();
 
     function onClick(e) {
         current_zone.clearLayers();

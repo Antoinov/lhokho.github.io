@@ -60,23 +60,22 @@
 <div class="wrapper">
     <div id="side-nav"></div>
     <div id="content">
-        <div id="top-nav"></div>
         <div class="se-pre-con"></div>
         <!-- START CONTENT  -->
-        <div class="background">
-                    <div class="container-flex h-100" id="background" style="no-repeat center fixed; min-height: 90vh; background-position: center; background-size: cover">
+        <div class="background" style="width:100%;">
+                    <div class="container-flex" id="background" style="no-repeat center fixed; min-height: 100vh; background-position: center; background-size: cover">
+                        <div class ="stick" id="top-nav" style="z-index: 2;opacity: 0.6;position: sticky;"></div>
                         <div class="row h-50">
-                            <div class="col-5">
-                                <h1 class="text-center text-uppercase text-white font-weight-bold" id="city_welcome">Bienvenue à </h1></div>
-                            <div class="col-6 col-md-4">
-                                <h2 class="text-center text-white font-weight-normal"></h2></div>
+                            <div class="col-8">
+                                <h1 class="text-center text-uppercase text-white font-weight-bold" id="city_welcome"></h1>
+                            </div>
                         </div>
                         <div class="row h-100">
-                            <div class="mx-auto col-sm-4 text-center col-sm-offset-1">
+                            <div class="mx-auto col-sm-4 text-left col-sm-offset-1">
                                 <p></p>
-                                <a class="btn btn-primary btn-lg js-scroll-trigger" id="items-link" href="#items_container" >C'est beau ! Montre moi en plus !</a>
+                                <a class="btn btn-primary btn-lg js-scroll-trigger" style="background-color:#6d7fcc;border:none;" id="items-link" href="#items_container" >C'est beau ! Montre moi en plus !</a>
                                 <p></p>
-                                <a class="btn btn-primary btn-lg js-scroll-trigger" id="beer_link" href="#biere">Et où est la bodega ?</a>
+                                <a class="btn btn-primary btn-lg js-scroll-trigger" style="background-color:#6d7fcc;border:none;" id="beer_link" href="#beer_container">Et où est la bodega ?</a>
                                 <p></p>
                                 <div class="card-deck">
                                     <div class="card" style="max-width: 20rem; height: 15rem;">
@@ -120,7 +119,7 @@
                         </div>
                     </div>
 
-                 <section class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
+                 <div class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
                         <div class="container">
                             <div class="row"><div class="col-12"><p></p></div></div>
                             <div class="row justify-content-center" >
@@ -154,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
 
             <div id="items_container">
             <script>$(function() {
