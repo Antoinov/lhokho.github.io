@@ -100,6 +100,9 @@ $(document).ready(function(){
                     zoom: 13,
                     zoomControl: false,
                     preferCanvas: false,
+                    scrollwheelzoom:false,
+                    dragging: !L.Browser.mobile,
+                    tap: !L.Browser.mobile
                 }
             );
 
