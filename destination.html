@@ -60,9 +60,10 @@
 <div class="wrapper">
     <div id="side-nav"></div>
     <div id="content">
-        <div class="se-pre-con"></div>
+
         <!-- START CONTENT  -->
         <div class="background" style="width:100%;">
+            <div class="se-pre-con"></div>
                     <div class="container-flex" id="background" style="no-repeat center fixed; min-height: 100vh; background-position: center; background-size: cover">
                         <div class ="stick" id="top-nav" style="z-index: 2;opacity: 0.6;position: sticky;"></div>
                         <div class="row h-50">
@@ -77,29 +78,29 @@
                                 <p></p>
                                 <a class="btn btn-primary btn-lg js-scroll-trigger" style="background-color:#6d7fcc;border:none;" id="beer_link" href="#beer_container">Et où est la bodega ?</a>
                                 <p></p>
-                                <div class="card-deck">
-                                    <div class="card" style="max-width: 20rem; height: 15rem;">
-                                        <div class="card-header" id="w_1">
+                                <div class="row">
+                                    <div class="card weather" style="max-width: 20rem; max-height: 15rem;">
+                                        <div class="card-header text-center font-weight-bold" id="w_1">
 
                                         </div>
                                         <img class="card-img-top" id="icon_1"  src="" alt="">
-                                        <div class="card-body">
+                                        <div class="card-body text-center">
                                             <h4 id="temp_1"></h4>
                                         </div>
                                     </div>
-                                    <div class="card" style="max-width: 20rem; height: 15rem;">
-                                        <div class="card-header" id="w_2">
+                                    <div class="card weather md-4" style="max-width: 20rem; max-height: 15rem;">
+                                        <div class="card-header text-center font-weight-bold" id="w_2">
                                         </div>
                                         <img class="card-img-top" id="icon_2" src="" alt="">
-                                        <div class="card-body">
+                                        <div class="card-body text-center">
                                             <h4 id="temp_2"></h4>
                                         </div>
                                     </div>
-                                    <div class="card" style="max-width: 20rem; height: 15rem;">
-                                        <div class="card-header" id="w_3">
+                                    <div class="card weather md-4" style="max-width: 20rem; max-height: 15rem;">
+                                        <div class="card-header text-center font-weight-bold" id="w_3">
                                         </div>
                                         <img class="card-img-top" id="icon_3" src="" alt="">
-                                        <div class="card-body">
+                                        <div class="card-body text-center">
                                             <h4 id="temp_3"></h4>
                                         </div>
                                     </div>
@@ -128,12 +129,11 @@
                                     <hr class="divider light my-4" />
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" id="test">
                                 <div class="col col-sm-8">
-                                    <div class="folium-map bar" id="map"></div>
+                                    <div class="map bar" id="map"></div>
                                 </div>
                                 <div class="col col-sm-4">
-                                    <div class ='d-flex justify-content-between'>
                                     <div class="md-auto col">
                                         <div class="card" style="min-width: 300px; background-color: rgba(255, 255, 255, 0.6)">
                                             <p style="margin: 10px"><strong>Prix moyen de la pinte</strong><br>
@@ -145,11 +145,11 @@
                                                 <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
                                             </p>
                                             <p id="ranking_label" style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
-                                                <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
+                                            <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
                                             </p>
                                         </div>
                                     </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -169,8 +169,8 @@
                     });
                     });
             </script>
-            <div class="row"></div>
-            <div class="container mx-auto" style="width: 150vh; background-color: rgba(255, 255, 255, 0.6)">
+            <div class="row" id="test2"></div>
+            <div class="container mx-auto"style=" background-color: rgba(255, 255, 255, 0.6)">
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center mb-5">
                         <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="all">All</button>
