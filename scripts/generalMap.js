@@ -16,8 +16,6 @@ $(document).ready(function(){
         position: 'bottomright'
     }).addTo(map);
 
-    L.control.scale().addTo(map);
-
     var tile_layer = L.tileLayer(
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
         {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
@@ -66,7 +64,8 @@ $(document).ready(function(){
         orientation:'horizontal',
         id: 'slider',
         collapsed:false,
-        logo:'Durations'
+        position:'bottomleft',
+        logo:''
     }).addTo(map);
 
     slider.remove();
@@ -91,29 +90,40 @@ $(document).ready(function(){
                     latlngs.push(layer.getLatLng());
                     console.log(Math.min(...link.durations))
                     var polyline = new CustomPolyline(latlngs,{
-                        color: 'red',
+                        color: 'black',
+                        weight: 1,
                         opacity: 0.6,
-                        duration: Math.min(...link.durations)
+                        duration: Math.min(...link.durations),
+                        dashArray: '10, 10',
+                        dashOffset: '0'
                     });
                     tmp_duration_list.push(Math.min(...link.durations));
                     current_zone.addLayer(polyline);
+                    console.log(tmp_duration_list)
                 }
             });
 
         });
-
+        console.log(tmp_duration_list)
         slider = L.control.slider(function(value) {
             update_map(current_zone,value)
         }, {
             max: Math.round(Math.max(...tmp_duration_list)),
             min: Math.round(Math.min(...tmp_duration_list)),
-            value: Math.round(Math.max(...tmp_duration_list)),
+            value: Math.round(Math.max(...tmp_duration_list)/2),
             step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
             size: '250px',
-            orientation:'vertical',
+            orientation:'horizontal',
+            showValue:true,
+            getValue: function(value) {
+                let hours = Math.round(value/(24*60))
+                let minute = Math.round(Math.abs((value/(24*60))- hours)*60)
+                let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
+                return display;},
             id: 'slider',
             collapsed:false,
-            logo:'Durations'
+            position:'bottomleft',
+            logo:''
         }).addTo(map);
 
         map.fitBounds(current_zone.getBounds());
@@ -160,8 +170,14 @@ $(document).ready(function(){
         ).on('click', onClick).setOpacity(0.2);;
 
         markers.push(marker_destination)
-        var custom_icon = L.icon({"iconSize": [20, 20], "iconUrl":"images/icons/placeholder.png"});
-         marker_destination.setIcon(custom_icon);
+        if (L.Browser.mobile) {
+            var custom_icon = L.icon({"iconSize": [30,30], "iconUrl":"images/icons/placeholder.png"});
+            marker_destination.setIcon(custom_icon);
+        }else{
+            var custom_icon = L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"});
+            marker_destination.setIcon(custom_icon);
+        }
+
         var popup = L.popup({"maxWidth": "100%"});
         var html = $('<a id="html_'+city_name+'" style="width: 100.0%; height: 100.0%;" href="destination.html?city='+city_id+'" target="_blank""><br>'+city_name+'<br></a>')[0];
 
