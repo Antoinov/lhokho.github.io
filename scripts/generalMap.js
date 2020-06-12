@@ -60,7 +60,7 @@ $(document).ready(function(){
         min: Math.round(Math.min(...tmp_duration_list)),
         value: Math.round(Math.max(...tmp_duration_list)),
         step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
-        size: '250px',
+        size: '300px',
         orientation:'horizontal',
         id: 'slider',
         collapsed:false,
@@ -70,13 +70,44 @@ $(document).ready(function(){
 
     slider.remove();
 
-    function onClick(e) {
+    //focus on station
+    function focus_station(city_id){
+        console.log('look for marker...')
+        route.eachLayer(function(layer){
+            console.log(layer);
+            console.log(city_id);
+            if(layer.options.id == city_id){
+                console.log('found marker');
+                layer.fire('click');
+            }
+        })
+    }
+
+    $("#destination_select").change(function() {
+        var id = $(this).children(":selected").attr("id");
+        let city_id = id.replace(/\D/g,'');
+        focus_station(city_id);
+    });
+
+    function clear_selection(){
         current_zone.clearLayers();
         route.eachLayer(function (layer) {
             layer.setOpacity(0.2);
         });
         tmp_duration_list = [0];
         slider.remove();
+    }
+
+    var previous_marker = undefined;
+
+    function onClick(e) {
+        clear_selection();
+        if(previous_marker !== undefined){
+            previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
+        }
+        e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
+        //store marker 
+        previous_marker = e.sourceTarget;
         e.sourceTarget.options.links.forEach(function (link) {
             e.sourceTarget.setOpacity(1);
             route.eachLayer(function (layer) {
@@ -112,7 +143,7 @@ $(document).ready(function(){
             min: Math.round(Math.min(...tmp_duration_list)),
             value: Math.round(Math.max(...tmp_duration_list)/2),
             step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
-            size: '250px',
+            size: '300px',
             orientation:'horizontal',
             showValue:true,
             getValue: function(value) {
@@ -170,6 +201,7 @@ $(document).ready(function(){
         ).on('click', onClick).setOpacity(0.2);;
 
         markers.push(marker_destination)
+        //change when adapted to mobile website
         if (L.Browser.mobile) {
             var custom_icon = L.icon({"iconSize": [30,30], "iconUrl":"images/icons/placeholder.png"});
             marker_destination.setIcon(custom_icon);
