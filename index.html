@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
     <!-- JQuery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <!-- bootstrap switch -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.css">
+
 </head>
 
 <body>
@@ -48,6 +51,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
     <!-- Leaflet JS -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
@@ -78,12 +82,31 @@
             $("#trip_btn").click(function () {
                 let trip_name = $("#recipient-name").val();
                 console.log('adding trip...');
-                let city_html = $('<li><a id="trip_' + trip_name + '" <br>'+ trip_name+'</a></li>')[0];
-                let sub_list = $('<ul class="collapse list-unstyled disable-scrollbars" ></ul>')[0];
-                sub_list.append($('<li><a id="trip_' + trip_name + '" <br>'+ trip_name+'</a></li>')[0]);
+                let city_html = $('<li></li>')[0];
+                city_html.append($('<a href="#trip_'+trip_name+'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'+ trip_name+'</a>')[0])
+                let sub_list = $('<ul class="collapse list-unstyled disable-scrollbars" id="trip_'+trip_name+'" ></ul>')[0];
+                let city_selected = $( "#destination_select option:selected" ).text();
+                console.log(city_selected);
+                sub_list.append($('<li><a id="A_' + trip_name + '"> '+ city_selected+'</a></li>')[0]);
+                sub_list.append($('<li><a id="add_step">'+' '+'<i class="fas fa-plus"></i>'+' Add '+'</a></li>')[0]);
                 city_html.append(sub_list);
                 $("#tripMenu").append(city_html);
+                $("#add_step").click(function(){
+                    console.log($("#testbox"));
+                    $("#testbox").bootstrapSwitch('state', true);
+                });
             });
+
+            const div = $('#trip_toggle')
+            $('#trip_btn').click(function(ev) {
+                console.log('add shaker');
+                div.addClass('shaker');
+                div.one('animationend', () => {
+                    div.removeClass('shaker')
+                })
+                ev.preventDefault();
+            });
+
 
 
 

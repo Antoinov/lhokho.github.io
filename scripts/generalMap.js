@@ -21,6 +21,45 @@ $(document).ready(function(){
         {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
     ).addTo(map);
 
+    // Toggle button to turn layers on and off
+    var customControl = L.Control.extend({
+        options: {
+            position: 'bottomright'
+        },
+
+        onAdd: function(map) {
+            var container = L.DomUtil.create('div');
+            // Use a child input.
+            var input = L.DomUtil.create('input');
+            input.type = "checkbox";
+            input.id = "testbox"
+            input.title = "Some title";
+            input.value = "Off";
+            // Insert the input as child of container.
+            container.appendChild(input);
+
+            jQuery(input).bootstrapSwitch({
+                // http://bootstrapswitch.site/options.html
+                onSwitchChange: function(event) {
+                    console.log(event);
+                    console.log('buttonClicked', event.target.checked);
+                }
+
+            });
+
+            jQuery(input).disable_switch = function() {
+                this.bootstrapSwitch('toggleDisabled',true,true);
+            };
+
+            jQuery(input).enable_switch = function() {
+                this.bootstrapSwitch('toggleDisabled',true,true);
+            };
+
+            return container;
+        }
+    });
+    map.addControl(new customControl());
+
     var route = L.featureGroup().addTo(map);
 
     var current_zone = L.featureGroup().addTo(map);
