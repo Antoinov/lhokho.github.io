@@ -39,6 +39,9 @@
                 <i class="fas fa-forward"></i>
                 Trip
             </a>
+            <ul class="collapse list-unstyled disable-scrollbars" id="tripMenu" style="max-height: 200px;overflow-y: scroll;">
+                <!-- destination list will be generated dynamically here -->
+            </ul>
         </li>
     </ul>
 
@@ -63,7 +66,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="https://www.trainline.fr/search/paris/poitiers/2020-06-14-20:00">
                 <i class="fas fa-paper-plane"></i>
                 Contact
             </a>
@@ -82,14 +85,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="trip_form">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Name:</label>
                         <input type="text" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">Message:</label>
-                        <textarea class="form-control" id="message-text"></textarea>
+                        <label for="example-datetime-local-input" class="mr-sm-2">Date:</label>
+                        <input class="form-control" type="datetime-local" value="today();" id="example-datetime-local-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleSelect1">Search pattern</label>
+                        <select class="form-control" id="exampleSelect1">
+                            <option>fixed</option>
+                            <option>one day</option>
+                            <option>two days</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label class="mr-sm-2">Departure </label>
@@ -101,7 +112,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Create a trip</button>
+                <button id="trip_btn" type="button" class="btn btn-primary" data-dismiss="modal" >Create a trip</button>
             </div>
         </div>
     </div>

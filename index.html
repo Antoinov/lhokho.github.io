@@ -74,7 +74,21 @@
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+
+            $("#trip_btn").click(function () {
+                let trip_name = $("#recipient-name").val();
+                console.log('adding trip...');
+                let city_html = $('<li><a id="trip_' + trip_name + '" <br>'+ trip_name+'</a></li>')[0];
+                let sub_list = $('<ul class="collapse list-unstyled disable-scrollbars" ></ul>')[0];
+                sub_list.append($('<li><a id="trip_' + trip_name + '" <br>'+ trip_name+'</a></li>')[0]);
+                city_html.append(sub_list);
+                $("#tripMenu").append(city_html);
+            });
+
+
+
         });
+
     </script>
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->

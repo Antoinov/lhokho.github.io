@@ -106,7 +106,7 @@ $(document).ready(function(){
             previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
         }
         e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
-        //store marker 
+        //store marker
         previous_marker = e.sourceTarget;
         e.sourceTarget.options.links.forEach(function (link) {
             e.sourceTarget.setOpacity(1);
