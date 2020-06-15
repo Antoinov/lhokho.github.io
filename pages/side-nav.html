@@ -9,21 +9,10 @@
 
     <ul class="list-unstyled components">
         <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-user"></i>
-                User
+            <a href="index.html">
+                <i class="fas fa-home"></i>
+                Accueil
             </a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a href="#">Informations</a>
-                </li>
-                <li>
-                    <a href="#">Historique</a>
-                </li>
-                <li>
-                    <a href="#">Favoris</a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="#destSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -47,27 +36,51 @@
 
 
     <ul class="list-unstyled CTAs">
-        <li>
-            <a href="index.html">
-                <i class="fas fa-home"></i>
-                Accueil
-            </a>
-        </li>
-        <li>
-            <a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
-                <i class="fas fa-plus"></i>
-                Create
-            </a>
-        </li>
-        <li id="trip_selection">
-
-        </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-paper-plane"></i>
-                Contact
-            </a>
-        </li>
+        <form id="trip_form">
+            <div class="form-group">
+                <input class="form-control" type="date" value="today" id="selected_date">
+            </div>
+            <div class="input-group-btn">
+                <label class="mr-sm-2">Trip Duration </label>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary">
+                        6H
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        12H
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        24H
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        ?
+                    </label>
+                </div>
+            </div>
+            <div class="input-group-btn">
+                <label class="mr-sm-2">Weather </label>
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary">
+                        <i class="fa fa-sun"></i>
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        <i class="fa fa-cloud"></i>
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        <i class="fa fa-tint"></i>
+                    </label>
+                    <label class="btn btn-outline-secondary">
+                        ?
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="mr-sm-2">Departure </label>
+                <select class="form-control" id="destination_select">
+                    <option disabled selected>Departure...</option>
+                </select>
+            </div>
+        </form>
     </ul>
 
 </nav>
@@ -82,56 +95,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="trip_form">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="form-group">
-                        <label for="example-datetime-local-input" class="mr-sm-2">Date:</label>
-                        <input class="form-control" type="date" value="today();" id="example-datetime-local-input">
-                    </div>
-                    <div class="input-group-btn">
-                        <label class="mr-sm-2">Trip Duration </label>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-outline-secondary">
-                                6H
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                                12H
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                                24H
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                              ?
-                            </label>
-                        </div>
-                    </div>
-                    <div class="input-group-btn">
-                        <label class="mr-sm-2">Weather </label>
-                        <div class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-outline-secondary">
-                                <i class="fa fa-sun"></i>
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                                <i class="fa fa-cloud"></i>
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                                <i class="fa fa-tint"></i>
-                            </label>
-                            <label class="btn btn-outline-secondary">
-                                ?
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="mr-sm-2">Departure </label>
-                        <select class="form-control" id="destination_select">
-                            <option disabled selected>Departure...</option>
-                        </select>
-                    </div>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

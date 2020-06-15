@@ -2,9 +2,13 @@ $(document).ready(function(){
 
     var city_id = window.location.search.substr(1).split("=")[1];
 
+
+
     informations = firebase.database().ref("city/info");
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");
+    station = firebase.database().ref("city/station");
+    weather = firebase.database().ref("city/weather");
     station = firebase.database().ref("city/station")
     weather = firebase.database().ref("city/weather")
     news = firebase.database().ref("city/news")
@@ -235,7 +239,6 @@ $(document).ready(function(){
         return weather.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 //check if database element has been updated in the last 24hours
-                console.log( childNodes.val())
                 let last_update = childNodes.val()[0].date;
                 let today = new Date().getTime();
                 let diff = Math.abs(today - last_update);
@@ -311,6 +314,8 @@ $(document).ready(function(){
             document.getElementById("weather_container").style.display = "none";
         }
     }
+
+
 
 });
 
