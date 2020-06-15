@@ -7,6 +7,7 @@ $(document).ready(function(){
     beers = firebase.database().ref("city/beer");
     station = firebase.database().ref("city/station")
     weather = firebase.database().ref("city/weather")
+    news = firebase.database().ref("city/news")
 
     //retrieve general information
     informations.on("value", function(dataset) {
@@ -18,6 +19,111 @@ $(document).ready(function(){
             }
         });
     });
+    function check_existing_news() {
+            //get firebase snapshot of weather data
+            return news.once("value", function(dataset) {
+                dataset.forEach(function(childNodes){
+                    //check if database element has been updated in the last 24hours
+                    let last_update = childNodes.val().date;
+                    let today = new Date().getTime();
+                    let diff = Math.abs(today - last_update);
+                    let isFreshNews = ( diff < (1 * 24 * 60 * 60 * 1000) );
+                    if(childNodes.key === city_id && isFreshNews){
+                        console.log('news found in database')
+                        PopulateCityNews(childNodes.val());
+                        isThereNews = true;
+                    }
+                });
+            });
+    }
+    let isThereNews = false;
+
+    check_existing_news().then(function(){
+        if(!isThereNews){
+            informations.on("value", function(dataset) {
+                dataset.forEach(function(childNodes){
+                    if(childNodes.key === city_id){
+                        AddCityNews(childNodes.val());
+                    }
+                });
+
+            });
+        }
+    }).catch();
+
+    function PopulateCityNews(data_list){
+        if (data_list !== undefined) {
+            console.log('location available :  populate news data from db');
+            const length = data_list['news']['totalResults'] - 1
+            for (let i = 0; i < 3; i++){
+                let randIndex = Math.floor(Math.random() * length)
+                console.log(randIndex)
+                let title = "news_title_%s".replace('%s',(i + 1).toString())
+                let content = "news_content_%s".replace('%s',(i + 1).toString())
+                let link = "news_link_%s".replace('%s',(i + 1).toString())
+                let img = "news_img_%s".replace('%s',(i + 1).toString())
+                document.getElementById(title).append(data_list['news']['articles'][randIndex]['title']);
+                document.getElementById(content).append(data_list['news']['articles'][randIndex]['description']);
+                document.getElementById(img).onclick = function() {window.open(data_list['news']['articles'][randIndex]['url'], '_blank')};
+                document.getElementById(img).src = data_list['news']['articles'][randIndex]['urlToImage']
+            }
+        }
+    }
+
+    function AddCityNews(data) {
+        var city_name = data['ville'];
+        var city_dept = data['departement'];
+        var today = new Date();
+        var to = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        var from = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()-2);
+        var url = 'https://newsapi.org/v2/everything?qInTitle=+%city_name&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%from',from.toString()).replace('%to',to.toString())
+        $.getJSON(url, function(data){
+            console.log('API called');
+            console.log(data);
+            var length = data['totalResults']
+            if (length > 20) {length = 20}
+            if (data['totalResults'] > 2) {
+                var object = {'date': new Date().getTime(), 'news' : data}
+                        news.child(city_id).set(object).then().catch((error) => {
+                            console.error(error);
+                        });
+                for (let i = 0; i < 3; i++){
+                        let randIndex = Math.floor(Math.random() * length)
+                        console.log(randIndex)
+                        let title = "news_title_%s".replace('%s',(i + 1).toString())
+                        let content = "news_content_%s".replace('%s',(i + 1).toString())
+                        let link = "news_link_%s".replace('%s',(i + 1).toString())
+                        let img = "news_img_%s".replace('%s',(i + 1).toString())
+                        console.log(data['articles'][randIndex]['title'])
+                        console.log(data['articles'][randIndex]['description'])
+                        console.log(data['articles'][randIndex]['url'])
+                        document.getElementById(title).append(data['articles'][randIndex]['title']);
+                        document.getElementById(content).append(data['articles'][randIndex]['description']);
+                        document.getElementById(img).onclick = function() {window.open(data['articles'][randIndex]['url'], '_blank')};
+                        document.getElementById(img).src = data['articles'][randIndex]['urlToImage']
+                        }
+            } else { var url_2 = 'https://newsapi.org/v2/everything?q=%city_nameOR%city_dept&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%city_dept',city_dept.toString()).replace('%from',from.toString()).replace('%to',to.toString())
+                    $.getJSON(url_2, function(new_data) {
+                        var object = {'date': new Date().getTime(), 'news' : new_data}
+                        news.child(city_id).set(object).then().catch((error) => {
+                            console.error(error);
+                        });
+                        for (let i = 0; i < 3; i++){
+                        let randIndex = Math.floor(Math.random() * length)
+                        const length = new_data['totalResults']
+                        console.log(randIndex)
+                        let title = "news_title_%s".replace('%s',(i + 1).toString())
+                        let content = "news_content_%s".replace('%s',(i + 1).toString())
+                        let link = "news_link_%s".replace('%s',(i + 1).toString())
+                        let img = "news_img_%s".replace('%s',(i + 1).toString())
+                        document.getElementById(title).append(new_data['articles'][randIndex]['title']);
+                        document.getElementById(content).append(new_data['articles'][randIndex]['description']);
+                        document.getElementById(link).onclick = function() {window.open(new_data['articles'][randIndex]['url'], '_blank')};
+                        document.getElementById(img).src = new_data['articles'][randIndex]['urlToImage']
+                        }
+                        })
+                    }})
+        }
 
     function getCityInformation(data) {
         //console.log('retrieve general information in database')
@@ -129,6 +235,7 @@ $(document).ready(function(){
         return weather.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 //check if database element has been updated in the last 24hours
+                console.log( childNodes.val())
                 let last_update = childNodes.val()[0].date;
                 let today = new Date().getTime();
                 let diff = Math.abs(today - last_update);
@@ -204,6 +311,7 @@ $(document).ready(function(){
             document.getElementById("weather_container").style.display = "none";
         }
     }
+
 });
 
 
