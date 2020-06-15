@@ -81,6 +81,7 @@
 
             $("#trip_btn").click(function () {
                 let trip_name = $("#recipient-name").val();
+                $("#trip_selection").text(trip_name);
                 console.log('adding trip...');
                 let city_html = $('<li></li>')[0];
                 city_html.append($('<a href="#trip_'+trip_name+'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'+ trip_name+'</a>')[0])
@@ -93,6 +94,7 @@
                 $("#tripMenu").append(city_html);
                 $("#add_step").click(function(){
                     console.log($("#testbox"));
+                    $("#current_trip")
                     $("#testbox").bootstrapSwitch('state', true);
                 });
             });

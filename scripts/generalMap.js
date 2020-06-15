@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    var cities = [];
+    //stored lat lon
+    var previous_latlon = undefined;
+    var isEditable = false;
     //Create and shape leaflet map
     var map = L.map(
         "map",
@@ -39,21 +43,15 @@ $(document).ready(function(){
             container.appendChild(input);
 
             jQuery(input).bootstrapSwitch({
-                // http://bootstrapswitch.site/options.html
                 onSwitchChange: function(event) {
-                    console.log(event);
                     console.log('buttonClicked', event.target.checked);
+                    isEditable = event.target.checked;
+                    if(!isEditable){
+                        edition_group.clearLayers();
+                        previous_latlon = undefined;
+                    }
                 }
-
             });
-
-            jQuery(input).disable_switch = function() {
-                this.bootstrapSwitch('toggleDisabled',true,true);
-            };
-
-            jQuery(input).enable_switch = function() {
-                this.bootstrapSwitch('toggleDisabled',true,true);
-            };
 
             return container;
         }
@@ -63,6 +61,8 @@ $(document).ready(function(){
     var route = L.featureGroup().addTo(map);
 
     var current_zone = L.featureGroup().addTo(map);
+
+    var edition_group = L.featureGroup().addTo(map);
 
     var markers = [];
 
@@ -116,7 +116,6 @@ $(document).ready(function(){
             console.log(layer);
             console.log(city_id);
             if(layer.options.id == city_id){
-                console.log('found marker');
                 layer.fire('click');
             }
         })
@@ -136,7 +135,7 @@ $(document).ready(function(){
         tmp_duration_list = [0];
         slider.remove();
     }
-
+    // to restore marker to previous state when not used anymore
     var previous_marker = undefined;
 
     function onClick(e) {
@@ -156,6 +155,27 @@ $(document).ready(function(){
                     var latlngs = Array();
                     //Get latlng from first marker
                     latlngs.push(e.sourceTarget.getLatLng());
+                    if(isEditable){
+                        console.log('draw new line')
+                        let draw_coords = [];
+                        draw_coords.push(e.sourceTarget.getLatLng());
+                        draw_coords.push(previous_latlon);
+                        let tripline = new CustomPolyline(draw_coords,{
+                            color: 'red',
+                            weight: 2,
+                            opacity: 1.0
+                        });
+                        edition_group.addLayer(tripline)
+                        previous_latlon = e.sourceTarget.getLatLng();
+                        //add city to current trip creation
+                        let new_city_name = cities[e.sourceTarget.options.id];
+                        let trip_name = $('#trip_selection').attr('value');
+                        console.log(trip_name);
+                        $('#add_step_trip_'+trip_name).remove();
+                        $('#trip_'+trip_name).append($('<li><a id='+trip_name+'_'+city_name+ '"> '+ city_selected+'</a></li>')[0]);
+                        $('#trip_'+trip_name).append($('<li><a id="add_step_trip_'+trip_name+'">'+' '+'<i class="fas fa-plus"></i>'+' Add '+'</a></li>')[0]);
+                    }
+
                     //Get latlng from first marker
                     latlngs.push(layer.getLatLng());
                     console.log(Math.min(...link.durations))
@@ -237,7 +257,7 @@ $(document).ready(function(){
         var marker_destination = L.marker(
             [city_pos[1],city_pos[0]],
             {"id":city_id , "links":durations}
-        ).on('click', onClick).setOpacity(0.2);;
+        ).on('click', onClick).setOpacity(0.2);
 
         markers.push(marker_destination)
         //change when adapted to mobile website
@@ -262,6 +282,7 @@ $(document).ready(function(){
         let idx = 0;
         datakey.forEach(function(data){
             add_destination(idx,data.val()[0]);
+            cities.push(data.val()[0]);
             idx = idx +1;
         });
         map.fitBounds(route.getBounds());

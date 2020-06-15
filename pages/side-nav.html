@@ -59,14 +59,11 @@
                 Create
             </a>
         </li>
-        <li>
-            <a href="#">
-                <i class="fas fa-question"></i>
-                FAQ
-            </a>
+        <li id="trip_selection">
+
         </li>
         <li>
-            <a href="https://www.trainline.fr/search/paris/poitiers/2020-06-14-20:00">
+            <a href="#">
                 <i class="fas fa-paper-plane"></i>
                 Contact
             </a>
@@ -92,15 +89,41 @@
                     </div>
                     <div class="form-group">
                         <label for="example-datetime-local-input" class="mr-sm-2">Date:</label>
-                        <input class="form-control" type="datetime-local" value="today();" id="example-datetime-local-input">
+                        <input class="form-control" type="date" value="today();" id="example-datetime-local-input">
                     </div>
-                    <div class="form-group">
-                        <label for="exampleSelect1">Search pattern</label>
-                        <select class="form-control" id="exampleSelect1">
-                            <option>fixed</option>
-                            <option>one day</option>
-                            <option>two days</option>
-                        </select>
+                    <div class="input-group-btn">
+                        <label class="mr-sm-2">Trip Duration </label>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-outline-secondary">
+                                6H
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                                12H
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                                24H
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                              ?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group-btn">
+                        <label class="mr-sm-2">Weather </label>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-outline-secondary">
+                                <i class="fa fa-sun"></i>
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                                <i class="fa fa-cloud"></i>
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                                <i class="fa fa-tint"></i>
+                            </label>
+                            <label class="btn btn-outline-secondary">
+                                ?
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="mr-sm-2">Departure </label>
