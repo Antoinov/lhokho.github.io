@@ -44,7 +44,7 @@ $(document).ready(function(){
 
             jQuery(input).bootstrapSwitch({
                 onSwitchChange: function(event) {
-                    console.log('buttonClicked', event.target.checked);
+                    //console.log('buttonClicked', event.target.checked);
                     isEditable = event.target.checked;
                     if(!isEditable){
                         edition_group.clearLayers();
@@ -146,120 +146,36 @@ $(document).ready(function(){
         e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
         //store marker
         previous_marker = e.sourceTarget;
-        e.sourceTarget.options.links.forEach(function (link) {
-            e.sourceTarget.setOpacity(1);
-            route.eachLayer(function (layer) {
-                if(link.id == layer.options.id){
-                    console.log('found related marker')
-                    layer.setOpacity(1);
-                    var latlngs = Array();
-                    //Get latlng from first marker
-                    latlngs.push(e.sourceTarget.getLatLng());
-                    if(isEditable){
-                        console.log('draw new line')
-                        let draw_coords = [];
-                        draw_coords.push(e.sourceTarget.getLatLng());
-                        draw_coords.push(previous_latlon);
-                        let tripline = new CustomPolyline(draw_coords,{
-                            color: 'red',
-                            weight: 2,
-                            opacity: 1.0
-                        });
-                        edition_group.addLayer(tripline)
-                        previous_latlon = e.sourceTarget.getLatLng();
-                        //add city to current trip creation
-                        let new_city_name = cities[e.sourceTarget.options.id];
-                        let trip_name = $('#trip_selection').attr('value');
-                        console.log(trip_name);
-                        $('#add_step_trip_'+trip_name).remove();
-                        $('#trip_'+trip_name).append($('<li><a id='+trip_name+'_'+city_name+ '"> '+ city_selected+'</a></li>')[0]);
-                        $('#trip_'+trip_name).append($('<li><a id="add_step_trip_'+trip_name+'">'+' '+'<i class="fas fa-plus"></i>'+' Add '+'</a></li>')[0]);
-                    }
 
-                    //Get latlng from first marker
-                    latlngs.push(layer.getLatLng());
-                    console.log(Math.min(...link.durations))
-                    var polyline = new CustomPolyline(latlngs,{
-                        color: 'black',
-                        weight: 1,
-                        opacity: 0.6,
-                        duration: Math.min(...link.durations),
-                        dashArray: '10, 10',
-                        dashOffset: '0'
-                    });
-                    tmp_duration_list.push(Math.min(...link.durations));
-                    current_zone.addLayer(polyline);
-                    console.log(tmp_duration_list)
-                }
-            });
+        e.sourceTarget.setOpacity(1);
+        //Get latlng from first marker
+        let coordinates = new Array();
+        coordinates.push(e.sourceTarget.getLatLng());
+        console.log(e.sourceTarget.options);
+        let date = new Date();
+        if(isEditable){
+            date = new Date($('#selected_date').val());
+            day = date.getDate();
+            month = date.getMonth() + 1;
+            year = date.getFullYear();
+            let date_str = year+'-'+("0" + month).slice(-2)+'-'+("0" + day).slice(-2);
+            getCityConnections(date_str,e.sourceTarget.options.iata,coordinates);
+        }
 
-        });
-        console.log(tmp_duration_list)
-        slider = L.control.slider(function(value) {
-            update_map(current_zone,value)
-        }, {
-            max: Math.round(Math.max(...tmp_duration_list)),
-            min: Math.round(Math.min(...tmp_duration_list)),
-            value: Math.round(Math.max(...tmp_duration_list)/2),
-            step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
-            size: '300px',
-            orientation:'horizontal',
-            showValue:true,
-            getValue: function(value) {
-                let hours = Math.round(value/(24*60))
-                let minute = Math.round(Math.abs((value/(24*60))- hours)*60)
-                let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
-                return display;},
-            id: 'slider',
-            collapsed:false,
-            position:'bottomleft',
-            logo:''
-        }).addTo(map);
 
-        map.fitBounds(current_zone.getBounds());
     }
 
-
-
-    function add_destination(city_id,city_data){
+    function add_station(city_id,city_data,station_iata){
 
         let city_name = city_data.city;
-        let city_pos = city_data.coords;
-
-        let duration_db = firebase.database().ref("city/trip/"+city_id);
-        let durations = []
-        duration_db.on("value", function(dataset) {
-            dataset.forEach(function (childNodes) {
-                var node_data = {
-                    'id': childNodes.key,
-                    'stops':[],
-                    'durations':[]
-                }
-                childNodes.val().forEach(function(trip){
-                    if(node_data.stops.indexOf(trip['stops']) === -1){
-                        node_data.stops.push(trip['stops']);
-                        node_data.durations.push(trip['duration']);
-                    }else{
-                        idx = node_data.stops.indexOf(trip['stops'])
-                        //get minimal duration for a specified trip
-                        if(node_data.durations[idx] > trip['duration']){
-                            node_data.durations[idx] = trip['duration'];
-                        }
-                    }
-                    node_data.stops.push(trip['stops'])
-                    node_data.durations.push(trip['duration'])
-                })
-                durations.push(node_data)
-            });
-        });
-
-
+        let lat = city_data.lat;
+        let lon = city_data.lon;
         var marker_destination = L.marker(
-            [city_pos[1],city_pos[0]],
-            {"id":city_id , "links":durations}
+            [lat,lon],
+            {"id":city_id ,"city":city_name, "iata":station_iata}
         ).on('click', onClick).setOpacity(0.2);
 
-        markers.push(marker_destination)
+        markers.push(marker_destination);
         //change when adapted to mobile website
         if (L.Browser.mobile) {
             var custom_icon = L.icon({"iconSize": [30,30], "iconUrl":"images/icons/placeholder.png"});
@@ -277,16 +193,117 @@ $(document).ready(function(){
         route.addLayer(marker_destination);
     }
 
+    station = firebase.database().ref("city/station");
 
-    firebase.database().ref().child('city/station').once('value').then(function(datakey){
+    station.once('value').then(function(datakey){
         let idx = 0;
         datakey.forEach(function(data){
-            add_destination(idx,data.val()[0]);
-            cities.push(data.val()[0]);
+            data.val().forEach(function (station) {
+                add_station(idx,station,station.iata_code);
+                cities.push(data.val()[0]);
+            })
             idx = idx +1;
         });
         map.fitBounds(route.getBounds());
     });
+
+    //Get connections
+
+    var trip_durations = [];
+
+    function getCityConnections(date,departure_iata,coords){
+        var url = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+            '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
+            '&refine.date=%date'.replace('%date',date)+ //format: YYYY-MM-DD
+            '&refine.origine_iata=%departure'.replace('%departure',departure_iata);
+        $.getJSON(url, function(data){
+            //get data from
+            let arrival_iatas = [];
+            data.records.forEach(function(record){
+                arrival_iatas.push(record.fields.destination_iata);
+                trip_durations.push(calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart));
+            })
+
+            return getStationsFromIatas(arrival_iatas,trip_durations,coords);
+
+        })
+    }
+
+    function getStationsFromIatas(iata_list,trip_durations,coords){
+        let stations = [];
+        station.once("value", function(dataset) {
+            dataset.forEach(function(childNodes){
+                childNodes.val().forEach(function(station_data){
+                    if(iata_list.includes(station_data.iata_code)){
+                        if(stations.indexOf(station_data) == -1){
+                            console.log('station found in list :'+station_data.city);
+                            station_data.duration = trip_durations[iata_list.indexOf(station_data.iata_code)];
+                            stations.push(station_data);
+                        }
+                    }
+                })
+            });
+        }).then(function(){
+            console.log(stations);
+            if(slider != undefined){
+                slider.remove();
+            }
+            stations.forEach(function(station){
+                let current_coords = new Array();
+                current_coords.push(coords[0])
+                current_coords.push([station.lat,station.lon]);
+                var polyline = new CustomPolyline(current_coords,{
+                    color: 'black',
+                    weight: 1,
+                    opacity: 0.6,
+                    duration: station.duration,
+                    dashArray: '10, 10',
+                    dashOffset: '0'
+                });
+                tmp_duration_list.push(station.duration);
+                current_zone.addLayer(polyline);
+                console.log(tmp_duration_list);
+                route.eachLayer(function (layer) {
+                    if (station.iata_code == layer.options.iata) {
+                        console.log('found related marker');
+                        layer.setOpacity(1);
+                    }
+                });
+            })
+
+            if(stations.length > 0){
+                slider = L.control.slider(function(value) {
+                    update_map(current_zone,value)
+                }, {
+                    max: Math.round(Math.max(...tmp_duration_list)),
+                    min: Math.round(Math.min(...tmp_duration_list)),
+                    value: Math.round(Math.max(...tmp_duration_list)/2),
+                    step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
+                    size: '300px',
+                    orientation:'horizontal',
+                    showValue:true,
+                    getValue: function(value) {
+                        let hours = Math.round(value/(60))
+                        let minute = Math.round(Math.abs(value- hours*60));
+                        let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
+                        return display;},
+                    id: 'slider',
+                    collapsed:false,
+                    position:'bottomleft',
+                    logo:''
+                }).addTo(map);
+
+                map.fitBounds(current_zone.getBounds());
+            }
+        });
+    }
+
+    //Calculate time duration in minutes
+    function calculateDuration(start,end) {
+        let start_m = Number(start.split(':')[0])*60 + Number(start.split(':')[1]);
+        let end_m = Number(end.split(':')[0])*60 + Number(end.split(':')[1]);
+        return Math.abs(start_m-end_m);
+    }
 
 
 });

@@ -2,11 +2,13 @@ $(document).ready(function(){
 
     var city_id = window.location.search.substr(1).split("=")[1];
 
+
+
     informations = firebase.database().ref("city/info");
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");
-    station = firebase.database().ref("city/station")
-    weather = firebase.database().ref("city/weather")
+    station = firebase.database().ref("city/station");
+    weather = firebase.database().ref("city/weather");
 
     //retrieve general information
     informations.on("value", function(dataset) {
@@ -18,6 +20,8 @@ $(document).ready(function(){
             }
         });
     });
+
+
 
     function getCityInformation(data) {
         //console.log('retrieve general information in database')
@@ -178,8 +182,8 @@ $(document).ready(function(){
     function addCityWeather(data_list){
         if (data_list !== 0) {
             console.log('location available :  add weather data');
-            var lat = data_list[0]['coords'][1]
-            var lon = data_list[0]['coords'][0]
+            var lat = data_list[0]['lat']
+            var lon = data_list[0]['lon']
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
             $.getJSON(url, function(data){
                 console.log(data);
@@ -204,6 +208,8 @@ $(document).ready(function(){
             document.getElementById("weather_container").style.display = "none";
         }
     }
+
+
 });
 
 
