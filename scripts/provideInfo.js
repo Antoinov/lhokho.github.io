@@ -58,10 +58,10 @@ $(document).ready(function(){
     function PopulateCityNews(data_list){
         if (data_list !== undefined) {
             console.log('location available :  populate news data from db');
-            const length = data_list['news']['totalResults'] - 1
+            let length = data_list['news']['totalResults'] - 1
             for (let i = 0; i < 3; i++){
+                if (length > 20) {length = 20}
                 let randIndex = Math.floor(Math.random() * length)
-                console.log(randIndex)
                 let title = "news_title_%s".replace('%s',(i + 1).toString())
                 let content = "news_content_%s".replace('%s',(i + 1).toString())
                 let link = "news_link_%s".replace('%s',(i + 1).toString())
@@ -238,8 +238,9 @@ $(document).ready(function(){
         //get firebase snapshot of weather data
         return weather.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
+                console.log(childNodes.val());
                 //check if database element has been updated in the last 24hours
-                let last_update = childNodes.val()[0].date;
+                let last_update = childNodes.val().date;
                 let today = new Date().getTime();
                 let diff = Math.abs(today - last_update);
                 let isFreshWeather = ( diff < (1 * 24 * 60 * 60 * 1000) );
@@ -288,8 +289,8 @@ $(document).ready(function(){
     function addCityWeather(data_list){
         if (data_list !== 0) {
             console.log('location available :  add weather data');
-            var lat = data_list[0]['coords'][1]
-            var lon = data_list[0]['coords'][0]
+            var lat = data_list[0]['lat'];
+            var lon = data_list[0]['lon'];
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
             $.getJSON(url, function(data){
                 console.log(data);
@@ -308,7 +309,7 @@ $(document).ready(function(){
                         console.error(error);
                     });
                 }
-            })
+            });
         }else{
             console.log('weather unavailable')
             document.getElementById("weather_container").style.display = "none";

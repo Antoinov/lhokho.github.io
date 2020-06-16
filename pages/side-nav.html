@@ -23,54 +23,58 @@
                 <!-- destination list will be generated dynamically here -->
             </ul>
         </li>
-        <li>
-            <a href="#tripMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="trip_toggle">
-                <i class="fas fa-forward"></i>
-                Trip
-            </a>
-            <ul class="collapse list-unstyled disable-scrollbars" id="tripMenu" style="max-height: 200px;overflow-y: scroll;">
-                <!-- destination list will be generated dynamically here -->
-            </ul>
-        </li>
     </ul>
 
 
     <ul class="list-unstyled CTAs">
         <form id="trip_form">
             <div class="form-group">
-                <input class="form-control" type="date" value="today" id="selected_date">
+                <input class="form-control" type="date" value="" id="selected_date">
             </div>
+            <script>
+                Date.prototype.yyyymmdd = function() {
+                    var mm = this.getMonth() + 1; // getMonth() is zero-based
+                    var dd = this.getDate();
+
+                    return this.getFullYear() + '-'+
+                        (mm>9 ? '' : '0') + mm+ '-'+
+                        (dd>9 ? '' : '0') + dd;
+                };
+                $(function () {
+                    $('#selected_date').val((new Date().yyyymmdd()));
+                });
+            </script>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Trip Duration </label>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-outline-secondary">
-                        6H
+                <label class="mr-sm-2">Duration </label>
+                <div class="btn-group-toggle btn-block" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="6h" autocomplete="off"> 6H
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        12H
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="12h" autocomplete="off"> 12H
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        24H
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="24h" autocomplete="off"> 24H
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        ?
+                    <label class="btn btn-outline-secondary active text-white">
+                        <input type="radio" name="options" id="unknown_time" autocomplete="off" checked> ?
                     </label>
                 </div>
             </div>
             <div class="input-group-btn">
                 <label class="mr-sm-2">Weather </label>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-outline-secondary">
-                        <i class="fa fa-sun"></i>
+                <div class="btn-group-toggle btn-block" data-toggle="buttons">
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="sun" autocomplete="off"><i class="fa fa-sun"></i>
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        <i class="fa fa-cloud"></i>
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="cloud" autocomplete="off"><i class="fa fa-cloud"></i>
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        <i class="fa fa-tint"></i>
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="options" id="rain" autocomplete="off"><i class="fa fa-tint"></i>
                     </label>
-                    <label class="btn btn-outline-secondary">
-                        ?
+                    <label class="btn btn-outline-secondary active text-white">
+                        <input type="radio" name="options" id="unknown_weather" autocomplete="off" checked> ?
                     </label>
                 </div>
             </div>
@@ -79,6 +83,16 @@
                 <select class="form-control" id="destination_select">
                     <option disabled selected>Departure...</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="toggle_tgv" data-toggle="toggle" data-on="TGV Max" data-off="View" data-onstyle="info" data-offstyle="warning">
+                <script>
+                    $(function() {
+                        $('#toggle_tgv').change(function() {
+                            console.log('Toggle: ' + $(this).prop('checked'));
+                        })
+                    })
+                </script>
             </div>
         </form>
     </ul>

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles/style.css">
-
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- Font Awesome JS -->
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -56,6 +56,7 @@
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
     <script src="scripts/leaflet-slider.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script type="text/javascript">
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -79,26 +80,6 @@
                 $('#sidebar').toggleClass('active');
             });
 
-            $("#trip_btn").click(function () {
-                let trip_name = $("#recipient-name").val();
-                $("#trip_selection").text(trip_name);
-                console.log('adding trip...');
-                let city_html = $('<li></li>')[0];
-                city_html.append($('<a href="#trip_'+trip_name+'" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">'+ trip_name+'</a>')[0])
-                let sub_list = $('<ul class="collapse list-unstyled disable-scrollbars" id="trip_'+trip_name+'" ></ul>')[0];
-                let city_selected = $( "#destination_select option:selected" ).text();
-                console.log(city_selected);
-                sub_list.append($('<li><a id="A_' + trip_name + '"> '+ city_selected+'</a></li>')[0]);
-                sub_list.append($('<li><a id="add_step">'+' '+'<i class="fas fa-plus"></i>'+' Add '+'</a></li>')[0]);
-                city_html.append(sub_list);
-                $("#tripMenu").append(city_html);
-                $("#add_step").click(function(){
-                    console.log($("#testbox"));
-                    $("#current_trip")
-                    $("#testbox").bootstrapSwitch('state', true);
-                });
-            });
-
             const div = $('#trip_toggle')
             $('#trip_btn').click(function(ev) {
                 console.log('add shaker');
@@ -108,14 +89,13 @@
                 })
                 ev.preventDefault();
             });
-
-
-
-
+            var isEditable = false;
+            $('#toggle_tgv').change(function() {
+                isEditable = $(this).prop('checked');
+                console.log('Toggle: ' + $(this).prop('checked'));
+            })
         });
-
     </script>
-    <script src="scripts/collectTrainData.js"></script>
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->
     <script src="scripts/generalMap.js"></script>
