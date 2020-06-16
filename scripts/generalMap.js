@@ -1,7 +1,50 @@
+function add_marker(name,position,icon_url,icon_size,price,layer){
+    var marker_destination = L.marker(
+        position,
+        {"name":name , "price":price}
+    );
+    var custom_icon = L.icon({"iconSize": icon_size, "iconUrl":icon_url});
+    marker_destination.setIcon(custom_icon);
+
+    var popup = L.popup({"maxWidth": "100%"});
+    var html = $('<a id="html_'+name+'" style="width: 100.0%; height: 100.0%;" href="http://www.google.com/search?q='+name+' bar" target="_blank"">' +
+        '<br>'+name+'<br>' +
+        '</a>')[0];
+
+    popup.setContent(html);
+    marker_destination.bindPopup(popup);
+    layer.addLayer(marker_destination);
+}
+
+function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
+
+function update_bar(markers,price){
+    var clusterToClean = [];
+    markers.eachLayer(function(layer){
+        if(layer.options.price !== undefined){
+            if(layer.options.price > price){
+                layer.setOpacity(0);
+                var visibleOne = markers.getVisibleParent(layer);
+                if(clusterToClean.indexOf(visibleOne) === -1){
+                    clusterToClean.push(visibleOne);
+                }
+            }else{
+                layer.setOpacity(1);
+                var anotherOne = markers.getVisibleParent(layer);
+                arrayRemove(clusterToClean,anotherOne);
+                //anotherOne.setOpacity(1);
+            }
+        }
+    });
+    clusterToClean.forEach(function(cluster){
+        cluster.setOpacity(0);
+    })
+}
+
 $(document).ready(function(){
     var cities = [];
-    //stored lat lon
-    var previous_latlon = undefined;
+    // to restore marker to previous state when not used anymore
+    var previous_marker = undefined;
 
     //Create and shape leaflet map
     var map = L.map(
@@ -28,9 +71,6 @@ $(document).ready(function(){
     var route = L.featureGroup().addTo(map);
 
     var current_zone = L.featureGroup().addTo(map);
-
-    var edition_group = L.featureGroup().addTo(map);
-
     var markers = [];
 
     CustomPolyline = L.Polyline.extend({
@@ -42,7 +82,6 @@ $(document).ready(function(){
 
     function update_map(markers,selected_duration){
         markers.eachLayer(function(layer){
-            console.log(layer);
             if(layer.options.duration !== undefined){
                 if(layer.options.duration > selected_duration){
                     layer.setStyle({
@@ -80,10 +119,10 @@ $(document).ready(function(){
     function focus_station(city_id){
         console.log('look for marker...')
         route.eachLayer(function(layer){
-            console.log(layer);
-            console.log(city_id);
             if(layer.options.id == city_id){
+                console.log('marker found...')
                 layer.fire('click');
+
             }
         })
     }
@@ -102,10 +141,9 @@ $(document).ready(function(){
         tmp_duration_list = [0];
         slider.remove();
     }
-    // to restore marker to previous state when not used anymore
-    var previous_marker = undefined;
 
     function onClick(e) {
+
         clear_selection();
         if(previous_marker !== undefined){
             previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
@@ -113,14 +151,16 @@ $(document).ready(function(){
         e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
         //store marker
         previous_marker = e.sourceTarget;
-
         e.sourceTarget.setOpacity(1);
+
         //Get latlng from first marker
         let coordinates = new Array();
+
         coordinates.push(e.sourceTarget.getLatLng());
+        map.flyTo(e.sourceTarget.getLatLng(),7,{'animate':true});
         console.log(e.sourceTarget.options);
         let date = new Date();
-        console.log($('#toggle_tgv').prop('checked'));
+
         if($('#toggle_tgv').prop('checked')){
             date = new Date($('#selected_date').val());
             day = date.getDate();
@@ -129,8 +169,6 @@ $(document).ready(function(){
             let date_str = year+'-'+("0" + month).slice(-2)+'-'+("0" + day).slice(-2);
             getCityConnections(date_str,e.sourceTarget.options.iata,coordinates);
         }
-
-
     }
 
     function add_station(city_id,city_data,station_iata){
@@ -164,14 +202,36 @@ $(document).ready(function(){
         let temp = "NA";
         let url = "NA";
 
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
         marker_destination.on('popupopen', function (popup) {
             var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
             $.getJSON(url, function(data){
+                if(popup)
                 console.log(data);
-                let url = 'https://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data['daily'][0]['weather'][0]['icon']).toString());
-                let temp = Math.round(data['daily'][0]['temp']['day']);
-                html = html +temp+'\°<img class="" id="icon_2" src='+url+' alt="">';
-                marker_destination._popup.setContent(html)
+                let url1 = 'https://openweathermap.org/img/wn/%s.png'.replace('%s',(data['daily'][0]['weather'][0]['icon']).toString());
+                let url2 = 'https://openweathermap.org/img/wn/%s.png'.replace('%s',(data['daily'][1]['weather'][0]['icon']).toString());
+                let url3 = 'https://openweathermap.org/img/wn/%s.png'.replace('%s',(data['daily'][2]['weather'][0]['icon']).toString());
+                let temp = '   '+Math.round(data['daily'][0]['temp']['day'])+'   ';
+                html = '<a id="html_'+city_id+'" style="color:white;" href="destination.html?city='+city_id+'" target="_blank"">'+city_name+'</a><br/>'+ temp+'\°  <br/>'
+                    +'<img class="roundrect" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="90px"/><br/>';
+                let html_base = html
+                    +'<img class="" id="icon_1" src='+url1+' alt="" width="45px">|<img class="" id="icon_2" src='+url2+' alt="" width="45px">|<img class="" id="icon_3" src='+url3+' alt="" width="45px"><br/>';
+                let html_weather = html_base + '<a id="bar_'+city_id+'" href="#" style="color:white;"">more...</a>';
+                marker_destination._popup.setContent(html_weather)
+                $( "#bar_"+city_id ).bind( "click", function() {
+                    map.flyTo(marker_destination.getLatLng(),15,{'easeLinearity':1.0});
+                    marker_destination.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
+                    map.closePopup();
+                    //var static = new L.Layer.StaticOverlay().addTo(map);
+                    const builder = async () => {
+                        await delay(5000);
+                        console.log("load bar data...");
+                        buildBarLayer(marker_destination.getLatLng(),city_id,html_base);
+                    };
+                    builder();
+
+                });
             });
         });
 
@@ -294,7 +354,151 @@ $(document).ready(function(){
         return Math.abs(start_m-end_m);
     }
 
+    //BAR
+    function buildBarLayer(initial_pos,city_id,info_html) {
+        var info_bars = firebase.database().ref("city/bar/" + city_id);
+        var info_station = firebase.database().ref("city/station/" + city_id);
 
+        if (info_bars !== 0) {
+            let current_city = undefined;
+            //train stations information
+            let station_positions = [];
+            let station_names = [];
+            //bar information
+            let bar_names = [];
+            let bar_positions = [];
+            var bar_HH_prices = [];
+            var bar_nHH_prices = [];
+            var bar_HH_hours = [];
+            //console.log(info_bars)
+
+            info_station.on("value", function (dataset) {
+                dataset.forEach(function (childNodes) {
+                    var node_data = childNodes.val();
+                    station_positions.push([node_data.lat, node_data.lon]);
+                    station_names.push(node_data.name);
+                    current_city = node_data.ville;
+                });
+                info_bars.on("value", function (dataset) {
+                    ////console.log('iterate over bar');
+                    dataset.forEach(function (childNodes) {
+                        var node_data = childNodes.val();
+                        //console.log(node_data);
+                        //console.log('bar added');
+                        bar_positions.push([node_data.latitude, node_data.longitude]);
+                        bar_names.push(node_data.name);
+                        bar_HH_prices.push(Number(node_data["HHprice_1"]));
+                        bar_nHH_prices.push(Number(node_data["nHHprice_1"]));
+                        //console.log(node_data["HHprice_1"]);
+                        let start = node_data["HH_start"];
+                        start = start.replace('[', '').replace(']', '').replace(',', 'h');
+                        let end = node_data["HH_end"];
+                        end = end.replace('[', '').replace(']', '').replace(',', 'h');
+                        bar_HH_hours.push([start, end]);
+                    });
+
+                    addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html)
+                });
+
+            });
+        }
+    }
+
+    function addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html){
+        var local = L.featureGroup().addTo(map);
+        var markers_bar = L.markerClusterGroup({
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: function(cluster) {
+                return L.icon({"iconSize": [30,30], "iconUrl":"images/icons/pint.png"});
+            }
+        });
+
+        map.addLayer(markers_bar);
+
+        for (var k = 0; k < station_names.length; k++) {
+            var name = station_names[k]
+            add_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,local);
+            var circleCenter = station_positions[k];
+
+            var circleOptions = {
+                color: 'orange',
+                fillColor: 'orange',
+                fillOpacity: 0.2,
+                dashArray: '5,10'
+            }
+
+            var circleOptions2 = {
+                color: 'orange',
+                fillColor: 'orange',
+                fillOpacity: 0.1,
+                dashArray: '5,10',
+                weight: 1
+            }
+
+            var circle = L.circle(circleCenter, 500, circleOptions);
+
+            var circle2 = L.circle(circleCenter, 1000, circleOptions2);
+
+            circle.addTo(local);
+
+            circle2.addTo(local);
+        }
+
+        for (var j = 0; j < bar_names.length; j++) {
+            var name = bar_names[j]
+            if(isNaN(bar_nHH_prices[j])){
+                add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],undefined,markers_bar)
+            }
+            add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],bar_nHH_prices[j],markers_bar)
+        }
+        if(bar_names.length > 0){
+            slider = L.control.slider(function(value) {
+                update_bar(markers_bar,value)
+            }, {
+                position:'bottomleft',
+                max: Math.round(Math.max(...bar_nHH_prices))+1,
+                value: Math.round(Math.max(...bar_nHH_prices)),
+                step:1,
+                size: '250px',
+                orientation:'horizontal',
+                id: 'slider',
+                collapsed:false,
+                logo:''
+            }).addTo(map);
+        }
+
+
+
+        //adding additional information embedded in the map
+        var info = L.control({
+            position : 'bottomleft'
+        });
+
+        info.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+            this.update();
+            return this._div;
+        };
+
+        // method that we will use to update the control based on feature properties passed
+        info.update = function (props) {
+            let html_back = info_html + '<a id="back_'+city_id+'" href="#" style="color:white;"">back to map...</a>';
+            this._div.innerHTML = html_back;
+        };
+
+        info.addTo(map);
+        $( "#back_"+city_id ).bind( "click", function() {
+            map.flyTo(initial_pos,13,{'easeLinearity':1.0});
+            info.remove();
+            slider.remove();
+            map.removeLayer(markers_bar);
+            map.removeLayer(local);
+            focus_station(city_id);
+        });
+
+    }
 });
 
 

@@ -41,6 +41,7 @@ function update_map(markers,price){
     })
 }
 
+
 $(document).ready(function(){
     var city_id = window.location.search.substr(1).split("=")[1];
     //retrieve all information we need to display map
