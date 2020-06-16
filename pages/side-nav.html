@@ -27,11 +27,26 @@
 
 
     <ul class="list-unstyled CTAs">
+        <div class="form-group">
+            <input type="checkbox" id="toggle_tgv" data-toggle="toggle" data-on="TGV Max" data-off="View" data-onstyle="info" data-offstyle="warning">
+            <script>
+                $(function() {
+                    $('#toggle_tgv').change(function() {
+                        if($(this).prop('checked')){
+                            $('#trip_form').fadeIn(500);
+                        }else{
+                            $('#trip_form').fadeOut(500);
+                        }
+                    })
+                })
+            </script>
+        </div>
         <form id="trip_form">
             <div class="form-group">
                 <input class="form-control" type="date" value="" id="selected_date">
             </div>
             <script>
+                $('#trip_form').hide();
                 Date.prototype.yyyymmdd = function() {
                     var mm = this.getMonth() + 1; // getMonth() is zero-based
                     var dd = this.getDate();
@@ -84,17 +99,8 @@
                     <option disabled selected>Departure...</option>
                 </select>
             </div>
-            <div class="form-group">
-                <input type="checkbox" id="toggle_tgv" data-toggle="toggle" data-on="TGV Max" data-off="View" data-onstyle="info" data-offstyle="warning">
-                <script>
-                    $(function() {
-                        $('#toggle_tgv').change(function() {
-                            console.log('Toggle: ' + $(this).prop('checked'));
-                        })
-                    })
-                </script>
-            </div>
         </form>
+
     </ul>
 
 </nav>
