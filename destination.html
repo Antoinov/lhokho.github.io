@@ -119,65 +119,31 @@
                             </div>
                         </div>
 
-                    <div class = "container-flex" style="min-height: 30em; max-height: 35em" id="news_container">
-                        <div id="carouselExampleSlidesOnly" style="position: centered; padding: 3em 3em 3em 3em; max-width: 40em; max-height: 40em; margin-left:10em; margin-right:5em"class="carousel slide" data-ride="carousel">
+                    <div class = "container-flex" style="min-height: 35em; max-height: 35em; padding-bottom: 2em" id="news_container">
+                        <div id="carouselExampleSlidesOnly" style="overflow: hidden; background-color: rgba(255, 255, 255, 0.3); position: centered; padding: 2em 2em 2em 2em; max-width: 40em; max-height: 34em; margin-left:10em; margin-right:5em; margin-bottom: 2em; margin-top: 2em"class="carousel slide" data-ride="carousel">
                           <div class="carousel-inner">
                             <div class="carousel-item active">
                               <img class="d-block w-100" id="news_img_1" alt="">
-                                <h3 class="text-center text-black font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_1"></label></h3>
-                                <p class="text-center text-white font-weight-bold" style="position: centered; margin-bottom: 10px; right: 20px"><label id="news_content_1"></label></p>
+                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_1"></label></h3>
+                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_1"></label></p>
                             </div>
                             <div class="carousel-item">
                               <img class="d-block w-100" id="news_img_2" alt="">
-                                <h3 class="text-center text-black font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_2"></label></h3>
-                                <p class="text-center text-white font-weight-bold" style="position: centered; margin-bottom: 10px; right: 20px"><label id="news_content_2"></label></p>
+                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_2"></label></h3>
+                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_2"></label></p>
                             </div>
                             <div class="carousel-item">
                               <img class="d-block w-100" id="news_img_3" alt="">
-                                <h3 class="text-center text-black font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_3"></label></h3>
-                                <p class="text-center text-white font-weight-bold" style="position: centered; margin-bottom: 10px; right: 20px"><label id="news_content_3"></label></p>
+                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_3"></label></h3>
+                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_3"></label></p>
                             </div>
                           </div>
                         </div>
+                        <div></div>
                     </div>
-                    </div>
-                 <section class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
-                        <div class="container">
-                            <div class="row"><div class="col-12"><p></p></div></div>
-                            <div class="row justify-content-center" >
-                                <div class="col-lg-8 text-center" id="about">
-                                    <h2 class="text-white mt-0">Par ici la boisson ! </h2>
-                                    <hr class="divider light my-4" />
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-sm-8">
-                                    <div class="folium-map bar" id="map"></div>
-                                </div>
-                                <div class="col col-sm-4">
-                                    <div class ='d-flex justify-content-between'>
-                                    <div class="md-auto col">
-                                        <div class="card" style="min-width: 300px; background-color: rgba(255, 255, 255, 0.6)">
-                                            <p style="margin: 10px"><strong>Prix moyen de la pinte</strong><br>
-                                                <span style="margin-left : 5px">En HH : <strong><label id="av_HH"></label></strong></span> euros<br>
-                                                <span style="margin-left : 5px">Hors HH : <label id="av_nHH"></label> euros</span>
-                                            </p>
-                                            <p style="margin: 10px"><strong>Prix minimum de la pinte</strong><br>
-                                                <span style="margin-left : 5px">En HH : <strong><label id="min_HH"></label></strong></span> euros<br>
-                                                <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
-                                            </p>
-                                            <p id="ranking_label" style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
-                                                <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
 
-            <div id="items_container">
+                    </div>
+                <div class="container-flex" id="items_container" style="min-height: 90vh; background: url(images/icons/item.jpg) no-repeat center center fixed;background-size: cover" >
             <script>$(function() {
                      var selectedClass = "";
                         $(".filter").click(function(){
@@ -194,7 +160,7 @@
             <div class="row"></div>
             <div class="container mx-auto" style="width: 150vh; background-color: rgba(255, 255, 255, 0.6)">
                 <div class="row">
-                    <div class="col-md-12 d-flex justify-content-center mb-5">
+                    <div class="col-md-12 d-flex justify-content-center mb-5" style="margin-top : 3em">
                         <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="all">All</button>
                         <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="1">Monuments</button>
                         <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="2">Lieux</button>
@@ -202,7 +168,7 @@
                         <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="4">Gastronomie</button>
                     </div>
                 </div>
-                <div class="gallery" id="gallery">
+                <div class="gallery" id="gallery" style="padding-bottom: 4em">
                     <div class="mb-3 pics animation all 1" style="position: relative">
                         <img class='img-fluid' id="img_src_1" alt="Card image cap">
                         <p class="text-center text-white font-weight-light" id="img_title_1" style=" position: absolute; bottom: 20px; right: 20px; background-color: rgba(255, 255, 255, 0.6); color: white; padding-left: 20px; padding-right: 20px"></p>
@@ -258,6 +224,43 @@
                 </div>
             </div>
             </div>
+                 <section class="container-flex" id="beer_container" style="background: url(images/icons/bar.jpg) no-repeat center center fixed; min-height : 100vh; background-position: center; background-size: cover;">
+                        <div class="container">
+                            <div class="row"><div class="col-12"><p></p></div></div>
+                            <div class="row justify-content-center" >
+                                <div class="col-lg-8 text-center" id="about">
+                                    <h2 class="text-white mt-0">Par ici la boisson ! </h2>
+                                    <hr class="divider light my-4" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-sm-8">
+                                    <div class="folium-map bar" id="map"></div>
+                                </div>
+                                <div class="col col-sm-4">
+                                    <div class ='d-flex justify-content-between'>
+                                    <div class="md-auto col">
+                                        <div class="card" style="min-width: 300px; background-color: rgba(255, 255, 255, 0.6)">
+                                            <p style="margin: 10px"><strong>Prix moyen de la pinte</strong><br>
+                                                <span style="margin-left : 5px">En HH : <strong><label id="av_HH"></label></strong></span> euros<br>
+                                                <span style="margin-left : 5px">Hors HH : <label id="av_nHH"></label> euros</span>
+                                            </p>
+                                            <p style="margin: 10px"><strong>Prix minimum de la pinte</strong><br>
+                                                <span style="margin-left : 5px">En HH : <strong><label id="min_HH"></label></strong></span> euros<br>
+                                                <span style="margin-left : 5px">Hors HH : <label id="min_nHH"></label> euros </span>
+                                            </p>
+                                            <p id="ranking_label" style="margin: 10px;overflow: hidden;"><strong>Les favorites :</strong><br>
+                                                <p class="disable-scrollbars" style="margin-left : 75px;overflow-y: scroll ;max-height: 50px;" id="ranking"></p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
         </div>
         <!-- END CONTENT  -->
         </div>
