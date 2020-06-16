@@ -63,7 +63,7 @@ $(document).ready(function(){
         info_station.on("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 var node_data = childNodes.val();
-                station_positions.push([node_data.coords[1],node_data.coords[0]]);
+                station_positions.push([node_data.lat,node_data.lon]);
                 station_names.push(node_data.name);
                 current_city = node_data.ville;
             });

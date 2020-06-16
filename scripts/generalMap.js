@@ -2,7 +2,7 @@ $(document).ready(function(){
     var cities = [];
     //stored lat lon
     var previous_latlon = undefined;
-    var isEditable = false;
+
     //Create and shape leaflet map
     var map = L.map(
         "map",
@@ -24,39 +24,6 @@ $(document).ready(function(){
         "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
         {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
     ).addTo(map);
-
-    // Toggle button to turn layers on and off
-    var customControl = L.Control.extend({
-        options: {
-            position: 'bottomright'
-        },
-
-        onAdd: function(map) {
-            var container = L.DomUtil.create('div');
-            // Use a child input.
-            var input = L.DomUtil.create('input');
-            input.type = "checkbox";
-            input.id = "testbox"
-            input.title = "Some title";
-            input.value = "Off";
-            // Insert the input as child of container.
-            container.appendChild(input);
-
-            jQuery(input).bootstrapSwitch({
-                onSwitchChange: function(event) {
-                    //console.log('buttonClicked', event.target.checked);
-                    isEditable = event.target.checked;
-                    if(!isEditable){
-                        edition_group.clearLayers();
-                        previous_latlon = undefined;
-                    }
-                }
-            });
-
-            return container;
-        }
-    });
-    map.addControl(new customControl());
 
     var route = L.featureGroup().addTo(map);
 
@@ -153,7 +120,8 @@ $(document).ready(function(){
         coordinates.push(e.sourceTarget.getLatLng());
         console.log(e.sourceTarget.options);
         let date = new Date();
-        if(isEditable){
+        console.log($('#toggle_tgv').prop('checked'));
+        if($('#toggle_tgv').prop('checked')){
             date = new Date($('#selected_date').val());
             day = date.getDate();
             month = date.getMonth() + 1;
@@ -185,11 +153,32 @@ $(document).ready(function(){
             marker_destination.setIcon(custom_icon);
         }
 
-        var popup = L.popup({"maxWidth": "100%"});
-        var html = $('<a id="html_'+city_name+'" style="width: 100.0%; height: 100.0%;" href="destination.html?city='+city_id+'" target="_blank""><br>'+city_name+'<br></a>')[0];
+        // create popup contents
+        var customPopup = "<br>"+"<a id='html_'"+city_name+" href='destination.html?city="+city_id+"' target='_blank'>"+city_name+"</a><br/><img src='images/city/bg_"+city_id+".jpg' alt='maptime logo gif' width='150px' height='100px'/>";
 
-        popup.setContent(html);
-        marker_destination.bindPopup(popup);
+        // specify popup options
+        var customOptions =
+            {
+                'className' : 'popupCustom'
+            }
+        let temp = "NA";
+        let url = "NA";
+
+        marker_destination.on('popupopen', function (popup) {
+            var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'.replace('%lat',lat.toString()).replace('%lon',lon.toString())
+            $.getJSON(url, function(data){
+                console.log(data);
+                let url = 'https://openweathermap.org/img/wn/%s@2x.png'.replace('%s',(data['daily'][0]['weather'][0]['icon']).toString());
+                let temp = Math.round(data['daily'][0]['temp']['day']);
+                html = html +temp+'\°<img class="" id="icon_2" src='+url+' alt="">';
+                marker_destination._popup.setContent(html)
+            });
+        });
+
+        var html = '<a id="html_'+city_name+'" style="color:white;" href="destination.html?city='+city_name+'" target="_blank"">'+city_name+'</a><br/>'
+            +'<img class="roundrect" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="100px"/><br/>';
+
+        marker_destination.bindPopup(html,customOptions);
         route.addLayer(marker_destination);
     }
 
