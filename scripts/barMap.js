@@ -184,8 +184,6 @@ $(document).ready(function(){
                 map.fitBounds(markers.getBounds());
             }
 
-
-
             //adding additional information embedded in the map
             var info = L.control({
                 position : 'topleft'

@@ -22,6 +22,9 @@
     <!-- Leaflet CSS-->
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <!-- Leaflet Slider add-on-->
+    <link rel="stylesheet" href="scripts/leaflet-slider.css"/>
+    <script src="scripts/leaflet-slider.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
     <!-- JQuery JS-->
@@ -42,7 +45,6 @@
     <div class="wrapper">
         <div id="side-nav"></div>
         <div id="content">
-            <div id="top-nav" class="stick"></div>
             <!-- START CONTENT  -->
             <div class="map" id="map" ></div>
             <!-- STOP CONTENT  -->
@@ -81,15 +83,11 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-        $("#top-nav").load("pages/top-nav.html");
         $("#side-nav").load("pages/side-nav.html");
         $(document).ready(function () {
-
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
-
             const div = $('#trip_toggle')
             $('#trip_btn').click(function(ev) {
                 console.log('add shaker');
@@ -99,11 +97,7 @@
                 })
                 ev.preventDefault();
             });
-            var isEditable = false;
-            $('#toggle_tgv').change(function() {
-                isEditable = $(this).prop('checked');
-                console.log('Toggle: ' + $(this).prop('checked'));
-            })
+
         });
     </script>
     <script src="scripts/navigation.js"></script>
