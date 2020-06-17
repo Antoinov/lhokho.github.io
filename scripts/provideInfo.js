@@ -59,9 +59,14 @@ $(document).ready(function(){
         if (data_list !== undefined) {
             console.log('location available :  populate news data from db');
             let length = data_list['news']['totalResults'] - 1
+            if (length > 20) {length = 20}
+            var randIndex = Math.floor(Math.random() * length);
+            var old_index = [];
             for (let i = 0; i < 3; i++){
-                if (length > 20) {length = 20}
-                let randIndex = Math.floor(Math.random() * length)
+                old_index.push(randIndex)
+                randIndex = Math.floor(Math.random() * length)
+                while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+                console.log('Current index : ', randIndex)
                 let title = "news_title_%s".replace('%s',(i + 1).toString())
                 let content = "news_content_%s".replace('%s',(i + 1).toString())
                 let link = "news_link_%s".replace('%s',(i + 1).toString())
@@ -81,19 +86,28 @@ $(document).ready(function(){
         var to = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
         var from = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()-2);
         var url = 'https://newsapi.org/v2/everything?qInTitle=+%city_name&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%from',from.toString()).replace('%to',to.toString())
+        $.ajaxSetup({
+            headers : {
+            'Access-Control-Allow-Origin' : '*',
+            }
+        });
         $.getJSON(url, function(data){
             console.log('API called');
             console.log(data);
             var length = data['totalResults']
             if (length > 20) {length = 20}
+            var randIndex = Math.floor(Math.random() * length);
+            var old_index = [];
             if (data['totalResults'] > 2) {
                 var object = {'date': new Date().getTime(), 'news' : data}
                         news.child(city_id).set(object).then().catch((error) => {
                             console.error(error);
                         });
                 for (let i = 0; i < 3; i++){
-                        let randIndex = Math.floor(Math.random() * length)
-                        console.log(randIndex)
+                        old_index.push(randIndex)
+                        randIndex = Math.floor(Math.random() * length)
+                        while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+                        console.log('Current index : ', randIndex)
                         let title = "news_title_%s".replace('%s',(i + 1).toString())
                         let content = "news_content_%s".replace('%s',(i + 1).toString())
                         let link = "news_link_%s".replace('%s',(i + 1).toString())
@@ -112,10 +126,12 @@ $(document).ready(function(){
                         news.child(city_id).set(object).then().catch((error) => {
                             console.error(error);
                         });
+                        old_index = []
                         for (let i = 0; i < 3; i++){
-                        let randIndex = Math.floor(Math.random() * length)
-                        const length = new_data['totalResults']
-                        console.log(randIndex)
+                        old_index.push(randIndex)
+                        randIndex = Math.floor(Math.random() * length)
+                        while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+                        console.log('Current index : ', randIndex)
                         let title = "news_title_%s".replace('%s',(i + 1).toString())
                         let content = "news_content_%s".replace('%s',(i + 1).toString())
                         let link = "news_link_%s".replace('%s',(i + 1).toString())
