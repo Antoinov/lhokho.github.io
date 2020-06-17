@@ -45,6 +45,7 @@ $(document).ready(function(){
     var cities = [];
     // to restore marker to previous state when not used anymore
     var previous_marker = undefined;
+    var isEditable = false;
 
     //Create and shape leaflet map
     var map = L.map(
@@ -79,6 +80,8 @@ $(document).ready(function(){
             duration:0
         }
     });
+
+
 
     function update_map(markers,selected_duration){
         markers.eachLayer(function(layer){
@@ -143,8 +146,17 @@ $(document).ready(function(){
     }
 
     function onClick(e) {
-
+        let isActiveSearch = $('#toggle_tgv').prop('checked');
         clear_selection();
+        if(isActiveSearch){
+            console.log(e.sourceTarget._popup);
+            $(".leaflet-popup-close-button").click()
+            map.eachLayer(function (layer) {
+                layer.closePopup();
+            });
+            map.closePopup();
+            e.target.closePopup();
+        }
         if(previous_marker !== undefined){
             previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
         }
@@ -160,8 +172,8 @@ $(document).ready(function(){
         map.flyTo(e.sourceTarget.getLatLng(),7,{'animate':true});
         console.log(e.sourceTarget.options);
         let date = new Date();
-
-        if($('#toggle_tgv').prop('checked')){
+        if(isActiveSearch){
+            e.sourceTarget.closePopup();
             date = new Date($('#selected_date').val());
             day = date.getDate();
             month = date.getMonth() + 1;
@@ -171,8 +183,12 @@ $(document).ready(function(){
         }
     }
 
-    function add_station(city_id,city_data,station_iata){
+    $('#toggle_tgv').change(function() {
+        isEditable = $(this).prop('checked');
+        map.closePopup();
+    })
 
+    function add_station(city_id,city_data,station_iata){
         let city_name = city_data.city;
         let lat = city_data.lat;
         let lon = city_data.lon;
@@ -180,6 +196,14 @@ $(document).ready(function(){
             [lat,lon],
             {"id":city_id ,"city":city_name, "iata":station_iata}
         ).on('click', onClick).setOpacity(0.2);
+
+        marker_destination.on({
+            click: function() {
+                if($('#toggle_tgv').prop('checked')){
+                    this.openPopup()
+                }
+            }
+        })
 
         markers.push(marker_destination);
         //change when adapted to mobile website
@@ -303,12 +327,34 @@ $(document).ready(function(){
                 current_coords.push([station.lat,station.lon]);
                 var polyline = new CustomPolyline(current_coords,{
                     color: 'black',
-                    weight: 1,
+                    weight: 2,
                     opacity: 0.6,
                     duration: station.duration,
                     dashArray: '10, 10',
                     dashOffset: '0'
                 });
+
+                polyline.on('mouseover', function(e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        color: 'red',
+                        opacity: 1,
+                        weight: 6
+                    });
+                });
+
+                polyline.on('mouseout', function(e) {
+                    var layer = e.target;
+                    layer.setStyle({
+                        color: 'black',
+                        weight: 1,
+                        opacity: 0.6,
+                        duration: station.duration,
+                        dashArray: '10, 10',
+                        dashOffset: '0'
+                    });
+                });
+
                 tmp_duration_list.push(station.duration);
                 current_zone.addLayer(polyline);
                 console.log(tmp_duration_list);

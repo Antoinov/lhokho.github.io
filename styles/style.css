@@ -70,7 +70,7 @@ span {
     height: 100%;
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
+    background: #57587f;
     color: #fff;
     transition: all 0.3s;
 }
@@ -89,6 +89,8 @@ span {
 #sidebar.active .sidebar-header strong {
     display: block;
 }
+
+.sidebar-header:hover { background-color: #9798c6 !important; }
 
 #sidebar ul li a {
     text-align: left;
@@ -122,7 +124,7 @@ span {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
+    background: #57587f;
 }
 
 #sidebar .sidebar-header strong {
@@ -132,7 +134,7 @@ span {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    border-bottom: 1px solid #57587f;
 }
 
 #sidebar ul li a {
@@ -142,7 +144,7 @@ span {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color: #57587f;
     background: #fff;
 }
 
@@ -153,7 +155,7 @@ span {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #57587f;
 }
 
 a[data-toggle="collapse"] {
@@ -171,7 +173,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #57587f;
 }
 
 ul.CTAs {
@@ -188,12 +190,12 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #7386D5;
+    color: #57587f;
 }
 
 a.article,
 a.article:hover {
-    background: #6d7fcc !important;
+    background: #57587f !important;
     color: #fff !important;
 }
 
@@ -245,7 +247,7 @@ a.article:hover {
 
 /* css to customize Leaflet default styles  */
 .popupCustom .leaflet-popup-content-wrapper {
-    background: #6d7fcc;
+    background: #57587f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
@@ -278,7 +280,7 @@ a.article:hover {
 ----------------------------------------------------- */
 
 #sidebarCollapse {
-        background: #7386D5;
+        background: #57587f;
 }
 
 /* ---------------------------------------------------
@@ -452,11 +454,11 @@ if it's not present, don't show loader */
     font-size: 1.1em;
     color:white;
     border-radius: 25px;
-    background-color:#7386D5;
+    background-color:#57587f;
 }
 .info h4 {
     margin: 0 0 5px;
-    color: #7386D5;
+    color: #57587f;
 }
 
 .weather {
