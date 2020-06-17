@@ -36,7 +36,7 @@ $(document).ready(function(){
                         console.log('news found in database')
                         PopulateCityNews(childNodes.val());
                         isThereNews = true;
-                    }
+                    };
                 });
             });
     }
@@ -58,11 +58,35 @@ $(document).ready(function(){
     function PopulateCityNews(data_list){
         if (data_list !== undefined) {
             console.log('location available :  populate news data from db');
-            let length = data_list['news']['totalResults'] - 1
+            let max_results = 0;
+            if (data_list['local']['news']['totalResults'] != 0) {
+            let length = data_list['local']['news']['totalResults'] - 1
+            if (length > 3) {length = 3}
+            var randIndex = Math.floor(Math.random() * length);
+            var old_index = [];
+            for (let i = 0; i < length; i++){
+                randIndex = Math.floor(Math.random() * length)
+                while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+                old_index.push(randIndex)
+                console.log('Current index : ', randIndex)
+                let title = "news_title_%s".replace('%s',(i + 1).toString())
+                let content = "news_content_%s".replace('%s',(i + 1).toString())
+                let link = "news_link_%s".replace('%s',(i + 1).toString())
+                let img = "news_img_%s".replace('%s',(i + 1).toString())
+                document.getElementById(title).append(data_list['local']['news']['articles'][randIndex]['title']);
+                document.getElementById(content).append(data_list['local']['news']['articles'][randIndex]['description']);
+                document.getElementById(img).onclick = function() {window.open(data_list['local']['news']['articles'][randIndex]['url'], '_blank')};
+                document.getElementById(img).src = data_list['local']['news']['articles'][randIndex]['urlToImage']
+                max_results = max_results + 1
+                console.log(max_results)
+            }}
+            if (max_results < 3) {
+            if (data_list['area']['news']['totalResults'] != 0) {
+            let length = data_list['area']['news']['totalResults'] - 1
             if (length > 20) {length = 20}
             var randIndex = Math.floor(Math.random() * length);
             var old_index = [];
-            for (let i = 0; i < 3; i++){
+            for (let i = max_results; i < 3; i++){
                 old_index.push(randIndex)
                 randIndex = Math.floor(Math.random() * length)
                 while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
@@ -71,11 +95,13 @@ $(document).ready(function(){
                 let content = "news_content_%s".replace('%s',(i + 1).toString())
                 let link = "news_link_%s".replace('%s',(i + 1).toString())
                 let img = "news_img_%s".replace('%s',(i + 1).toString())
-                document.getElementById(title).append(data_list['news']['articles'][randIndex]['title']);
-                document.getElementById(content).append(data_list['news']['articles'][randIndex]['description']);
-                document.getElementById(img).onclick = function() {window.open(data_list['news']['articles'][randIndex]['url'], '_blank')};
-                document.getElementById(img).src = data_list['news']['articles'][randIndex]['urlToImage']
+                document.getElementById(title).append(data_list['area']['news']['articles'][randIndex]['title']);
+                document.getElementById(content).append(data_list['area']['news']['articles'][randIndex]['description']);
+                document.getElementById(img).onclick = function() {window.open(data_list['area']['news']['articles'][randIndex]['url'], '_blank')};
+                document.getElementById(img).src = data_list['area']['news']['articles'][randIndex]['urlToImage']
+
             }
+            }}
         }
     }
 
@@ -83,67 +109,77 @@ $(document).ready(function(){
         var city_name = data['ville'];
         var city_dept = data['departement'];
         var today = new Date();
+        var yesterday = today - (1000 * 60 * 60 * 24 * 14);
+        yesterday = new Date(yesterday)
         var to = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-        var from = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate()-2);
+        var from = yesterday.getFullYear()+'-'+(yesterday.getMonth()+1)+'-'+(yesterday.getDate());
+        console.log(from)
         var url = 'https://newsapi.org/v2/everything?qInTitle=+%city_name&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%from',from.toString()).replace('%to',to.toString())
-        $.ajaxSetup({
-            headers : {
-            'Access-Control-Allow-Origin' : '*',
-            }
-        });
+        let max_results = 0
         $.getJSON(url, function(data){
-            console.log('API called');
+            console.log('API called on city');
             console.log(data);
             var length = data['totalResults']
+            var object = {'date': new Date().getTime(), 'news' : data}
+            news.child(city_id).child('date').set(new Date().getTime());
+            news.child(city_id).child('local').set(object).then().catch((error) => {
+               console.error(error);
+             });
+            if (length !== 0) {
             if (length > 20) {length = 20}
             var randIndex = Math.floor(Math.random() * length);
             var old_index = [];
-            if (data['totalResults'] > 2) {
-                var object = {'date': new Date().getTime(), 'news' : data}
-                        news.child(city_id).set(object).then().catch((error) => {
-                            console.error(error);
-                        });
-                for (let i = 0; i < 3; i++){
-                        old_index.push(randIndex)
-                        randIndex = Math.floor(Math.random() * length)
-                        while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
-                        console.log('Current index : ', randIndex)
-                        let title = "news_title_%s".replace('%s',(i + 1).toString())
-                        let content = "news_content_%s".replace('%s',(i + 1).toString())
-                        let link = "news_link_%s".replace('%s',(i + 1).toString())
-                        let img = "news_img_%s".replace('%s',(i + 1).toString())
-                        console.log(data['articles'][randIndex]['title'])
-                        console.log(data['articles'][randIndex]['description'])
-                        console.log(data['articles'][randIndex]['url'])
-                        document.getElementById(title).append(data['articles'][randIndex]['title']);
-                        document.getElementById(content).append(data['articles'][randIndex]['description']);
-                        document.getElementById(img).onclick = function() {window.open(data['articles'][randIndex]['url'], '_blank')};
-                        document.getElementById(img).src = data['articles'][randIndex]['urlToImage']
+            for (let i = 0; i < length; i++){
+               randIndex = Math.floor(Math.random() * length);
+               while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+               old_index.push(randIndex);
+               console.log('Current index : ', randIndex)
+               let title = "news_title_%s".replace('%s',(i + 1).toString())
+               let content = "news_content_%s".replace('%s',(i + 1).toString())
+               let link = "news_link_%s".replace('%s',(i + 1).toString())
+               let img = "news_img_%s".replace('%s',(i + 1).toString())
+               console.log(data['articles'][randIndex]['title'])
+               console.log(data['articles'][randIndex]['description'])
+               console.log(data['articles'][randIndex]['url'])
+               document.getElementById(title).append(data['articles'][randIndex]['title']);
+               document.getElementById(content).append(data['articles'][randIndex]['description']);
+               document.getElementById(img).onclick = function() {window.open(data['articles'][randIndex]['url'], '_blank')};
+               document.getElementById(img).src = data['articles'][randIndex]['urlToImage']
+               max_results = max_results + 1
+               console.log('city, items restants : ', max_results)
+               }}
+               }).then(function (){
+               if (max_results < 3) {
+               console.log('API News Called on departement')
+               var url_2 = 'https://newsapi.org/v2/everything?qInTitle=%city_dept&language=fr&excludeDomains=dealabs.com&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_dept',city_dept.toString()).replace('%from',from.toString()).replace('%to',to.toString())
+               $.getJSON(url_2, function(new_data) {
+                old_index = []
+                var length = new_data['totalResults']
+                if (length > 0){
+                var object = {'date': new Date().getTime(), 'news' : new_data}
+                news.child(city_id).child('area').set(object).then().catch((error) => {
+                   console.error(error);
+                });
+                if (length > 20) {length = 20};
+                for (let i = max_results; i < 3; i++){
+                  console.log('items: ', i)
+                  randIndex = Math.floor(Math.random() * length)
+                while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
+                   old_index.push(randIndex)
+                   console.log('Current index : ', randIndex)
+                   let title = "news_title_%s".replace('%s',(i + 1).toString())
+                   let content = "news_content_%s".replace('%s',(i + 1).toString())
+                   let link = "news_link_%s".replace('%s',(i + 1).toString())
+                   let img = "news_img_%s".replace('%s',(i + 1).toString())
+                   document.getElementById(title).append(new_data['articles'][randIndex]['title']);
+                   document.getElementById(content).append(new_data['articles'][randIndex]['description']);
+                   document.getElementById(img).onclick = function() {window.open(new_data['articles'][randIndex]['url'], '_blank')};
+                   document.getElementById(img).src = new_data['articles'][randIndex]['urlToImage']
                         }
-            } else { var url_2 = 'https://newsapi.org/v2/everything?q=%city_nameOR%city_dept&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%city_dept',city_dept.toString()).replace('%from',from.toString()).replace('%to',to.toString())
-                    $.getJSON(url_2, function(new_data) {
-                        var object = {'date': new Date().getTime(), 'news' : new_data}
-                        news.child(city_id).set(object).then().catch((error) => {
-                            console.error(error);
-                        });
-                        old_index = []
-                        for (let i = 0; i < 3; i++){
-                        old_index.push(randIndex)
-                        randIndex = Math.floor(Math.random() * length)
-                        while (old_index.includes(randIndex) == true) {randIndex = Math.floor(Math.random() * length)}
-                        console.log('Current index : ', randIndex)
-                        let title = "news_title_%s".replace('%s',(i + 1).toString())
-                        let content = "news_content_%s".replace('%s',(i + 1).toString())
-                        let link = "news_link_%s".replace('%s',(i + 1).toString())
-                        let img = "news_img_%s".replace('%s',(i + 1).toString())
-                        document.getElementById(title).append(new_data['articles'][randIndex]['title']);
-                        document.getElementById(content).append(new_data['articles'][randIndex]['description']);
-                        document.getElementById(link).onclick = function() {window.open(new_data['articles'][randIndex]['url'], '_blank')};
-                        document.getElementById(img).src = new_data['articles'][randIndex]['urlToImage']
-                        }
-                        })
-                    }})
-        }
+                        }})
+                        }});
+
+         }
 
     function getCityInformation(data) {
         //console.log('retrieve general information in database')
