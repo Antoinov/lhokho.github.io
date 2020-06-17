@@ -46,6 +46,7 @@
 <script>
     //paste this code under the head tag or in a separate js file.
     // Wait for window load
+
     $(document).ready(function() {
         // Animate loader off screen
         let bg = $("#background");
@@ -60,7 +61,6 @@
 <div class="wrapper">
     <div id="side-nav"></div>
     <div id="content">
-        <div id="top-nav"></div>
         <div class="se-pre-con"></div>
         <!-- START CONTENT  -->
         <div class="background">
@@ -297,14 +297,14 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-
-        $("#top-nav").load("pages/top-nav.html");
         $("#side-nav").load("pages/side-nav.html");
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
+            $('#toggle_tgv').remove();
         });
+
     </script>
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->

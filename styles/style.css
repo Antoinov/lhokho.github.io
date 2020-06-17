@@ -448,6 +448,16 @@ if it's not present, don't show loader */
     margin-bottom: 1vh;
 }
 
+.card {
+    background-color: #57587f;
+}
+
+#animated-gif-container {
+    width:10rem;
+    height:2rem;
+    background: url(../images/icons/animated-train.gif) no-repeat center center;
+}
+
 .info {
     padding: 6px 8px;
     font-family: 'Poppins', sans-serif;

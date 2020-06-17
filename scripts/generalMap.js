@@ -148,6 +148,9 @@ $(document).ready(function(){
     function onClick(e) {
         let isActiveSearch = $('#toggle_tgv').prop('checked');
         clear_selection();
+        if(previous_marker !== undefined){
+            previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
+        }
         if(isActiveSearch){
             console.log(e.sourceTarget._popup);
             $(".leaflet-popup-close-button").click()
@@ -156,11 +159,8 @@ $(document).ready(function(){
             });
             map.closePopup();
             e.target.closePopup();
+            e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
         }
-        if(previous_marker !== undefined){
-            previous_marker.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
-        }
-        e.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
         //store marker
         previous_marker = e.sourceTarget;
         e.sourceTarget.setOpacity(1);
@@ -179,7 +179,7 @@ $(document).ready(function(){
             month = date.getMonth() + 1;
             year = date.getFullYear();
             let date_str = year+'-'+("0" + month).slice(-2)+'-'+("0" + day).slice(-2);
-            getCityConnections(date_str,e.sourceTarget.options.iata,coordinates);
+            getCityConnections(date_str,e.sourceTarget.options.iata,e.sourceTarget.options.city,coordinates);
         }
     }
 
@@ -284,7 +284,7 @@ $(document).ready(function(){
 
     var trip_durations = [];
 
-    function getCityConnections(date,departure_iata,coords){
+    function getCityConnections(date,departure_iata,departure_city,coords){
         var url = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
             '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
             '&refine.date=%date'.replace('%date',date)+ //format: YYYY-MM-DD
@@ -297,12 +297,15 @@ $(document).ready(function(){
                 trip_durations.push(calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart));
             })
 
-            return getStationsFromIatas(arrival_iatas,trip_durations,coords);
+            return getStationsFromIatas(arrival_iatas,trip_durations,coords,departure_city);
 
         })
     }
+    function populateTripData(station){
 
-    function getStationsFromIatas(iata_list,trip_durations,coords){
+    }
+
+    function getStationsFromIatas(iata_list,trip_durations,coords,departure_city){
         let stations = [];
         station.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
@@ -325,6 +328,7 @@ $(document).ready(function(){
                 let current_coords = new Array();
                 current_coords.push(coords[0])
                 current_coords.push([station.lat,station.lon]);
+                console.log(station);
                 var polyline = new CustomPolyline(current_coords,{
                     color: 'black',
                     weight: 2,
@@ -334,6 +338,34 @@ $(document).ready(function(){
                     dashOffset: '0'
                 });
 
+                //adding additional information embedded in the map
+                var info_line = L.control({
+                    position : 'bottomright'
+                });
+
+                info_line.onAdd = function (map) {
+                    this._div = L.DomUtil.create('div'); // create a div with a class "info"
+                    this.update();
+                    return this._div;
+                };
+
+                // method that we will use to update the control based on feature properties passed
+                info_line.update = function (props) {
+                    let hours = Math.round(station.duration/(60))
+                    let minute = Math.round(Math.abs(station.duration- hours*60));
+                    let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
+
+                    let html_back = '<div class="card text-white mb-3" style="width: 15rem; height: 12rem;">'
+                    +'<div class="card-header">%d &rarr; %a </div>'.replace('%d',departure_city).replace('%a',station.city)
+                    +'<div class="card-body">'
+                    +'<p class="card-text text-white"><i class="fas fa-train"></i> %time </p>'.replace('%time',display)
+                    +'</div>'
+                    +'<div class="card-footer"></div>'
+                    +'</div>';
+                    this._div.innerHTML = html_back;
+                };
+
+                let anchored = false;
                 polyline.on('mouseover', function(e) {
                     var layer = e.target;
                     layer.setStyle({
@@ -341,18 +373,27 @@ $(document).ready(function(){
                         opacity: 1,
                         weight: 6
                     });
+                    info_line.addTo(map);
+                });
+
+                polyline.on('click', function(e) {
+                    info_line.addTo(map);
+                    anchored = true;
                 });
 
                 polyline.on('mouseout', function(e) {
                     var layer = e.target;
-                    layer.setStyle({
-                        color: 'black',
-                        weight: 1,
-                        opacity: 0.6,
-                        duration: station.duration,
-                        dashArray: '10, 10',
-                        dashOffset: '0'
-                    });
+                    if(!anchored){
+                        layer.setStyle({
+                            color: 'black',
+                            weight: 1,
+                            opacity: 0.6,
+                            duration: station.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                        info_line.remove();
+                    }
                 });
 
                 tmp_duration_list.push(station.duration);
@@ -364,6 +405,8 @@ $(document).ready(function(){
                         layer.setOpacity(1);
                     }
                 });
+
+
             })
 
             if(stations.length > 0){
