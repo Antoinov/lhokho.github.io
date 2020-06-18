@@ -118,8 +118,9 @@ $(document).ready(function(){
         let max_results = 0
         $.ajaxSetup({
           headers : {
-            'Origin' : 'https://makitsu.github.io',
-            }
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Credentials' : 'true'
+              }
             });
         $.getJSON(url, function(data){
             console.log('API called on city');
