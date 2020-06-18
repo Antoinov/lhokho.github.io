@@ -116,6 +116,11 @@ $(document).ready(function(){
         console.log(from)
         var url = 'https://newsapi.org/v2/everything?qInTitle=+%city_name&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%from',from.toString()).replace('%to',to.toString())
         let max_results = 0
+        $.ajaxSetup({
+          headers : {
+            'Origin' : 'https://makitsu.github.io',
+            }
+            });
         $.getJSON(url, function(data){
             console.log('API called on city');
             console.log(data);
