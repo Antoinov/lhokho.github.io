@@ -69,39 +69,11 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
             integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
             crossorigin=""></script>
-    <script type="text/javascript">
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
-            authDomain: "lhokho.firebaseapp.com",
-            databaseURL: "https://lhokho.firebaseio.com",
-            projectId: "lhokho",
-            storageBucket: "lhokho.appspot.com",
-            messagingSenderId: "914809444198",
-            appId: "1:914809444198:web:35ffb12ed619dd2de41aa7",
-            measurementId: "G-KEBX9V4BPX"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        $("#side-nav").load("pages/side-nav.html");
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-            const div = $('#trip_toggle')
-            $('#trip_btn').click(function(ev) {
-                console.log('add shaker');
-                div.addClass('shaker');
-                div.one('animationend', () => {
-                    div.removeClass('shaker')
-                })
-                ev.preventDefault();
-            });
-
-        });
-    </script>
     <script src="scripts/navigation.js"></script>
-    <!-- Additional scripts -->
+    <!-- script to connect to firebase -->
+    <script src="scripts/connectFirebase.js"></script>
+    <!-- script to init leaflet map -->
+    <script src="scripts/initMap.js"></script>
     <script src="scripts/generalMap.js"></script>
 </body>
 

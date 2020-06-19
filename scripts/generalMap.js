@@ -1,73 +1,10 @@
-function add_marker(name,position,icon_url,icon_size,price,layer){
-    var marker_destination = L.marker(
-        position,
-        {"name":name , "price":price}
-    );
-    var custom_icon = L.icon({"iconSize": icon_size, "iconUrl":icon_url});
-    marker_destination.setIcon(custom_icon);
-
-    var popup = L.popup({"maxWidth": "100%"});
-    var html = $('<a id="html_'+name+'" style="width: 100.0%; height: 100.0%;" href="http://www.google.com/search?q='+name+' bar" target="_blank"">' +
-        '<br>'+name+'<br>' +
-        '</a>')[0];
-
-    popup.setContent(html);
-    marker_destination.bindPopup(popup);
-    layer.addLayer(marker_destination);
-}
-
-function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
-
-function update_bar(markers,price){
-    var clusterToClean = [];
-    markers.eachLayer(function(layer){
-        if(layer.options.price !== undefined){
-            if(layer.options.price > price){
-                layer.setOpacity(0);
-                var visibleOne = markers.getVisibleParent(layer);
-                if(clusterToClean.indexOf(visibleOne) === -1){
-                    clusterToClean.push(visibleOne);
-                }
-            }else{
-                layer.setOpacity(1);
-                var anotherOne = markers.getVisibleParent(layer);
-                arrayRemove(clusterToClean,anotherOne);
-                //anotherOne.setOpacity(1);
-            }
-        }
-    });
-    clusterToClean.forEach(function(cluster){
-        cluster.setOpacity(0);
-    })
-}
-
 $(document).ready(function(){
     var cities = [];
     // to restore marker to previous state when not used anymore
     var previous_marker = undefined;
     var isEditable = false;
 
-    //Create and shape leaflet map
-    var map = L.map(
-        "map",
-        {
-            center: [49.21164026, 3.98878814],
-            crs: L.CRS.EPSG3857,
-            zoom: 7,
-            zoomControl: false,
-            preferCanvas: false,
-            scrollWheelZoom: false
-        }
-    );
-
-    L.control.zoom({
-        position: 'bottomright'
-    }).addTo(map);
-
-    var tile_layer = L.tileLayer(
-        "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-        {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-    ).addTo(map);
+    var map =  mapsPlaceholder[0];
 
     var route = L.featureGroup().addTo(map);
 
@@ -80,8 +17,6 @@ $(document).ready(function(){
             duration:0
         }
     });
-
-
 
     function update_map(markers,selected_duration){
         markers.eachLayer(function(layer){
@@ -180,6 +115,33 @@ $(document).ready(function(){
             year = date.getFullYear();
             let date_str = year+'-'+("0" + month).slice(-2)+'-'+("0" + day).slice(-2);
             getCityConnections(date_str,e.sourceTarget.options.iata,e.sourceTarget.options.city,coordinates);
+            //Remove previous tickets folder if exists
+            if($("#tickets").length !== 0){
+                $("#tickets").remove();
+            }
+            let tickets_html = '<div id="tickets" class="Content"></div>'
+            //adding additional information embedded in the map
+
+            if(info_line !== undefined){
+                info_line.remove();
+            }
+
+            var info_line = L.control({
+                position : 'bottomright'
+            });
+
+            info_line.onAdd = function (map) {
+                this._div = L.DomUtil.create('div','FixedHeightContainer'); // create a div
+                this.update();
+                return this._div;
+            };
+
+            // method that we will use to update the control based on feature properties passed
+            info_line.update = function (props) {
+                this._div.innerHTML = tickets_html;
+            };
+
+            info_line.addTo(map);
         }
     }
 
@@ -215,16 +177,11 @@ $(document).ready(function(){
             marker_destination.setIcon(custom_icon);
         }
 
-        // create popup contents
-        var customPopup = "<br>"+"<a id='html_'"+city_name+" href='destination.html?city="+city_id+"' target='_blank'>"+city_name+"</a><br/><img src='images/city/bg_"+city_id+".jpg' alt='maptime logo gif' width='150px' height='100px'/>";
-
         // specify popup options
         var customOptions =
             {
                 'className' : 'popupCustom'
             }
-        let temp = "NA";
-        let url = "NA";
 
         const delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -254,7 +211,6 @@ $(document).ready(function(){
                         buildBarLayer(marker_destination.getLatLng(),city_id,html_base);
                     };
                     builder();
-
                 });
             });
         });
@@ -292,12 +248,14 @@ $(document).ready(function(){
         $.getJSON(url, function(data){
             //get data from
             let arrival_iatas = [];
+            let departure_times = [];
             data.records.forEach(function(record){
                 arrival_iatas.push(record.fields.destination_iata);
                 trip_durations.push(calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart));
+                departure_times.push(record.fields.heure_depart);
             })
 
-            return getStationsFromIatas(arrival_iatas,trip_durations,coords,departure_city);
+            return getStationsFromIatas(arrival_iatas,trip_durations,coords,departure_city,date,departure_iata);
 
         })
     }
@@ -305,8 +263,23 @@ $(document).ready(function(){
 
     }
 
-    function getStationsFromIatas(iata_list,trip_durations,coords,departure_city){
+    function createTrainlineLink(departure_time,departure_iata,arrival_iata){
+
+        let time = departure_time+'-06:00'; //by default, from 6am
+
+        let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
+            .replace('%depiata',departure_iata)
+            .replace('%arriata',arrival_iata)
+            .replace('%date',time);
+
+        console.log(link);
+
+        return link;
+    }
+
+    function getStationsFromIatas(iata_list,trip_durations,coords,departure_city,departure_time,departure_iata){
         let stations = [];
+
         station.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 childNodes.val().forEach(function(station_data){
@@ -321,7 +294,7 @@ $(document).ready(function(){
             });
         }).then(function(){
             console.log(stations);
-            if(slider != undefined){
+            if(slider !== undefined){
                 slider.remove();
             }
             stations.forEach(function(station){
@@ -331,41 +304,27 @@ $(document).ready(function(){
                 console.log(station);
                 var polyline = new CustomPolyline(current_coords,{
                     color: 'black',
-                    weight: 2,
+                    weight: 4,
                     opacity: 0.6,
                     duration: station.duration,
                     dashArray: '10, 10',
                     dashOffset: '0'
                 });
+                let hours = Math.round(station.duration/(60))
+                let minute = Math.round(Math.abs(station.duration- hours*60));
+                let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
 
-                //adding additional information embedded in the map
-                var info_line = L.control({
-                    position : 'bottomright'
-                });
+                let tl_url = createTrainlineLink(departure_time,departure_iata,station.iata_code);
 
-                info_line.onAdd = function (map) {
-                    this._div = L.DomUtil.create('div'); // create a div with a class "info"
-                    this.update();
-                    return this._div;
-                };
-
-                // method that we will use to update the control based on feature properties passed
-                info_line.update = function (props) {
-                    let hours = Math.round(station.duration/(60))
-                    let minute = Math.round(Math.abs(station.duration- hours*60));
-                    let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
-
-                    let html_back = '<div class="card text-white mb-3" style="width: 15rem; height: 12rem;">'
+                let ticket_html = '<div id="'+departure_iata+station.iata_code+'" class="card card-custom text-white mb-3" style="width: 15rem; height: 7rem;">'
                     +'<div class="card-header">%d &rarr; %a </div>'.replace('%d',departure_city).replace('%a',station.city)
                     +'<div class="card-body">'
-                    +'<p class="card-text text-white"><i class="fas fa-train"></i> %time </p>'.replace('%time',display)
+                    +'<p class="card-text text-white"><i class="fas fa-train"></i> %time </br><a href="'.replace('%time',display)+tl_url+'" style="color:white;" target="_blank"">book ticket..</a> </p>'
                     +'</div>'
-                    +'<div class="card-footer"></div>'
                     +'</div>';
-                    this._div.innerHTML = html_back;
-                };
 
-                let anchored = false;
+                ticket_html.anchored = false;
+
                 polyline.on('mouseover', function(e) {
                     var layer = e.target;
                     layer.setStyle({
@@ -373,17 +332,23 @@ $(document).ready(function(){
                         opacity: 1,
                         weight: 6
                     });
-                    info_line.addTo(map);
+                    $("#tickets").append(ticket_html);
                 });
 
                 polyline.on('click', function(e) {
-                    info_line.addTo(map);
-                    anchored = true;
+                    var layer = e.target;
+                    layer.setStyle({
+                        color: 'red',
+                        opacity: 1,
+                        weight: 6
+                    });
+                    ticket_html.anchored = true;
+                    $("#tickets").append(ticket_html);
                 });
 
                 polyline.on('mouseout', function(e) {
                     var layer = e.target;
-                    if(!anchored){
+                    if(!ticket_html.anchored){
                         layer.setStyle({
                             color: 'black',
                             weight: 1,
@@ -392,7 +357,7 @@ $(document).ready(function(){
                             dashArray: '10, 10',
                             dashOffset: '0'
                         });
-                        info_line.remove();
+                        $("#"+departure_iata+station.iata_code).remove();
                     }
                 });
 
@@ -415,8 +380,8 @@ $(document).ready(function(){
                 }, {
                     max: Math.round(Math.max(...tmp_duration_list)),
                     min: Math.round(Math.min(...tmp_duration_list)),
-                    value: Math.round(Math.max(...tmp_duration_list)/2),
-                    step:Math.round(Math.abs(Math.max(...tmp_duration_list)-Math.min(...tmp_duration_list))/10),
+                    value: Math.round(Math.max(...tmp_duration_list)),
+                    step:Math.round(Math.abs(Math.round(Math.max(...tmp_duration_list))-Math.round(Math.min(...tmp_duration_list)))/10),
                     size: '300px',
                     orientation:'horizontal',
                     showValue:true,
@@ -443,151 +408,7 @@ $(document).ready(function(){
         return Math.abs(start_m-end_m);
     }
 
-    //BAR
-    function buildBarLayer(initial_pos,city_id,info_html) {
-        var info_bars = firebase.database().ref("city/bar/" + city_id);
-        var info_station = firebase.database().ref("city/station/" + city_id);
 
-        if (info_bars !== 0) {
-            let current_city = undefined;
-            //train stations information
-            let station_positions = [];
-            let station_names = [];
-            //bar information
-            let bar_names = [];
-            let bar_positions = [];
-            var bar_HH_prices = [];
-            var bar_nHH_prices = [];
-            var bar_HH_hours = [];
-            //console.log(info_bars)
-
-            info_station.on("value", function (dataset) {
-                dataset.forEach(function (childNodes) {
-                    var node_data = childNodes.val();
-                    station_positions.push([node_data.lat, node_data.lon]);
-                    station_names.push(node_data.name);
-                    current_city = node_data.ville;
-                });
-                info_bars.on("value", function (dataset) {
-                    ////console.log('iterate over bar');
-                    dataset.forEach(function (childNodes) {
-                        var node_data = childNodes.val();
-                        //console.log(node_data);
-                        //console.log('bar added');
-                        bar_positions.push([node_data.latitude, node_data.longitude]);
-                        bar_names.push(node_data.name);
-                        bar_HH_prices.push(Number(node_data["HHprice_1"]));
-                        bar_nHH_prices.push(Number(node_data["nHHprice_1"]));
-                        //console.log(node_data["HHprice_1"]);
-                        let start = node_data["HH_start"];
-                        start = start.replace('[', '').replace(']', '').replace(',', 'h');
-                        let end = node_data["HH_end"];
-                        end = end.replace('[', '').replace(']', '').replace(',', 'h');
-                        bar_HH_hours.push([start, end]);
-                    });
-
-                    addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html)
-                });
-
-            });
-        }
-    }
-
-    function addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html){
-        var local = L.featureGroup().addTo(map);
-        var markers_bar = L.markerClusterGroup({
-            spiderfyOnMaxZoom: false,
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: false,
-            iconCreateFunction: function(cluster) {
-                return L.icon({"iconSize": [30,30], "iconUrl":"images/icons/pint.png"});
-            }
-        });
-
-        map.addLayer(markers_bar);
-
-        for (var k = 0; k < station_names.length; k++) {
-            var name = station_names[k]
-            add_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,local);
-            var circleCenter = station_positions[k];
-
-            var circleOptions = {
-                color: 'orange',
-                fillColor: 'orange',
-                fillOpacity: 0.2,
-                dashArray: '5,10'
-            }
-
-            var circleOptions2 = {
-                color: 'orange',
-                fillColor: 'orange',
-                fillOpacity: 0.1,
-                dashArray: '5,10',
-                weight: 1
-            }
-
-            var circle = L.circle(circleCenter, 500, circleOptions);
-
-            var circle2 = L.circle(circleCenter, 1000, circleOptions2);
-
-            circle.addTo(local);
-
-            circle2.addTo(local);
-        }
-
-        for (var j = 0; j < bar_names.length; j++) {
-            var name = bar_names[j]
-            if(isNaN(bar_nHH_prices[j])){
-                add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],undefined,markers_bar)
-            }
-            add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],bar_nHH_prices[j],markers_bar)
-        }
-        if(bar_names.length > 0){
-            slider = L.control.slider(function(value) {
-                update_bar(markers_bar,value)
-            }, {
-                position:'bottomleft',
-                max: Math.round(Math.max(...bar_nHH_prices))+1,
-                value: Math.round(Math.max(...bar_nHH_prices)),
-                step:1,
-                size: '250px',
-                orientation:'horizontal',
-                id: 'slider',
-                collapsed:false,
-                logo:''
-            }).addTo(map);
-        }
-
-
-
-        //adding additional information embedded in the map
-        var info = L.control({
-            position : 'bottomleft'
-        });
-
-        info.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-            this.update();
-            return this._div;
-        };
-
-        // method that we will use to update the control based on feature properties passed
-        info.update = function (props) {
-            let html_back = info_html + '<a id="back_'+city_id+'" href="#" style="color:white;"">back to map...</a>';
-            this._div.innerHTML = html_back;
-        };
-
-        info.addTo(map);
-        $( "#back_"+city_id ).bind( "click", function() {
-            map.flyTo(initial_pos,13,{'easeLinearity':1.0});
-            info.remove();
-            slider.remove();
-            map.removeLayer(markers_bar);
-            map.removeLayer(local);
-            focus_station(city_id);
-        });
-
-    }
 });
 
 

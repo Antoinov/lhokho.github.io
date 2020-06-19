@@ -448,8 +448,24 @@ if it's not present, don't show loader */
     margin-bottom: 1vh;
 }
 
-.card {
+.card-custom {
     background-color: #57587f;
+}
+
+.FixedHeightContainer {
+    float:right;
+    height: 30rem;
+    width:15rem;
+    padding:0px;
+    background: rgba(87, 88, 127, 0.22);
+    border-radius: 25px;
+}
+
+.Content {
+    height:100%;
+    width:100%;
+    background: rgba(87, 88, 127, 0);
+    overflow-y: auto;
 }
 
 #animated-gif-container {
