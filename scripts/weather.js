@@ -9,6 +9,7 @@ function displayWeatherOnMap(map,current_marker){
             let url2 = weather_raw_data.icon_urls[1];
             let url3 = weather_raw_data.icon_urls[2];
             let temp = '   '+weather_raw_data.temps[0]+'   ';
+            console.log(temp)
             html = '<a id="html_'+city_id+'" style="color:white;" href="destination.html?city='+city_id+'" target="_blank"">'+current_marker.options.city+'</a><br/>'+ temp+'\°  <br/>'
                 +'<img class="roundrect" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="90px"/><br/>';
             let html_base = html
@@ -25,7 +26,6 @@ function check_existing_weather(city_id,weather_raw_data) {
     let weather = firebase.database().ref("city/weather");
     //access to weather data
     let checkdb = false;
-    let foundInDb = false;
     weather.once("value", function(dataset) {
         dataset.forEach(function(childNodes){
             //check if database element has been updated in the last 24hours
@@ -35,9 +35,10 @@ function check_existing_weather(city_id,weather_raw_data) {
             let isFreshWeather = ( diff < (1 * 24 * 60 * 60 * 1000) );
             if(childNodes.key == city_id && isFreshWeather){
                 console.log('weather data found in database')
-                foundInDb = true;
                 childNodes.val().forEach(function(weather_data){
-                    weather_raw_data.dates.push(new Date(weather_data.date));
+                    let date_tmp = new Date(weather_data.date);
+                    let date_str = (date_tmp.getDate() + k) + '/' + (date_tmp.getMonth() + 1);
+                    weather_raw_data.dates.push(date_str);
                     weather_raw_data.temps.push(new Date(weather_data.temp));
                     weather_raw_data.icon_urls.push(new Date(weather_data.icon));
                 })
@@ -45,7 +46,6 @@ function check_existing_weather(city_id,weather_raw_data) {
 
         });
         checkdb = true;
-
     });
     const waiter = async () => {
         while(!checkdb){
@@ -119,7 +119,7 @@ function queryAndStoreWeather(city_id,weather_raw_data, data_list) {
                 weather_raw_data.dates.push(date_str);
                 weather_raw_data.temps.push(Math.round(data['daily'][k]['temp']['day']));
                 weather_raw_data.icon_urls.push(src_url);
-                var object = {'date': new Date().getTime(), 'temp' : Math.round(data['daily'][k]['temp']['day']),'icon':url}
+                var object = {'date': new Date().getTime(), 'temp' : Math.round(data['daily'][k]['temp']['day']),'icon':src_url}
                 weather.child(city_id).child(k).set(object).then().catch((error) => {
                     console.error(error);
                 });

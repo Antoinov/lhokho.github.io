@@ -40,20 +40,15 @@ function buildQueryDate(date_datepicker){
 }
 
 function displayTickets(map){
-
-    let tickets_html = '<div id="tickets" class="Content"></div>'
-    //adding additional information embedded in the map
-
-    if(info_line !== undefined){
-        info_line.remove();
-    }
+    console.log('display tickets...');
 
     var info_line = L.control({
         position : 'bottomright'
     });
 
+    let tickets_html = '<div id="tickets" class="Content"></div>'
     info_line.onAdd = function (map) {
-        this._div = L.DomUtil.create('div','FixedHeightContainer'); // create a div
+        this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
         return this._div;
     };
@@ -63,7 +58,13 @@ function displayTickets(map){
         this._div.innerHTML = tickets_html;
     };
 
-    info_line.addTo(map);
+    if($(".FixedHeightContainer").length === 0){
+        //adding additional information embedded in the map
+        info_line.addTo(map);
+    }else{
+        $('.FixedHeightContainer').remove();
+        info_line.addTo(map);
+    }
 }
 
 $(document).ready(function(){
@@ -255,9 +256,8 @@ $(document).ready(function(){
             }
             stations.forEach(function(station){
                 let current_coords = new Array();
-                current_coords.push(coords[0])
+                current_coords.push([coords.lat,coords.lng]);
                 current_coords.push([station.lat,station.lon]);
-                console.log(station);
                 var polyline = new CustomPolyline(current_coords,{
                     color: 'black',
                     weight: 4,
@@ -307,7 +307,7 @@ $(document).ready(function(){
                     if(!ticket_html.anchored){
                         layer.setStyle({
                             color: 'black',
-                            weight: 1,
+                            weight: 4,
                             opacity: 0.6,
                             duration: station.duration,
                             dashArray: '10, 10',
@@ -322,7 +322,6 @@ $(document).ready(function(){
                 console.log(tmp_duration_list);
                 route.eachLayer(function (layer) {
                     if (station.iata_code == layer.options.iata) {
-                        console.log('found related marker');
                         layer.setOpacity(1);
                     }
                 });
