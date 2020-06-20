@@ -32,7 +32,6 @@ function update_bar(markers,price){
                 layer.setOpacity(1);
                 var anotherOne = markers.getVisibleParent(layer);
                 arrayRemove(clusterToClean,anotherOne);
-                //anotherOne.setOpacity(1);
             }
         }
     });
@@ -42,7 +41,7 @@ function update_bar(markers,price){
 }
 
 //BAR
-function buildBarLayer(initial_pos,city_id,info_html) {
+function buildBarLayer(map,initial_pos,city_id,info_html) {
     var info_bars = firebase.database().ref("city/bar/" + city_id);
     var info_station = firebase.database().ref("city/station/" + city_id);
 
@@ -84,14 +83,14 @@ function buildBarLayer(initial_pos,city_id,info_html) {
                     bar_HH_hours.push([start, end]);
                 });
 
-                addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html)
+                addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html)
             });
 
         });
     }
 }
 
-function addBarLayer(city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html){
+function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html){
     var local = L.featureGroup().addTo(map);
     var markers_bar = L.markerClusterGroup({
         spiderfyOnMaxZoom: false,

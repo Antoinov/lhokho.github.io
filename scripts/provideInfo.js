@@ -8,9 +8,9 @@ $(document).ready(function(){
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");
     station = firebase.database().ref("city/station");
-    weather = firebase.database().ref("city/weather");
+
     station = firebase.database().ref("city/station")
-    weather = firebase.database().ref("city/weather")
+
     news = firebase.database().ref("city/news")
 
     //retrieve general information
@@ -289,46 +289,10 @@ $(document).ready(function(){
         }
     }
 
-    //check if weather data already in the database
-    let isThereData = false;
-
-    function check_existing_weather() {
-        //get firebase snapshot of weather data
-        return weather.once("value", function(dataset) {
-            dataset.forEach(function(childNodes){
-                console.log(childNodes.val());
-                //check if database element has been updated in the last 24hours
-                let last_update = childNodes.val().date;
-                let today = new Date().getTime();
-                let diff = Math.abs(today - last_update);
-                let isFreshWeather = ( diff < (1 * 24 * 60 * 60 * 1000) );
-                if(childNodes.key === city_id && isFreshWeather){
-                    console.log('weather data found in database')
-                    PopulateCityWeather(childNodes.val());
-                    isThereData = true;
-                }
-            });
-        });
-    }
-    //asynchronous call to weather API if not in db
-    check_existing_weather().then(function(){
-        if(!isThereData){
-            station.on("value", function(dataset) {
-                dataset.forEach(function(childNodes){
-                    if(childNodes.key === city_id){
-                        addCityWeather(childNodes.val());
-                    }
-                });
-
-            });
-        }
-    }).catch();
-
-
-
+    displayWeatherData();
 
     //retrieve city location (lat,lon) information if it exists and populate the weather
-    function PopulateCityWeather(data_list){
+    function getCityWeather(data_list){
         if (data_list !== undefined) {
             let day_date = new Date(data_list[0]['date']);
             console.log('location available :  populate weather data from db');
@@ -344,6 +308,7 @@ $(document).ready(function(){
             }
         }
     }
+
     function addCityWeather(data_list){
         if (data_list !== 0) {
             console.log('location available :  add weather data');
