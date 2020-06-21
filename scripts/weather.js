@@ -35,12 +35,14 @@ function check_existing_weather(city_id,weather_raw_data) {
             let isFreshWeather = ( diff < (1 * 24 * 60 * 60 * 1000) );
             if(childNodes.key == city_id && isFreshWeather){
                 console.log('weather data found in database')
+                let day_after = 0;
                 childNodes.val().forEach(function(weather_data){
                     let date_tmp = new Date(weather_data.date);
-                    let date_str = (date_tmp.getDate() + k) + '/' + (date_tmp.getMonth() + 1);
+                    let date_str = (date_tmp.getDate() + day_after) + '/' + (date_tmp.getMonth() + 1);
                     weather_raw_data.dates.push(date_str);
                     weather_raw_data.temps.push(new Date(weather_data.temp));
                     weather_raw_data.icon_urls.push(new Date(weather_data.icon));
+                    day_after = day_after + 1;
                 })
             }
 

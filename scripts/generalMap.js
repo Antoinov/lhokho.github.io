@@ -118,7 +118,6 @@ $(document).ready(function(){
 
     function onClick(event) {
         //check if tgv is toggled
-        console.log(current_zone);
         let isActiveSearch = $('#toggle_tgv').prop('checked');
         //clear previous elements
         clear_selection();
@@ -168,8 +167,24 @@ $(document).ready(function(){
         var infoPopupOptions ={'className' : 'popupCustom'}
 
         marker_destination.on('popupopen', function (popup) {
-            displayWeatherOnMap(map,marker_destination);
+            let isActiveSearch = $('#toggle_tgv').prop('checked');
+            if(!isActiveSearch){
+                displayWeatherOnMap(map,marker_destination);
+                $( "#bar_"+city_id ).bind( "click", function() {
+                    map.flyTo(marker_destination.getLatLng(),15,{'easeLinearity':1.0});
+                    marker_destination.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
+                    map.closePopup();
+                    //var static = new L.Layer.StaticOverlay().addTo(map);
+                    const builder = async () => {
+                        await delay(5000);
+                        console.log("load bar data...");
+                        buildBarLayer(marker_destination.getLatLng(),city_id,html_base);
+                    };
+                    builder();
+                });
+            }
         });
+
         let city_name = marker_destination.options.city;
         var html = '<a id="html_'+city_name+'" style="color:white;" href="destination.html?city='+city_name+'" target="_blank"">'+city_name+'</a><br/>'
             +'<img class="roundrect" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="100px"/><br/>';
@@ -214,12 +229,18 @@ $(document).ready(function(){
                 console.log(record.fields);
                 records.push(record.fields);
                 arrival_iatas.push(record.fields.destination_iata);
-                trip_durations.push(calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart));
                 departure_times.push(record.fields.heure_depart);
             })
 
-            return getStationsFromIatas(arrival_iatas,trip_durations,coords,departure_city,date,departure_iata);
+            return getStationsFromIatas(arrival_iatas,coords,departure_city,date,departure_iata,records);
         })
+    }
+
+    //Calculate time duration in minutes
+    function calculateDuration(start,end) {
+        let start_m = Number(start.split(':')[0])*60 + Number(start.split(':')[1]);
+        let end_m = Number(end.split(':')[0])*60 + Number(end.split(':')[1]);
+        return Math.abs(start_m-end_m);
     }
 
     function createTrainlineLink(departure_time,departure_iata,arrival_iata){
@@ -234,102 +255,188 @@ $(document).ready(function(){
         return link;
     }
 
-    function getStationsFromIatas(iata_list,trip_durations,coords,departure_city,departure_time,departure_iata){
-        let stations = [];
+    function compare( a, b ) {
+        if ( a.duration < b.duration ){
+            return -1;
+        }
+        if ( a.duration > b.duration ){
+            return 1;
+        }
+        return 0;
+    }
+
+    function getStationsFromIatas(iata_list,coords,departure_city,departure_time,departure_iata,records){
+        let trips = [];
 
         station.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 childNodes.val().forEach(function(station_data){
                     if(iata_list.includes(station_data.iata_code)){
-                        if(stations.indexOf(station_data) == -1){
+                        var indexes = iata_list.reduce(function(a, e, i) {
+                            console.log(e);
+                            if (e === station_data.iata_code)
+                                a.push(i);
+                            return a;
+                        }, []).forEach(function(index){
                             console.log('station found in list :'+station_data.city);
-                            station_data.duration = trip_durations[iata_list.indexOf(station_data.iata_code)];
-                            stations.push(station_data);
-                        }
+                            let record = records[index];
+                            let trip = {};
+                            trip.departure_city = departure_city;
+                            trip.departure_iata = record.origine_iata;
+                            trip.departure_coords = [coords.lat,coords.lng];
+                            trip.departure_time = record.heure_depart;
+                            trip.arrival_city = station_data.city;
+                            trip.arrival_iata = record.destination_iata;
+                            trip.arrival_coords =[station_data.lat,station_data.lon];
+                            trip.arrival_time = record.heure_arrivee;
+                            trip.duration = calculateDuration(record.heure_arrivee,record.heure_depart);
+                            console.log(trip)
+                            trips.push(trip);
+                        });
                     }
                 })
             });
         }).then(function(){
-            console.log(stations);
             if(typeof slider !== 'undefined'){
                 slider.remove();
             }
-            stations.forEach(function(station){
+            trips = trips.sort(compare);
+            console.log(trips);
+            let previousid = undefined;
+            trips.forEach(function(trip){
                 let current_coords = new Array();
-                current_coords.push([coords.lat,coords.lng]);
-                current_coords.push([station.lat,station.lon]);
+                current_coords.push(trip.departure_coords);
+                current_coords.push(trip.arrival_coords);
+                console.log(trip.duration);
                 var polyline = new CustomPolyline(current_coords,{
+                    id:trip.departure_iata+trip.arrival_iata.toString()+trip.duration.toString(),
                     color: 'black',
                     weight: 4,
                     opacity: 0.6,
-                    duration: station.duration,
+                    duration: trip.duration,
                     dashArray: '10, 10',
                     dashOffset: '0'
                 });
-                let hours = Math.round(station.duration/(60))
-                let minute = Math.round(Math.abs(station.duration- hours*60));
+                console.log(trip.duration);
+                let hours = Math.round(trip.duration/(60))
+                let minute = Math.round(Math.abs(trip.duration- hours*60));
                 let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
 
-                let tl_url = createTrainlineLink(departure_time,departure_iata,station.iata_code);
+                let tl_url = createTrainlineLink(trip.departure_time,trip.departure_iata,trip.arrival_iata);
 
-                let ticket_html = '<div id="'+departure_iata+station.iata_code+'" class="card card-custom text-white mb-3" style="width: 15rem; height: 7rem;">'
-                    +'<div class="card-header">%d &rarr; %a </div>'.replace('%d',departure_city).replace('%a',station.city)
-                    +'<div class="card-body">'
-                    +'<p class="card-text text-white"><i class="fas fa-train"></i> %time </br><a href="'.replace('%time',display)+tl_url+'" style="color:white;" target="_blank"">book ticket..</a> </p>'
+                let ticket_html = '<div id="'+trip.departure_iata+trip.arrival_iata+trip.duration+'" class="card card-custom text-white mb-3" style="width: 15rem; height: 5rem;">'
+                    +'<div class="card-header p-0 my-auto"><i class="fas fa-angle-double-down"></i> %td | %d </div>'.replace('%d',trip.departure_city).replace('%td',trip.departure_time)
+                    +'<div class="card-body p-0 my-auto">'
+                    +'<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i> %time </p>'.replace('%time',display)
                     +'</div>'
+                    +'<div class="card-footer p-0 my-auto"><i class="fas fa-angle-double-down"></i> %ta | %a | <a href="'.replace('%a',trip.arrival_city).replace('%ta',trip.arrival_time)+tl_url+'" style=" text:right;color:white;" target="_blank"">book ticket..</a></div> '
                     +'</div>';
 
-                ticket_html.anchored = false;
-
-                polyline.on('mouseover', function(e) {
-                    var layer = e.target;
-                    layer.setStyle({
-                        color: 'red',
-                        opacity: 1,
-                        weight: 6
-                    });
+                var anchored = false;
+                if(typeof previousid == 'undefined'){
                     $("#tickets").append(ticket_html);
-                });
+                }else{
+                    $(ticket_html).inserAfter('#'+previousid);
+                    previousid = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
+                }
 
-                polyline.on('click', function(e) {
-                    var layer = e.target;
-                    layer.setStyle({
-                        color: 'red',
-                        opacity: 1,
-                        weight: 6
-                    });
-                    ticket_html.anchored = true;
-                    $("#tickets").append(ticket_html);
-                });
 
-                polyline.on('mouseout', function(e) {
-                    var layer = e.target;
-                    if(!ticket_html.anchored){
-                        layer.setStyle({
-                            color: 'black',
-                            weight: 4,
-                            opacity: 0.6,
-                            duration: station.duration,
-                            dashArray: '10, 10',
-                            dashOffset: '0'
-                        });
-                        $("#"+departure_iata+station.iata_code).remove();
-                    }
-                });
-
-                tmp_duration_list.push(station.duration);
+                tmp_duration_list.push(trip.duration);
                 current_zone.addLayer(polyline);
                 console.log(tmp_duration_list);
                 route.eachLayer(function (layer) {
-                    if (station.iata_code == layer.options.iata) {
+                    if (trip.iata_code == layer.options.iata) {
                         layer.setOpacity(1);
                     }
                 });
 
+                $('#'+trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString()).bind('mouseover',function(){
+                    current_zone.eachLayer(function (layer) {
+                        if(!anchored) {
+                            let id = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
+                            if (layer.options.id == id) {
+                                layer.setStyle({
+                                    color: 'red',
+                                    opacity: 1,
+                                    weight: 6
+                                });
+                                $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#9d9efd");
+                            }
+                        }
+                    });
+                });
+
+                $('#'+trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString()).bind('click',function(){
+                    current_zone.eachLayer(function (layer) {
+                        console.log(layer);
+                        let id = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
+                        if (layer.options.id == id) {
+
+                            let center_x = (trip.departure_coords[0]+Number(trip.arrival_coords[0]))/2;
+                            let center_y = (trip.departure_coords[1]+Number(trip.arrival_coords[1]))/2;
+
+                            if(typeof anchored == 'undefined'){
+                                anchored = true;
+                                layer.setStyle({
+                                    color: 'red',
+                                    opacity: 1,
+                                    weight: 6
+                                });
+                                $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#9d9efd");
+                                //fly to center of selected trip
+                                map.flyTo([center_x,center_y],7,{'animate':true});
+                            }else{
+                                if(anchored){
+                                    $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#57587f");
+                                    layer.setStyle({
+                                        color: 'black',
+                                        weight: 4,
+                                        opacity: 0.6,
+                                        duration: trip.duration,
+                                        dashArray: '10, 10',
+                                        dashOffset: '0'
+                                    });
+                                    map.flyTo(trip.departure_coords,7,{'animate':true});
+                                    anchored = false;
+                                }else{
+                                    anchored = true;
+                                    layer.setStyle({
+                                        color: 'red',
+                                        opacity: 1,
+                                        weight: 6
+                                    });
+                                    $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#9d9efd");
+                                    console.log(trip.arrival_coords);
+                                    map.flyTo([center_x,center_y],7,{'animate':true});
+                                }
+                            }
+                        }
+                    });
+                });
+
+                $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).bind('mouseout',function(){
+                    current_zone.eachLayer(function (layer) {
+                        let id = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
+                        if (layer.options.id == id) {
+                            if(!anchored){
+                                layer.setStyle({
+                                    color: 'black',
+                                    weight: 4,
+                                    opacity: 0.6,
+                                    duration: trip.duration,
+                                    dashArray: '10, 10',
+                                    dashOffset: '0'
+                                });
+                                $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#57587f");
+                            }
+                        }
+                    });
+                })
+
 
             })
 
-            if(stations.length > 0){
+            if(trips.length > 0){
                 slider = L.control.slider(function(value) {
                     update_map(current_zone,value)
                 }, {
@@ -355,15 +462,6 @@ $(document).ready(function(){
             }
         });
     }
-
-    //Calculate time duration in minutes
-    function calculateDuration(start,end) {
-        let start_m = Number(start.split(':')[0])*60 + Number(start.split(':')[1]);
-        let end_m = Number(end.split(':')[0])*60 + Number(end.split(':')[1]);
-        return Math.abs(start_m-end_m);
-    }
-
-
 });
 
 
