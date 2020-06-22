@@ -111,10 +111,11 @@ $(document).ready(function(){
     });
 
     $('#selected_date').change(function() {
-        var date = $(this).val();
-        console.log(date, 'change')
         let query_date = buildQueryDate($('#selected_date').val());
-        let weather_restriction =
+        let weather_restriction = $("input[name='weather']:checked").attr("id");
+        let time_restriction = $("input[name='time']:checked").attr("id");
+        console.log(weather_restriction);
+        console.log(time_restriction);
         getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
 
     });
@@ -146,6 +147,10 @@ $(document).ready(function(){
             //retrieve date from form
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event.sourceTarget;
+            let weather_restriction = $("input[name='weather']:checked").attr("id");
+            let time_restriction = $("input[name='time']:checked").attr("id");
+            console.log(weather_restriction);
+            console.log(time_restriction);
             getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
@@ -225,6 +230,7 @@ $(document).ready(function(){
             '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
             '&refine.date=%date'.replace('%date',date)+ //format: YYYY-MM-DD
             '&refine.origine_iata=%departure'.replace('%departure',departure_iata);
+
         $.getJSON(query, function(response){
             //get data from
             let arrival_iatas = [];
@@ -235,9 +241,10 @@ $(document).ready(function(){
                 records.push(record.fields);
                 arrival_iatas.push(record.fields.destination_iata);
                 departure_times.push(record.fields.heure_depart);
+
             })
 
-            return getStationsFromIatas(arrival_iatas,coords,departure_city,date,departure_iata,records);
+            return getStationsFromIatas(arrival_iatas,coords,departure_city,date,departure_iata,records,weather_restriction,time_restriction);
         })
     }
 
@@ -268,7 +275,7 @@ $(document).ready(function(){
         return 0;
     }
 
-    function getStationsFromIatas(iata_list,coords,departure_city,departure_time,departure_iata,records){
+    function getStationsFromIatas(iata_list,coords,departure_city,departure_time,departure_iata,records,weather_restriction,time_restriction){
         let trips = [];
 
         station.once("value", function(dataset) {
@@ -293,6 +300,7 @@ $(document).ready(function(){
                             trip.arrival_coords =[station_data.lat,station_data.lon];
                             trip.arrival_time = record.heure_arrivee;
                             trip.duration = calculateDuration(record.heure_arrivee,record.heure_depart);
+                            trip.return_trips = [];
                             trips.push(trip);
                         });
                     }
@@ -309,10 +317,49 @@ $(document).ready(function(){
             trips = trips.sort(compare);
             let previousid = undefined;
             trips.forEach(function(trip){
+
+                let identify_ticket = trip.departure_iata+trip.arrival_iata+trip.duration;
+                console.log(time_restriction);
+                if(time_restriction !== 'unknown_time'){
+                    time_restriction = time_restriction.replace('h','');
+                    let hours = Number(trip.arrival_time.split(':')[0])+Number(time_restriction)
+                    let theoretical_return_date = hours*60 + Number(trip.arrival_time.split(':')[1]);
+                    var return_query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+                        '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
+                        '&refine.date=%date'.replace('%date',trip.day)+ //format: YYYY-MM-DD
+                        '&refine.origine_iata=%arrival'.replace('%arrival',trip.arrival_iata)+
+                        '&refine.destination_iata=%departure'.replace('%departure',trip.departure_iata)
+
+
+                    $.getJSON(return_query, function(response){
+                        let isThereRecords = false;
+                        response.records.forEach(function(record){
+                            let return_time = Number(record.fields.heure_depart.split(':')[0])*60+Number(record.fields.heure_depart.split(':')[1]);
+                            if(return_time < theoretical_return_date ){
+                                isThereRecords = true;
+                                let trip_back = {};
+                                trip_back.time = record.fields.date;
+                                trip_back.heure_depart = record.fields.heure_depart;
+                                trip_back.heure_arrivee = record.fields.heure_arrivee;
+                                trip_back.duration = calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart);
+                                let processed_date = trip.day+'-'+trip_back.heure_depart.split(':')[0]+':00';
+                                trip.return_trips.push(trip_back);
+                                let tl_return_url = createTrainlineLink(processed_date,trip.arrival_iata,trip.departure_iata);
+                                let return_html = '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i><a href="'+tl_return_url+'" style=" text:right;color:white;" target="_blank""> %depart <i class="fas fa-angle-double-right"></i> %arrivee </a></p>'
+                                    .replace('%depart',trip_back.heure_depart).replace('%arrivee',trip_back.heure_arrivee)
+                                $("#back_"+identify_ticket).append(return_html);
+                            }
+
+                        })
+                        if(!isThereRecords){
+                            $('#btn_return_'+identify_ticket).remove();
+                        }
+
+                    })
+                }
                 let current_coords = new Array();
                 current_coords.push(trip.departure_coords);
                 current_coords.push(trip.arrival_coords);
-                console.log(trip.duration);
                 var polyline = new CustomPolyline(current_coords,{
                     id:trip.departure_iata+trip.arrival_iata.toString()+trip.duration.toString(),
                     color: 'black',
@@ -331,13 +378,25 @@ $(document).ready(function(){
 
                 let tl_url = createTrainlineLink(processed_date,trip.departure_iata,trip.arrival_iata);
 
-                let ticket_html = '<div id="'+trip.departure_iata+trip.arrival_iata+trip.duration+'" class="card card-custom text-white mb-3" style="width: 15rem; height: 5rem;">'
+
+                let ticket_html = '<div id="'+trip.departure_iata+trip.arrival_iata+trip.duration+'" class="card card-custom text-white mb-3" style="width: 15rem; ">'
                     +'<div class="card-header p-0 my-auto"><i class="fas fa-angle-double-down"></i> %td | %d </div>'.replace('%d',trip.departure_city).replace('%td',trip.departure_time)
                     +'<div class="card-body p-0 my-auto">'
                     +'<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i> %time </p>'.replace('%time',display)
                     +'</div>'
                     +'<div class="card-footer p-0 my-auto"><i class="fas fa-angle-double-down"></i> %ta | %a | <a href="'.replace('%a',trip.arrival_city).replace('%ta',trip.arrival_time)+tl_url+'" style=" text:right;color:white;" target="_blank"">book ticket..</a></div> '
+                    +'<div class="card-footer p-0 my-auto" id="heading_'+identify_ticket+'">'
+                    +'<button class="btn btn-link p-0 my-auto text-white" id="btn_return_'+identify_ticket+'" data-toggle="collapse" data-target="#collapse_'+identify_ticket+'" aria-expanded="false" aria-controls="collapse_'+identify_ticket+'">' +
+                    'return...' +
+                    '</button>' +
+                    '</div>'+
+                    '<div id="collapse_'+identify_ticket+'" class="collapse p-0 my-auto" aria-labelledby="heading_'+identify_ticket+'">' +
+                    '<div id="back_'+identify_ticket+'" class="card-body p-0 my-auto">';
+                ticket_html = ticket_html +
+                    '</div>' +
+                    '</div>'
                     +'</div>';
+
 
                 var anchored = false;
 
@@ -345,7 +404,6 @@ $(document).ready(function(){
                     $("#tickets").append(ticket_html);
                 }else{
                     $(ticket_html).inserAfter('#'+previousid);
-                    previousid = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
                 }
 
 
@@ -404,7 +462,6 @@ $(document).ready(function(){
                                         dashArray: '10, 10',
                                         dashOffset: '0'
                                     });
-                                    map.flyTo(trip.departure_coords,7,{'animate':true});
                                     anchored = false;
                                 }else{
                                     anchored = true;
@@ -414,10 +471,24 @@ $(document).ready(function(){
                                         weight: 6
                                     });
                                     $('#'+trip.departure_iata+trip.arrival_iata+trip.duration.toString()).css("background-color","#9d9efd");
+                                    current_zone.eachLayer(function (previous_layer) {
+                                        if (previous_layer.options.id == previousid) {
+                                            previous_layer.setStyle({
+                                                color: 'black',
+                                                weight: 4,
+                                                opacity: 0.6,
+                                                duration: trip.duration,
+                                                dashArray: '10, 10',
+                                                dashOffset: '0'
+                                            });
+                                        }
+                                    });
+                                    $('#'+previousid).css("background-color","#57587f");
                                     console.log(trip.arrival_coords);
                                     map.flyTo([center_x,center_y],7,{'animate':true});
                                 }
                             }
+                            previousid = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
                         }
                     });
                 });
