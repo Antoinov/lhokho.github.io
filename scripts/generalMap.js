@@ -170,18 +170,6 @@ $(document).ready(function(){
             let isActiveSearch = $('#toggle_tgv').prop('checked');
             if(!isActiveSearch){
                 displayWeatherOnMap(map,marker_destination);
-                $( "#bar_"+city_id ).bind( "click", function() {
-                    map.flyTo(marker_destination.getLatLng(),15,{'easeLinearity':1.0});
-                    marker_destination.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
-                    map.closePopup();
-                    //var static = new L.Layer.StaticOverlay().addTo(map);
-                    const builder = async () => {
-                        await delay(5000);
-                        console.log("load bar data...");
-                        buildBarLayer(marker_destination.getLatLng(),city_id,html_base);
-                    };
-                    builder();
-                });
             }
         });
 
@@ -245,8 +233,6 @@ $(document).ready(function(){
 
     function createTrainlineLink(departure_time,departure_iata,arrival_iata){
 
-        let time = departure_time+'-06:00'; //by default, from 6am
-
         let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
             .replace('%depiata',departure_iata)
             .replace('%arriata',arrival_iata)
@@ -278,9 +264,9 @@ $(document).ready(function(){
                                 a.push(i);
                             return a;
                         }, []).forEach(function(index){
-                            console.log('station found in list :'+station_data.city);
                             let record = records[index];
                             let trip = {};
+                            trip.day = record.date
                             trip.departure_city = departure_city;
                             trip.departure_iata = record.origine_iata;
                             trip.departure_coords = [coords.lat,coords.lng];
@@ -322,7 +308,9 @@ $(document).ready(function(){
                 let minute = Math.round(Math.abs(trip.duration- hours*60));
                 let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
 
-                let tl_url = createTrainlineLink(trip.departure_time,trip.departure_iata,trip.arrival_iata);
+                let processed_date = trip.day+'-'+trip.departure_time.split(':')[0]+':00';
+
+                let tl_url = createTrainlineLink(processed_date,trip.departure_iata,trip.arrival_iata);
 
                 let ticket_html = '<div id="'+trip.departure_iata+trip.arrival_iata+trip.duration+'" class="card card-custom text-white mb-3" style="width: 15rem; height: 5rem;">'
                     +'<div class="card-header p-0 my-auto"><i class="fas fa-angle-double-down"></i> %td | %d </div>'.replace('%d',trip.departure_city).replace('%td',trip.departure_time)

@@ -5,6 +5,7 @@ function displayWeatherOnMap(map,current_marker){
     console.log(city_id);
     const display = async () => {
         retrieveWeatherInformation(city_id).then(function(weather_raw_data) {
+            console.log(weather_raw_data);
             let url1 = weather_raw_data.icon_urls[0];
             let url2 = weather_raw_data.icon_urls[1];
             let url3 = weather_raw_data.icon_urls[2];
@@ -16,6 +17,19 @@ function displayWeatherOnMap(map,current_marker){
                 +'<img class="" id="icon_1" src='+url1+' alt="" width="45px">|<img class="" id="icon_2" src='+url2+' alt="" width="45px">|<img class="" id="icon_3" src='+url3+' alt="" width="45px"><br/>';
             let html_weather = html_base + '<a id="bar_'+city_id+'" href="#" style="color:white;"">more...</a>';
             current_marker._popup.setContent(html_weather)
+
+            $( "#bar_"+city_id ).bind( "click", function() {
+                map.flyTo(current_marker.getLatLng(),15,{'easeLinearity':1.0});
+                current_marker.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
+                map.closePopup();
+                //var static = new L.Layer.StaticOverlay().addTo(map);
+                const builder = async () => {
+                    await delay(5000);
+                    console.log("load bar data...");
+                    buildBarLayer(map,current_marker.getLatLng(),city_id,html_base);
+                };
+                builder();
+            });
         })
     };
     display();
@@ -40,8 +54,8 @@ function check_existing_weather(city_id,weather_raw_data) {
                     let date_tmp = new Date(weather_data.date);
                     let date_str = (date_tmp.getDate() + day_after) + '/' + (date_tmp.getMonth() + 1);
                     weather_raw_data.dates.push(date_str);
-                    weather_raw_data.temps.push(new Date(weather_data.temp));
-                    weather_raw_data.icon_urls.push(new Date(weather_data.icon));
+                    weather_raw_data.temps.push(weather_data.temp);
+                    weather_raw_data.icon_urls.push(weather_data.icon);
                     day_after = day_after + 1;
                 })
             }

@@ -176,7 +176,7 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
 
     info.addTo(map);
     $( "#back_"+city_id ).bind( "click", function() {
-        map.flyTo(initial_pos,13,{'easeLinearity':1.0});
+        map.flyTo(initial_pos,7,{'easeLinearity':1.0});
         info.remove();
         slider.remove();
         map.removeLayer(markers_bar);
