@@ -46,9 +46,10 @@
                 <input class="form-control" type="date" value="" id="selected_date">
             </div>
             <script>
+                //form is hidden by default
                 $('#trip_form').hide();
                 Date.prototype.yyyymmdd = function() {
-                    var mm = this.getMonth() + 1; // getMonth() is zero-based
+                    var mm = this.getMonth() + 1; // remind getMonth() is zero-based
                     var dd = this.getDate();
 
                     return this.getFullYear() + '-'+
@@ -56,12 +57,13 @@
                         (dd>9 ? '' : '0') + dd;
                 };
                 $(function () {
+                    //set up current date
                     $('#selected_date').val((new Date().yyyymmdd()));
                 });
             </script>
             <div class="input-group-btn">
                 <label class="mr-sm-2">Duration </label>
-                <div class="btn-group-toggle btn-block" data-toggle="buttons">
+                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="weather_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="options" id="6h" autocomplete="off"> 6H
                     </label>
@@ -75,6 +77,11 @@
                         <input type="radio" name="options" id="unknown_time" autocomplete="off" checked> ?
                     </label>
                 </div>
+                <script>
+                    $('#weather_buttons').on('click', function () {
+                        console.log($(this).text());
+                    });
+                </script>
             </div>
             <div class="input-group-btn">
                 <label class="mr-sm-2">Weather </label>
@@ -83,10 +90,10 @@
                         <input type="radio" name="options" id="sun" autocomplete="off"><i class="fa fa-sun"></i>
                     </label>
                     <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="options" id="cloud" autocomplete="off"><i class="fa fa-cloud"></i>
+                        <input type="radio" name="options" id="hot" autocomplete="off"> +5°
                     </label>
                     <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="options" id="rain" autocomplete="off"><i class="fa fa-tint"></i>
+                        <input type="radio" name="options" id="cold" autocomplete="off"> -5°
                     </label>
                     <label class="btn btn-outline-secondary active text-white">
                         <input type="radio" name="options" id="unknown_weather" autocomplete="off" checked> ?
@@ -105,23 +112,4 @@
 
 </nav>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 99999">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create your trip</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button id="trip_btn" type="button" class="btn btn-primary" data-dismiss="modal" >Create a trip</button>
-            </div>
-        </div>
-    </div>
-</div>
 </html>

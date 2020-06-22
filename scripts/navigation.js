@@ -5,7 +5,7 @@ $(document).ready(function() {
         //console.log(city_name);
         let city_html = $('<li><a id="link_' + city_index + '" style="width: 100.0%; height: 100.0%;" href="destination.html?city=' + city_index + '" target="_blank""><br>' + city_name + '<br></a></li>')[0];
         $("#destSubmenu").append(city_html);
-        let city_option = $('<option id="opt_' + city_index + '">'+city_name+'</option>')[0];
+        let city_option = $('<option id="opt_' + city_index + '" value="'+city_index+'" >'+city_name+'</option>')[0];
         $("#destination_select").append(city_option);
     }
 

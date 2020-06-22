@@ -18,10 +18,8 @@ function update_map(markers,selected_duration){
 
 //focus on station
 function focus_station(city_id,route){
-    console.log('look for marker...')
     route.eachLayer(function(layer){
         if(layer.options.id == city_id){
-            console.log('marker found...')
             layer.fire('click');
         }
     })
@@ -104,10 +102,21 @@ $(document).ready(function(){
     var route = L.featureGroup().addTo(map);
     var current_zone = L.featureGroup().addTo(map);
 
-    $("#destination_select").change(function() {
+    $("#destination_select").change(function(event) {
         var id = $(this).children(":selected").attr("id");
         let city_id = id.replace(/\D/g,'');
-        focus_station(city_id);
+        if (event.originalEvent !== undefined) {
+            focus_station(city_id,route);
+        }
+    });
+
+    $('#selected_date').change(function() {
+        var date = $(this).val();
+        console.log(date, 'change')
+        let query_date = buildQueryDate($('#selected_date').val());
+        let weather_restriction =
+        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+
     });
 
     $('#toggle_tgv').change(function() {
@@ -115,6 +124,8 @@ $(document).ready(function(){
         isEditable = $(this).prop('checked');
         map.closePopup();
     });
+
+
 
     function onClick(event) {
         //check if tgv is toggled
@@ -135,7 +146,13 @@ $(document).ready(function(){
             //retrieve date from form
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event.sourceTarget;
-            getCityConnections(query_date,query_marker);
+            getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
+            //select city in tgv ticket form (when click is human made)
+            if (event.originalEvent !== undefined) {
+                $('#destination_select').val(event.sourceTarget.options.id).change();
+
+            }
+            //display ticket box
             displayTickets(map);
         }
     }
@@ -198,7 +215,7 @@ $(document).ready(function(){
 
     var trip_durations = [];
 
-    function getCityConnections(date,marker){
+    function getCityConnections(date,marker,weather_restriction,time_restriction){
         //retrieve relevant data
         let coords = marker.getLatLng();
         let departure_city = marker.options.city;
@@ -232,11 +249,11 @@ $(document).ready(function(){
     }
 
     function createTrainlineLink(departure_time,departure_iata,arrival_iata){
-
+        //build trainline link
         let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
             .replace('%depiata',departure_iata)
             .replace('%arriata',arrival_iata)
-            .replace('%date',time);
+            .replace('%date',departure_time);
 
         return link;
     }
@@ -276,18 +293,20 @@ $(document).ready(function(){
                             trip.arrival_coords =[station_data.lat,station_data.lon];
                             trip.arrival_time = record.heure_arrivee;
                             trip.duration = calculateDuration(record.heure_arrivee,record.heure_depart);
-                            console.log(trip)
                             trips.push(trip);
                         });
                     }
                 })
             });
         }).then(function(){
+            //remove previous lines
+            current_zone.eachLayer(function (layer) {
+                layer.remove();
+            });
             if(typeof slider !== 'undefined'){
                 slider.remove();
             }
             trips = trips.sort(compare);
-            console.log(trips);
             let previousid = undefined;
             trips.forEach(function(trip){
                 let current_coords = new Array();
@@ -321,6 +340,7 @@ $(document).ready(function(){
                     +'</div>';
 
                 var anchored = false;
+
                 if(typeof previousid == 'undefined'){
                     $("#tickets").append(ticket_html);
                 }else{
