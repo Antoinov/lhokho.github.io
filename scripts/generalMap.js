@@ -124,6 +124,33 @@ $(document).ready(function(){
 
     });
 
+    $('#time_buttons').change(function() {
+        let query_date = buildQueryDate($('#selected_date').val());
+        let weather_restriction = $("input[name='weather']:checked").attr("id");
+        let time_restriction = $("input[name='time']:checked").attr("id");
+        console.log(weather_restriction);
+        console.log(time_restriction);
+        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+    });
+
+    $('#weather_buttons').change(function() {
+        let query_date = buildQueryDate($('#selected_date').val());
+        let weather_restriction = $("input[name='weather']:checked").attr("id");
+        let time_restriction = $("input[name='time']:checked").attr("id");
+        console.log(weather_restriction);
+        console.log(time_restriction);
+        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+    });
+
+    $('#destination_select').change(function() {
+        let query_date = buildQueryDate($('#selected_date').val());
+        let weather_restriction = $("input[name='weather']:checked").attr("id");
+        let time_restriction = $("input[name='time']:checked").attr("id");
+        console.log(weather_restriction);
+        console.log(time_restriction);
+        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+    });
+
     $('#toggle_tgv').change(function() {
         console.log('test')
         isEditable = $(this).prop('checked');
