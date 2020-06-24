@@ -55,7 +55,7 @@ function displayTickets(map){
     info_line.update = function (props) {
         this._div.innerHTML = tickets_html;
     };
-
+    //check if container exist
     if($(".FixedHeightContainer").length === 0){
         //adding additional information embedded in the map
         info_line.addTo(map);
@@ -71,7 +71,7 @@ $(document).ready(function(){
         if (typeof current_zone !== 'undefined') {
             current_zone.clearLayers();
         }
-        route.eachLayer(function (layer) {
+        markerLayer.eachLayer(function (layer) {
             layer.setOpacity(0.2);
         });
         tmp_duration_list = [0];
@@ -91,6 +91,10 @@ $(document).ready(function(){
         if($("#tickets").length !== 0){
             $("#tickets").remove();
         }
+        //remove ticket container if exists
+        if($(".FixedHeightContainer").length !== 0){
+            $(".FixedHeightContainer").remove();
+        }
     }
 
     // to restore marker to previous state when not used anymore
@@ -99,14 +103,14 @@ $(document).ready(function(){
     //retrieve map from global variable
     var map =  mapsPlaceholder[0];
     //add feature groups
-    var route = L.featureGroup().addTo(map);
+    var markerLayer = L.featureGroup().addTo(map);
     var current_zone = L.featureGroup().addTo(map);
 
     $("#destination_select").change(function(event) {
         var id = $(this).children(":selected").attr("id");
         let city_id = id.replace(/\D/g,'');
         if (event.originalEvent !== undefined) {
-            focus_station(city_id,route);
+            focus_station(city_id,markerLayer);
         }
     });
 
@@ -124,6 +128,9 @@ $(document).ready(function(){
         console.log('test')
         isEditable = $(this).prop('checked');
         map.closePopup();
+        current_zone.clearLayers();
+        clear_selection();
+        map.flyTo([46.1667,0.3333],6,{'animate':true});
     });
 
 
@@ -149,8 +156,6 @@ $(document).ready(function(){
             let query_marker = event.sourceTarget;
             let weather_restriction = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='time']:checked").attr("id");
-            console.log(weather_restriction);
-            console.log(time_restriction);
             getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
@@ -200,7 +205,7 @@ $(document).ready(function(){
             +'<img class="roundrect" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="100px"/><br/>';
 
         marker_destination.bindPopup(html,infoPopupOptions);
-        route.addLayer(marker_destination);
+        markerLayer.addLayer(marker_destination);
     }
 
     station = firebase.database().ref("city/station");
@@ -213,7 +218,7 @@ $(document).ready(function(){
             })
             idx = idx +1;
         });
-        map.fitBounds(route.getBounds());
+        map.fitBounds(markerLayer.getBounds());
     });
 
     //Get connections
@@ -290,7 +295,7 @@ $(document).ready(function(){
                         }, []).forEach(function(index){
                             let record = records[index];
                             let trip = {};
-                            trip.day = record.date
+                            trip.day = record.date;
                             trip.departure_city = departure_city;
                             trip.departure_iata = record.origine_iata;
                             trip.departure_coords = [coords.lat,coords.lng];
@@ -300,6 +305,7 @@ $(document).ready(function(){
                             trip.arrival_coords =[station_data.lat,station_data.lon];
                             trip.arrival_time = record.heure_arrivee;
                             trip.duration = calculateDuration(record.heure_arrivee,record.heure_depart);
+                            //create empty array that may store way back
                             trip.return_trips = [];
                             trips.push(trip);
                         });
@@ -320,22 +326,35 @@ $(document).ready(function(){
 
                 let identify_ticket = trip.departure_iata+trip.arrival_iata+trip.duration;
                 console.log(time_restriction);
+                //if time restriction is conditional
                 if(time_restriction !== 'unknown_time'){
+                    let from = trip.day.split("-");
+                    var departure_format_date = new Date(from[0], from[1] - 1, from[2],trip.arrival_time.split(':')[0],trip.arrival_time.split(':')[1])
                     time_restriction = time_restriction.replace('h','');
-                    let hours = Number(trip.arrival_time.split(':')[0])+Number(time_restriction)
-                    let theoretical_return_date = hours*60 + Number(trip.arrival_time.split(':')[1]);
+                    console.log(departure_format_date);
+                    let shifted_date = departure_format_date;
+                    shifted_date.setHours(shifted_date.getHours() + Number(time_restriction));
+                    
+                    let shifted_day_query = undefined;
+                    if( shifted_date.getDay() < 10){
+                        shifted_day_query = shifted_date.getFullYear()+'-'+("0" + (shifted_date.getMonth()+1)).slice(-2)+"-"+("0" + shifted_date.getDate()).slice(-2);
+                    }else{
+                        shifted_day_query = shifted_date.getFullYear()+'-'+("0" + (shifted_date.getMonth()+1)).slice(-2)+"-"+shifted_date.getDate();
+                    }
                     var return_query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
                         '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
-                        '&refine.date=%date'.replace('%date',trip.day)+ //format: YYYY-MM-DD
+                        '&refine.date=%date'.replace('%date',shifted_day_query)+ //format: YYYY-MM-DD
                         '&refine.origine_iata=%arrival'.replace('%arrival',trip.arrival_iata)+
                         '&refine.destination_iata=%departure'.replace('%departure',trip.departure_iata)
-
-
                     $.getJSON(return_query, function(response){
                         let isThereRecords = false;
                         response.records.forEach(function(record){
-                            let return_time = Number(record.fields.heure_depart.split(':')[0])*60+Number(record.fields.heure_depart.split(':')[1]);
-                            if(return_time < theoretical_return_date ){
+                            let from_return = record.fields.date.split("-");
+                            var return_format_date = new Date(from_return[0], from_return[1] - 1, from_return[2],record.fields.heure_depart.split(':')[0],record.fields.heure_depart.split(':')[1])
+                            console.log(return_format_date.getTime());
+                            console.log(shifted_date.getTime());
+                            if(return_format_date.getTime() <= shifted_date.getTime() ){
+                                console.log('add return...')
                                 isThereRecords = true;
                                 let trip_back = {};
                                 trip_back.time = record.fields.date;
@@ -345,8 +364,17 @@ $(document).ready(function(){
                                 let processed_date = trip.day+'-'+trip_back.heure_depart.split(':')[0]+':00';
                                 trip.return_trips.push(trip_back);
                                 let tl_return_url = createTrainlineLink(processed_date,trip.arrival_iata,trip.departure_iata);
-                                let return_html = '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i><a href="'+tl_return_url+'" style=" text:right;color:white;" target="_blank""> %depart <i class="fas fa-angle-double-right"></i> %arrivee </a></p>'
+                                let return_html = undefined;
+                                console.log(shifted_day_query.split('-')[0]);
+                                console.log(trip.day.split('-')[0]);
+                                if(shifted_day_query.split('-')[0] !== trip.day.split('-')[0]){
+                                    return_html = '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i><a href="'+tl_return_url+'" style=" text:right;color:white;" target="_blank""> %depart <i class="fas fa-angle-double-right"></i> %arrivee (+1)</a></p>'
                                     .replace('%depart',trip_back.heure_depart).replace('%arrivee',trip_back.heure_arrivee)
+                                }else{
+                                    return_html = '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i><a href="'+tl_return_url+'" style=" text:right;color:white;" target="_blank""> %depart <i class="fas fa-angle-double-right"></i> %arrivee </a></p>'
+                                    .replace('%depart',trip_back.heure_depart).replace('%arrivee',trip_back.heure_arrivee)
+                                }
+                                
                                 $("#back_"+identify_ticket).append(return_html);
                             }
 
@@ -410,7 +438,7 @@ $(document).ready(function(){
                 tmp_duration_list.push(trip.duration);
                 current_zone.addLayer(polyline);
                 console.log(tmp_duration_list);
-                route.eachLayer(function (layer) {
+                markerLayer.eachLayer(function (layer) {
                     if (trip.iata_code == layer.options.iata) {
                         layer.setOpacity(1);
                     }
@@ -485,7 +513,6 @@ $(document).ready(function(){
                                     });
                                     $('#'+previousid).css("background-color","#57587f");
                                     console.log(trip.arrival_coords);
-                                    map.flyTo([center_x,center_y],7,{'animate':true});
                                 }
                             }
                             previousid = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.duration.toString();
