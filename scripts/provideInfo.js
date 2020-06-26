@@ -117,11 +117,17 @@ $(document).ready(function(){
         var url = 'https://newsapi.org/v2/everything?qInTitle=+%city_name&language=fr&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_name',city_name.toString()).replace('%from',from.toString()).replace('%to',to.toString())
         let max_results = 0
         $.ajaxSetup({
-          headers : {
-            'Access-Control-Allow-Origin' : '*',
-            'Access-Control-Allow-Credentials' : 'true'
-              }
-            });
+            crossDomain: true,
+            dataType:'json',
+            mode:'no-cors',
+            headers : {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin" : "*",
+                "Access-Control-Allow-Credentials" : "true",
+                "Access-Control-Allow-Methods":"GET,PATCH,HEAD,OPTIONS,POST,PUT",
+                "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+            }
+        });
         $.getJSON(url, function(data){
             console.log('API called on city');
             console.log(data);
@@ -156,7 +162,19 @@ $(document).ready(function(){
                }}
                }).then(function (){
                if (max_results < 3) {
-               console.log('API News Called on departement')
+               console.log('API News Called on departement');
+               $.ajaxSetup({
+                   crossDomain: true,
+                   dataType:'json',
+                   mode:'no-cors',
+                   headers : {
+                       'Content-Type': 'application/json',
+                       "Access-Control-Allow-Origin" : "*",
+                       "Access-Control-Allow-Credentials" : "true",
+                       "Access-Control-Allow-Methods":"GET,PATCH,HEAD,OPTIONS,POST,PUT",
+                       "Access-Control-Allow-Headers":"Origin, X-Requested-With, Content-Type, Accept, Authorization"
+                   }
+               });
                var url_2 = 'https://newsapi.org/v2/everything?qInTitle=%city_dept&language=fr&excludeDomains=dealabs.com&from=%from&to=%to&apiKey=c5eba9aaad354ffd9992eb65f5273c05'.replace('%city_dept',city_dept.toString()).replace('%from',from.toString()).replace('%to',to.toString())
                $.getJSON(url_2, function(new_data) {
                 old_index = []

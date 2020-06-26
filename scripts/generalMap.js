@@ -44,7 +44,7 @@ function displayTickets(map){
         position : 'bottomright'
     });
 
-    let tickets_html = '<div  class="Content"><ul id="tickets"></ul></div>'
+    let tickets_html = '<div  class="Content"><ul style="list-style-type:none;" id="tickets"></ul></div>'
     info_line.onAdd = function (map) {
         this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
@@ -120,8 +120,9 @@ $(document).ready(function(){
         let time_restriction = $("input[name='time']:checked").attr("id");
         console.log(weather_restriction);
         console.log(time_restriction);
-        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
-
+        if(typeof previous_marker !== 'undefined'){
+            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        }
     });
 
     $('#time_buttons').change(function() {
@@ -130,7 +131,9 @@ $(document).ready(function(){
         let time_restriction = $("input[name='time']:checked").attr("id");
         console.log(weather_restriction);
         console.log(time_restriction);
-        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        if(typeof previous_marker !== 'undefined'){
+            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        }
     });
 
     $('#weather_buttons').change(function() {
@@ -139,7 +142,9 @@ $(document).ready(function(){
         let time_restriction = $("input[name='time']:checked").attr("id");
         console.log(weather_restriction);
         console.log(time_restriction);
-        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        if(typeof previous_marker !== 'undefined'){
+            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        }
     });
 
     $('#destination_select').change(function() {
@@ -269,7 +274,7 @@ $(document).ready(function(){
             let departure_times = [];
             let records = [];
             response.records.forEach(function(record){
-                console.log(record.fields);
+
                 records.push(record.fields);
                 arrival_iatas.push(record.fields.destination_iata);
                 departure_times.push(record.fields.heure_depart);
@@ -315,7 +320,6 @@ $(document).ready(function(){
                 childNodes.val().forEach(function(station_data){
                     if(iata_list.includes(station_data.iata_code)){
                         var indexes = iata_list.reduce(function(a, e, i) {
-                            console.log(e);
                             if (e === station_data.iata_code)
                                 a.push(i);
                             return a;
@@ -328,6 +332,7 @@ $(document).ready(function(){
                             trip.departure_coords = [coords.lat,coords.lng];
                             trip.departure_time = record.heure_depart;
                             trip.arrival_city = station_data.city;
+                            trip.arrival_id = childNodes.key; 
                             trip.arrival_iata = record.destination_iata;
                             trip.arrival_coords =[station_data.lat,station_data.lon];
                             trip.arrival_time = record.heure_arrivee;
@@ -349,12 +354,19 @@ $(document).ready(function(){
             }
             trips = trips.sort(compare);
             let previousid = undefined;
+            var accepted_weather = true;
             trips.forEach(function(trip){
-
                 let identify_ticket = trip.departure_iata.toString()+trip.arrival_iata.toString()+trip.arrival_time.replace(':','')+trip.departure_time.replace(':','');
                 console.log(identify_ticket);
-                //if time restriction is conditional
+                //WEATHER RESTRICTION
+                
+                if(weather_restriction !== 'unkown_time'){
+                    console.log('Apply weather restriction...');
+                    accepted_weather = acceptWeather(trip,weather_restriction);
+                }
+                //SCHEDULE RESTRICTION
                 if(time_restriction !== 'unknown_time'){
+                    console.log('Apply schedule restriction...');
                     let from = trip.day.split("-");
                     var arrival_formatted_date = new Date(from[0], from[1] - 1, from[2],trip.arrival_time.split(':')[0],trip.arrival_time.split(':')[1])
                     time_restriction = time_restriction.replace('h','');
@@ -376,15 +388,11 @@ $(document).ready(function(){
                         let isThereRecords = false;
                         response.records.forEach(function(record){
                             let from_return = record.fields.date.split("-");
-                            var return_format_date = new Date(from_return[0], from_return[1] - 1, from_return[2],record.fields.heure_depart.split(':')[0],record.fields.heure_depart.split(':')[1])
-                            console.log(return_format_date.getTime());
-                            console.log(shifted_date.getTime());
+                            var return_format_date = new Date(from_return[0], from_return[1] - 1, from_return[2],record.fields.heure_depart.split(':')[0],record.fields.heure_depart.split(':')[1]);
                             let difference_time = shifted_date.getTime() - return_format_date.getTime();
                             let isMatchingSlot = (difference_time > 0) && (difference_time < time_restriction *60*60*1000)
-                            console.log(difference_time)
-                            console.log(time_restriction *60*60*1000)
                             if(isMatchingSlot){
-                                console.log('add return...')
+                                console.log('Add return to given trip...')
                                 isThereRecords = true;
                                 let trip_back = {};
                                 trip_back.time = record.fields.date;
@@ -410,9 +418,8 @@ $(document).ready(function(){
 
                         })
                         if(time_restriction === '24'){
-                            console.log('check previous day...')
+                            console.log('Check previous day...')
                             let previous_day = new Date(shifted_date.setDate(shifted_date.getDate()-1));
-                            console.log(previous_day)
                             let date_previous_day_query = undefined;
                             if( shifted_date.getDay() < 10){
                                 date_previous_day_query = previous_day.getFullYear()+'-'+("0" + (previous_day.getMonth()+1)).slice(-2)+"-"+("0" + previous_day.getDate()).slice(-2);
@@ -431,7 +438,7 @@ $(document).ready(function(){
                                     let difference_time = shifted_date.getTime() - return_format_date.getTime();
                                     let isMatchingSlot = (difference_time > 0) && (difference_time < time_restriction *60*60*1000);
                                     if(isMatchingSlot){
-                                        console.log('add return...')
+                                        console.log('Add return to given trip...')
                                         isThereRecords = true;
                                         let trip_back = {};
                                         trip_back.time = record.fields.date;
@@ -442,8 +449,6 @@ $(document).ready(function(){
                                         trip.return_trips.push(trip_back);
                                         let tl_return_url = createTrainlineLink(processed_date,trip.arrival_iata,trip.departure_iata);
                                         let return_html = undefined;
-                                        console.log(shifted_day_query.split('-')[2]);
-                                        console.log(trip.day.split('-')[2]);
                                         return_html = '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i><a href="'+tl_return_url+'" style=" text:right;color:white;" target="_blank""> %depart <i class="fas fa-angle-double-right"></i> %arrivee </a></p>'
                                             .replace('%depart',trip_back.heure_depart).replace('%arrivee',trip_back.heure_arrivee);
                                         $("#back_"+identify_ticket).append(return_html);
@@ -496,14 +501,13 @@ $(document).ready(function(){
 
 
                 var anchored = false;
-
-                if(typeof previousid == 'undefined'){
-                    $("#tickets").append(ticket_html);
-                }else{
-                    $(ticket_html).inserAfter('#'+previousid);
+                if(accepted_weather){
+                    if(typeof previousid == 'undefined'){
+                        $("#tickets").append(ticket_html);
+                    }else{
+                        $(ticket_html).inserAfter('#'+previousid);
+                    }
                 }
-
-
                 tmp_duration_list.push(trip.duration);
                 current_zone.addLayer(polyline);
                 console.log(tmp_duration_list);

@@ -75,6 +75,51 @@ function check_existing_weather(city_id,weather_raw_data) {
     return Promise.resolve();
 }
 
+function acceptWeather(trip,condition){
+    let isAccepted = true;
+    var url_arrival = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'
+        .replace('%lat', trip.arrival_coords[0].toString())
+        .replace('%lon', trip.arrival_coords[1].toString());
+    var url_departure = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'
+    .replace('%lat', trip.departure_coords[0].toString())
+    .replace('%lon', trip.departure_coords[1].toString());
+    let departure_data = undefined;
+    let arrival_data = undefined;
+
+    $.getJSON(url_departure, function (data) {
+        data.daily.forEach(function(daily_data){
+            let today_check = new Date(daily_data.dt);
+            if(today_check.getDate() === trip.day.split('-')[2]){
+                departure_data = daily_data;
+            }
+            
+        })
+
+        $.getJSON(url_arrival, function (data) {
+            data.daily.forEach(function(daily_data){
+                let today_check = new Date(daily_data.dt);
+                if(today_check.getDate() === trip.day.split('-')[2]){
+                    arrival_data = daily_data;
+                }
+            })
+            
+            if(condition === 'hot'){
+                isAccepted = (departure_data.temp.day < (arrival_data.temp.day + 5))
+            }else if(condition === 'cold'){
+                isAccepted= (departure_data.temp.day > (arrival_data.temp.day + 5))
+            }else if(condition === 'sun'){
+                isAccepted = arrival_data.weather[0].main == 'Clear';
+            }else{
+                isAccepted = true;
+            }
+        });
+
+        console.log(data);
+        return isAccepted;
+    
+    });
+}
+
 function retrieveWeatherInformation(city_id){
     //weather data to retrieve
     var weather_raw_data = {

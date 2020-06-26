@@ -62,7 +62,24 @@
                 });
             </script>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Duration </label>
+                <label class="mr-sm-2">Trip duration ? </label>
+                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="trip_buttons">
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="trip" id="short" autocomplete="off"> < 1H
+                    </label>
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="trip" id="medium" autocomplete="off"> 1-3H
+                    </label>
+                    <label class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="trip" id="long" autocomplete="off"> 4H+
+                    </label>
+                    <label class="btn btn-outline-secondary active text-white">
+                        <input type="radio" name="trip" id="unknown_trip" autocomplete="off" checked> ?
+                    </label>
+                </div>
+            </div>
+            <div class="input-group-btn">
+                <label class="mr-sm-2">Stay duration ? </label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="time_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="time" id="6h" autocomplete="off"> < 6H
@@ -79,7 +96,7 @@
                 </div>
             </div>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Weather </label>
+                <label class="mr-sm-2">Weather ?</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="weather_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="weather" id="sun" autocomplete="off"><i class="fa fa-sun"></i>
