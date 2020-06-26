@@ -35,6 +35,20 @@ function displayWeatherOnMap(map,current_marker){
     display();
 }
 
+function displayWeatherOnDestination(city_id){
+    const display = async () => {
+        retrieveWeatherInformation(city_id).then(function(weather_raw_data) {
+            console.log(weather_raw_data);
+            for (let i = 1; i <= weather_raw_data.dates.length; i++) {
+                document.getElementById('w_'+i.toString()).append(weather_raw_data.dates[i-1]);
+                document.getElementById('temp_'+i.toString()).append(weather_raw_data.temps[i-1]);
+                document.getElementById('icon_'+i.toString()).src = weather_raw_data.icon_urls[i-1];
+            }
+        });
+    };
+    display();
+}
+
 function check_existing_weather(city_id,weather_raw_data) {
     //get firebase snapshot of weather data
     let weather = firebase.database().ref("city/weather");
@@ -153,14 +167,6 @@ function retrieveWeatherInformation(city_id){
 
         });
     });
-}
-
-function displayOnDestination(weather_raw_data) {
-    for (let i = 0; i < weather_raw_data.dates.length; i++) {
-        document.getElementById(wt).append(weather_raw_data.dates[i]);
-        document.getElementById(wth).append(weather_raw_data.temps[i]);
-        document.getElementById(wth2).src = weather_raw_data.icon_urls[i];
-    }
 }
 
 function queryAndStoreWeather(city_id,weather_raw_data, data_list) {

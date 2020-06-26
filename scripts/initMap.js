@@ -1,23 +1,32 @@
-const delay = ms => new Promise(res => setTimeout(res, ms));
-// Before map(s) is(are) being initialized.
+// Before map is being initialized.
 var mapsPlaceholder = [];
-
+//Check mobile app 
 var isMobileDisplay = L.Browser.mobile;
-
-
+//Define custom leaflet line object
 CustomPolyline = L.Polyline.extend({
     options: {
         // default values, you can override these when constructing a new customPolyline
         duration:0
     }
 });
-
 // http://leafletjs.com/reference-1.1.0.html#class-constructor-hooks
 L.Map.addInitHook(function () {
     mapsPlaceholder.push(this); // Use whatever global scope variable you like.
 });
-
+//Define layer:
+// -markerLayer (containing markers and global information)
+// -tripLayer (containing trip suggestions)
+// -localBarLayer (containing bar data locally set on map)
+// -localTrainLayer (containing train data locally set on map)
+// -localPointLayer (containing other points of interests locally set on map)
+var markerLayer = L.featureGroup();
+var tripLayer = L.featureGroup();
+var localBarLayer = L.featureGroup();
+var localTrainLayer = L.featureGroup();
+var localPointLayer = L.featureGroup();
+//DOCUMENT ON LOAD
 $(document).ready(function(){
+    //Create a map
     L.map(
         "map",
         {
@@ -29,8 +38,7 @@ $(document).ready(function(){
             scrollWheelZoom: false
         }
     );
-
-    //Create and shape leaflet map
+    //Shape leaflet map
     var map = mapsPlaceholder[0];
 
     L.control.zoom({
@@ -42,7 +50,10 @@ $(document).ready(function(){
         {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
     ).addTo(map);
 
-
-
-
+   //Add feature groups
+   markerLayer.addTo(map);
+   tripLayer.addTo(map);
+   localBarLayer.addTo(map);
+   localTrainLayer.addTo(map);
+   localPointLayer.addTo(map);
 });

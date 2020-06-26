@@ -1,13 +1,3 @@
-
-
-function update_map(markers,selected_duration){
-    markers.eachLayer(function(layer){
-        if(layer.options.duration !== undefined){
-            
-        }
-    });
-}
-
 //focus on station
 function focus_station(city_id,route){
     route.eachLayer(function(layer){
@@ -60,8 +50,8 @@ function displayTickets(map){
 $(document).ready(function(){
 
     function clear_selection(){
-        if (typeof current_zone !== 'undefined') {
-            current_zone.clearLayers();
+        if (typeof tripLayer !== 'undefined') {
+            tripLayer.clearLayers();
         }
         markerLayer.eachLayer(function (layer) {
             layer.setOpacity(0.2);
@@ -87,17 +77,19 @@ $(document).ready(function(){
         if($(".FixedHeightContainer").length !== 0){
             $(".FixedHeightContainer").remove();
         }
+
+        //remove previous lines
+        tripLayer.eachLayer(function (layer) {
+            layer.remove();
+        });
     }
 
     // to restore marker to previous state when not used anymore
     var previous_marker = undefined;
-    var isEditable = false;
     //retrieve map from global variable
     var map =  mapsPlaceholder[0];
-    //add feature groups
-    var markerLayer = L.featureGroup().addTo(map);
-    var current_zone = L.featureGroup().addTo(map);
-
+ 
+    //work on change event
     $("#destination_select").change(function(event) {
         var id = $(this).children(":selected").attr("id");
         let city_id = id.replace(/\D/g,'');
@@ -156,12 +148,10 @@ $(document).ready(function(){
         console.log('test')
         isEditable = $(this).prop('checked');
         map.closePopup();
-        current_zone.clearLayers();
+        tripLayer.clearLayers();
         clear_selection();
         map.flyTo([46.1667,0.3333],6,{'animate':true});
     });
-
-
 
     function onClick(event) {
         //check if tgv is toggled
@@ -170,10 +160,7 @@ $(document).ready(function(){
         clear_selection();
         //make it visible
         event.sourceTarget.setOpacity(1);
-        //remove previous lines
-        current_zone.eachLayer(function (layer) {
-            layer.remove();
-        });
+        
         //store marker
         previous_marker = event.sourceTarget;
         //fly to selected marker
@@ -513,7 +500,7 @@ $(document).ready(function(){
                     }
 
                     tmp_duration_list.push(trip.duration);
-                    current_zone.addLayer(polyline);
+                    tripLayer.addLayer(polyline);
 
                     markerLayer.eachLayer(function (layer) {
                         if (trip.arrival_iata == layer.options.iata) {
@@ -522,7 +509,7 @@ $(document).ready(function(){
                     });
 
                     $('#'+identify_ticket).bind('mouseover',function(){
-                        current_zone.eachLayer(function (layer) {
+                        tripLayer.eachLayer(function (layer) {
                             if(!anchored) {
                                 if (layer.options.id == identify_ticket) {
                                     layer.setStyle({
@@ -542,7 +529,7 @@ $(document).ready(function(){
                     $('#'+identify_ticket).bind('click',function(){
                         console.log('test click')
                         let oneTime = true;
-                        current_zone.eachLayer(function (layer) {
+                        tripLayer.eachLayer(function (layer) {
                             if (layer.options.id == identify_ticket && oneTime) {
                                 oneTime = false;
                                 console.log(layer.options.id);
@@ -580,7 +567,7 @@ $(document).ready(function(){
                                             dashOffset: '0'
                                         });
                                         $('#'+identify_ticket).css("background-color","#9d9efd");
-                                        current_zone.eachLayer(function (previous_layer) {
+                                        tripLayer.eachLayer(function (previous_layer) {
                                             if (previous_layer.options.id == previousid) {
                                                 previous_layer.setStyle({
                                                     color: 'black',
@@ -603,7 +590,7 @@ $(document).ready(function(){
                     });
 
                     $('#'+identify_ticket).bind('mouseout',function(){
-                        current_zone.eachLayer(function (layer) {
+                        tripLayer.eachLayer(function (layer) {
                             let id = identify_ticket;
                             if (layer.options.id == id) {
                                 if(!anchored){

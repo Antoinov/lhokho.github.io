@@ -23,8 +23,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
     <!-- Leaflet Slider add-on-->
-    <link rel="stylesheet" href="scripts/leaflet-slider.css"/>
-    <script src="scripts/leaflet-slider.js"></script>
+    <link rel="stylesheet" href="scripts/leaflet-slider/leaflet-slider.css"/>
+    <script src="scripts/leaflet-slider/leaflet-slider.js"></script>
     <!-- JQuery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
 
@@ -64,7 +64,7 @@
         <div class="se-pre-con"></div>
         <!-- START CONTENT  -->
         <div class="background">
-                    <div class="container-flex h-100" id="background" style="no-repeat center fixed; min-height: 90vh; background-position: center; background-size: cover">
+                    <div class="container-flex h-200" id="background" style="no-repeat center fixed; min-height: 90vh; background-position: center; background-size: cover">
                         <div class="row h-50">
                             <div class="col-5">
                                 <h1 class="text-center text-uppercase text-white font-weight-bold" id="city_welcome">Bienvenue à </h1></div>
@@ -81,7 +81,6 @@
                                 <div class="card-deck">
                                     <div class="card" style="max-width: 20rem; height: 15rem;">
                                         <div class="card-header" id="w_1">
-
                                         </div>
                                         <img class="card-img-top" id="icon_1"  src="" alt="">
                                         <div class="card-body">
@@ -118,30 +117,30 @@
                                 </div>
                             </div>
                         </div>
-
-                    <div class = "container-flex justify-content-md-center" style="min-height: 35em; max-height: 35em; padding-bottom: 2em" id="news_container">
-                        <div id="carouselExampleSlidesOnly" style="overflow: hidden; background-color: rgba(255, 255, 255, 0.3); padding: 2em 2em 2em 2em; max-width: 40em; max-height: 34em; margin-left:10em; margin-right:5em; margin-bottom: 2em; margin-top: 2em"class="carousel slide" data-ride="carousel">
-                          <div class="carousel-inner">
-                            <div class="carousel-item active">
-                              <img class="d-block w-100" id="news_img_1" alt="">
-                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_1"></label></h3>
-                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_1"></label></p>
+                        <div class="row h-200 justify-content-center">
+                            <div class = "container-flex justify-content-md-center" style="min-height: 35em; max-height: 35em; padding-bottom: 2em;
+                            margin: 0 auto;" id="news_container">
+                                <div id="carouselExampleSlidesOnly" style="overflow: hidden; background-color: rgba(255, 255, 255, 0.3); padding: 2em 2em 2em 2em; max-width: 40em; max-height: 34em; margin-left:10em; margin-right:5em; margin-bottom: 2em; margin-top: 2em"class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                        <img class="d-block w-100" id="news_img_1" alt="">
+                                            <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_1"></label></h3>
+                                            <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_1"></label></p>
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img class="d-block w-100" id="news_img_2" alt="">
+                                            <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_2"></label></h3>
+                                            <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_2"></label></p>
+                                        </div>
+                                        <div class="carousel-item">
+                                        <img class="d-block w-100" id="news_img_3" alt="">
+                                            <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_3"></label></h3>
+                                            <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_3"></label></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="carousel-item">
-                              <img class="d-block w-100" id="news_img_2" alt="">
-                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_2"></label></h3>
-                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_2"></label></p>
-                            </div>
-                            <div class="carousel-item">
-                              <img class="d-block w-100" id="news_img_3" alt="">
-                                <h3 class="text-center text-dark font-weight-bold" style="background-color: rgba(255, 255, 255, 0.6); position: absolute; top: 4em; left: 3em margin-bottom: 3em; right: 20px; color: white; padding-left: 20px; padding-right: 20px"><label id="news_title_3"></label></h3>
-                                <p class="text-center text-white font-weight-light" style="position: centered; margin-bottom: 10px; right: 20px; margin-bottom: 1em"><label id="news_content_3"></label></p>
-                            </div>
-                          </div>
                         </div>
-                        <div></div>
-                    </div>
-
                     </div>
                 <div class="container-flex" id="items_container" style="min-height: 90vh; background: url(images/icons/item.jpg) no-repeat center center fixed;background-size: cover" >
             <script>$(function() {
@@ -282,33 +281,13 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
         integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
         crossorigin=""></script>
-    <script src="scripts/leaflet-slider.js"></script>
-    <script type="text/javascript">
-        //Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDTzIHmzLtV18PlC_rhmUlVBoj0FMty2U8",
-            authDomain: "lhokho.firebaseapp.com",
-            databaseURL: "https://lhokho.firebaseio.com",
-            projectId: "lhokho",
-            storageBucket: "lhokho.appspot.com",
-            messagingSenderId: "914809444198",
-            appId: "1:914809444198:web:35ffb12ed619dd2de41aa7",
-            measurementId: "G-KEBX9V4BPX"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        $("#side-nav").load("pages/side-nav.html");
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-            $('#toggle_tgv').remove();
-        });
-
-    </script>
+    <script src="scripts/leaflet-slider/leaflet-slider.js"></script>
+    <script src="scripts/connectFirebase.js"></script>
+    <script src="scripts/utils.js"></script>
     <script src="scripts/navigation.js"></script>
     <!-- Additional scripts -->
-    <script src="scripts/provideInfo.js"></script>
+    <script src="scripts/weather.js"></script>
+    <script defer src="scripts/provideInfo.js"></script>
     <script src="scripts/barMap.js"></script>
 </body>
 

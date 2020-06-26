@@ -289,7 +289,7 @@ $(document).ready(function(){
         }
     }
 
-    displayWeatherData();
+    displayWeatherOnDestination(city_id);
 
     //retrieve city location (lat,lon) information if it exists and populate the weather
     function getCityWeather(data_list){

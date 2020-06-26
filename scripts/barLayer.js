@@ -1,4 +1,14 @@
-function add_marker(name,position,icon_url,icon_size,price,layer){
+/**
+ * Copyright (c) 2017
+ *
+ * File containing methods to build and populate bar local layer localized in a given city
+ *
+ * @summary bar layer builder set of methods
+ * @author Makitsu 
+ *
+ */
+
+function add_bar_marker(name,position,icon_url,icon_size,price,layer){
     var marker_destination = L.marker(
         position,
         {"name":name , "price":price}
@@ -15,8 +25,6 @@ function add_marker(name,position,icon_url,icon_size,price,layer){
     marker_destination.bindPopup(popup);
     layer.addLayer(marker_destination);
 }
-
-function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
 
 function update_bar(markers,price){
     var clusterToClean = [];
@@ -40,7 +48,15 @@ function update_bar(markers,price){
     })
 }
 
-//BAR
+
+
+/**
+ * Build bar local layer in index map
+ * @param {Map} map leaflet map to populate
+ * @param {Array} initial_pos initial position lat-lon array
+ * @param {Number} city_id unique city identifier
+ * @param {String} info_html html string related to bar
+ */
 function buildBarLayer(map,initial_pos,city_id,info_html) {
     var info_bars = firebase.database().ref("city/bar/" + city_id);
     var info_station = firebase.database().ref("city/station/" + city_id);
@@ -105,7 +121,7 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
 
     for (var k = 0; k < station_names.length; k++) {
         var name = station_names[k]
-        add_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,local);
+        add_bar_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,local);
         var circleCenter = station_positions[k];
 
         var circleOptions = {
@@ -135,9 +151,9 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
     for (var j = 0; j < bar_names.length; j++) {
         var name = bar_names[j]
         if(isNaN(bar_nHH_prices[j])){
-            add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],undefined,markers_bar)
+            add_bar_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],undefined,markers_bar)
         }
-        add_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],bar_nHH_prices[j],markers_bar)
+        add_bar_marker(name,bar_positions[j],"images/icons/pint.png",[20,20],bar_nHH_prices[j],markers_bar)
     }
     if(bar_names.length > 0){
         slider = L.control.slider(function(value) {
