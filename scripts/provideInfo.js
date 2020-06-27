@@ -2,8 +2,6 @@ $(document).ready(function(){
 
     var city_id = window.location.search.substr(1).split("=")[1];
 
-
-
     informations = firebase.database().ref("city/info");
     items = firebase.database().ref("city/items");
     beers = firebase.database().ref("city/beer");

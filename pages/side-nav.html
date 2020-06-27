@@ -23,10 +23,17 @@
                 <!-- destination list will be generated dynamically here -->
             </ul>
         </li>
+        <li id="logoutOpt" hidden>
+            <a onclick="googleSignOut()">
+                <i class="fas fa-power-off"></i>
+                Log Out
+            </a>
+        </li>
     </ul>
 
 
     <ul class="list-unstyled CTAs">
+        <button id="btnLogout"   hidden>Log Out</button>
         <div class="form-group">
             <input type="checkbox" id="toggle_tgv" data-toggle="toggle" style="width:100%;" data-on="TGV Max" data-off="View" data-onstyle="info" data-offstyle="warning">
             <script>

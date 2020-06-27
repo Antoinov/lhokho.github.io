@@ -17,6 +17,7 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- Font Awesome JS -->
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.13/js/brands.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
     <!-- Leaflet CSS-->
@@ -48,11 +49,38 @@
             <div class="map" id="map" ></div>
             <!-- STOP CONTENT  -->
         </div>
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Ready to travel with us ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="form-group">
+                                <button id="btnLogin"  onclick="googleSignIn()" class="btn btn-action w-100">
+                                    <i class="fab fa-google"></i>
+                                    Log in
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <button id="btnGuest"  onclick="initializeClock()" class="btn btn-secondary w-100">
+                                    <i class="fa fa-user-friends"></i>
+                                    Guest
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+    <!-- Add Other Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
     <!-- Popper.JS -->
@@ -68,6 +96,10 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
             integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
             crossorigin=""></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- script to load utils -->
+    <script src="scripts/utils.js"></script>
+    <!-- script to add some navigation elements -->
     <script src="scripts/navigation.js"></script>
     <!-- script to connect to firebase -->
     <script src="scripts/connectFirebase.js"></script>
