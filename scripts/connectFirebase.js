@@ -32,10 +32,7 @@ function googleSignIn(){
 function googleSignOut(){
     auth.signOut().then(function() {
         // Sign-out successful
-        $('#toggle_tgv').prop('checked', false); 
-        $('#logoutOpt').attr("hidden",true);
-        $('#btnLogin').show();
-        $("#myModal").modal('show');
+        location.reload();
         login = false;
       }).catch(function(error) {
         // An error happened.
