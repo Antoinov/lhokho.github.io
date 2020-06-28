@@ -20,7 +20,6 @@ function displayWeatherOnMap(map,current_marker){
 
             $( "#bar_"+city_id ).bind( "click", function() {
                 map.flyTo(current_marker.getLatLng(),15,{'easeLinearity':1.0});
-                current_marker.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
                 map.closePopup();
                 //var static = new L.Layer.StaticOverlay().addTo(map);
                 const builder = async () => {

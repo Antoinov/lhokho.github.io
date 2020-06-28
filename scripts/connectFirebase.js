@@ -24,6 +24,9 @@ function googleSignIn(){
         $('#logoutOpt').removeAttr('hidden');
         $("#myModal").modal('toggle');
         login = true;
+        // The signed-in user info.
+        var user = result.user;
+        console.log(user);
     }).catch(function(err){
         console.log(err);
     });
@@ -56,39 +59,5 @@ function initializeClock() {
         }
     },1000);
 }
-
-
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  }
-
-// Load side navigation
-$("#side-nav").load("pages/side-nav.html");
-// Connect side navigation to collapse button
-$(document).ready(function () {
-    $("#myModal").modal({
-        backdrop: 'static',
-        keyboard: false
-    });
-    $("#myModal").modal('show');
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-    const div = $('#trip_toggle')
-    $('#trip_btn').click(function(ev) {
-        console.log('add shaker');
-        div.addClass('shaker');
-        div.one('animationend', () => {
-            div.removeClass('shaker')
-        })
-        ev.preventDefault();
-    });
-
-});
 
 

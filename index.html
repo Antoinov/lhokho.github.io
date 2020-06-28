@@ -19,9 +19,7 @@
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/brands.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
     <!-- Leaflet CSS-->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
     <!-- Leaflet Slider add-on-->
     <link rel="stylesheet" href="scripts/leaflet-slider/leaflet-slider.css"/>
@@ -57,14 +55,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
+                            <div class="modal-content" id="mobileContent" hidden>
+                                <p class="modal-title">Site is not ready yet to phone display</h4>
+                            </div>
                             <div class="form-group">
-                                <button id="btnLogin"  onclick="googleSignIn()" class="btn btn-action w-100">
+                                <button id="btnLogin"  onclick="googleSignIn()" class="btn btn-secondary w-100 modal-button">
                                     <i class="fab fa-google"></i>
                                     Log in
                                 </button>
                             </div>
                             <div class="form-group">
-                                <button id="btnGuest"  onclick="initializeClock()" class="btn btn-secondary w-100">
+                                <button id="btnGuest"  onclick="initializeClock()" class="btn btn-secondary w-100 modal-button">
                                     <i class="fa fa-user-friends"></i>
                                     Guest
                                 </button>
@@ -96,11 +97,12 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
             integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
             crossorigin=""></script>
+    <!-- Google APIs JS -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- script to load utils -->
     <script src="scripts/utils.js"></script>
-    <!-- script to add some navigation elements -->
-    <script src="scripts/navigation.js"></script>
+    <!-- script to init some navigation elements -->
+    <script src="scripts/initDisplay.js"></script>
     <!-- script to connect to firebase -->
     <script src="scripts/connectFirebase.js"></script>
     <script src="scripts/weather.js"></script>

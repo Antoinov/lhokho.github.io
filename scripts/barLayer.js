@@ -1,5 +1,4 @@
 /**
- * Copyright (c) 2017
  *
  * File containing methods to build and populate bar local layer localized in a given city
  *
@@ -171,8 +170,6 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
         }).addTo(map);
     }
 
-
-
     //adding additional information embedded in the map
     var info = L.control({
         position : 'bottomleft'
@@ -192,12 +189,11 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
 
     info.addTo(map);
     $( "#back_"+city_id ).bind( "click", function() {
-        map.flyTo(initial_pos,7,{'easeLinearity':1.0});
+        map.flyTo([46.1667,0.3333],6,{'easeLinearity':1.0});
         info.remove();
         slider.remove();
         map.removeLayer(markers_bar);
         map.removeLayer(local);
-        focus_station(city_id);
     });
 
 }

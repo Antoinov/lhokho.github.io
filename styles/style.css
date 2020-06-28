@@ -213,6 +213,19 @@ a.article:hover {
     CONTENT STYLE
 ----------------------------------------------------- */
 
+
+.modal-header {
+     color: white;
+     background-color: #57587f;  
+ }
+
+ .modal-button {
+    color: white;
+    background-color: #57587f;  
+}
+
+.example-open .modal-backdrop {background-color:#57587f;}
+
 #content {
     width: 100%;
     height: 100%;

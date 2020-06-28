@@ -9,17 +9,14 @@ function focus_station(city_id,route){
 
 function buildQueryDate(date_datepicker){
     date = new Date(date_datepicker);
-
     day = date.getDate();
     month = date.getMonth() + 1;
     year = date.getFullYear();
-
     let formatted_date = year+'-'+("0" + month).slice(-2)+'-'+("0" + day).slice(-2);
-
     return formatted_date;
 }
 
-function displayTickets(map){
+function displayTickets(layer){
     console.log('display tickets...');
 
     var info_line = L.control({
@@ -27,7 +24,7 @@ function displayTickets(map){
     });
 
     let tickets_html = '<div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets"></ul></div>'
-    info_line.onAdd = function (map) {
+    info_line.onAdd = function (layer) {
         this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
         return this._div;
@@ -40,10 +37,10 @@ function displayTickets(map){
     //check if container exist
     if($(".FixedHeightContainer").length === 0){
         //adding additional information embedded in the map
-        info_line.addTo(map);
+        info_line.addTo(layer);
     }else{
         $('.FixedHeightContainer').remove();
-        info_line.addTo(map);
+        info_line.addTo(layer);
     }
 }
 
@@ -57,17 +54,10 @@ $(document).ready(function(){
             layer.setOpacity(0.2);
         });
         tmp_duration_list = [0];
-        if(typeof slider !== 'undefined'){
-            slider.remove();
-        }
+
         if(typeof previous_marker !== 'undefined'){
-            if (isMobileDisplay) {
-                var custom_icon = L.icon({"iconSize": [30,30], "iconUrl":"images/icons/placeholder.png"});
-                previous_marker.setIcon(custom_icon);
-            }else{
-                var custom_icon = L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"});
-                previous_marker.setIcon(custom_icon);
-            }
+            var custom_icon = L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"});
+            previous_marker.setIcon(custom_icon);
         }
         //remove previous ticket folder by new click
         if($("#tickets").length !== 0){
@@ -182,7 +172,7 @@ $(document).ready(function(){
 
             }
             //display ticket box
-            displayTickets(map);
+            displayTickets(tripLayer);
         }
     }
 
@@ -241,9 +231,6 @@ $(document).ready(function(){
     });
 
     //Get connections
-
-    var trip_durations = [];
-
     function getCityConnections(date,marker,weather_restriction,time_restriction){
         //retrieve relevant data
         let coords = marker.getLatLng();
@@ -332,10 +319,6 @@ $(document).ready(function(){
                 })
             });
         }).then(function(){
-            //remove previous lines
-            if(typeof slider !== 'undefined'){
-                slider.remove();
-            }
             trips = trips.sort(compare);
             let previousid = undefined;
             
@@ -386,7 +369,7 @@ $(document).ready(function(){
                                     trip_back.heure_depart = record.fields.heure_depart;
                                     trip_back.heure_arrivee = record.fields.heure_arrivee;
                                     trip_back.duration = calculateDuration(record.fields.heure_arrivee,record.fields.heure_depart);
-                                    let processed_date = trip.day+'-'+trip_back.heure_depart.split(':')[0]+':00';
+                                    let processed_date = trip.day.toString()+'-'+trip_back.heure_depart.split(':')[0].toString()+':00';
                                     trip.return_trips.push(trip_back);
                                     let tl_return_url = createTrainlineLink(processed_date,trip.arrival_iata,trip.departure_iata);
                                     let return_html = undefined;
@@ -466,7 +449,7 @@ $(document).ready(function(){
                     let hours = Math.round(trip.duration/(60))
                     let minute = Math.round(Math.abs(trip.duration- hours*60));
                     let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
-                    let processed_date = trip.day+'-'+trip.departure_time.split(':')[0]+':00';
+                    let processed_date = trip.day.toString()+'-'+trip.departure_time.split(':')[0].toString()+':00';
                     let tl_url = createTrainlineLink(processed_date,trip.departure_iata,trip.arrival_iata);
 
                     let ticket_html = '<li><div id="' + identify_ticket + '" class="card card-custom text-white mb-3" style="width: 15rem; ">'

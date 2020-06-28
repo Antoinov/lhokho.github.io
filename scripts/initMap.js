@@ -1,7 +1,13 @@
+/**
+ *
+ * File containing methods to set up map general organization
+ *
+ * @summary set up main display
+ * @author Makitsu 
+ *
+ */
 // Before map is being initialized.
 var mapsPlaceholder = [];
-//Check mobile app 
-var isMobileDisplay = L.Browser.mobile;
 //Define custom leaflet line object
 CustomPolyline = L.Polyline.extend({
     options: {
@@ -24,6 +30,7 @@ var tripLayer = L.featureGroup();
 var localBarLayer = L.featureGroup();
 var localTrainLayer = L.featureGroup();
 var localPointLayer = L.featureGroup();
+
 //DOCUMENT ON LOAD
 $(document).ready(function(){
     //Create a map
