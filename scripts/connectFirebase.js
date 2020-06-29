@@ -19,7 +19,6 @@ var login = false;
 function googleSignIn(){
     base_provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithPopup(base_provider).then(function(result){
-        console.log(result);
         $('#btnLogin').hide();
         $('#logoutOpt').removeAttr('hidden');
         $("#myModal").modal('toggle');
@@ -48,16 +47,14 @@ function initializeClock() {
     $("#myModal").modal('toggle');
     login = true;
     //guest user is granted of 15 minutes
-    current.setMinutes(current.getMinutes()+15);
+    current.setMinutes(current.getMinutes()+5);
     const timeinterval = setInterval(() => {
-        console.log('check time')
         const t = current.getTime() - new Date().getTime();
-        console.log(t)
         if (t <= 0 || !login) {
             clearInterval(timeinterval);
             googleSignOut()
         }
-    },1000);
+    },30000);
 }
 
 

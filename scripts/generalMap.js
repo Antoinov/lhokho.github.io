@@ -16,7 +16,7 @@ function buildQueryDate(date_datepicker){
     return formatted_date;
 }
 
-function displayTickets(layer){
+function displayTickets(map){
     console.log('display tickets...');
 
     var info_line = L.control({
@@ -24,7 +24,7 @@ function displayTickets(layer){
     });
 
     let tickets_html = '<div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets"></ul></div>'
-    info_line.onAdd = function (layer) {
+    info_line.onAdd = function () {
         this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
         return this._div;
@@ -37,10 +37,10 @@ function displayTickets(layer){
     //check if container exist
     if($(".FixedHeightContainer").length === 0){
         //adding additional information embedded in the map
-        info_line.addTo(layer);
+        info_line.addTo(map);
     }else{
         $('.FixedHeightContainer').remove();
-        info_line.addTo(layer);
+        info_line.addTo(map);
     }
 }
 
@@ -172,7 +172,7 @@ $(document).ready(function(){
 
             }
             //display ticket box
-            displayTickets(tripLayer);
+            displayTickets(map);
         }
     }
 
