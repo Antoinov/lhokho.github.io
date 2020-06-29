@@ -15,13 +15,15 @@ function add_bar_marker(name,position,icon_url,icon_size,price,layer){
     var custom_icon = L.icon({"iconSize": icon_size, "iconUrl":icon_url});
     marker_destination.setIcon(custom_icon);
 
-    var popup = L.popup({"maxWidth": "100%"});
-    var html = $('<a id="html_'+name+'" style="width: 100.0%; height: 100.0%;" href="http://www.google.com/search?q='+name+' bar" target="_blank"">' +
+    // specify popup options
+    var infoPopupOptions ={'className' : 'popupBar'};
+
+    var html = $('<a id="html_'+name+'" style="color:white;" href="http://www.google.com/search?q='+name+' bar" target="_blank"">' +
         '<br>'+name+'<br>' +
         '</a>')[0];
 
-    popup.setContent(html);
-    marker_destination.bindPopup(popup);
+ 
+    marker_destination.bindPopup(html,infoPopupOptions);
     layer.addLayer(marker_destination);
 }
 
@@ -189,6 +191,7 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
 
     info.addTo(map);
     $( "#back_"+city_id ).bind( "click", function() {
+        local.clearLayers();
         map.flyTo([46.1667,0.3333],6,{'easeLinearity':1.0});
         info.remove();
         $('.FixedHeightContainer').remove();

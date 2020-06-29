@@ -565,7 +565,7 @@ $(document).ready(function(){
                                         $('#'+previousid).css("background-color","#57587f");
                                     }
                                     map.flyTo([center_x,center_y],7,{'animate':true});
-                                    map.fitBounds(layer.getBounds());
+                                    //map.fitBounds(layer.getBounds());
                                 }
                                 previousid = identify_ticket;
                             }

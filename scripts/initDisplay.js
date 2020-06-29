@@ -60,7 +60,9 @@ $(document).ready(function() {
             populate_menu(city_name,count);
             count = count + 1;
         });
-        $("#destSubmenu").scrollTop($('ul > li:nth-child(2)').position().top);
+        if(datakey.length > 0 ){
+            $("#destSubmenu").scrollTop($('ul > li:nth-child(2)').position().top);
+        }
     });
 });
 
