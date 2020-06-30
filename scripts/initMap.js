@@ -33,6 +33,12 @@ var localPointLayer = L.featureGroup();
 
 //DOCUMENT ON LOAD
 $(document).ready(function(){
+
+    var tile_layer = L.tileLayer(
+        "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+        {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+    );
+
     //Create a map
     L.map(
         "map",
@@ -42,20 +48,18 @@ $(document).ready(function(){
             zoom: 7,
             zoomControl: false,
             preferCanvas: false,
-            scrollWheelZoom: false
+            scrollWheelZoom: false,
+            layers:[tile_layer,markerLayer]
         }
     );
+
+    
     //Shape leaflet map
     var map = mapsPlaceholder[0];
 
     L.control.zoom({
         position: 'bottomright'
     }).addTo(map);
-
-    var tile_layer = L.tileLayer(
-        "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
-        {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-    ).addTo(map);
 
    //Add feature groups
    markerLayer.addTo(map);

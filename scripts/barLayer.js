@@ -22,7 +22,6 @@ function add_bar_marker(name,position,icon_url,icon_size,price,layer){
         '<br>'+name+'<br>' +
         '</a>')[0];
 
- 
     marker_destination.bindPopup(html,infoPopupOptions);
     layer.addLayer(marker_destination);
 }
@@ -58,7 +57,7 @@ function update_bar(markers,price){
  * @param {Number} city_id unique city identifier
  * @param {String} info_html html string related to bar
  */
-function buildBarLayer(map,initial_pos,city_id,info_html) {
+function buildBarLayer(map,initial_pos,city_id,info_html,localLayers) {
     var info_bars = firebase.database().ref("city/bar/" + city_id);
     var info_station = firebase.database().ref("city/station/" + city_id);
 
@@ -99,16 +98,16 @@ function buildBarLayer(map,initial_pos,city_id,info_html) {
                     end = end.replace('[', '').replace(']', '').replace(',', 'h');
                     bar_HH_hours.push([start, end]);
                 });
-
-                addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html)
+                console.log(localLayers);
+                addBarLayer(map,city_id,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html,localLayers)
             });
 
         });
     }
 }
 
-function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html){
-    var local = L.featureGroup().addTo(map);
+function addBarLayer(map,city_id,station_names,station_positions,bar_names,bar_positions,bar_HH_prices,bar_nHH_prices,info_html,localLayerControl){
+    localLayerControl.addOverlay(localPointLayer,'Train');
     var markers_bar = L.markerClusterGroup({
         spiderfyOnMaxZoom: false,
         showCoverageOnHover: false,
@@ -118,35 +117,33 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
         }
     });
 
-    map.addLayer(markers_bar);
-
+    markers_bar.addTo(localBarLayer);
+    localLayerControl.addOverlay(localBarLayer,'Bar');
     for (var k = 0; k < station_names.length; k++) {
         var name = station_names[k]
-        add_bar_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,local);
+        add_bar_marker(name,station_positions[k],"images/icons/station.png",[40,40],undefined,localPointLayer);
         var circleCenter = station_positions[k];
 
         var circleOptions = {
-            color: 'orange',
-            fillColor: 'orange',
+            color: '#57587f',
+            fillColor: '#57587f',
             fillOpacity: 0.2,
             dashArray: '5,10'
         }
 
         var circleOptions2 = {
-            color: 'orange',
-            fillColor: 'orange',
+            color: '#57587f',
+            fillColor: '#57587f',
             fillOpacity: 0.1,
             dashArray: '5,10',
             weight: 1
         }
 
         var circle = L.circle(circleCenter, 500, circleOptions);
-
         var circle2 = L.circle(circleCenter, 1000, circleOptions2);
 
-        circle.addTo(local);
-
-        circle2.addTo(local);
+        circle.addTo(localPointLayer);
+        circle2.addTo(localPointLayer);
     }
 
     for (var j = 0; j < bar_names.length; j++) {
@@ -190,14 +187,17 @@ function addBarLayer(map,city_id,initial_pos,station_names,station_positions,bar
     };
 
     info.addTo(map);
+
     $( "#back_"+city_id ).bind( "click", function() {
-        local.clearLayers();
+        
         map.flyTo([46.1667,0.3333],6,{'easeLinearity':1.0});
         info.remove();
         $('.FixedHeightContainer').remove();
+
+        localBarLayer.clearLayers();
+        localPointLayer.clearLayers();
         slider.remove();
-        map.removeLayer(markers_bar);
-        map.removeLayer(local);
+        map.removeControl(localLayerControl); 
     });
 
 }
