@@ -446,6 +446,9 @@ $(document).ready(function(){
                         dashArray: '10, 10',
                         dashOffset: '0'
                     });
+                    tripLayer.addLayer(polyline);
+                    //var polygon = getTripPolygon(trip.departure_coords,trip.arrival_coords);
+
                     let hours = Math.round(trip.duration/(60))
                     let minute = Math.round(Math.abs(trip.duration- hours*60));
                     let display = ("0" + hours).slice(-2)+"h"+("0" + minute).slice(-2)+"m";
@@ -483,8 +486,8 @@ $(document).ready(function(){
                     }
 
                     tmp_duration_list.push(trip.duration);
-                    tripLayer.addLayer(polyline);
-
+                    
+                
                     markerLayer.eachLayer(function (layer) {
                         if (trip.arrival_iata == layer.options.iata) {
                             layer.setOpacity(1);
@@ -577,7 +580,6 @@ $(document).ready(function(){
                             let id = identify_ticket;
                             if (layer.options.id == id) {
                                 if(!anchored){
-                                    
                                     $('#'+identify_ticket).css("background-color","#57587f");
                                 }
                             }

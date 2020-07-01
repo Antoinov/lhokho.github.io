@@ -535,8 +535,13 @@ if it's not present, don't show loader */
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
     /* When the animation is finished, start again */
-    animation-iteration-count: 2; //single shake
+    animation-iteration-count: 2; 
 }
+
+
+
+.info_select:hover { color:#010050; background-color:#57587f;border-radius: 15px; opacity:0.5; }
+.info_select:active { color:#010050; background-color:#57587f;border-radius: 15px;opacity:0.5; }
 
 @keyframes shake {
     0% {

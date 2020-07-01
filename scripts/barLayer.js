@@ -48,16 +48,13 @@ function update_bar(markers,price){
     })
 }
 
-
-
 /**
  * Build bar local layer in index map
  * @param {Map} map leaflet map to populate
- * @param {Array} initial_pos initial position lat-lon array
  * @param {Number} city_id unique city identifier
  * @param {String} info_html html string related to bar
  */
-function buildBarLayer(map,initial_pos,city_id,info_html,localLayers) {
+function buildBarLayer(map,city_id,info_html,localLayers) {
     var info_bars = firebase.database().ref("city/bar/" + city_id);
     var info_station = firebase.database().ref("city/station/" + city_id);
 

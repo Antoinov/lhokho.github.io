@@ -14,8 +14,8 @@ function displayWeatherOnMap(map,current_marker){
             html = '<a id="html_'+city_id+'" style="color:white;" href="destination.html?city='+city_id+'" target="_blank"">'+current_marker.options.city+'</a><br/>'+ temp+'\°  <br/>'
                 +'<img class="roundrect" style="border-radius: 15px;" src="images/city/bg_'+city_id+'.jpg" alt="maptime logo gif" width="145px" height="90px"/><br/>';
             let html_base = html
-                +'<img class="" id="icon_1" src='+url1+' alt="" width="45px">|<img class="" id="icon_2" src='+url2+' alt="" width="45px">|<img class="" id="icon_3" src='+url3+' alt="" width="45px"><br/>';
-            let html_weather = html_base + '<a id="bar_'+city_id+'" href="#" style="color:white;"">more...</a>';
+                +'<img class="" id="icon_1" src='+url1+' alt="" width="45px" height="40px">|<img class="" id="icon_2" src='+url2+' alt="" width="45px">|<img class="" id="icon_3" src='+url3+' alt="" width="45px"><br/>';
+            let html_weather = html_base + '<div class="row"><div class="text-center col-sm"><a id="bar_'+city_id+'" href="#"  ><i class="fas fa-info-circle fa-2x info_select"  style="color:white; "></i></a></div><div class="text-center col-sm "><a id="route_'+city_id+'" href="#" ><i class="fas fa-train fa-2x info_select" style="color:white;"></i></a></div></div>';
             current_marker._popup.setContent(html_weather)
 
             $( "#bar_"+city_id ).bind( "click", function() {
@@ -24,10 +24,23 @@ function displayWeatherOnMap(map,current_marker){
                 //var static = new L.Layer.StaticOverlay().addTo(map);
                 const builder = async () => {
                     await delay(5000);
-                    console.log("load bar data...");
+                    console.log("load city info data...");
                     let localLayers = L.control.layers();
                     localLayers.addTo(map);
-                    buildBarLayer(map,current_marker.getLatLng(),city_id,html_base,localLayers);
+                    buildBarLayer(map,city_id,html_base,localLayers);
+                };
+                builder();
+            });
+
+            $( "#route_"+city_id ).bind( "click", function() {
+                map.flyTo(current_marker.getLatLng(),10,{'easeLinearity':1.0});
+                map.closePopup();
+                const builder = async () => {
+                    await delay(5000);
+                    console.log("load local route data...");
+                    let localLayers = L.control.layers();
+                    localLayers.addTo(map);
+                    buildLocalTripLayer(map,city_id);
                 };
                 builder();
             });
