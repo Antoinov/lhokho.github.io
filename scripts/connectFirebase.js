@@ -11,6 +11,8 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+//to use if want to remove data from db
+//firebase.database().ref("city/train").remove();
 
 var auth = new firebase.auth();
 

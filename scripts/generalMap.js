@@ -50,6 +50,11 @@ $(document).ready(function(){
         if (typeof tripLayer !== 'undefined') {
             tripLayer.clearLayers();
         }
+
+        if (typeof localTrainLayer !== 'undefined') {
+            localTrainLayer.clearLayers();
+        }
+
         markerLayer.eachLayer(function (layer) {
             layer.setOpacity(0.2);
         });

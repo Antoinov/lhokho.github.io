@@ -33,7 +33,7 @@ function displayWeatherOnMap(map,current_marker){
             });
 
             $( "#route_"+city_id ).bind( "click", function() {
-                map.flyTo(current_marker.getLatLng(),10,{'easeLinearity':1.0});
+                map.flyTo(current_marker.getLatLng(),8,{'easeLinearity':1.0});
                 map.closePopup();
                 const builder = async () => {
                     await delay(5000);
