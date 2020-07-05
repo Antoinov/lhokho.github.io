@@ -585,3 +585,151 @@ if it's not present, don't show loader */
 .btn-group-toggle.btn-block > .btn {
     flex: 1;
 }
+
+/* ---------------------------------------------------
+    CALENDAR
+----------------------------------------------------- */
+
+
+#calendar-table {
+    width: 100%;
+    max-width: 50rem;
+    
+    tr:nth-child(even) th {
+        color: #ccc;
+        font-weight: normal;
+    }
+    
+    th,
+    td {
+        padding: 0.5rem 1rem;
+    }
+    
+    th {
+        font-weight: normal;
+        border-top: thin dotted #ccc;
+    }
+    
+    td {
+        font-size: 0.8rem;
+        font-weight: bold;
+        line-height: 1.4;
+        border-radius: 0.2rem;
+        transition: opacity 0.3s ease;
+    }
+    
+    td > span {
+        font-size: 0.8em;
+        font-weight: normal;
+        display: block;
+        width: 100%;
+    }
+}
+
+.stage-earth {background-color: #FFA726};
+.stage-mercury {background-color: #9CCC65};
+.stage-venus {background-color: #FF8A65};
+.stage-mars {background-color: #B3E5FC};
+.stage-jupiter {background-color: #81D4FA};
+.stage-saturn {background-color: #26C6DA};
+
+
+/* ---------------------------------------------------
+    SWITCH STYLE 
+----------------------------------------------------- */
+.ques {
+    color: darkslateblue;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 130px;
+  height: 50px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f2f2f2;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  z-index: 2;
+  content: "";
+  height: 46px;
+  width: 46px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #57587f;
+      -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
+  -webkit-transition: .4s;
+  transition: all 0.4s ease-in-out;
+}
+.slider:after {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  content: "Ticket";
+    font-size: 20px;
+    text-align: left !important;
+    line-height: 45px;
+  padding-left: 0;
+    width: 130px;
+    color: #fff;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #57587f;
+    -webkit-transform: translateX(-80px);
+    -ms-transform: translateX(-80px);
+    transform: translateX(-80px);
+    transition: all 0.4s ease-in-out;
+}
+
+input:checked + .slider:after {
+  -webkit-transform: translateX(0px);
+  -ms-transform: translateX(0px);
+  transform: translateX(0px);
+  /*width: 235px;*/
+  padding-left: 25px;
+}
+
+input:checked + .slider:before {
+  background-color: #fff;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(80px);
+  -ms-transform: translateX(80px);
+  transform: translateX(80px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 50px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.absolute-no {
+	position: absolute;
+	left: 0;
+	color: #57587f;
+	text-align: right !important;
+    font-size: 25px;
+    width: calc(100% - 25px);
+    height: 45px;
+    line-height: 45px;
+    cursor: pointer;
+}

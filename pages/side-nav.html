@@ -35,7 +35,11 @@
     <ul class="list-unstyled CTAs">
         <button id="btnLogout"   hidden>Log Out</button>
         <div class="form-group">
-            <input type="checkbox"id="toggle_tgv" data-toggle="toggle" style="width:100%;" data-on="TGV Max" data-off="View" data-onstyle="info" data-offstyle="warning">
+            <label class="switch">
+                <input id="toggle_tgv" type="checkbox" >
+                <span class="slider round"></span>
+                <span class="absolute-no">Info</span>
+            </label>
             <script>
                 $(function() {
                     $('#toggle_tgv').change(function() {
@@ -69,7 +73,7 @@
                 });
             </script>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Trip duration ? </label>
+                <label class="mr-sm-2">Duration</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="trip_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="trip" id="short" autocomplete="off"> < 1H
@@ -86,7 +90,7 @@
                 </div>
             </div>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Stay duration ? </label>
+                <label class="mr-sm-2">How long ?</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="time_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="time" id="6h" autocomplete="off"> < 6H
@@ -103,7 +107,7 @@
                 </div>
             </div>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Weather ?</label>
+                <label class="mr-sm-2">Weather</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="weather_buttons">
                     <label class="btn btn-outline-secondary text-white">
                         <input type="radio" name="weather" id="sun" autocomplete="off"><i class="fa fa-sun"></i>
@@ -120,13 +124,12 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="mr-sm-2">Departure </label>
+                <label class="mr-sm-2">Departure</label>
                 <select class="form-control" id="destination_select">
                     <option disabled selected>Departure...</option>
                 </select>
             </div>
         </form>
-
     </ul>
 
 </nav>
