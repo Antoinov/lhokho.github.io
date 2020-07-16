@@ -245,7 +245,9 @@ $(document).ready(function(){
             '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
             '&refine.date=%date'.replace('%date',date)+ //format: YYYY-MM-DD
             '&refine.origine_iata=%departure'.replace('%departure',departure_iata);
-
+        $.ajaxSetup({
+            async: false
+        });
         $.getJSON(query, function(response){
             //get data from
             let arrival_iatas = [];
@@ -289,10 +291,75 @@ $(document).ready(function(){
         }
         return 0;
     }
+    function getNonDirectTrip(departure_city, date,trips,indirect_list) {
+        for (indirect_departure_iata of indirect_list.values()) {
+
+        var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+            '&q=&rows=10000&sort=date&facet=origine_iata&refine.od_happy_card=OUI' +
+            '&refine.date=%date'.replace('%date',date)+ //format: YYYY-MM-DD
+            '&refine.origine_iata=%departure'.replace('%departure',indirect_departure_iata);
+            console.log(indirect_departure_iata);
+        $.ajaxSetup({
+            async: false
+        });
+        $.getJSON(query).done( function(response){
+                console.log('API called')
+                trips.forEach(function(trip){
+                    if (trip.arrival_iata == indirect_departure_iata) {
+                        let origin = trip.departure_iata
+                        let [hours,minutes] = trip.arrival_time.split(':');
+                        var dt1 = new Date();
+                        dt1.setHours(+hours);
+                        dt1.setMinutes(minutes);
+                        response.records.forEach(function(record) {
+                        if (record.fields.destination_iata != origin) {
+                        var dt2 = new Date();
+                        let [hours,minutes] = record.fields.heure_depart.split(':');
+                        dt2.setHours(+hours);
+                        dt2.setMinutes(minutes);
+                        let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000)
+                        if (Difftime > 15 && Difftime < 90) {
+
+                            station.once("value", function(dataset) {
+                            dataset.forEach(function(childNodes){
+                                childNodes.val().forEach(function(station_data){
+                                    if(record.fields.destination_iata == station_data.iata_code){
+                                            let indirect_trip = {};
+                                            indirect_trip.day = dt2;
+                                            indirect_trip.departure_city = departure_city;
+                                            indirect_trip.departure_iata = origin;
+                                            indirect_trip.departure_coords = trip.departure_coords;
+                                            indirect_trip.departure_time = trip.departure_time;
+                                            indirect_trip.connection_city = trip.arrival_city;
+                                            indirect_trip.connection_iata = trip.arrival_iata;
+                                            indirect_trip.connection_coords =  trip.arrival_coords;
+                                            indirect_trip.connection_arrival = trip.arrival_time;
+                                            indirect_trip.connection_departure = record.fields.heure_depart;
+                                            indirect_trip.connection_time = Difftime;
+                                            indirect_trip.arrival_city = station_data.city;
+                                            indirect_trip.arrival_id = childNodes.key;
+                                            indirect_trip.arrival_iata = record.fields.destination_iata;
+                                            indirect_trip.arrival_coords =[station_data.lat,station_data.lon];
+                                            indirect_trip.arrival_time = record.fields.heure_arrivee;
+                                            indirect_trip.duration = calculateDuration(record.fields.heure_arrivee,trip.departure_time);
+                                            //create empty array that may store way back
+                                            trip.return_trips = [];
+                                            // console.log(indirect_trip)
+
+                                            // trips.push(trip);
+                                        }
+                                        });
+                                })
+                            });
+                        } else {console.log('connection impossible')}}
+                        })
+                        }})
+                    })
+
+                }}
 
     function getStationsFromIatas(iata_list,coords,departure_city,departure_time,departure_iata,records,weather_restriction,time_restriction){
         let trips = [];
-
         station.once("value", function(dataset) {
             dataset.forEach(function(childNodes){
                 childNodes.val().forEach(function(station_data){
@@ -323,9 +390,13 @@ $(document).ready(function(){
                 })
             });
         }).then(function(){
+            // get non direct trip if allowed
+            var indirect_list = new Set(iata_list);
+            let direct_only = true
+            if (direct_only == false) {console.log('Expected calls : ', indirect_list.size);
+            getNonDirectTrip(departure_city, departure_time, trips, indirect_list)}}).then(function(){
             trips = trips.sort(compare);
             let previousid = undefined;
-            
             trips.forEach(function(trip){
                 //set up weather acceptance to true
                 let accepted_weather = true;
