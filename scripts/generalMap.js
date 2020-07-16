@@ -45,7 +45,6 @@ function displayTickets(map){
 }
 
 $(document).ready(function(){
-
     function clear_selection(){
         if (typeof tripLayer !== 'undefined') {
             tripLayer.clearLayers();

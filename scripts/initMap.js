@@ -67,4 +67,57 @@ $(document).ready(function(){
    localBarLayer.addTo(map);
    localTrainLayer.addTo(map);
    localPointLayer.addTo(map);
+   //Add calendar
+   
+   let calendar_html = '<table id="calendar-table"><tr style="height:70px">';
+
+   for(let h=0 ; h < 24 ; h++){
+       calendar_html = calendar_html + '<th>%hour:00</th><th>%hour:30</th>'.replace('%hour',h.toString()).replace('%hour',h.toString())
+       //+'<td colspan="5" rowspan="1" class="stage-earth">Event</td>'
+   }
+
+   calendar_html = calendar_html +'</tr><tr style="height:70px">';
+
+   for(let h=0 ; h < 24 ; h++){
+    calendar_html = calendar_html +'<td colspan="2" rowspan="1" class="stage-earth">Test</td>';
+    }
+
+    function addTrainRow(trip){
+        $('#calendar-table').append("<tr><td>1</td><td>Thomas</td></tr>");
+    }
+   
+    calendar_html = calendar_html +'</tr>'+'</table>'; 
+   
+   
+   
+            // +'<tr>'
+            // +    '<th>08:00</th>'
+            // +    '<td colspan="4" rowspan="2" class="stage-saturn">Welcome</td>'
+            // +'</tr>'
+            // +'<tr>'
+            // +    '<th>08:30</th>'
+            // +'</tr>'
+            // +'<tr>'
+            // +    '<th>09:00</th>'
+            // +    '<td colspan="4" class="stage-earth">Speaker One <span>Earth Stage</span></td>'
+            // +'</tr>'
+            // +'</table>';
+
+    //adding additional information embedded in the map
+    var info = L.control({
+        position : 'bottomleft'
+    });
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'calendar'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = calendar_html;
+    };
+
+    info.addTo(map);
 });

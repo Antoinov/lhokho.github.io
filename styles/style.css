@@ -538,8 +538,6 @@ if it's not present, don't show loader */
     animation-iteration-count: 2; 
 }
 
-
-
 .info_select:hover { color:#010050; background-color:#57587f;border-radius: 15px; opacity:0.5; }
 .info_select:active { color:#010050; background-color:#57587f;border-radius: 15px;opacity:0.5; }
 
@@ -590,40 +588,12 @@ if it's not present, don't show loader */
     CALENDAR
 ----------------------------------------------------- */
 
-
 #calendar-table {
-    width: 100%;
-    max-width: 50rem;
-    
-    tr:nth-child(even) th {
-        color: #ccc;
-        font-weight: normal;
-    }
-    
-    th,
-    td {
-        padding: 0.5rem 1rem;
-    }
-    
-    th {
-        font-weight: normal;
-        border-top: thin dotted #ccc;
-    }
-    
-    td {
-        font-size: 0.8rem;
-        font-weight: bold;
-        line-height: 1.4;
-        border-radius: 0.2rem;
-        transition: opacity 0.3s ease;
-    }
-    
-    td > span {
-        font-size: 0.8em;
-        font-weight: normal;
-        display: block;
-        width: 100%;
-    }
+    display: block;
+    height: 10rem;
+    width:75rem;
+    overflow-x: scroll;
+    overflow-y:hidden;
 }
 
 .stage-earth {background-color: #FFA726};
@@ -632,6 +602,20 @@ if it's not present, don't show loader */
 .stage-mars {background-color: #B3E5FC};
 .stage-jupiter {background-color: #81D4FA};
 .stage-saturn {background-color: #26C6DA};
+
+
+.calendar {
+    padding: 6px 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    color:white;
+    border-radius: 5px;
+    background-color:#57587f;
+}
+.calendar h4 {
+    margin: 0 0 5px;
+    color: #57587f;
+}
 
 
 /* ---------------------------------------------------
