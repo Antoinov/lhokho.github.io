@@ -92,7 +92,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#selected_date').change(function() {
+    $('#selected_date').change(async function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
@@ -100,10 +100,14 @@ $(document).ready(function(){
         $("#tickets").empty();
         console.log(weather_restriction);
         console.log(time_restriction);
+        getTrainRecords(query_date);
         if(typeof previous_marker !== 'undefined'){
             getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
-        }
-    });
+            };
+        });
+
+    function test(results){console.log(results)};
+
 
     $('#time_buttons').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
@@ -141,10 +145,16 @@ $(document).ready(function(){
     $('#toggle_tgv').change(function() {
         console.log('test')
         isEditable = $(this).prop('checked');
+        console.log(isEditable);
         map.closePopup();
         tripLayer.clearLayers();
         clear_selection();
         map.flyTo([46.1667,0.3333],6,{'animate':true});
+        // if toggle checked => Request SNCF API on current date
+        if (isEditable) {
+        let query_date = buildQueryDate($('#selected_date').val());
+        getTrainRecords(query_date);
+        }
     });
 
     function onClick(event) {
@@ -154,7 +164,6 @@ $(document).ready(function(){
         clear_selection();
         //make it visible
         event.sourceTarget.setOpacity(1);
-        
         //store marker
         previous_marker = event.sourceTarget;
         //fly to selected marker
@@ -234,6 +243,23 @@ $(document).ready(function(){
         map.fitBounds(markerLayer.getBounds());
     });
 
+    // Get API SNCF records
+
+   async function getTrainRecords(date) {
+        var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+            '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
+            '&refine.date=%date'.replace('%date',date); //format: YYYY-MM-DD
+        $.ajaxSetup({
+            async: false
+        });
+        $.getJSON(query, await function(response){
+            var results = response['records'];
+            console.log(results);
+            return test(results);
+           });
+
+    };
+
     //Get connections
     function getCityConnections(date,marker,weather_restriction,time_restriction){
         //retrieve relevant data
@@ -292,6 +318,7 @@ $(document).ready(function(){
         return 0;
     }
     function getNonDirectTrip(departure_city, date,trips,indirect_list) {
+        var indirect_trips = [];
         for (indirect_departure_iata of indirect_list.values()) {
 
         var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
@@ -339,7 +366,7 @@ $(document).ready(function(){
                                 }
                             })
                             // Get connection trip details if the conditions are reached
-                            if (Difftime > 15 && Difftime < 90 && existing_direct_alternative == undefined ) {
+                            if (Difftime > 15 && Difftime < 90 && existing_direct_alternative == false ) {
                                 // Check in firebase to collect the informations on the new reachable destination (with connection)
                                 station.once("value", function(dataset) {
                                 dataset.forEach(function(childNodes){
@@ -363,10 +390,8 @@ $(document).ready(function(){
                                                 indirect_trip.arrival_coords =[station_data.lat,station_data.lon];
                                                 indirect_trip.arrival_time = record.fields.heure_arrivee;
                                                 indirect_trip.duration = calculateDuration(record.fields.heure_arrivee,trip.departure_time);
-                                                //create empty array that may store way back
-                                                trip.return_trips = [];
                                                 // console.log(indirect_trip)
-                                                // trips.push(trip);
+                                                indirect_trips.push(indirect_trip);
                                             }
                                         });
                                 })
@@ -376,7 +401,9 @@ $(document).ready(function(){
                         }})
                     })
 
-                }}
+                }
+                return indirect_trips;
+                }
 
     function getStationsFromIatas(iata_list,coords,departure_city,departure_time,departure_iata,records,weather_restriction,time_restriction){
         let trips = [];
@@ -415,9 +442,37 @@ $(document).ready(function(){
             var indirect_list = new Set(iata_list);
             let direct_only = false
             if (direct_only == false) {console.log('Expected calls : ', indirect_list.size);
-            getNonDirectTrip(departure_city, departure_time, trips, indirect_list)}}).then(function(){
+            var indirect_trips = getNonDirectTrip(departure_city, departure_time, trips, indirect_list);
+            }
+            return indirect_trips}).then(function(indirect_trips){
             trips = trips.sort(compare);
+            indirect_trips = indirect_trips.sort(compare);
             let previousid = undefined;
+            indirect_trips.forEach(function(indirect_trip){
+                    let identify_ticket = indirect_trip.connection_iata.toString()+indirect_trip.arrival_iata.toString()+indirect_trip.arrival_time.replace(':','')+indirect_trip.departure_time.replace(':','');
+                    console.log(identify_ticket);
+                    let current_coords = new Array();
+                    current_coords.push(indirect_trip.connection_coords);
+                    current_coords.push(indirect_trip.arrival_coords);
+                    var polyline = new CustomPolyline(current_coords,{
+                        id:identify_ticket,
+                        color: 'blue',
+                        weight: 3,
+                        opacity: 0.02,
+                        duration: indirect_trip.duration,
+                        dashArray: '10, 10',
+                        dashOffset: '0'
+                    });
+                    tripLayer.addLayer(polyline);
+
+
+                markerLayer.eachLayer(function (layer) {
+                            if (indirect_trip.arrival_iata == layer.options.iata) {
+                                layer.setOpacity(1);
+                            }
+                        });
+
+            })
             trips.forEach(function(trip){
                 //set up weather acceptance to true
                 let accepted_weather = true;
@@ -438,7 +493,7 @@ $(document).ready(function(){
                         time_restriction = time_restriction.replace('h','');
                         let shifted_date = arrival_formatted_date;
                         shifted_date.setHours(shifted_date.getHours() + Number(time_restriction));
-                        let shifted_day_query = undefined;
+                        let shifted_day_query   = undefined;
                         if( shifted_date.getDay() < 10){
                             shifted_day_query = shifted_date.getFullYear()+'-'+("0" + (shifted_date.getMonth()+1)).slice(-2)+"-"+("0" + shifted_date.getDate()).slice(-2);
                         }else{
