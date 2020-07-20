@@ -17,6 +17,7 @@ $(document).ready(function(){
         //update trip on date change
         $('#selected_date').change(function() {
             let query_date = buildQueryDate($('#selected_date').val());
+            console.log(query_date)
             if(last_checked_time != $('#selected_date').val()){
                 setTimeout(function () {
                     delay(500);
