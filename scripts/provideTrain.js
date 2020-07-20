@@ -1,25 +1,37 @@
 // Global variable to store tgv max trip
+var last_checked_time = undefined;
 var trips = [];
 var stations = [];
 
 $(document).ready(function(){
+    station = firebase.database().ref("city/station");
     //default loading of next day trip
     var currentTime = new Date();
     station.once("value", function (dataset) {
         stations = dataset.val();
     }).then(function(){
-        getTrainRecords(buildQueryDate(currentTime));
-
+        setTimeout(function () {
+            getTrainRecords(buildQueryDate(currentTime));
+        }, 1000);
+        
         //update trip on date change
         $('#selected_date').change(function() {
             let query_date = buildQueryDate($('#selected_date').val());
-            getTrainRecords(query_date);
+            if(last_checked_time != $('#selected_date').val()){
+                setTimeout(function () {
+                    delay(500);
+                    getTrainRecords(query_date);
+                }, 1000);
+                
+            }
         });
     });
 });
 
 // Get API SNCF records
-function getTrainRecords(date) {
+async function getTrainRecords(date) {
+    last_checked_time = date;
+    console.log("enter getTrainRecords method");
     var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
         '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
         '&refine.date=%date'.replace('%date', date); //format: YYYY-MM-DD
@@ -28,28 +40,46 @@ function getTrainRecords(date) {
     });
     $.getJSON(query, function (response) {
         response['records'].forEach(function(result){
-            let trip = {};
-            departure_station = stations.filter(station => station.iata_code === result.fields.origine_iata)[0];
-            arrival_station = stations.filter(station => station.iata_code === result.fields.destination_iata)[0];
+            let trip = {};   
             //define trip date
             trip.day = result.fields.date;
             //gather departure data
-            trip.departure_id = departure_station.key;
-            trip.departure_city = departure_station.city;
-            trip.departure_coords = [departure_station.lat, departure_station.lng];
-            trip.departure_iata = result.fields.origine_iata;
-            trip.departure_time = result.fields.heure_depart;
-            //gather arrival data
-            trip.arrival_id = arrival_station.key;
-            trip.arrival_city = arrival_station.city;
-            trip.arrival_iata = record.destination_iata;
-            trip.arrival_coords = [arrival_station.lat, arrival_station.lon];
-            trip.arrival_iata = result.fields.destination_iata;
-            trip.arrival_time = record.heure_arrivee;
-            //additional trip info
-            trip.duration = calculateDuration(record.heure_arrivee, record.heure_depart);
-            trip.nbStop = 0;
-            trips.push(trip);
+            let departure_station = stations.reduce(function(acc, curr, index) {
+                curr.forEach(function(stat){
+                    if (stat.iata_code == result.fields.origine_iata) {
+                        trip.departure_id = index;
+                        acc.push(stat);
+                    }
+                })
+                return acc;
+            }, [])[0];
+            if(typeof departure_station !== 'undefined'){
+                trip.departure_city = departure_station.city;
+                trip.departure_coords = [departure_station.lat, departure_station.lng];
+                trip.departure_iata = result.fields.origine_iata;
+                trip.departure_time = result.fields.heure_depart;
+                //gather arrival data
+                let arrival_station = stations.reduce(function(acc, curr, index) {
+                    curr.forEach(function(stat){
+                        if (stat.iata_code === result.fields.origine_iata) {
+                            trip.arrival_id = index;
+                            acc.push(stat);
+                        }
+                    })
+                    return acc;
+                }, [])[0];
+                if(typeof arrival_station !== 'undefined'){
+                    trip.arrival_city = arrival_station.city;
+                    trip.arrival_iata = result.fields.destination_iata;
+                    trip.arrival_coords = [arrival_station.lat, arrival_station.lon];
+                    trip.arrival_iata = result.fields.destination_iata;
+                    trip.arrival_time = result.fields.heure_arrivee;
+                    //additional trip info
+                    trip.duration = calculateDuration(result.fields.heure_arrivee, result.fields.heure_depart);
+                    trip.nbStop = 0;
+                    trips.push(trip);
+                }
+            }
         })
     });
 };
@@ -62,17 +92,15 @@ function findTripsFromArrivalIata(arrival_iata){
     return trips.filter(trip => trip.arrival_iata == arrival_iata);
 }
 
-findTrips(departure_iata,arrival_iata,nbStop){
+function findTrips(departure_iata,arrival_iata,nbStop){
     return trips.filter(trip => trip.departure_iata == departure_iata
         && trip.arrival_iata == arrival_iata
         && trip.nbStop == nbStop);
 }
 
 //Get connections
-function getCityConnections(date, marker, weather_restriction, time_restriction) {
+async function getCityConnections(date, marker) {
     //retrieve relevant data
-    let coords = marker.getLatLng();
-    let departure_city = marker.options.city;
     let departure_iata = marker.options.iata;
     //build sncf API query
     findTripsFromDepartureIata(trips,departure_iata).forEach(function(trip){
@@ -112,7 +140,7 @@ function getCityConnections(date, marker, weather_restriction, time_restriction)
 
 }
 
-function drawTrip(trip){
+async function drawTrip(trip){
     //set up weather acceptance to true
     let accepted_weather = true;
     let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');

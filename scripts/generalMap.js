@@ -88,11 +88,9 @@ $(document).ready(function(){
         let time_restriction = $("input[name='time']:checked").attr("id");
         //remove previous tickets
         $("#tickets").empty();
-        console.log(weather_restriction);
-        console.log(time_restriction);
         
         if(typeof previous_marker !== 'undefined'){
-            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
         };
     });
 
@@ -102,10 +100,9 @@ $(document).ready(function(){
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
         $("#tickets").empty();
-        console.log(weather_restriction);
-        console.log(time_restriction);
+     
         if(typeof previous_marker !== 'undefined'){
-            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
         }
     });
 
@@ -114,10 +111,9 @@ $(document).ready(function(){
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
         $("#tickets").empty();
-        console.log(weather_restriction);
-        console.log(time_restriction);
+    
         if(typeof previous_marker !== 'undefined'){
-            getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
         }
     });
 
@@ -125,9 +121,8 @@ $(document).ready(function(){
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
-        console.log(weather_restriction);
-        console.log(time_restriction);
-        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        
+        //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
     });
 
     $('#toggle_tgv').change(function() {
@@ -140,8 +135,8 @@ $(document).ready(function(){
         map.flyTo([46.1667,0.3333],6,{'animate':true});
         // if toggle checked => Request SNCF API on current date
         if (isEditable) {
-        let query_date = buildQueryDate($('#selected_date').val());
-        getTrainRecords(query_date);
+        //let query_date = buildQueryDate($('#selected_date').val());
+        //getTrainRecords(query_date);
         }
     });
 
@@ -166,7 +161,7 @@ $(document).ready(function(){
             let query_marker = event.sourceTarget;
             let weather_restriction = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='time']:checked").attr("id");
-            getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
+            //getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
                 $('#destination_select').val(event.sourceTarget.options.id).change();
@@ -218,7 +213,6 @@ $(document).ready(function(){
         markerLayer.addLayer(marker_destination);
     }
 
-    station = firebase.database().ref("city/station");
 
     station.once('value').then(function(datakey){
         let idx = 0;
