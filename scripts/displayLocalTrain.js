@@ -31,10 +31,10 @@ function buildLocalTripLayer(map,city_id){
                     console.log(localStation_marker)
                     //localStation_marker.options.icon.style.backgroundColor = '#57587f'
                     // specify popup css class
-                    var infoPopupOptions ={'className' : 'popupBar'}
+                    var infoPopupOptions ={"maxWidth" : "auto"}
                     // specify popup html content
                     var html = '<a id="local_'+localStation.val().name+'" style="color:white;" href="#" target="_blank"">'+localStation.val().name+'</a><br/>'
-                            +'Trip Duration:'+localStation.val().duration+'<br/>';
+                            +'Trip Duration:'+Math.floor((localStation.val().duration)/ 60)+' min'+'<br/>';
                             localStation_marker.bindPopup(html,infoPopupOptions);
                     //bound marker to map
                     localStation_marker.addTo(localTrainLayer);

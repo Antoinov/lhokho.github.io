@@ -56,13 +56,13 @@ async function getTrainRecords(date) {
             }, [])[0];
             if(typeof departure_station !== 'undefined'){
                 trip.departure_city = departure_station.city;
-                trip.departure_coords = [departure_station.lat, departure_station.lng];
+                trip.departure_coords = [departure_station.lat, departure_station.lon];
                 trip.departure_iata = result.fields.origine_iata;
                 trip.departure_time = result.fields.heure_depart;
                 //gather arrival data
                 let arrival_station = stations.reduce(function(acc, curr, index) {
                     curr.forEach(function(stat){
-                        if (stat.iata_code === result.fields.origine_iata) {
+                        if (stat.iata_code === result.fields.destination_iata) {
                             trip.arrival_id = index;
                             acc.push(stat);
                         }
@@ -79,14 +79,15 @@ async function getTrainRecords(date) {
                     trip.duration = calculateDuration(result.fields.heure_arrivee, result.fields.heure_depart);
                     trip.nbStop = 0;
                     trips.push(trip);
-                }
-            }
-        })
+                } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
+            } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
+        });
+        return trips;
     });
 };
 
-function findTripsFromDepartureIata(departure_iata){
-    return trips.filter(trip => trip.departure_iata == departure_iata);
+function findTripsFromDepartureID(departure_id){
+    return trips.filter(trip => trip.departure_id == departure_id);
 }
 
 function findTripsFromArrivalIata(arrival_iata){
@@ -102,18 +103,20 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 //Get connections
 async function getCityConnections(date, marker) {
     //retrieve relevant data
-    let departure_iata = marker.options.iata;
+    let departure_id = marker.options.id;
+    let direct_only = true
     //build sncf API query
-    findTripsFromDepartureIata(trips,departure_iata).forEach(function(trip){
+    findTripsFromDepartureID(departure_id).forEach(function(trip){
+        drawDirectTrip(trip);
         // get non direct trip if allowed
         var indirect_list = new Set(trip.iata_code);
-        let direct_only = false
         if (direct_only == false) {
-            console.log('Expected calls : ', indirect_list.size);
             var indirect_trips = getNonDirectTrip(trip.departure_city, trip.departure_time, trips, indirect_list);
-            return indirect_trips;
-        }
-    }).then(function (indirect_trips) {
+            drawIndirectTrip(indirect_trips);
+        }})
+};
+
+async function drawIndirectTrip(indirect_trips){
         let previousid = undefined;
         indirect_trips.forEach(function (indirect_trip) {
             let identify_ticket = indirect_trip.connection_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.departure_time.replace(':', '');
@@ -136,12 +139,9 @@ async function getCityConnections(date, marker) {
                     layer.setOpacity(1);
                 }
             });
-        })
-    });
-
-}
-
-async function drawTrip(trip){
+        });
+    }
+async function drawDirectTrip(trip){
     //set up weather acceptance to true
     let accepted_weather = true;
     let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
@@ -192,6 +192,7 @@ async function drawTrip(trip){
         var anchored = false;
         if (accepted_weather) {
             if (typeof previousid == 'undefined') {
+                console.log('test');
                 $("#tickets").append(ticket_html);
                 $('#btn_return_' + identify_ticket).hide();
             } else {
@@ -509,3 +510,13 @@ function getNonDirectTrip(departure_city, date, trips, indirect_list) {
     }
     return indirect_trips;
 }
+
+function createTrainlineLink(departure_time,departure_iata,arrival_iata){
+        //build trainline link
+        let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
+            .replace('%depiata',departure_iata)
+            .replace('%arriata',arrival_iata)
+            .replace('%date',(departure_time).slice(-2));
+
+        return link;
+    }

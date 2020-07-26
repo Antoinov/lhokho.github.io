@@ -161,7 +161,7 @@ $(document).ready(function(){
             let query_marker = event.sourceTarget;
             let weather_restriction = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='time']:checked").attr("id");
-            //getCityConnections(query_date,query_marker,weather_restriction,time_restriction);
+            getCityConnections(query_date,query_marker);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
                 $('#destination_select').val(event.sourceTarget.options.id).change();
