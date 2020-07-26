@@ -190,15 +190,13 @@ async function drawDirectTrip(trip){
 
 
         var anchored = false;
-        if (accepted_weather) {
-            if (typeof previousid == 'undefined') {
-                console.log('test');
-                $("#tickets").append(ticket_html);
-                $('#btn_return_' + identify_ticket).hide();
-            } else {
-                $(ticket_html).inserAfter('#' + previousid);
-                $('#btn_return_' + identify_ticket).hide();
-            }
+        if (typeof previousid == 'undefined') {
+            console.log(ticket_html);
+            $("#tickets").append(ticket_html);
+            $('#btn_return_' + identify_ticket).hide();
+        } else {
+            $(ticket_html).inserAfter('#' + previousid);
+            $('#btn_return_' + identify_ticket).hide();
         }
 
         tmp_duration_list.push(trip.duration);
@@ -516,7 +514,7 @@ function createTrainlineLink(departure_time,departure_iata,arrival_iata){
         let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
             .replace('%depiata',departure_iata)
             .replace('%arriata',arrival_iata)
-            .replace('%date',(departure_time).slice(-2));
+            .replace('%date',(departure_time));
 
         return link;
     }
