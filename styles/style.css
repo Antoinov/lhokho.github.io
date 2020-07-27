@@ -493,7 +493,6 @@ if it's not present, don't show loader */
     height: 30rem;
     width:15rem;
     padding:0px;
-    background: rgba(87, 88, 127, 0.22);
     border-radius: 25px;
 }
 
@@ -717,3 +716,13 @@ input:checked + .slider:before {
     line-height: 45px;
     cursor: pointer;
 }
+
+/* Card */
+
+.card-header .fa {
+  transition: .3s transform ease-in-out;
+}
+.card-header .collapsed .fa {
+  transform: rotate(90deg);
+}
+

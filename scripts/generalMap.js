@@ -14,7 +14,7 @@ function displayTickets(map){
         position : 'bottomright'
     });
 
-    let tickets_html = '<div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets"></ul></div>'
+    let tickets_html = '<div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets" role="tablist" aria-multiselectable="true"></ul></div>'
     info_line.onAdd = function () {
         this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
