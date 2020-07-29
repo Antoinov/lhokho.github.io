@@ -1,5 +1,6 @@
 // Global variable to store tgv max trip
 var last_checked_time = undefined;
+var last_checked_trip_type = undefined;
 var trips = [];
 var stations = [];
 
@@ -92,10 +93,10 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 }
 
 //Get connections
-async function getCityConnections(date, marker) {
+async function getCityConnections(date, marker,trip_type) {
     //retrieve relevant data
     let departure_id = marker.options.id;
-    let direct_only = false;
+    let direct_only = trip_type;
     //get direct trip
     let trips = findTripsFromDepartureID(departure_id);
     var destination_list = [];
@@ -105,10 +106,11 @@ async function getCityConnections(date, marker) {
             destination_list.push(trip.arrival_id);
             // console.log(destination_list)
     }});
+
     // get non direct trip if allowed
-    if (direct_only == false) {
+    if (direct_only === "indirect") {
        let all_indirect_trips = [];
-       destination_list.forEach(function(destination) {
+       destination_list.forEach( await function(destination) {
        let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
        let current = trips.filter(trip => trip.arrival_id == destination);
        current.forEach(function (trip) {
@@ -162,8 +164,8 @@ async function getCityConnections(date, marker) {
                    });
                    // console.log(all_indirect_trips);
                    await drawDirectTrip(trips);
-                   await drawIndirectTrip(all_indirect_trips,destination_list);
-                   };
+                   await drawIndirectTrip(all_indirect_trips,destination_list)} else {await drawDirectTrip(trips)};
+
             };
 
 async function drawIndirectTrip(indirect_trips,destination_list){

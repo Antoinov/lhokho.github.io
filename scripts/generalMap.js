@@ -84,20 +84,35 @@ $(document).ready(function(){
     });
 
     $('#selected_date').change( function() {
-            displayTickets(map);
-            let query_date = buildQueryDate($('#selected_date').val());
-            console.log(query_date);
-            if(last_checked_time != $('#selected_date').val()){
+    displayTickets(map);
+    let query_date = buildQueryDate($('#selected_date').val());
+    let trip_type = $("input[name='trip_type']:checked").attr("id");
+    console.log(query_date);
+    if(last_checked_time != $('#selected_date').val()){
                 setTimeout(async function () {
                     delay(500);
                     await getTrainRecords(query_date);
                     if(typeof previous_marker !== 'undefined'){
-                    await getCityConnections(query_date,previous_marker);
+                    await getCityConnections(query_date,previous_marker,trip_type);
                     };
                 }, 1000);
             ;};
         });
 
+    $('#trip_type').change(function(){
+    let query_date = buildQueryDate($('#selected_date').val());
+    let trip_type = $("input[name='trip_type']:checked").attr("id");
+    console.log(trip_type);
+    if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
+        setTimeout(async function () {
+                    delay(500);
+                    if(typeof previous_marker !== 'undefined') {
+                    await displayTickets(map);
+                    await getCityConnections(query_date,previous_marker,trip_type);
+                    };
+        }, 1000);
+        };
+        });
 
     $('#time_buttons').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
@@ -139,8 +154,8 @@ $(document).ready(function(){
         map.flyTo([46.1667,0.3333],6,{'animate':true});
         // if toggle checked => Request SNCF API on current date
         if (isEditable) {
-        //let query_date = buildQueryDate($('#selected_date').val());
-        //getTrainRecords(query_date);
+            //let query_date = buildQueryDate($('#selected_date').val());
+            // getTrainRecords(query_date);
         }
     });
 
@@ -165,9 +180,11 @@ $(document).ready(function(){
             let query_marker = event.sourceTarget;
             let weather_restriction = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='time']:checked").attr("id");
+            let trip_type = $("input[name='trip_type']:checked").attr("id");
+            console.log(trip_type);
             //display ticket box
             displayTickets(map);
-            getCityConnections(query_date,query_marker);
+            getCityConnections(query_date,query_marker,trip_type);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
                 $('#destination_select').val(event.sourceTarget.options.id).change();
