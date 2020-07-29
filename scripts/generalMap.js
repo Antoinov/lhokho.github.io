@@ -87,13 +87,14 @@ $(document).ready(function(){
     displayTickets(map);
     let query_date = buildQueryDate($('#selected_date').val());
     let trip_type = $("input[name='trip_type']:checked").attr("id");
+    let time_restriction = $("input[name='trip']:checked").attr("id");
     console.log(query_date);
     if(last_checked_time != $('#selected_date').val()){
                 setTimeout(async function () {
                     delay(500);
                     await getTrainRecords(query_date);
                     if(typeof previous_marker !== 'undefined'){
-                    await getCityConnections(query_date,previous_marker,trip_type);
+                    await getCityConnections(query_date,previous_marker,trip_type,time_restriction);
                     };
                 }, 1000);
             ;};
@@ -102,13 +103,14 @@ $(document).ready(function(){
     $('#trip_type').change(function(){
     let query_date = buildQueryDate($('#selected_date').val());
     let trip_type = $("input[name='trip_type']:checked").attr("id");
+    let time_restriction = $("input[name='trip']:checked").attr("id");
     console.log(trip_type);
     if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
         setTimeout(async function () {
                     delay(500);
                     if(typeof previous_marker !== 'undefined') {
                     await displayTickets(map);
-                    await getCityConnections(query_date,previous_marker,trip_type);
+                    await getCityConnections(query_date,previous_marker,trip_type,time_restriction);
                     };
         }, 1000);
         };
@@ -116,19 +118,24 @@ $(document).ready(function(){
 
     $('#time_buttons').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
-        let weather_restriction = $("input[name='weather']:checked").attr("id");
-        let time_restriction = $("input[name='time']:checked").attr("id");
-        $("#tickets").empty();
-     
-        if(typeof previous_marker !== 'undefined'){
-            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
-        }
+        // let weather_restriction = $("input[name='weather']:checked").attr("id");
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        if(last_checked_trip_time != $("input[name='trip']:checked").attr("id")){
+        setTimeout(async function () {
+                    delay(500);
+                    if(typeof previous_marker !== 'undefined') {
+                    await displayTickets(map);
+                    await getCityConnections(query_date,previous_marker,trip_type,time_restriction);
+                    };
+        }, 1000);
+        };
     });
 
     $('#weather_buttons').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
-        let time_restriction = $("input[name='time']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
         $("#tickets").empty();
     
         if(typeof previous_marker !== 'undefined'){
@@ -179,12 +186,12 @@ $(document).ready(function(){
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event.sourceTarget;
             let weather_restriction = $("input[name='weather']:checked").attr("id");
-            let time_restriction = $("input[name='time']:checked").attr("id");
+            let time_restriction = $("input[name='trip']:checked").attr("id");
             let trip_type = $("input[name='trip_type']:checked").attr("id");
             console.log(trip_type);
             //display ticket box
             displayTickets(map);
-            getCityConnections(query_date,query_marker,trip_type);
+            getCityConnections(query_date,query_marker,trip_type,time_restriction);
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
                 $('#destination_select').val(event.sourceTarget.options.id).change();

@@ -1,6 +1,7 @@
 // Global variable to store tgv max trip
 var last_checked_time = undefined;
 var last_checked_trip_type = undefined;
+var last_checked_trip_time = undefined;
 var trips = [];
 var stations = [];
 
@@ -68,7 +69,7 @@ async function getTrainRecords(date) {
                     trip.arrival_iata = result.fields.destination_iata;
                     trip.arrival_time = result.fields.heure_arrivee;
                     //additional trip info
-                    trip.duration = calculateDuration(result.fields.heure_arrivee, result.fields.heure_depart);
+                    trip.duration = calculateDuration(result.fields.heure_depart,result.fields.heure_arrivee);
                     trip.nbStop = 0;
                     trips.push(trip);
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
@@ -93,12 +94,14 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 }
 
 //Get connections
-async function getCityConnections(date, marker,trip_type) {
+async function getCityConnections(date, marker,trip_type,time_restriction) {
     //retrieve relevant data
     let departure_id = marker.options.id;
     let direct_only = trip_type;
     //get direct trip
-    let trips = findTripsFromDepartureID(departure_id);
+    let trips = findTripsFromDepartureID(departure_id)
+    console.log(time_restriction);
+    if (time_restriction != "unknown_trip" ) {trips = trips.filter(trip => trip.duration <= time_restriction)};
     var destination_list = [];
     trips.forEach(function(trip){
     let isIn = destination_list.includes(trip.arrival_id);
@@ -153,9 +156,9 @@ async function getCityConnections(date, marker,trip_type) {
                         indirect_trip.origine_departure = trip.departure_time;
                         indirect_trip.connection_arrival = trip.arrival_time;
                         indirect_trip.connection_iata = trip.arrival_iata;
-                        indirect_trip.duration = calculateDuration(indirect_trip.arrival_time, trip.departure_time);
+                        indirect_trip.full_duration = indirect_trip.duration + trip.duration + Difftime;
                         indirect_trip.connection_time = Difftime;
-                        all_indirect_trips.push(indirect_trip);
+                        if (time_restriction != "unknown_trip" ) {if (indirect_trip.full_duration <= time_restriction){all_indirect_trips.push(indirect_trip)}} else {all_indirect_trips.push(indirect_trip);};
                         // console.log(indirect_trip.arrival_city, ' depuis ', indirect_trip.departure_city, ' ', trip.departure_time,'-',trip.arrival_time,'-',indirect_trip.departure_time,'-',indirect_trip.arrival_time)
                         };
                    };
@@ -197,8 +200,8 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         tripLayer.addLayer(polyline);
         //var polygon = getTripPolygon(trip.departure_coords,trip.arrival_coords);
 
-        let hours = Math.round(indirect_trip.duration / (60))
-        let minute = Math.round(Math.abs(indirect_trip.duration - hours * 60));
+        let hours = Math.round(indirect_trip.full_duration / (60))
+        let minute = Math.round(Math.abs(indirect_trip.full_duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
         let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
