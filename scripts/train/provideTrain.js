@@ -137,7 +137,7 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                    let check = trips.filter(trip => trip.arrival_id == indirect_trip.arrival_id);
                    // console.log(check);
                    let alternative = false;
-                   for (var i = 0 in check) {
+                   for (let i in check) {
                         let dt4 = new Date();
                         let [hours, minutes] = check[i].arrival_time.split(':');
                         dt4.setHours(+hours);

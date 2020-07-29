@@ -14,26 +14,16 @@
                 Accueil
             </a>
         </li>
-        <li>
-            <a href="#destSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <li class="active">
+            <a href="index.html">
                 <i class="fas fa-suitcase"></i>
-                Places
-            </a>
-            <ul class="collapse list-unstyled disable-scrollbars" id="destSubmenu" style="max-height: 200px;overflow-y: scroll;">
-                <!-- destination list will be generated dynamically here -->
-            </ul>
-        </li>
-        <li id="logoutOpt" hidden>
-            <a onclick="googleSignOut()">
-                <i class="fas fa-power-off"></i>
-                Log Out
+                Contact
             </a>
         </li>
     </ul>
 
 
     <ul class="list-unstyled CTAs">
-        <button id="btnLogout"   hidden>Log Out</button>
         <div class="form-group">
             <label class="switch">
                 <input id="toggle_tgv" type="checkbox" >
@@ -73,17 +63,6 @@
                 });
             </script>
             <div class="input-group-btn">
-                <label class="mr-sm-2">Direct train ?</label>
-                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="trip_type">
-                    <label class="btn btn-outline-secondary active text-white">
-                        <input type="radio" name="trip_type" id="direct" autocomplete="off" checked> Direct
-                    </label>
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="trip_type" id="indirect" autocomplete="off"> Indirect
-                    </label>
-                </div>
-            </div>
-            <div class="input-group-btn">
                 <label class="mr-sm-2">Durée du voyage</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="time_buttons">
                     <label class="btn btn-outline-secondary text-white">
@@ -98,36 +77,13 @@
                 </div>
             </div>
             <div class="input-group-btn">
-                <label class="mr-sm-2">One day trip ?</label>
-                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="time_buttons">
+                <label class="mr-sm-2">Challenge</label>
+                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="trip_type">
                     <label class="btn btn-outline-secondary active text-white">
-                        <input type="radio" name="time" id="unknown_time" autocomplete="off" checked> One way
+                        <input type="radio" name="trip_type" id="direct" autocomplete="off" checked> Direct
                     </label>
                     <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="time" id="2h" autocomplete="off"> 2h
-                    </label>
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="time" id="4h" autocomplete="off"> 4h
-                    </label>
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="time" id="6h" autocomplete="off"> 6h
-                    </label>
-                </div>
-            </div>
-            <div class="input-group-btn">
-                <label class="mr-sm-2">Weather</label>
-                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="weather_buttons">
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="weather" id="sun" autocomplete="off"><i class="fa fa-sun"></i>
-                    </label>
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="weather" id="hot" autocomplete="off"> +5°
-                    </label>
-                    <label class="btn btn-outline-secondary text-white">
-                        <input type="radio" name="weather" id="cold" autocomplete="off"> -5°
-                    </label>
-                    <label class="btn btn-outline-secondary active text-white">
-                        <input type="radio" name="weather" id="unknown_weather" autocomplete="off" checked> ?
+                        <input type="radio" name="trip_type" id="indirect" autocomplete="off"> Indirect
                     </label>
                 </div>
             </div>

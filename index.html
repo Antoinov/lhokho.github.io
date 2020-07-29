@@ -21,8 +21,6 @@
     <script src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!-- Leaflet CSS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
-    <!-- Leaflet Slider add-on-->
-    <link rel="stylesheet" href="scripts/leaflet-slider/leaflet-slider.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
     <!-- JQuery JS-->
@@ -38,42 +36,23 @@
           integrity="sha512-RLEjtaFGdC4iQMJDbMzim/dOvAu+8Qp9sw7QE4wIMYcg2goVoivzwgSZq9CsIxp4xKAZPKh5J2f2lOko2Ze6FQ=="
           crossorigin="">
 </head>
+<script>
+    //paste this code under the head tag or in a separate js file.
+    // Wait for window load
 
+    $(document).ready(function() {
+        // Animate loader off screen
+        $(".se-pre-con").delay(2000).fadeOut(1500);
+    });
+</script>
 <body>
     <div class="wrapper">
         <div id="side-nav"></div>
+        <div class="se-pre-con"></div>
         <div id="content">
             <!-- START CONTENT  -->
             <div class="map" id="map" ></div>
             <!-- STOP CONTENT  -->
-        </div>
-        <div id="myModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Ready to travel with us ?</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="modal-content" id="mobileContent" hidden>
-                                <p class="modal-title">Site is not ready yet to phone display</h4>
-                            </div>
-                            <div class="form-group">
-                                <button id="btnLogin"  onclick="googleSignIn()" class="btn btn-secondary w-100 modal-button">
-                                    <i class="fab fa-google"></i>
-                                    Log in
-                                </button>
-                            </div>
-                            <div class="form-group">
-                                <button id="btnGuest"  onclick="initializeClock()" class="btn btn-secondary w-100 modal-button">
-                                    <i class="fa fa-user-friends"></i>
-                                    Guest
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -92,26 +71,23 @@
     <!-- Leaflet JS -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <script src="scripts/leaflet-slider/leaflet-slider.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
             integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
             crossorigin=""></script>
-    <!-- Google APIs JS -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- script to load utils -->
     <script src="scripts/utils.js"></script>
     <!-- script to init some navigation elements -->
     <script src="scripts/initDisplay.js"></script>
     <!-- script to connect to firebase -->
-    <script src="scripts/connectFirebase.js"></script>
-    <script src="scripts/displayLocalTrain.js"></script>
-    <script src="scripts/weather.js"></script>
+    <script src="scripts/firebase/connectFirebase.js"></script>
+    <script src="scripts/train/displayLocalTrain.js"></script>
+    <script src="scripts/weather/weather.js"></script>
     <!-- script to init leaflet map -->
-    <script src="scripts/barLayer.js"></script>
-    <script src="scripts/initMap.js"></script>
-    <script src="scripts/provideTrain.js"></script>
-    <script defer src="scripts/generalMap.js"></script>
+    <script src="scripts/bar/barLayer.js"></script>
+    <script src="scripts/map/initMap.js"></script>
+    <script src="scripts/train/provideTrain.js"></script>
+    <script defer src="scripts/map/generalMap.js"></script>
 </body>
 
 </html>

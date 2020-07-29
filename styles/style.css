@@ -68,8 +68,8 @@ span {
 
 #sidebar {
     height: 100%;
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 150px;
+    max-width: 150px;
     background: #57585f;
     color: #fff;
     transition: all 0.3s;
@@ -90,7 +90,7 @@ span {
     display: block;
 }
 
-.sidebar-header:hover { background-color: #9798c6 !important; }
+.sidebar-header:hover { background-color: #57585f !important; }
 
 #sidebar ul li a {
     text-align: left;
@@ -124,7 +124,7 @@ span {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #57587f;
+    background: #57585f;
 }
 
 #sidebar .sidebar-header strong {
@@ -134,7 +134,7 @@ span {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #57587f;
+    border-bottom: 1px solid #57585f;
 }
 
 #sidebar ul li a {
@@ -144,7 +144,7 @@ span {
 }
 
 #sidebar ul li a:hover {
-    color: #57587f;
+    color: #57585f;
     background: #fff;
 }
 
@@ -155,7 +155,7 @@ span {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #57587f;
+    background: #57585f;
 }
 
 a[data-toggle="collapse"] {
@@ -173,7 +173,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #57587f;
+    background: #57585f;
 }
 
 ul.CTAs {
@@ -190,12 +190,12 @@ ul.CTAs a {
 
 a.download {
     background: #fff;
-    color: #57587f;
+    color: #57585f;
 }
 
 a.article,
 a.article:hover {
-    background: #57587f !important;
+    background: #57585f !important;
     color: #fff !important;
 }
 
@@ -216,15 +216,15 @@ a.article:hover {
 
 .modal-header {
      color: white;
-     background-color: #57587f;  
+     background-color: #57585f;  
  }
 
  .modal-button {
     color: white;
-    background-color: #57587f;  
+    background-color: #57585f;  
 }
 
-.example-open .modal-backdrop {background-color:#57587f;}
+.example-open .modal-backdrop {background-color:#57585f;}
 
 #content {
     width: 100%;
@@ -260,7 +260,7 @@ a.article:hover {
 
 /* css to customize Leaflet default styles  */
 .popupCustom .leaflet-popup-content-wrapper {
-    background: #57587f;
+    background: #57585f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
@@ -288,7 +288,7 @@ a.article:hover {
 
 /* css to customize Leaflet default styles  */
 .popupBar .leaflet-popup-content-wrapper {
-    background: #57587f;
+    background: #57585f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
@@ -316,7 +316,7 @@ a.article:hover {
 ----------------------------------------------------- */
 
 #sidebarCollapse {
-        background: #57587f;
+        background: #57585f;
 }
 
 /* ---------------------------------------------------
@@ -465,8 +465,9 @@ if it's not present, don't show loader */
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: url(../images/icons/loading.gif) center no-repeat #1874D2;
-    opacity: 0.9;
+    background: url(../images/icons/loading.gif) no-repeat center fixed;
+    background-size: cover;
+    opacity: 0.75;
 }
 
 
@@ -485,7 +486,7 @@ if it's not present, don't show loader */
 }
 
 .card-custom {
-    background-color: #57587f;
+    background-color: #57585f;
 }
 
 .FixedHeightContainer {
@@ -515,11 +516,11 @@ if it's not present, don't show loader */
     font-size: 1.1em;
     color:white;
     border-radius: 25px;
-    background-color:#57587f;
+    background-color:#57585f;
 }
 .info h4 {
     margin: 0 0 5px;
-    color: #57587f;
+    color: #57585f;
 }
 
 .weather {
@@ -537,8 +538,8 @@ if it's not present, don't show loader */
     animation-iteration-count: 2; 
 }
 
-.info_select:hover { color:#010050; background-color:#57587f;border-radius: 15px; opacity:0.5; }
-.info_select:active { color:#010050; background-color:#57587f;border-radius: 15px;opacity:0.5; }
+.info_select:hover { color:#010050; background-color:#57585f;border-radius: 15px; opacity:0.5; }
+.info_select:active { color:#010050; background-color:#57585f;border-radius: 15px;opacity:0.5; }
 
 @keyframes shake {
     0% {
@@ -609,11 +610,11 @@ if it's not present, don't show loader */
     font-size: 1.1em;
     color:white;
     border-radius: 5px;
-    background-color:#57587f;
+    background-color:#57585f;
 }
 .calendar h4 {
     margin: 0 0 5px;
-    color: #57587f;
+    color: #57585f;
 }
 
 
@@ -653,7 +654,7 @@ if it's not present, don't show loader */
   width: 46px;
   left: 2px;
   bottom: 2px;
-  background-color: #57587f;
+  background-color: #57585f;
       -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.22);
   -webkit-transition: .4s;
@@ -672,7 +673,7 @@ if it's not present, don't show loader */
     color: #fff;
     height: 50px;
     border-radius: 50px;
-    background-color: #57587f;
+    background-color: #57585f;
     -webkit-transform: translateX(-80px);
     -ms-transform: translateX(-80px);
     transform: translateX(-80px);
@@ -708,7 +709,7 @@ input:checked + .slider:before {
 .absolute-no {
 	position: absolute;
 	left: 0;
-	color: #57587f;
+	color: #57585f;
 	text-align: right !important;
     font-size: 25px;
     width: calc(100% - 25px);
