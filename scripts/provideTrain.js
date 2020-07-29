@@ -12,7 +12,7 @@ $(document).ready(function(){
     }).then(function(){
         setTimeout(function () {
             getTrainRecords(buildQueryDate(currentTime));
-        }, 1000);
+        }, 500);
         
         //update trip on date change
         $('#selected_date').change(function() {
@@ -22,7 +22,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     delay(500);
                     getTrainRecords(query_date);
-                }, 1000);
+                }, 500);
                 
             }
         });
@@ -31,10 +31,11 @@ $(document).ready(function(){
 
 // Get API SNCF records
 async function getTrainRecords(date) {
+    trips = [];
     last_checked_time = date;
     console.log("enter getTrainRecords method");
     var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
-        '&q=&rows=5000&sort=date&refine.od_happy_card=OUI' +
+        '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
         '&refine.date=%date'.replace('%date', date); //format: YYYY-MM-DD
     $.ajaxSetup({
         async: false
@@ -82,7 +83,6 @@ async function getTrainRecords(date) {
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
         });
-
         return trips;
     });
 };
@@ -113,7 +113,7 @@ async function getCityConnections(date, marker) {
     let isIn = destination_list.includes(trip.arrival_id);
     if (isIn == false) {
             destination_list.push(trip.arrival_id);
-            console.log(destination_list)
+            // console.log(destination_list)
     }});
     // get non direct trip if allowed
     if (direct_only == false) {
@@ -140,19 +140,20 @@ async function getCityConnections(date, marker) {
                    dt3.setHours(+hours);
                    dt3.setMinutes(minutes);
                    let check = trips.filter(trip => trip.arrival_id == indirect_trip.arrival_id);
-                   console.log(check);
+                   // console.log(check);
                    let alternative = false;
                    for (var i = 0 in check) {
                         let dt4 = new Date();
                         let [hours, minutes] = check[i].arrival_time.split(':');
                         dt4.setHours(+hours);
                         dt4.setMinutes(minutes);
-                        if ((Math.abs(dt3.getTime() - dt4.getTime()) < 60000)) {
-                        console.log('Better alternative found - Exit loop');
-                        console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
+                        if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                        // console.log('Better alternative found - Exit loop');
+                        // console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
                         alternative = true;
                         };
-                        console.log(alternative)};
+                        // console.log(alternative)
+                        };
                         if (alternative == false) {
                         indirect_trip.origine = trip.departure_city;
                         indirect_trip.origine_id = trip.departure_id;
@@ -163,7 +164,7 @@ async function getCityConnections(date, marker) {
                         indirect_trip.duration = calculateDuration(indirect_trip.arrival_time, trip.departure_time);
                         indirect_trip.connection_time = Difftime;
                         all_indirect_trips.push(indirect_trip);
-                        console.log(indirect_trip.arrival_city, ' depuis ', indirect_trip.departure_city, ' ', trip.departure_time,'-',trip.arrival_time,'-',indirect_trip.departure_time,'-',indirect_trip.arrival_time)
+                        // console.log(indirect_trip.arrival_city, ' depuis ', indirect_trip.departure_city, ' ', trip.departure_time,'-',trip.arrival_time,'-',indirect_trip.departure_time,'-',indirect_trip.arrival_time)
                         };
                    };
                    });
@@ -183,7 +184,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         let isIn = destination_list.includes(indirect_trip.arrival_id);
         if (isIn == false) {
                 destination_list.push(indirect_trip.arrival_id);
-                console.log(destination_list)
+                // console.log(destination_list)
         };
         let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
 
@@ -195,8 +196,8 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         var polyline = new CustomPolyline(current_coords, {
             id: identify_ticket,
             color: 'blue',
-            weight: 4,
-            opacity: 0.05,
+            weight: 2,
+            opacity: 0.02,
             duration: indirect_trip.duration,
             dashArray: '10, 10',
             dashOffset: '0'
@@ -207,7 +208,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         let hours = Math.round(indirect_trip.duration / (60))
         let minute = Math.round(Math.abs(indirect_trip.duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
-        let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.departure_time.split(':')[0].toString() + ':00';
+        let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
 
         let category_html = '<div class="card" id="' + indirect_trip.arrival_id + '">' +
@@ -219,8 +220,8 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
                           '<div class="card-body" href="' + tl_url + '">' +
                           '<i class="fas fa-paper-plane"></i>' +
-                          '<strong> %td | %tac </strong> ... %tc min ... <strong> %tdc | %ta </strong>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
-                          'en %d !'.replace('%d', display) +
+                          '<strong> %td </strong>| %tac <i class="fas fa-history"></i><br> %tdc | <strong>%ta </strong><br> ... via la belle ville de %sc pendant <strong>%tc min</strong> <br>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%sc', indirect_trip.departure_city).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
+                          'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
                           '</div></div>'
 
         if (isIn == false) {
@@ -233,7 +234,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
         markerLayer.eachLayer(function (layer) {
             if (indirect_trip.arrival_iata == layer.options.iata) {
-                layer.setOpacity(1);
+                layer.setOpacity(0.5);
             }
         });
 
