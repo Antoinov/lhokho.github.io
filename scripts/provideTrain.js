@@ -14,18 +14,8 @@ $(document).ready(function(){
             getTrainRecords(buildQueryDate(currentTime));
         }, 500);
         
-        //update trip on date change
-        $('#selected_date').change(function() {
-            let query_date = buildQueryDate($('#selected_date').val());
-            console.log(query_date)
-            if(last_checked_time != $('#selected_date').val()){
-                setTimeout(function () {
-                    delay(500);
-                    getTrainRecords(query_date);
-                }, 500);
-                
-            }
-        });
+        //update trip on date change (MOVE TO GENERALMAP.JS)
+        $('#selected_date').change(async function() {});
     });
 });
 

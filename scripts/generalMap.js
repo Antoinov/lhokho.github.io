@@ -83,16 +83,20 @@ $(document).ready(function(){
         }
     });
 
-    $('#selected_date').change(async function() {
-        let weather_restriction = $("input[name='weather']:checked").attr("id");
-        let time_restriction = $("input[name='time']:checked").attr("id");
-        //remove previous tickets
-        $("#tickets").empty();
-        
-        if(typeof previous_marker !== 'undefined'){
-            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
-        };
-    });
+    $('#selected_date').change( function() {
+            displayTickets(map);
+            let query_date = buildQueryDate($('#selected_date').val());
+            console.log(query_date);
+            if(last_checked_time != $('#selected_date').val()){
+                setTimeout(async function () {
+                    delay(500);
+                    await getTrainRecords(query_date);
+                    if(typeof previous_marker !== 'undefined'){
+                    await getCityConnections(query_date,previous_marker);
+                    };
+                }, 1000);
+            ;};
+        });
 
 
     $('#time_buttons').change(function() {
