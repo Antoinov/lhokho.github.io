@@ -168,7 +168,10 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                    // console.log(all_indirect_trips);
                    await drawDirectTrip(trips);
                    await drawIndirectTrip(all_indirect_trips,destination_list)} else {await drawDirectTrip(trips)};
-
+                   $('#sidebar').toggleClass('active');
+                   $('#sidebarCollapse').on('click', function () {
+                   $('#sidebar').toggleClass('active');
+                   });
             };
 
 async function drawIndirectTrip(indirect_trips,destination_list){
@@ -221,6 +224,41 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
         if (isIn == false) {
             $("#tickets").append(category_html);
+            $('#' + trip.arrival_id).bind('mouseover', function () {
+            console.log('mouseover');
+            tripLayer.eachLayer(function (layer) {
+                if (!anchored) {
+                    if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'blue',
+                            weight: 4,
+                            opacity: 1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+                }
+                });
+            });
+            $('#' + trip.arrival_id).bind('mouseout', function () {
+            tripLayer.eachLayer(function (layer) {
+                let id = identify_ticket;
+                console.log('mouseout');
+                if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'black',
+                            weight: 4,
+                            opacity: 0.1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+                });
+            });
             $('#sub' + indirect_trip.arrival_id).append(ticket_html);
         } else {$('#sub' + indirect_trip.arrival_id).append(ticket_html)};
 
@@ -256,7 +294,7 @@ async function drawDirectTrip(trips){
         current_coords.push(trip.departure_coords);
         current_coords.push(trip.arrival_coords);
         var polyline = new CustomPolyline(current_coords, {
-            id: identify_ticket,
+            id: 'line' + identify_ticket,
             color: 'black',
             weight: 4,
             opacity: 0.1,
@@ -304,14 +342,49 @@ async function drawDirectTrip(trips){
                           '</div></div>'
         if (isIn == false) {
             $("#tickets").append(category_html);
-            $('#sub' + trip.arrival_id).append(ticket_html);
+            $('#' + trip.arrival_id).bind('mouseover', function () {
+            console.log('mouseover');
+            tripLayer.eachLayer(function (layer) {
+                if (!anchored) {
+                    if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'blue',
+                            weight: 4,
+                            opacity: 1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+                }
+                });
+            });
+            $('#' + trip.arrival_id).bind('mouseout', function () {
+            tripLayer.eachLayer(function (layer) {
+                let id = identify_ticket;
+                console.log('mouseout');
+                if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'black',
+                            weight: 4,
+                            opacity: 0.1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+            });
+        });
+        $('#sub' + trip.arrival_id).append(ticket_html);
         } else {$('#sub' + trip.arrival_id).append(ticket_html)};
 
 
 
 
-        /*var anchored = false;
-        if (typeof previousid == 'undefined') {
+        var anchored = false;
+        /* if (typeof previousid == 'undefined') {
             $("#tickets").append(ticket_html);
             $('#btn_return_' + identify_ticket).hide();
         } else {
@@ -328,25 +401,10 @@ async function drawDirectTrip(trips){
             }
         });
 
-        /*$('#' + identify_ticket).bind('mouseover', function () {
-            tripLayer.eachLayer(function (layer) {
-                if (!anchored) {
-                    if (layer.options.id == identify_ticket) {
-                        layer.setStyle({
-                            color: 'black',
-                            weight: 4,
-                            opacity: 0.02,
-                            duration: trip.duration,
-                            dashArray: '10, 10',
-                            dashOffset: '0'
-                        });
-                        $('#' + identify_ticket).css("background-color", "#9d9efd");
-                    }
-                }
-            });
-        });
 
-        $('#' + identify_ticket).bind('click', function () {
+
+
+        /*$('#' + identify_ticket).bind('click', function () {
             console.log('test click')
             let oneTime = true;
             tripLayer.eachLayer(function (layer) {
@@ -413,16 +471,7 @@ async function drawDirectTrip(trips){
             });
         });
 
-        $('#' + identify_ticket).bind('mouseout', function () {
-            tripLayer.eachLayer(function (layer) {
-                let id = identify_ticket;
-                if (layer.options.id == id) {
-                    if (!anchored) {
-                        $('#' + identify_ticket).css("background-color", "#57587f");
-                    }
-                }
-            });
-        })*/
+        */
     }
 
 

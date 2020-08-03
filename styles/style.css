@@ -68,7 +68,7 @@ span {
 
 #sidebar {
     height: 100%;
-    min-width: 150px;
+    min-width: 20em;
     max-width: 150px;
     background: #57585f;
     color: #fff;
@@ -491,6 +491,7 @@ if it's not present, don't show loader */
 
 .FixedHeightContainer {
     float:right;
+    top: 0;
     height: 30rem;
     width:18rem;
     padding:0px;
