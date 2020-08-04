@@ -179,6 +179,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
     //set up weather acceptance to true
     let accepted_weather = true;
     indirect_trips.forEach(function(indirect_trip){
+        let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
         let isIn = destination_list.includes(indirect_trip.arrival_id);
         if (isIn == false) {
                 destination_list.push(indirect_trip.arrival_id);
@@ -192,7 +193,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         current_coords.push(indirect_trip.departure_coords);
         current_coords.push(indirect_trip.arrival_coords);
         var polyline = new CustomPolyline(current_coords, {
-            id: identify_ticket,
+            id: 'line' + identify_ticket,
             color: 'blue',
             weight: 2,
             opacity: 0.02,
@@ -224,8 +225,11 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
         if (isIn == false) {
             $("#tickets").append(category_html);
-            $('#' + trip.arrival_id).bind('mouseover', function () {
-            console.log('mouseover');
+
+            $('#sub' + indirect_trip.arrival_id).append(ticket_html);
+        } else {$('#sub' + indirect_trip.arrival_id).append(ticket_html)};
+
+        $('#' + identify_ticket).bind('mouseover', function () {
             tripLayer.eachLayer(function (layer) {
                 if (!anchored) {
                     if (layer.options.id == 'line' + identify_ticket) {
@@ -234,36 +238,74 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                             color: 'blue',
                             weight: 4,
                             opacity: 1,
-                            duration: trip.duration,
+                            duration: indirect_trip.duration,
                             dashArray: '10, 10',
                             dashOffset: '0'
                         });
-                    }
+                    };
+                    if (layer.options.id == origin_ticket ) {
+                        layer.setStyle({
+                                id: origin_ticket,
+                                color: 'yellow',
+                                weight: 4,
+                                opacity: 1,
+                                duration: indirect_trip.duration,
+                                dashArray: '10, 10',
+                                dashOffset: '0'
+                            });
+                    };
                 }
                 });
+            markerLayer.eachLayer(function (layer) {
+            if (indirect_trip.arrival_iata == layer.options.iata) {
+                layer.setOpacity(1);
+                     };
+            if (indirect_trip.connection_iata == layer.options.iata) {
+                        layer.setOpacity(0.5);
+                        }
+                });
             });
-            $('#' + trip.arrival_id).bind('mouseout', function () {
+            $('#' + identify_ticket).bind('mouseout', function () {
             tripLayer.eachLayer(function (layer) {
                 let id = identify_ticket;
-                console.log('mouseout');
                 if (layer.options.id == 'line' + identify_ticket) {
                         layer.setStyle({
                             id: 'line' + identify_ticket,
-                            color: 'black',
-                            weight: 4,
-                            opacity: 0.1,
-                            duration: trip.duration,
+                            color: 'blue',
+                            weight: 2,
+                            opacity: 0.2,
+                            duration: indirect_trip.duration,
                             dashArray: '10, 10',
                             dashOffset: '0'
                         });
-                    }
+                    };
+
+                   if (layer.options.id == origin_ticket ) {
+                        layer.setStyle({
+                                id: origin_ticket,
+                                color: 'black',
+                                weight: 4,
+                                opacity: 0.1,
+                                duration: indirect_trip.duration,
+                                dashArray: '10, 10',
+                                dashOffset: '0'
+                            });
+                    };
+
                 });
+                markerLayer.eachLayer(function (layer) {
+                    if (indirect_trip.arrival_iata == layer.options.iata) {
+                        layer.setOpacity(0.5);
+                        }
+                    if (indirect_trip.connection_iata == layer.options.iata) {
+                        layer.setOpacity(0.5);
+                        }
+                    });
             });
-            $('#sub' + indirect_trip.arrival_id).append(ticket_html);
-        } else {$('#sub' + indirect_trip.arrival_id).append(ticket_html)};
 
         tmp_duration_list.push(indirect_trip.duration);
 
+        var anchored = false;
 
         markerLayer.eachLayer(function (layer) {
             if (indirect_trip.arrival_iata == layer.options.iata) {
@@ -343,13 +385,12 @@ async function drawDirectTrip(trips){
         if (isIn == false) {
             $("#tickets").append(category_html);
             $('#' + trip.arrival_id).bind('mouseover', function () {
-            console.log('mouseover');
             tripLayer.eachLayer(function (layer) {
                 if (!anchored) {
                     if (layer.options.id == 'line' + identify_ticket) {
                         layer.setStyle({
                             id: 'line' + identify_ticket,
-                            color: 'blue',
+                            color: 'black',
                             weight: 4,
                             opacity: 1,
                             duration: trip.duration,
@@ -363,7 +404,6 @@ async function drawDirectTrip(trips){
             $('#' + trip.arrival_id).bind('mouseout', function () {
             tripLayer.eachLayer(function (layer) {
                 let id = identify_ticket;
-                console.log('mouseout');
                 if (layer.options.id == 'line' + identify_ticket) {
                         layer.setStyle({
                             id: 'line' + identify_ticket,
