@@ -380,7 +380,7 @@ async function drawDirectTrip(trips){
                           '<div class="card-body" href="' + tl_url + '">' +
                           '<i class="fas fa-space-shuttle"></i>' +
                           '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
-                          'en %d !'.replace('%d', display) +
+                          'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
                           '</div></div>'
         if (isIn == false) {
             $("#tickets").append(category_html);
