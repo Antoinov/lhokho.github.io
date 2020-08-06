@@ -7,6 +7,24 @@ function focus_station(city_id,route){
     })
 }
 
+function Search(){
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("tickets");
+    li = ul.getElementsByTagName('li');
+
+    for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("p")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    };
+    };
+    }
+
 function displayTickets(map){
     console.log('display tickets...');
 
@@ -14,7 +32,7 @@ function displayTickets(map){
         position : 'bottomright'
     });
 
-    let tickets_html = '<div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets" role="tablist" aria-multiselectable="true"></ul></div>'
+    let tickets_html = '<input type="text" id="myInput" onkeyup="Search()" placeholder="Search for cities.."><div  class="Content"><ul style="padding: 0;list-style-type:none;" id="tickets" role="tablist" aria-multiselectable="true"></ul></div>'
     info_line.onAdd = function () {
         this._div = L.DomUtil.create('div','FixedHeightContainer');
         this.update();
@@ -83,7 +101,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#selected_date').change( function() {
+    $('#selected_date').change(function() {
     displayTickets(map);
     let query_date = buildQueryDate($('#selected_date').val());
     let trip_type = $("input[name='trip_type']:checked").attr("id");
@@ -101,6 +119,7 @@ $(document).ready(function(){
         });
 
     $('#trip_type').change(function(){
+    console.log('prout');
     let query_date = buildQueryDate($('#selected_date').val());
     let trip_type = $("input[name='trip_type']:checked").attr("id");
     let time_restriction = $("input[name='trip']:checked").attr("id");
@@ -117,6 +136,7 @@ $(document).ready(function(){
         });
 
     $('#time_buttons').change(function() {
+        console.log('prout 2');
         let query_date = buildQueryDate($('#selected_date').val());
         // let weather_restriction = $("input[name='weather']:checked").attr("id");
         let trip_type = $("input[name='trip_type']:checked").attr("id");
@@ -143,12 +163,13 @@ $(document).ready(function(){
         }
     });
 
+
+
     $('#destination_select').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
-        
-        //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
+        getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
     });
 
     $('#toggle_tgv').change(function() {
@@ -166,7 +187,7 @@ $(document).ready(function(){
         }
     });
 
-    function onClick(event) {
+    function ondbClick(event) {
         //check if tgv is toggled
         let isActiveSearch = $('#toggle_tgv').prop('checked');
         //clear previous elements
@@ -176,12 +197,12 @@ $(document).ready(function(){
         //store marker
         previous_marker = event.sourceTarget;
         //fly to selected marker
-        map.flyTo(event.sourceTarget.getLatLng(),7,{'animate':true});
+        map.flyTo(event.sourceTarget.getLatLng(),6,{'animate':true});
         let date = new Date();
         if(isActiveSearch){
             //close all popups
             event.target.closePopup();
-            event.sourceTarget.setIcon(L.icon({"iconSize": [40,40], "iconUrl":"images/icons/station.png"}));
+            event.sourceTarget.setIcon(L.icon({"iconSize": [25,25], "iconUrl":"images/icons/station.png"}));
             //retrieve date from form
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event.sourceTarget;
@@ -199,13 +220,20 @@ $(document).ready(function(){
             }
 
         }
-    }
+    };
+
+    function onClick(event) {
+    if($('#' + event.sourceTarget.options.id).length > 0) {
+    var element = document.getElementById(event.sourceTarget.options.id)
+    element.scrollIntoView();
+    } else {console.log('The element does not exist')};
+    };
 
     function add_station(city_id,city_data){
         var marker_destination = L.marker(
             [city_data.lat,city_data.lon],
             {"id":city_id ,"city":city_data.city, "iata":city_data.iata_code}
-        ).on('click', onClick).setOpacity(0.2);
+        ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.2);
 
         marker_destination.on({
             click: function() {
@@ -275,8 +303,6 @@ $(document).ready(function(){
         }
         return 0;
     }
-
-
    
 });
 

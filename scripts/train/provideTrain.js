@@ -99,7 +99,7 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
     let departure_id = marker.options.id;
     let direct_only = trip_type;
     //get direct trip
-    let trips = findTripsFromDepartureID(departure_id)
+    let trips = findTripsFromDepartureID(departure_id);
     console.log(time_restriction);
     if (time_restriction != "unknown_trip" ) {trips = trips.filter(trip => trip.duration <= time_restriction)};
     var destination_list = [];
@@ -168,10 +168,10 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                    // console.log(all_indirect_trips);
                    await drawDirectTrip(trips);
                    await drawIndirectTrip(all_indirect_trips,destination_list)} else {await drawDirectTrip(trips)};
-                   $('#sidebar').toggleClass('active');
-                   $('#sidebarCollapse').on('click', function () {
-                   $('#sidebar').toggleClass('active');
-                   });
+                   // $('#sidebar').toggleClass('active');
+                   // $('#sidebarCollapse').on('click', function () {
+                   // $('#sidebar').toggleClass('active');
+                   // });
             };
 
 async function drawIndirectTrip(indirect_trips,destination_list){
@@ -210,11 +210,11 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
 
-        let category_html = '<div class="card" id="' + indirect_trip.arrival_id + '">' +
+        let category_html = '<li class="card" id="' + indirect_trip.arrival_id + '">' +
                             '<img src="images/city/bg_'+ indirect_trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                             '<h5 class="card-img-overlay" role="tab" id="heading' + indirect_trip.arrival_id + '">' +
                             '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" href="#sub' + indirect_trip.arrival_id + '" aria-expanded="false">' +
-                            '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + indirect_trip.arrival_city + '</p></a></h5><div class="card" id="sub' + indirect_trip.arrival_id + '"></div></div>'
+                            '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + indirect_trip.arrival_city + '</p></a></h5><div class="card" id="sub' + indirect_trip.arrival_id + '"></div></li>'
 
         let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
                           '<div class="card-body" href="' + tl_url + '">' +
@@ -261,7 +261,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                 layer.setOpacity(1);
                      };
             if (indirect_trip.connection_iata == layer.options.iata) {
-                        layer.setOpacity(0.5);
+                        layer.setOpacity(0.8);
                         }
                 });
             });
@@ -371,11 +371,11 @@ async function drawDirectTrip(trips){
             '</div>' +
             '</div></li>';    */
 
-        let category_html = '<div class="card" id="' + trip.arrival_id + '">' +
+        let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                             '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                             '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
                             '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                            '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card" id="sub' + trip.arrival_id + '"></div></div>'
+                            '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card" id="sub' + trip.arrival_id + '"></div></li>'
         let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
                           '<div class="card-body" href="' + tl_url + '">' +
                           '<i class="fas fa-space-shuttle"></i>' +
