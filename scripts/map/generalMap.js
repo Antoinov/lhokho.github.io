@@ -89,6 +89,7 @@ $(document).ready(function(){
 
     // to restore marker to previous state when not used anymore
     var previous_marker = undefined;
+    var human_click = undefined;
     //retrieve map from global variable
     var map =  mapsPlaceholder[0];
  
@@ -104,7 +105,10 @@ $(document).ready(function(){
     $('#selected_date').change(function() {
     if (typeof tripLayer !== 'undefined') {
             tripLayer.clearLayers();
-        }
+        };
+    markerLayer.eachLayer(function (layer) {
+            layer.setOpacity(0.2);
+        });
     let query_date = buildQueryDate($('#selected_date').val());
     let trip_type = $("input[name='trip_type']:checked").attr("id");
     let time_restriction = $("input[name='trip']:checked").attr("id");
@@ -176,12 +180,15 @@ $(document).ready(function(){
         let time_restriction = $("input[name='time']:checked").attr("id");
         let destination_id = $('#destination_select').val();
         let found = false
-        markerLayer.eachLayer(function (layer) {
+        if(typeof previous_marker !== 'undefined' && typeof human_click === 'undefined'){
+            human_click = undefined,
+            markerLayer.eachLayer(function (layer) {
             if (destination_id == layer.options.id && found == false) {
             console.log(layer);
             onDestinationChange(layer);
             found = true;
             }});
+            };
     });
 
     $('#toggle_tgv').change(function() {
@@ -251,12 +258,22 @@ $(document).ready(function(){
             let weather_restriction = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='trip']:checked").attr("id");
             let trip_type = $("input[name='trip_type']:checked").attr("id");
-            console.log(trip_type);
+            let journey_type = $("input[name='journey_type']:checked").attr("id");
             //display ticket box
-            displayTickets(map);
-            getCityConnections(query_date,query_marker,trip_type,time_restriction);
+            displayTickets(map)
+            if (journey_type == 'no_return') {console.log('no return');
+            getCityConnections(query_date,query_marker,trip_type,time_restriction); }
+            else { if(journey_type == 'one_day') {
+                let return_option = $("input[name='oneday_type']:checked").attr("id");
+                getRoundTrip(query_marker, trip_type, time_restriction, return_option);
+            } else {
+                    let return_option = buildQueryDate($('#return_date').val());
+                    getRoundTrip(query_marker, trip_type, time_restriction, return_option)
+            };
+            };
             //select city in tgv ticket form (when click is human made)
             if (event.originalEvent !== undefined) {
+                human_click = true,
                 $('#destination_select').val(event.sourceTarget.options.id).change();
 
             }
