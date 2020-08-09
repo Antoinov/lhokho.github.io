@@ -515,14 +515,12 @@ async function drawDirectTrip(trips){
     console.log("Début Exé DrawDirect");
     var destination_list = [];
     destination_list.push(trips[0].departure_id)
-    let ticket_list = [];
+    let ticket_map = new Map()
     trips.forEach(function(trip){
         let isIn = destination_list.includes(trip.arrival_id);
         if (isIn == false) {
             destination_list.push(trip.arrival_id);
         };
-        //set up weather acceptance to true
-        let accepted_weather = true;
         let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
         if ($("#" + identify_ticket).length === 0) {
 
@@ -606,11 +604,12 @@ async function drawDirectTrip(trips){
                         }
                     });
                 });
-                $('#sub' + trip.arrival_id).append(ticket_html);
-            } else {$('#sub' + trip.arrival_id).append(ticket_html)};
-
-
-
+            }
+            if( typeof ticket_map.get(trip.arrival_id) === 'undefined'){
+                ticket_map.set(trip.arrival_id,[]);
+            }
+            ticket_map.get(trip.arrival_id).push(ticket_html)
+            $('#sub' + trip.arrival_id).append(ticket_html)
 
             var anchored = false;
 
@@ -618,6 +617,8 @@ async function drawDirectTrip(trips){
         }
 
     });
+    ticket_map = ticket_map.sort((a, b) => (a.duration > b.duration) ? 1 : -1);
+    console.log(ticket_map);
     markerLayer.eachLayer(function (layer) {
         if (destination_list.includes(layer.options.id) == false) {
             layer.setOpacity(0.4);
