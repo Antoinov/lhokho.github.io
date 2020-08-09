@@ -515,7 +515,7 @@ async function drawDirectTrip(trips){
     console.log("Début Exé DrawDirect");
     var destination_list = [];
     destination_list.push(trips[0].departure_id)
-    let ticket_map = new Map()
+    let trip_map = new Map()
     trips.forEach(function(trip){
         let isIn = destination_list.includes(trip.arrival_id);
         if (isIn == false) {
@@ -524,23 +524,12 @@ async function drawDirectTrip(trips){
         let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
         if ($("#" + identify_ticket).length === 0) {
 
-            let hours = Math.trunc(trip.duration / (60))
-            let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
-            let display  = createTimeDisplay(minute,hours);
-            let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
-            let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
-
             let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                 '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                 '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
                 '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
                 '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card" id="sub' + trip.arrival_id + '"></div></li>'
-            let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
-                '<div class="card-body" href="' + tl_url + '">' +
-                '<i class="fas fa-space-shuttle"></i>' +
-                '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
-                'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
-                '</div></div>'
+
             if (isIn == false) {
                 $("#tickets").append(category_html);
                 let current_coords = new Array();
@@ -605,11 +594,11 @@ async function drawDirectTrip(trips){
                     });
                 });
             }
-            if( typeof ticket_map.get(trip.arrival_id) === 'undefined'){
-                ticket_map.set(trip.arrival_id,[]);
+            if( typeof trip_map.get(trip.arrival_id) === 'undefined'){
+                trip_map.set(trip.arrival_id,[]);
             }
-            ticket_map.get(trip.arrival_id).push(ticket_html)
-            $('#sub' + trip.arrival_id).append(ticket_html)
+            trip_map.get(trip.arrival_id).push(trip)
+            //$('#sub' + trip.arrival_id).append(ticket_html)
 
             var anchored = false;
 
@@ -617,7 +606,29 @@ async function drawDirectTrip(trips){
         }
 
     });
-    ticket_map = ticket_map.sort((a, b) => (a.duration > b.duration) ? 1 : -1);
+
+    for (let [key, value] of trip_map) {
+        console.log(value)
+        value
+            .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
+            .forEach(trip => {
+            let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+            let hours = Math.trunc(trip.duration / (60))
+            let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
+            let display  = createTimeDisplay(minute,hours);
+            let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
+            let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
+            let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
+                '<div class="card-body" href="' + tl_url + '">' +
+                '<i class="fas fa-space-shuttle"></i>' +
+                '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
+                'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
+                '</div></div>'
+            $('#sub' + key).append(ticket_html)
+        })
+    }
+
+    //ticket_map =
     console.log(ticket_map);
     markerLayer.eachLayer(function (layer) {
         if (destination_list.includes(layer.options.id) == false) {
