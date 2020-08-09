@@ -190,19 +190,6 @@ $(document).ready(function(){
         };
     });
 
-    $('#weather_buttons').change(function() {
-        let query_date = buildQueryDate($('#selected_date').val());
-        let weather_restriction = $("input[name='weather']:checked").attr("id");
-        let time_restriction = $("input[name='trip']:checked").attr("id");
-        $("#tickets").empty();
-    
-        if(typeof previous_marker !== 'undefined'){
-            //getCityConnections(query_date,previous_marker,weather_restriction,time_restriction);
-        }
-    });
-
-
-
     $('#destination_select').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
