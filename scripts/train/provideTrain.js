@@ -253,8 +253,8 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             // console.log(destination_list)
     }});
     // get non direct trip if allowed
-    if (direct_only === "indirect") {
-       let all_indirect_trips = [];
+    if (direct_only == 'indirect') {
+       var all_indirect_trips = [];
        destination_list.forEach( await function(destination) {
        let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
        let current = trips.filter(trip => trip.arrival_id == destination);
@@ -307,17 +307,16 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                    });
                    });
                    });
-                   // console.log(all_indirect_trips);
-                   await drawDirectTrip(trips);
-                   await drawIndirectTrip(all_indirect_trips,destination_list)
+                   // Concatenate all direct/indirect destination for return calculation
+                   var temp_destination_list = destination_list;
                    all_indirect_trips.forEach(function(trip){
                     let isIn = destination_list.includes(trip.arrival_id);
                     if (isIn == false) {
                     destination_list.push(trip.arrival_id);
                     }})
-                    } else {await drawDirectTrip(trips)};
+                    };
 
-            console.log(return_option);
+            let oneday_trips = [];
             if (return_option == 'short_journey') {
             destination_list.forEach(function (destination) {
             let first_legs = trips.filter(trip => trip.arrival_id == destination)
@@ -341,13 +340,15 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_arrival_id = second_leg.arrival_id;
                         first_leg.sl_arrival_iata = second_leg.arrival_iata;
                         first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        console.log(first_leg);
+                        oneday_trips.push(first_leg);
                 }
                 })
             })
             });
+            drawOneDayTrip(oneday_trips);
             }
             else {if(return_option == 'medium_journey') {
             destination_list.forEach(function (destination) {
@@ -372,13 +373,15 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_arrival_id = second_leg.arrival_id;
                         first_leg.sl_arrival_iata = second_leg.arrival_iata;
                         first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        console.log(first_leg);
+                        oneday_trips.push(first_leg);
                 }
                 })
             })
             });
+            drawOneDayTrip(oneday_trips);
             }
             else {if(return_option == 'long_journey') {
             destination_list.forEach(function (destination) {
@@ -403,21 +406,36 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_arrival_id = second_leg.arrival_id;
                         first_leg.sl_arrival_iata = second_leg.arrival_iata;
                         first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        console.log(first_leg);
+                        oneday_trips.push(first_leg);
                 }
                 })
             })
             });
+            drawOneDayTrip(oneday_trips);
             }
+            // For direct/indirect return on specific date
             else {
                 if(last_checked_return != $('#return_date').val()){
                 getReturnRecords(return_option)};
                 let direct_return_base = return_base.filter(trip => trip.arrival_id == departure_id && destination_list.includes(trip.departure_id));
                 if (time_restriction != "unknown_trip" ) {direct_return_base = direct_return_base.filter(trip => trip.duration <= time_restriction)};
                 if (direct_only != "indirect") {
-                console.log(direct_return_base);
+                // Check if return exist before drawing tickets
+                let return_list = [];
+                direct_return_base.forEach(function(trip){
+                   let isIn = return_list.includes(trip.departure_id);
+                        if (isIn == false) {
+                            return_list.push(trip.departure_id);
+                };})
+                console.log(destination_list);
+                console.log(return_list);
+                console.log(trips);
+                trips = trips.filter(trip => return_list.includes(trip.arrival_id));
+                console.log(trips);
+                await drawDirectTrip(trips);
                 await drawDirectReturn(direct_return_base);
                 } else {
                let all_indirect_returns = [];
@@ -472,8 +490,23 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                            });
                            });
                            });
-                        drawDirectReturn(direct_return_base);
-                        drawIndirectReturn(all_indirect_returns);
+                        let return_list = [];
+                        direct_return_base.forEach(function(trip){
+                        let isIn = return_list.includes(trip.departure_id);
+                        if (isIn == false) {
+                            return_list.push(trip.departure_id);
+                        };})
+                        all_indirect_returns.forEach(function(trip){
+                        let isIn = return_list.includes(trip.origine_id);
+                        if (isIn == false) {
+                            return_list.push(trip.origine_id);
+                        };})
+                        trips = trips.filter(trip => return_list.includes(trip.arrival_id));
+                        all_indirect_trips = all_indirect_trips.filter(indirect_trip => return_list.includes(indirect_trip.arrival_id));
+                        await drawDirectTrip(trips);
+                        await drawIndirectTrip(all_indirect_trips,temp_destination_list);
+                        await drawDirectReturn(direct_return_base);
+                        await drawIndirectReturn(all_indirect_returns);
                         };
             };
             }};
@@ -482,56 +515,23 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
 async function drawDirectTrip(trips){
     console.log("Début Exé DrawDirect");
     var destination_list = [];
+    destination_list.push(trips[0].departure_id)
     trips.forEach(function(trip){
     let isIn = destination_list.includes(trip.arrival_id);
     if (isIn == false) {
             destination_list.push(trip.arrival_id);
-            console.log(destination_list)
     };
-
     //set up weather acceptance to true
     let accepted_weather = true;
     let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
     if ($("#" + identify_ticket).length === 0) {
 
-        let current_coords = new Array();
-        current_coords.push(trip.departure_coords);
-        current_coords.push(trip.arrival_coords);
-        var polyline = new CustomPolyline(current_coords, {
-            id: 'line' + identify_ticket,
-            color: 'black',
-            weight: 4,
-            opacity: 0.1,
-            duration: trip.duration,
-            dashArray: '10, 10',
-            dashOffset: '0'
-        });
-        tripLayer.addLayer(polyline);
-        //var polygon = getTripPolygon(trip.departure_coords,trip.arrival_coords);
 
-        let hours = Math.round(trip.duration / (60))
-        let minute = Math.round(Math.abs(trip.duration - hours * 60));
+        let hours = Math.trunc(trip.duration / (60))
+        let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
         let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
-
-        /*let content = '<li><div id="' + identify_ticket + '" class="card card-custom text-white mb-3" style="width: 15rem; ">' +
-            '<div class="card-header p-0 my-auto"><i class="fas fa-angle-double-down"></i> %td | %d </div>'.replace('%d', trip.departure_city).replace('%td', trip.departure_time) +
-            '<div class="card-body p-0 my-auto">' +
-            '<p class="card-text text-white p-0 my-auto"><i class="fas fa-train"></i> %time </p>'.replace('%time', display) +
-            '</div>' +
-            '<div class="card-footer p-0 my-auto"><i class="fas fa-angle-double-down"></i> %ta | %a | <a href="'.replace('%a', trip.arrival_city).replace('%ta', trip.arrival_time) + tl_url + '" style=" text:right;color:white;" target="_blank"">book ticket..</a></div> ' +
-            '<div class="card-footer p-0 my-auto" id="heading_' + identify_ticket + '">' +
-            '<button class="btn btn-link p-0 my-auto text-white" id="btn_return_' + identify_ticket + '" data-toggle="collapse" data-target="#collapse_' + identify_ticket + '" aria-expanded="false" aria-controls="collapse_' + identify_ticket + '">' +
-            'return...' +
-            '</button>' +
-            '</div>' +
-            '<div id="collapse_' + identify_ticket + '" class="collapse p-0 my-auto" aria-labelledby="heading_' + identify_ticket + '">' +
-            '<div id="back_' + identify_ticket + '" class="card-body p-0 my-auto">';
-        ticket_html = ticket_html +
-            '</div>' +
-            '</div>' +
-            '</div></li>';    */
 
         let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                             '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
@@ -546,6 +546,24 @@ async function drawDirectTrip(trips){
                           '</div></div>'
         if (isIn == false) {
             $("#tickets").append(category_html);
+            let current_coords = new Array();
+            current_coords.push(trip.departure_coords);
+            current_coords.push(trip.arrival_coords);
+            var polyline = new CustomPolyline(current_coords, {
+                id: 'line' + identify_ticket,
+                color: 'black',
+                weight: 2,
+                opacity: 0.1,
+                duration: trip.duration,
+                dashArray: '10, 10',
+                dashOffset: '0'
+            });
+            tripLayer.addLayer(polyline);
+            markerLayer.eachLayer(function (layer) {
+            if (trip.arrival_iata == layer.options.iata) {
+                layer.setOpacity(0.5);
+                }
+            });
             $('#' + trip.arrival_id).bind('mouseover', function () {
             tripLayer.eachLayer(function (layer) {
                 if (!anchored) {
@@ -562,6 +580,11 @@ async function drawDirectTrip(trips){
                     }
                 }
                 });
+            markerLayer.eachLayer(function (layer) {
+            if (trip.arrival_iata == layer.options.iata) {
+                layer.setOpacity(1);
+                }
+            });
             });
             $('#' + trip.arrival_id).bind('mouseout', function () {
             tripLayer.eachLayer(function (layer) {
@@ -578,6 +601,11 @@ async function drawDirectTrip(trips){
                         });
                     }
             });
+            markerLayer.eachLayer(function (layer) {
+            if (trip.arrival_iata == layer.options.iata) {
+                layer.setOpacity(0.5);
+                }
+            });
         });
         $('#sub' + trip.arrival_id).append(ticket_html);
         } else {$('#sub' + trip.arrival_id).append(ticket_html)};
@@ -586,25 +614,8 @@ async function drawDirectTrip(trips){
 
 
         var anchored = false;
-        /* if (typeof previousid == 'undefined') {
-            $("#tickets").append(ticket_html);
-            $('#btn_return_' + identify_ticket).hide();
-        } else {
-            $(ticket_html).inserAfter('#' + previousid);
-            $('#btn_return_' + identify_ticket).hide();
-        }*/
 
         tmp_duration_list.push(trip.duration);
-
-
-        markerLayer.eachLayer(function (layer) {
-            if (trip.arrival_iata == layer.options.iata) {
-                layer.setOpacity(1);
-            }
-        });
-
-
-
 
         /*$('#' + identify_ticket).bind('click', function () {
             console.log('test click')
@@ -783,10 +794,17 @@ async function drawDirectTrip(trips){
 //     })
 // }
 
-     
-
 });
-
+markerLayer.eachLayer(function (layer) {
+            if (destination_list.includes(layer.options.id) == false) {
+                layer.setOpacity(0.4);
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconUrl":"images/icons/circle.png"}))
+                } else {
+                layer.setOpacity(1);
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
+                }
+            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/station.png"}))}
+            });
 console.log("Fin Exé DrawDirect");};
 
 async function drawIndirectTrip(indirect_trips,destination_list){
@@ -819,8 +837,8 @@ async function drawIndirectTrip(indirect_trips,destination_list){
         tripLayer.addLayer(polyline);
         //var polygon = getTripPolygon(trip.departure_coords,trip.arrival_coords);
 
-        let hours = Math.round(indirect_trip.full_duration / (60))
-        let minute = Math.round(Math.abs(indirect_trip.full_duration - hours * 60));
+        let hours = Math.trunc(indirect_trip.full_duration / (60))
+        let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
         let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
@@ -930,6 +948,16 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
     }
     });
+markerLayer.eachLayer(function (layer) {
+            if (destination_list.includes(layer.options.id) == false) {
+                layer.setOpacity(0.4);
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconUrl":"images/icons/circle.png"}))
+                } else {
+                layer.setOpacity(1);
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
+                }
+            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/station.png"}))}
+            });
 console.log('Fin Exé DrawIndirect');
 
 }
@@ -937,12 +965,11 @@ console.log('Fin Exé DrawIndirect');
 async function drawDirectReturn(trips){
     console.log("Début Exé DrawDirect Return");
     trips.forEach(function(trip){
-
     let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
     if ($("#" + identify_ticket).length === 0) {
 
-        let hours = Math.round(trip.duration / (60))
-        let minute = Math.round(Math.abs(trip.duration - hours * 60));
+        let hours = Math.trunc(trip.duration / (60))
+        let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
         let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
@@ -965,7 +992,7 @@ console.log("Fin Exé DrawDirect Return");};
 
 async function drawIndirectReturn(indirect_trips){
     console.log('Debut Exé DrawIndirect Returns');
-
+    var anchored = false;
     indirect_trips.forEach(function(indirect_trip){
         let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
 
@@ -987,8 +1014,8 @@ async function drawIndirectReturn(indirect_trips){
         });
         tripLayer.addLayer(polyline);
 
-        let hours = Math.round(indirect_trip.full_duration / (60))
-        let minute = Math.round(Math.abs(indirect_trip.full_duration - hours * 60));
+        let hours = Math.trunc(indirect_trip.full_duration / (60))
+        let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
         let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
         let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
         let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
@@ -1064,7 +1091,7 @@ async function drawIndirectReturn(indirect_trips){
                     };
 
                 });
-                var anchored = false;
+
                 markerLayer.eachLayer(function (layer) {
                     if (indirect_trip.connection_iata == layer.options.iata) {
                         layer.setOpacity(0.5);
@@ -1073,10 +1100,134 @@ async function drawIndirectReturn(indirect_trips){
             });
     }
     });
+
 console.log('Fin Exé DrawIndirect Returns');
 
 }
 
+async function drawOneDayTrip(trips) {
+    console.log("Début Exé Draw one-day trips");
+    var destination_list = [];
+    trips.forEach(function(trip){
+    let isIn = destination_list.includes(trip.arrival_id);
+    if (isIn == false) {
+            destination_list.push(trip.arrival_id);
+    };
+    //set up weather acceptance to true
+    let accepted_weather = true;
+    let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+    if ($("#" + identify_ticket).length === 0) {
+
+        let current_coords = new Array();
+        current_coords.push(trip.departure_coords);
+        current_coords.push(trip.arrival_coords);
+        var polyline = new CustomPolyline(current_coords, {
+            id: 'line' + identify_ticket,
+            color: 'red',
+            weight: 4,
+            opacity: 0.1,
+            duration: trip.duration,
+            dashArray: '10, 10',
+            dashOffset: '0'
+        });
+        tripLayer.addLayer(polyline);
+
+        //Display time first way
+        let hours = Math.trunc(trip.duration/ (60))
+        //console.log(hours)
+        let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
+        //console.log(minute)
+        let display = ("0" + hours).slice(-2) + "h" + ("0" + minute).slice(-2) + "m";
+        let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
+        let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
+
+        // Display time second way
+        let sl_hours = Math.trunc(trip.sl_duration / (60))
+        let sl_minute = Math.trunc(Math.abs(trip.sl_duration - sl_hours * 60));
+        let sl_display = ("0" + sl_hours).slice(-2) + "h" + ("0" + sl_minute).slice(-2) + "m";
+        let sl_processed_date = trip.day.toString() + '-' + trip.sl_departure_time.split(':')[0].toString() + ':00';
+        let sl_tl_url = createTrainlineLink(sl_processed_date, trip.sl_departure_iata, trip.sl_arrival_iata);
+
+        // Display time on site & in the train
+        let tos_hours = Math.trunc(trip.time_on_site / (60))
+        let tos_minute = Math.trunc(Math.abs(trip.time_on_site - tos_hours * 60));
+        let tos_display = ("0" + tos_hours).slice(-2) + "h" + ("0" + tos_minute).slice(-2) + "m";
+        let it_hours = Math.trunc(trip.travel_time / (60))
+        let it_minute = Math.trunc(Math.abs(trip.travel_time - it_hours * 60));
+        let it_display = ("0" + it_hours).slice(-2) + "h" + ("0" + it_minute).slice(-2) + "m";
+
+        let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                            '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                            '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                            '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                            '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card" id="sub' + trip.arrival_id + '"></div></li>'
+        let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
+                          '<div class="card-body" href="' + tl_url + '">' +
+                          '<i class="fa fa-arrow-circle-right"></i>' +
+                          '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
+                          'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
+                          '<i class="fa fa-arrow-circle-left"></i>' +
+                          '<strong> %td | %ta </strong>'.replace('%ta', trip.sl_arrival_time).replace('%td', trip.sl_departure_time) +
+                          'en %d !'.replace('%d', sl_display) + '<a type="button" target="_blank" href="' + sl_tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
+                          'Time on site : %tos'.replace('%tos',tos_display) + " | " + 'Time in the train : %it'.replace('%it',it_display) +
+                          '</div></div>'
+        if (isIn == false) {
+            $("#tickets").append(category_html);
+            $('#' + trip.arrival_id).bind('mouseover', function () {
+            tripLayer.eachLayer(function (layer) {
+                if (!anchored) {
+                    if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'black',
+                            weight: 4,
+                            opacity: 1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+                }
+                });
+            });
+            $('#' + trip.arrival_id).bind('mouseout', function () {
+            tripLayer.eachLayer(function (layer) {
+                let id = identify_ticket;
+                if (layer.options.id == 'line' + identify_ticket) {
+                        layer.setStyle({
+                            id: 'line' + identify_ticket,
+                            color: 'black',
+                            weight: 4,
+                            opacity: 0.1,
+                            duration: trip.duration,
+                            dashArray: '10, 10',
+                            dashOffset: '0'
+                        });
+                    }
+            });
+        });
+        $('#sub' + trip.arrival_id).append(ticket_html);
+        } else {$('#sub' + trip.arrival_id).append(ticket_html)};
+
+
+
+
+        var anchored = false;
+        tmp_duration_list.push(trip.duration);
+
+
+        markerLayer.eachLayer(function (layer) {
+            if (trip.arrival_iata == layer.options.iata) {
+                layer.setOpacity(1);
+            }
+        });
+    }
+
+});
+
+console.log("Fin Exé Draw one-day trips");
+
+}
 function createTrainlineLink(departure_time,departure_iata,arrival_iata){
         //build trainline link
         let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
