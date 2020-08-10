@@ -532,8 +532,8 @@ async function drawDirectTrip(trips){
                 let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                     '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                     '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
-                    '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card" id="sub' + trip.arrival_id + '"></div></li>'
+                    '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
 
                 if (isIn == false) {
                     $("#tickets").append(category_html);
@@ -622,6 +622,14 @@ async function drawDirectTrip(trips){
                 $('#sub' + key).append(ticket_html)
             })
         }
+
+        for (let key of map.keys()) {
+            console.log(key);
+            $('#sub' + key).data("target").toggleClass('collapse').toggleClass("in");
+        }
+
+
+
         markerLayer.eachLayer(function (layer) {
             if (destination_list.includes(layer.options.id) == false) {
                 layer.setOpacity(0.4);
