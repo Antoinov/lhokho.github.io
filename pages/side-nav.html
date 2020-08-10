@@ -9,31 +9,12 @@
 
 
     <ul class="list-unstyled CTAs">
-        <div class="form-group">
-            <label class="switch">
-                <input id="toggle_tgv" type="checkbox" >
-                <span class="slider round"></span>
-                <span class="absolute-no">Info</span>
-            </label>
-            <script>
-                $(function() {
-                    $('#toggle_tgv').change(function() {
-                        if($(this).prop('checked')){
-                            $('#trip_form').fadeIn(500);
-                        }else{
-                            $('#trip_form').fadeOut(500);
-                        }
-                    })
-                })
-            </script>
-        </div>
         <form id="trip_form">
             <div class="form-group">
                 <input class="form-control" type="date" value="" id="selected_date">
             </div>
             <script>
                 //form is hidden by default
-                $('#trip_form').hide();
                 Date.prototype.yyyymmdd = function() {
                     var mm = this.getMonth() + 1; // remind getMonth() is zero-based
                     var dd = this.getDate();
