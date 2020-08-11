@@ -550,47 +550,14 @@ async function drawDirectTrip(trips){
 
                 if (isIn == false) {
                     $("#tickets").append(category_html);
-                    let current_coords = new Array();
-                    current_coords.push(trip.departure_coords);
-                    current_coords.push(trip.arrival_coords);
-                    var polyline = new CustomPolyline(current_coords, {
-                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
-                        color: 'black',
-                        weight: 2,
-                        opacity: 0,
-                        duration: trip.duration,
-                        dashArray: '10, 10',
-                        dashOffset: '0'
-                    });
-                    tripLayer.addLayer(polyline);
-                    markerLayer.eachLayer(function (layer) {
-                        if (trip.arrival_iata == layer.options.iata) {
-                            layer.setOpacity(0.5);
-                        }
-                    });
-                    $('#' + trip.arrival_id).bind('mouseover', function () {
-                        tripLayer.eachLayer(function (layer) {
-                                if (layer.options.id == 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString()) {
-                                    layer.setStyle({
-                                        opacity: 1
-                                    })
-                                }
-                        });
+                    $('#heading' + trip.arrival_id).bind('mouseenter', function () {
                         markerLayer.eachLayer(function (layer) {
                             if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
                                 layer.setOpacity(0.1);
                             }
                         });
                     });
-                    $('#' + trip.arrival_id).bind('mouseout', function () {
-                        tripLayer.eachLayer(function (layer) {
-                            let id = identify_ticket;
-                            if (layer.options.id == 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString()) {
-                                layer.setStyle({
-                                    opacity: 0
-                                });
-                            }
-                        });
+                    $('#heading' + trip.arrival_id).bind('mouseleave', function () {
                         markerLayer.eachLayer(function (layer) {
                             if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
                                 layer.setOpacity(0.8);
@@ -623,18 +590,46 @@ async function drawDirectTrip(trips){
                     'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
                     '</div></div>'
                 $('#sub' + key).append(ticket_html)
+                $('#' + identify_ticket).bind('mouseover', function () {
+                    let current_coords = new Array();
+                    current_coords.push(trip.departure_coords);
+                    current_coords.push(trip.arrival_coords);
+                    var polyline = new CustomPolyline(current_coords, {
+                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
+                        color: 'black',
+                        weight: 2,
+                        opacity: 0.8,
+                        dashArray: '10, 10',
+                    });
+                    tripLayer.addLayer(polyline);
+                    markerLayer.eachLayer(function (layer) {
+                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                    });
+                });
+                $('#' + identify_ticket).bind('mouseout', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                    });
             })
         }
 
         markerLayer.eachLayer(function (layer) {
             if (destination_list.includes(layer.options.id) == false) {
                 layer.setOpacity(0.4);
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconUrl":"images/icons/circle.png"}))
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
             } else {
                 layer.setOpacity(0.8);
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/placeholder.png"}))
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
             }
-            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/station.png"}))}
+            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
         });
     } else {
         let category_html = '<li class="card">' +
@@ -705,7 +700,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
                 markerLayer.eachLayer(function (layer) {
                     if (indirect_trip.arrival_iata == layer.options.iata && isIn == false) {
-                        layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/indirect_pin.png"}))
+                        layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}))
                     }
                     if (indirect_trip.arrival_iata == layer.options.iata) {
                         layer.setOpacity(0.8);
@@ -782,7 +777,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
 
         markerLayer.eachLayer(function (layer) {
-            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconUrl":"images/icons/station.png"}))}
+            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
         });
     }
     console.log('Fin Exé DrawIndirect');
