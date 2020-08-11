@@ -646,6 +646,13 @@ async function drawDirectTrip(trips){
 async function drawIndirectTrip(indirect_trips,destination_list){
     console.log('Debut Exé DrawIndirect');
     // Check if IndirectTrips isn't empty
+    var hide_list = destination_list.slice();
+    indirect_trips.forEach(function(trip){
+            let isIn = hide_list.includes(trip.arrival_id);
+            if (isIn == false) {
+                hide_list.push(trip.arrival_id);
+            };
+    });
     if (indirect_trips.length != 0){
         let indirect_trip_map = new Map();
         indirect_trips.forEach(function(indirect_trip){
@@ -665,38 +672,23 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                     '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" style="background-color: transparent;" href="#sub' + indirect_trip.arrival_id + '" aria-expanded="false">' +
                     '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + indirect_trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + indirect_trip.arrival_id + '"></div></li>'
 
-
-
-                let current_coords = new Array();
-                current_coords.push(indirect_trip.origine_coords);
-                current_coords.push(indirect_trip.departure_coords);
-                var polyline = new CustomPolyline(current_coords, {
-                    id: 'fl_line' + identify_ticket,
-                    color: 'blue',
-                    weight: 2,
-                    opacity: 0,
-                    duration: indirect_trip.duration,
-                    dashArray: '10, 10',
-                    dashOffset: '0'
-                });
-                tripLayer.addLayer(polyline);
-                current_coords = new Array();
-                current_coords.push(indirect_trip.departure_coords);
-                current_coords.push(indirect_trip.arrival_coords);
-                var polyline = new CustomPolyline(current_coords, {
-                    id: 'sl_line' + identify_ticket,
-                    color: 'blue',
-                    weight: 2,
-                    opacity: 0,
-                    duration: indirect_trip.duration,
-                    dashArray: '10, 10',
-                    dashOffset: '0'
-                });
-                tripLayer.addLayer(polyline);
-
                 if (isIn == false) {
-                    $("#tickets").append(category_html);
-                }
+                    $("#tickets").append(category_html);}
+                    $('#heading' + indirect_trip.arrival_id).bind('mouseenter', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (indirect_trip.arrival_iata != layer.options.iata && layer.options.iata != indirect_trip.origine_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+                    $('#heading' + indirect_trip.arrival_id).bind('mouseleave', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || indirect_trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                    });
+
 
                 markerLayer.eachLayer(function (layer) {
                     if (indirect_trip.arrival_iata == layer.options.iata && isIn == false) {
@@ -733,38 +725,39 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                         'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
                     '</div></div>'
                     $('#sub' + key).append(ticket_html);
-                    $('#' + identify_ticket).bind('mouseover', function () {
-                        tripLayer.eachLayer(function (layer) {
-                            if (layer.options.id == 'fl_line' + identify_ticket) {
-                                layer.setStyle({
-                                    opacity: 1,
-                                });
-                            };
-                            if (layer.options.id == 'sl_line' + identify_ticket) {
-                                layer.setStyle({
-                                    opacity: 1,
-                                });
-                            };
+                    $('#' + identify_ticket).bind('mouseenter', function () {
+                        let current_coords = new Array();
+                        current_coords.push(indirect_trip.origine_coords);
+                        current_coords.push(indirect_trip.departure_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'fl_line' + identify_ticket,
+                            color: 'black',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
                         });
+                        tripLayer.addLayer(polyline);
+                        current_coords = new Array();
+                        current_coords.push(indirect_trip.departure_coords);
+                        current_coords.push(indirect_trip.arrival_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'sl_line' + identify_ticket,
+                            color: '#0affb4',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
                         markerLayer.eachLayer(function (layer) {
                             if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
                                 layer.setOpacity(0.1);
                             }
                         });
                     });
-                    $('#' + identify_ticket).bind('mouseout', function () {
-                        tripLayer.eachLayer(function (layer) {
-                            if (layer.options.id == 'fl_line' + identify_ticket) {
-                                layer.setStyle({
-                                    opacity: 0,
-                                });
-                            }
-                            if (layer.options.id == 'sl_line' + identify_ticket) {
-                                layer.setStyle({
-                                    opacity: 0,
-                                });
-                            }
-                        });
+                    $('#' + identify_ticket).bind('mouseleave', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
                         markerLayer.eachLayer(function (layer) {
                             if (destination_list.includes(layer.options.id) == true) {
                                 layer.setOpacity(0.8);
