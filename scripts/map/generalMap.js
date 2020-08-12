@@ -199,6 +199,42 @@ $(document).ready(function(){
         };
     });
 
+    $('input[name="oneday_type"], #return_date, #no_return').change(function() {
+        let query_date = buildQueryDate($('#selected_date').val());
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        let journey_type = $("input[name='journey_type']:checked").attr("id");
+        if(last_checked_journey_type != $(this).attr("id") && last_checked_journey_type != $(this).val()) {
+        setTimeout(async function () {
+                    delay(500);
+                    if(typeof previous_marker !== 'undefined') {
+                        tripLayer.eachLayer(function (layer) {
+                            layer.remove();
+                        });
+                        markerLayer.eachLayer(function (layer) {
+                            layer.setOpacity(0.2);
+                        });
+                        await displayTickets(map);
+                    if (journey_type == 'no_return') {console.log('no return');
+                        last_checked_journey_type = $(this).attr("id");
+                        getCityConnections(query_date,previous_marker,trip_type,time_restriction);
+                        }
+                    else { if(journey_type == 'one_day') {
+                        let return_option = $("input[name='oneday_type']:checked").attr("id");
+                        console.log(return_option)
+                        last_checked_journey_type = $(this).attr("id");
+                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                    } else {
+                        last_checked_journey_type = $('#selected_date').val();
+                        let return_option = buildQueryDate($('#return_date').val());
+                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
+                    };
+                    };
+                };
+            }, 1000);
+        };
+    });
+
     $('#destination_select').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");

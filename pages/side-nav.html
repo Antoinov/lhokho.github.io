@@ -73,7 +73,7 @@
                 <div id="one_day_form">
                         <div class="input-group-btn">
                         <div class="btn-group-toggle btn-block" data-toggle="buttons" id="one_day_options">
-                            <label class="btn btn-outline-secondary active text-white">
+                            <label class="btn btn-outline-secondary text-white">
                                 <input type="radio" name="oneday_type" id="short_journey" autocomplete="off" checked>+2H
                             </label>
                             <label class="btn btn-outline-secondary text-white">
@@ -122,6 +122,15 @@
                         }}
                     })
                     })
+        </script>
+        <script>
+            $(function () {
+                    //set up return date (by default + 7 days)
+                    let today = new Date()
+                    let tomorrow = new Date(today)
+                    tomorrow.setDate(tomorrow.getDate() + 7)
+                    $('#return_date').val((tomorrow.yyyymmdd()));
+                });
         </script>
 </nav>
 
