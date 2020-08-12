@@ -7,6 +7,7 @@ var last_checked_journey_type = undefined;
 var trips = [];
 var stations = [];
 
+
 $(document).ready(function(){
     station = firebase.database().ref("city/station");
     //default loading of next day trip
@@ -176,7 +177,7 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
     if (direct_only === "indirect") {
         let all_indirect_trips = [];
         destination_list.forEach( await function(destination) {
-            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
+            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != departure_id);
             let current = trips.filter(trip => trip.arrival_id == destination);
             current.forEach(function (trip) {
                 let [hours, minutes] = trip.arrival_time.split(':');
@@ -525,6 +526,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             };
 
 async function drawDirectTrip(trips){
+    let map =  mapsPlaceholder[0];
     console.log("Début Exé DrawDirect");
     // list to know which marker show / hide while mouse on
     var hide_list = [];
@@ -603,7 +605,7 @@ async function drawDirectTrip(trips){
                         color: 'black',
                         weight: 2,
                         opacity: 0.8,
-                        dashArray: '10, 10',
+                        dashArray: '10, 10'
                     });
                     tripLayer.addLayer(polyline);
                     markerLayer.eachLayer(function (layer) {
@@ -624,17 +626,20 @@ async function drawDirectTrip(trips){
                 });
             })
         }
-
+        markers = [];
         markerLayer.eachLayer(function (layer) {
             if (destination_list.includes(layer.options.id) == false) {
                 layer.setOpacity(0.4);
                 layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
             } else {
+                markers.push(layer);
                 layer.setOpacity(0.8);
                 layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
             }
             if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
         });
+        var fg = L.featureGroup(markers);
+        map.fitBounds(fg.getBounds());
     } else {
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
@@ -648,6 +653,7 @@ async function drawDirectTrip(trips){
 }
 
 async function drawIndirectTrip(indirect_trips,destination_list){
+    let map =  mapsPlaceholder[0];
     console.log('Debut Exé DrawIndirect');
     // Check if IndirectTrips isn't empty
     var hide_list = destination_list.slice();
@@ -772,10 +778,13 @@ async function drawIndirectTrip(indirect_trips,destination_list){
             console.log(value);
         }
 
-
+        let markers = [];
         markerLayer.eachLayer(function (layer) {
             if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
+            if (hide_list.includes(layer.options_id) == true) {markers.push(layer)}
         });
+        var fg = L.featureGroup(markers);
+        map.fitBounds(fg.getBounds());
     }
     console.log('Fin Exé DrawIndirect');
 }
