@@ -578,7 +578,19 @@ async function drawDirectTrip(trips){
                 tmp_duration_list.push(trip.duration);
             }
         });
-
+        markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (destination_list.includes(layer.options.id) == false) {
+                layer.setOpacity(0.4);
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            } else {
+                markers.push(layer);
+                layer.setOpacity(0.8);
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
+            }
+            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
+        });
+        var fg = L.featureGroup(markers);
         for (let [key, value] of trip_map) {
             value
                 .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
@@ -613,6 +625,7 @@ async function drawDirectTrip(trips){
                                 layer.setOpacity(0.1);
                             }
                     });
+                    map.flyToBounds([current_coords])
                 });
                 $('#' + identify_ticket).bind('mouseout', function () {
                         if (typeof tripLayer !== 'undefined') {
@@ -623,22 +636,10 @@ async function drawDirectTrip(trips){
                                 layer.setOpacity(0.8);
                             }
                         });
+                        map.flyToBounds(fg.getBounds());
                 });
             })
         }
-        markers = [];
-        markerLayer.eachLayer(function (layer) {
-            if (destination_list.includes(layer.options.id) == false) {
-                layer.setOpacity(0.4);
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-            } else {
-                markers.push(layer);
-                layer.setOpacity(0.8);
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
-            }
-            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
-        });
-        var fg = L.featureGroup(markers);
         map.fitBounds(fg.getBounds());
     } else {
         let category_html = '<li class="card">' +
@@ -684,20 +685,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
                 if (isIn == false) {
                     $("#tickets").append(category_html);}
-                    $('#heading' + indirect_trip.arrival_id).bind('mouseenter', function () {
-                        markerLayer.eachLayer(function (layer) {
-                            if (indirect_trip.arrival_iata != layer.options.iata && layer.options.iata != indirect_trip.origine_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                        });
-                    });
-                    $('#heading' + indirect_trip.arrival_id).bind('mouseleave', function () {
-                        markerLayer.eachLayer(function (layer) {
-                            if (hide_list.includes(layer.options.id) == true || indirect_trip.departure_id == layer.options.id) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                    });
+
 
 
                 markerLayer.eachLayer(function (layer) {
@@ -715,6 +703,30 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                 indirect_trip_map.get(indirect_trip.arrival_id).push(indirect_trip)
             }
         });
+        hide_list.forEach(function(id) {
+            $('#heading' + id).bind('mouseenter', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (id != layer.options.id && layer.options.id != indirect_trips[0].origine_id) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+            $('#heading' + id).bind('mouseleave', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || indirect_trips[0].origine_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                    });
+        })
+
+        let markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
+            if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+        });
+        let fg = L.featureGroup(markers);
+
 
         for (let [key, value] of indirect_trip_map) {
             console.log(value);
@@ -758,6 +770,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                             dashArray: '10, 10',
                         });
                         tripLayer.addLayer(polyline);
+                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
                         markerLayer.eachLayer(function (layer) {
                             if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
                                 layer.setOpacity(0.1);
@@ -773,18 +786,14 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                                 layer.setOpacity(0.8);
                             }
                         });
+                        map.flyToBounds(fg.getBounds());
                     });
                 });
             console.log(value);
         }
 
-        let markers = [];
-        markerLayer.eachLayer(function (layer) {
-            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
-            if (hide_list.includes(layer.options_id) == true) {markers.push(layer)}
-        });
-        var fg = L.featureGroup(markers);
         map.fitBounds(fg.getBounds());
+
     }
     console.log('Fin Exé DrawIndirect');
 }
