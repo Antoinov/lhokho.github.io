@@ -29,6 +29,13 @@
                     tomorrow.setDate(tomorrow.getDate() + 1)
                     $('#selected_date').val((tomorrow.yyyymmdd()));
                 });
+                $(function () {
+                    //set up current date
+                    let today = new Date()
+                    let tomorrow = new Date(today)
+                    tomorrow.setDate(tomorrow.getDate() + 5)
+                    $('#return_date').val((tomorrow.yyyymmdd()));
+                });
             </script>
             <div class="input-group-btn">
                 <label class="mr-sm-2">Durée du voyage</label>
@@ -100,6 +107,8 @@
 
     </ul>
     <script>
+        $('#one_day_form').hide();
+        $('#specific_return_form').hide();
                     $(function() {
                     if($('#no_return').prop('checked')){
                             $('#one_day_form').fadeOut(500);
