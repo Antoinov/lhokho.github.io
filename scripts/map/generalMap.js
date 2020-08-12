@@ -360,7 +360,7 @@ $(document).ready(function(){
 
         //change when adapted to mobile website
         if (L.Browser.mobile) {
-            var custom_icon = L.icon({"iconSize": [30,30], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
+            var custom_icon = L.icon({"iconSize": [10,10], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
             marker_destination.setIcon(custom_icon);
         }else{
             var custom_icon = L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
