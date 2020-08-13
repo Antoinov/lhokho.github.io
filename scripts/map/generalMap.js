@@ -64,7 +64,7 @@ $(document).ready(function(){
         }
 
         markerLayer.eachLayer(function (layer) {
-            layer.setOpacity(0.2);
+            //layer.setOpacity(0.2);
         });
         tmp_duration_list = [0];
 
@@ -103,21 +103,21 @@ $(document).ready(function(){
     });
 
     $('#selected_date').change(function() {
-    let query_date = buildQueryDate($('#selected_date').val());
-    let trip_type = $("input[name='trip_type']:checked").attr("id");
-    let time_restriction = $("input[name='trip']:checked").attr("id");
-    let journey_type = $("input[name='journey_type']:checked").attr("id");
-    if(last_checked_time != $('#selected_date').val()){
-                setTimeout(async function () {
-                    delay(500);
-                    await getTrainRecords(query_date);
-                    if(typeof previous_marker !== 'undefined'){
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
+        let query_date = buildQueryDate($('#selected_date').val());
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        let journey_type = $("input[name='journey_type']:checked").attr("id");
+        if(last_checked_time != $('#selected_date').val()){
+            setTimeout(async function () {
+                delay(500);
+                await getTrainRecords(query_date);
+                if(typeof previous_marker !== 'undefined'){
+                    tripLayer.eachLayer(function (layer) {
+                        layer.remove();
+                    });
+                    markerLayer.eachLayer(function (layer) {
+                        layer.setOpacity(0.2);
+                    });
                     await displayTickets(map);
                     if (journey_type == 'no_return') {console.log('no return');
                         getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
@@ -136,21 +136,21 @@ $(document).ready(function(){
     });
 
     $('#trip_type').change(function(){
-    let query_date = buildQueryDate($('#selected_date').val());
-    let trip_type = $("input[name='trip_type']:checked").attr("id");
-    let time_restriction = $("input[name='trip']:checked").attr("id");
-    let journey_type = $("input[name='journey_type']:checked").attr("id");
-    let destination_id = $('#destination_select').val();
-    if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
+        let query_date = buildQueryDate($('#selected_date').val());
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        let journey_type = $("input[name='journey_type']:checked").attr("id");
+        let destination_id = $('#destination_select').val();
+        if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    tripLayer.eachLayer(function (layer) {
+                        layer.remove();
+                    });
+                    markerLayer.eachLayer(function (layer) {
+                        layer.setOpacity(0.2);
+                    });
                     await displayTickets(map);
                     if (journey_type == 'no_return') {console.log('no return');
                         getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
@@ -174,16 +174,16 @@ $(document).ready(function(){
         let time_restriction = $("input[name='trip']:checked").attr("id");
         let journey_type = $("input[name='journey_type']:checked").attr("id");
         if(last_checked_trip_time != $("input[name='trip']:checked").attr("id")){
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
-                        await displayTickets(map);
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    tripLayer.eachLayer(function (layer) {
+                        layer.remove();
+                    });
+                    markerLayer.eachLayer(function (layer) {
+                        layer.setOpacity(0.2);
+                    });
+                    await displayTickets(map);
                     if (journey_type == 'no_return') {console.log('no return');
                         getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
                     else { if(journey_type == 'one_day') {
@@ -205,20 +205,20 @@ $(document).ready(function(){
         let time_restriction = $("input[name='trip']:checked").attr("id");
         let journey_type = $("input[name='journey_type']:checked").attr("id");
         if(last_checked_journey_type != $(this).attr("id") && last_checked_journey_type != $(this).val()) {
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
-                        await displayTickets(map);
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    tripLayer.eachLayer(function (layer) {
+                        layer.remove();
+                    });
+                    markerLayer.eachLayer(function (layer) {
+                        layer.setOpacity(0.2);
+                    });
+                    await displayTickets(map);
                     if (journey_type == 'no_return') {console.log('no return');
                         last_checked_journey_type = $(this).attr("id");
                         getCityConnections(query_date,previous_marker,trip_type,time_restriction);
-                        }
+                    }
                     else { if(journey_type == 'one_day') {
                         let return_option = $("input[name='oneday_type']:checked").attr("id");
                         console.log(return_option)
@@ -244,11 +244,11 @@ $(document).ready(function(){
         if(typeof human_click === 'undefined'){
             if(typeof previous_marker !== 'undefined'){
                 tripLayer.eachLayer(function (layer) {
-                        layer.remove();
-                        });
+                    layer.remove();
+                });
                 markerLayer.eachLayer(function (layer) {
-                        layer.setOpacity(0.2);
-                        });
+                    layer.setOpacity(0.2);
+                });
             };
             human_click = undefined,
                 markerLayer.eachLayer(function (layer) {
@@ -292,8 +292,8 @@ $(document).ready(function(){
             } else {
                 let return_option = buildQueryDate($('#return_date').val());
                 getRoundTrip(query_marker, trip_type, time_restriction, return_option)
-            };
-            };
+            }
+            }
         }
     }
 
@@ -346,17 +346,18 @@ $(document).ready(function(){
         } else {console.log('The element does not exist')};
     };
 
-    function add_station(city_id,city_data){
+    function create_marker(city_id,city_data){
+
         var marker_destination = L.marker(
             [city_data.lat,city_data.lon],
             {"id":city_id ,"city":city_data.city, "iata":city_data.iata_code}
-        ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.2).bindTooltip(city_data.city,{permanent: false, direction: 'right'})
+        ).bindTooltip(city_data.city,{permanent: false, direction: 'right'}).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.2);
 
         marker_destination.on({
             click: function() {
                 this.openPopup();
             }
-        })
+        });
 
         //change when adapted to mobile website
         if (L.Browser.mobile) {
@@ -367,18 +368,52 @@ $(document).ready(function(){
             marker_destination.setIcon(custom_icon);
         }
 
-        markerLayer.addLayer(marker_destination);
+        return marker_destination
+
     }
 
 
     station.once('value').then(function(datakey){
+        let marker_map = new Map();
         let idx = 0;
         datakey.forEach(function(data){
             data.val().forEach(function (station) {
-                add_station(idx,station,station.iata_code);
-            })
+                let station_marker = create_marker(idx,station);
+                if(typeof marker_map.get(station.city) === "undefined"){
+                    marker_map.set(station.city,[]);
+                    marker_map.get(station.city).push(station_marker);
+                }else{
+                    marker_map.get(station.city).push(station_marker);
+                }
+            });
             idx = idx +1;
         });
+        for (let [key, value] of marker_map) {
+            if(value.length === 1){
+                markerLayer.addLayer(value[0]);
+            }else{
+                //create cluster
+                var city_cluster = L.markerClusterGroup({
+                    spiderfyOnMaxZoom: false,
+                    showCoverageOnHover: false,
+                    zoomToBoundsOnClick: false,
+                    singleMarkerMode: false,
+                    options:{"id":key ,"city":value[0].options.city},
+                    iconCreateFunction: function(cluster) {
+                        var custom_icon = L.icon({"iconSize": [40,40], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
+                        return custom_icon;
+                    }
+                });
+                //city_cluster.setOpacity(0.2);
+                city_cluster.on('clusterdblclick', ondbClick).on('clusterclick',onClick);
+                city_cluster.bindTooltip(value[0].options.city,{permanent: false, direction: 'right'});
+                //add markers to cluster
+                city_cluster.on('clustermouseover',);
+                value.forEach(marker => city_cluster.addLayer(marker));
+                //add cluster to map
+                city_cluster.addTo(markerLayer);
+            }
+        }
         map.fitBounds(markerLayer.getBounds());
     });
 

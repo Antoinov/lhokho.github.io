@@ -700,7 +700,10 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                 if( typeof indirect_trip_map.get(indirect_trip.arrival_id) === 'undefined'){
                     indirect_trip_map.set(indirect_trip.arrival_id,[]);
                 }
-                indirect_trip_map.get(indirect_trip.arrival_id).push(indirect_trip)
+                //fix avoid to go back to initial station
+                if(indirect_trip.departure_iata !== indirect_trip.arrival_iata){
+                    indirect_trip_map.get(indirect_trip.arrival_id).push(indirect_trip);
+                }
             }
         });
         hide_list.forEach(function(id) {
