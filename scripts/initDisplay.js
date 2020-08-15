@@ -10,7 +10,7 @@
 $("#side-nav").load("pages/side-nav.html");
 //Check mobile app 
 var isMobileDisplay = L.Browser.mobile;
-
+if (isMobileDisplay) {screen.orientation.lock('landscape');}
 function populate_menu(city_name,city_index) {
     let city_html = $('<li><a id="link_' + city_index + '" style="width: 100.0%; height: 100.0%;" href="destination.html?city=' + city_index + '" target="_blank""><br>' + city_name + '<br></a></li>')[0];
     $("#destSubmenu").append(city_html);
@@ -30,11 +30,11 @@ $(document).ready(function() {
         keyboard: false
     });
     //disable site access if phone display detected
-    if (isMobileDisplay) {
+/*    if (isMobileDisplay) {
         $('#mobileContent').removeAttr('hidden');
         $('#btnLogin').hide();
         $('#btnGuest').hide();
-    }
+    }*/
     
     $("#myModal").modal('show');
     

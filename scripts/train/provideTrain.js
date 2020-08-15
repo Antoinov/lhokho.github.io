@@ -159,6 +159,7 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 
 //Get connections (One way)
 async function getCityConnections(date, marker,trip_type,time_restriction) {
+    if (L.Browser.mobile) {$('#sidebarCollapse').click();}
     //retrieve relevant data
     let departure_id = marker.options.id;
     let direct_only = trip_type;
@@ -241,7 +242,7 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
 }
 
 async function getRoundTrip(marker, trip_type, time_restriction, return_option) {
-
+    if (L.Browser.mobile) {$('#sidebarCollapse').click();}
     //retrieve relevant data
     let departure_id = marker.options.id;
     let departure_iata = marker.options.iata;
@@ -841,6 +842,7 @@ async function drawDirectReturn(trips,hide_list){
                         dashArray: '10, 10',
                     });
                     tripLayer.addLayer(polyline);
+                    map.flyToBounds([current_coords])
                     markerLayer.eachLayer(function (layer) {
                             if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
                                 layer.setOpacity(0.1);
@@ -922,6 +924,7 @@ async function drawIndirectReturn(indirect_trips,hide_list){
                             dashArray: '10, 10',
                         });
                         tripLayer.addLayer(polyline);
+                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
                         markerLayer.eachLayer(function (layer) {
                             if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
                                 layer.setOpacity(0.1);
