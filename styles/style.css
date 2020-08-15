@@ -750,3 +750,8 @@ input:checked + .slider:before {
   transform: rotate(90deg);
 }
 
+.modal-body {
+    max-height: calc(100vh - 143px);
+    overflow-y: auto;
+}
+

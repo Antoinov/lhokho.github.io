@@ -64,7 +64,9 @@ $(document).ready(function() {
             $("#destSubmenu").scrollTop($('ul > li:nth-child(2)').position().top);
         }
     });
-
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
     
 
 });
