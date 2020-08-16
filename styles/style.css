@@ -397,8 +397,12 @@ a.article:hover {
 @media only screen and (max-width: 700px) and (orientation:portrait) {
     #sidebar {
         height: 100%;
-        min-width: 8em;
-        max-width: 8em;
+        min-width: 21vh;
+        max-width: 21vh;
+    }
+    #sidebar.active {
+        min-width: 12vh;
+        max-width: 12vh;
     }
     #sidebar .sidebar-header {
         padding: 15px;
@@ -407,7 +411,7 @@ a.article:hover {
         padding-top: 30%;
     }
     .input-group-btn {
-    margin-bottom:10%;
+        margin-bottom:10%;
     }
     .form-control {
         width: 85%;
@@ -423,6 +427,27 @@ a.article:hover {
     }
     .leaflet-right .leaflet-control {
         margin-right: 0px !important;
+        max-width: 45vh;
+        min-width: 35vh;
+    }
+    .leaflet-bottom {
+        bottom: unset !important;
+    }
+    .leaflet-control-zoom  {
+        display: none !important;
+    }
+    .leaflet-control-attribution {
+        display: none !important;
+    }
+    .leaflet-bottom {
+        position: absolute;
+        margin-top: 5vh;
+    }
+    #map {
+        min-height : 110vh;
+    }
+    .Content {
+    height: 100vh !important;
     }
 }
 
