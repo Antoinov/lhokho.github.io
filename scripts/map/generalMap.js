@@ -235,7 +235,7 @@ $(document).ready(function(){
         };
     });
 
-    $('#destination_select').change(function() {
+    $(document).on('change','#destination_select',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
