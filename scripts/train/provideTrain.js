@@ -162,7 +162,7 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 async function getCityConnections(date, marker,trip_type,time_restriction) {
     await setTimeout(function () {$("#se-loading-function").css({"display" : "block"});},100);
     //if (L.Browser.mobile) {$('#sidebarCollapse').click();}
-    $('#sidebarCollapse').click();
+    $('#sidebarCollapse').tap();
     //retrieve relevant data
     let departure_id = marker.options.id;
     let direct_only = trip_type;
