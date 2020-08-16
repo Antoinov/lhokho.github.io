@@ -791,13 +791,13 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                     });
                 });
             console.log(value);
         }
 
-        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
 
     }
     console.log('Fin Exé DrawIndirect');
@@ -867,7 +867,7 @@ async function drawDirectReturn(trips,hide_list){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                 });
             });
     }
@@ -956,7 +956,7 @@ async function drawIndirectReturn(indirect_trips,hide_list){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                     });
                 });
             // console.log(value);

@@ -394,6 +394,38 @@ a.article:hover {
     }
 }
 
+@media only screen and (max-width: 700px) and (orientation:portrait) {
+    #sidebar {
+        height: 100%;
+        min-width: 8em;
+        max-width: 8em;
+    }
+    #sidebar .sidebar-header {
+        padding: 15px;
+        background: #57585f;
+        margin-bottom: 30%;
+        padding-top: 30%;
+    }
+    .input-group-btn {
+    margin-bottom:10%;
+    }
+    .form-control {
+        width: 85%;
+        padding: .375rem;
+        margin : .40rem;
+        font-size: 0.73rem;
+    }
+    ul.CTAs {
+        padding: 5%;
+    }
+    .btn {
+        padding : .575rem .100rem;
+    }
+    .leaflet-right .leaflet-control {
+        margin-right: 0px !important;
+    }
+}
+
 /* STYLE POUR LA GALERIE IMAGE DESTINATION */
 
 .gallery {
