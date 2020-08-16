@@ -1018,10 +1018,10 @@ console.log('Fin Exé DrawIndirect Returns');
                         }
                     });
                     if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+
                 });
-            });
         // console.log(value);
-    }
+
     if (isLastDrawMethod) {
         $("#se-loading-function").fadeOut(1000);
     }
