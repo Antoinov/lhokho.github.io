@@ -641,11 +641,11 @@ async function drawDirectTrip(trips){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                 });
             })
         }
-        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
     } else {
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
