@@ -1,7 +1,7 @@
 //focus on station
 function focus_station(city_id,route){
     route.eachLayer(function(layer){
-        if(layer.options.id == city_id){
+        if(layer.options.id === city_id){
             layer.fire('click');
         }
     })
@@ -103,80 +103,17 @@ $(document).ready(function(){
     });*/
 
     $('#selected_date').change(function() {
-    let query_date = buildQueryDate($('#selected_date').val());
-    let trip_type = $("input[name='trip_type']:checked").attr("id");
-    let time_restriction = $("input[name='trip']:checked").attr("id");
-    let journey_type = $("input[name='journey_type']:checked").attr("id");
-    if(last_checked_time != $('#selected_date').val()){
-                setTimeout(async function () {
-                    delay(500);
-                    await getTrainRecords(query_date);
-                    if(typeof previous_marker !== 'undefined'){
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
-                    await displayTickets(map);
-                    if (journey_type == 'no_return') {console.log('no return');
-                        getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
-                    else {
-                        if(journey_type == 'one_day') {
-                            let return_option = $("input[name='oneday_type']:checked").attr("id");
-                            getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                        } else {
-                            let return_option = buildQueryDate($('#return_date').val());
-                            getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                        }
-                    }
-                }
-            }, 1000);
-        }
-    });
-
-    $('#trip_type').change(function(){
-    let query_date = buildQueryDate($('#selected_date').val());
-    let trip_type = $("input[name='trip_type']:checked").attr("id");
-    let time_restriction = $("input[name='trip']:checked").attr("id");
-    let journey_type = $("input[name='journey_type']:checked").attr("id");
-    let destination_id = $('#destination_select').val();
-    if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
-                    await displayTickets(map);
-                    if (journey_type == 'no_return') {console.log('no return');
-                        getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
-                    else { if(journey_type == 'one_day') {
-                        let return_option = $("input[name='oneday_type']:checked").attr("id");
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                    } else {
-                        let return_option = buildQueryDate($('#return_date').val());
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
-                    };
-                    };
-                };
-            }, 1000);
-        };
-    });
-
-    $('#time_buttons').change(function() {
         let query_date = buildQueryDate($('#selected_date').val());
-        // let weather_restriction = $("input[name='weather']:checked").attr("id");
         let trip_type = $("input[name='trip_type']:checked").attr("id");
         let time_restriction = $("input[name='trip']:checked").attr("id");
         let journey_type = $("input[name='journey_type']:checked").attr("id");
-        if(last_checked_trip_time != $("input[name='trip']:checked").attr("id")){
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
+        if(last_checked_time !== $('#selected_date').val()){
+            setTimeout(async function () {
+                delay(500);
+                await getTrainRecords(query_date);
+                if(typeof previous_marker !== 'undefined'){
+                    $("#se-loading-function").css({"display" : "block"});
+                    const eventMaker = async () => {
                         tripLayer.eachLayer(function (layer) {
                             layer.remove();
                         });
@@ -184,19 +121,105 @@ $(document).ready(function(){
                             layer.setOpacity(0.2);
                         });
                         await displayTickets(map);
-                    if (journey_type == 'no_return') {console.log('no return');
-                        getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
-                    else { if(journey_type == 'one_day') {
-                        let return_option = $("input[name='oneday_type']:checked").attr("id");
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                    } else {
-                        let return_option = buildQueryDate($('#return_date').val());
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
-                    };
-                    };
-                };
+                        if (journey_type === 'no_return') {console.log('no return');
+                            getCityConnections(query_date,previous_marker,trip_type,time_restriction);
+                        }
+                        else {
+                            if(journey_type === 'one_day') {
+                                let return_option = $("input[name='oneday_type']:checked").attr("id");
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            } else {
+                                let return_option = buildQueryDate($('#return_date').val());
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            }
+                        }
+                    }
+                    setTimeout(function(){
+                        // start working right after selecting destination
+                        eventMaker();
+                    }, 100);
+                }
             }, 1000);
-        };
+        }
+    });
+
+    $('#trip_type').change(function(){
+        let query_date = buildQueryDate($('#selected_date').val());
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        let journey_type = $("input[name='journey_type']:checked").attr("id");
+        if(last_checked_trip_type != $("input[name='trip']:checked").attr("id")){
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    $("#se-loading-function").css({"display" : "block"});
+                    const eventMaker = async () => {
+                        tripLayer.eachLayer(function (layer) {
+                            layer.remove();
+                        });
+                        markerLayer.eachLayer(function (layer) {
+                            layer.setOpacity(0.2);
+                        });
+                        await displayTickets(map);
+                        if (journey_type === 'no_return') {
+                            console.log('no return');
+                            getCityConnections(query_date,previous_marker,trip_type,time_restriction);
+                        } else {
+                            if(journey_type === 'one_day') {
+                                let return_option = $("input[name='oneday_type']:checked").attr("id");
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            } else {
+                                let return_option = buildQueryDate($('#return_date').val());
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            }
+                        }
+                    }
+                    setTimeout(function(){
+                        // start working right after selecting destination
+                        eventMaker();
+                    }, 100);
+                }
+            }, 1000);
+        }
+    });
+
+    $('#time_buttons').change(function() {
+        let query_date = buildQueryDate($('#selected_date').val());
+        let trip_type = $("input[name='trip_type']:checked").attr("id");
+        let time_restriction = $("input[name='trip']:checked").attr("id");
+        let journey_type = $("input[name='journey_type']:checked").attr("id");
+        if(last_checked_trip_time != $("input[name='trip']:checked").attr("id")){
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    $("#se-loading-function").css({"display" : "block"});
+                    const eventMaker = async () => {
+                        tripLayer.eachLayer(function (layer) {
+                            layer.remove();
+                        });
+                        markerLayer.eachLayer(function (layer) {
+                            layer.setOpacity(0.2);
+                        });
+                        await displayTickets(map);
+                        if (journey_type === 'no_return') {console.log('no return');
+                            getCityConnections(query_date,previous_marker,trip_type,time_restriction); }
+                        else {
+                            if(journey_type === 'one_day') {
+                                let return_option = $("input[name='oneday_type']:checked").attr("id");
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            } else {
+                                let return_option = buildQueryDate($('#return_date').val());
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
+                            }
+                        }
+                    }
+                    setTimeout(function(){
+                        // start working right after selecting destination
+                        eventMaker();
+                    }, 100);
+                }
+            }, 1000);
+        }
     });
 
     $('input[name="oneday_type"], #return_date, #no_return').change(function() {
@@ -205,9 +228,11 @@ $(document).ready(function(){
         let time_restriction = $("input[name='trip']:checked").attr("id");
         let journey_type = $("input[name='journey_type']:checked").attr("id");
         if(last_checked_journey_type != $(this).attr("id") && last_checked_journey_type != $(this).val()) {
-        setTimeout(async function () {
-                    delay(500);
-                    if(typeof previous_marker !== 'undefined') {
+            setTimeout(async function () {
+                delay(500);
+                if(typeof previous_marker !== 'undefined') {
+                    $("#se-loading-function").css({"display" : "block"});
+                    const eventMaker = async () => {
                         tripLayer.eachLayer(function (layer) {
                             layer.remove();
                         });
@@ -215,49 +240,61 @@ $(document).ready(function(){
                             layer.setOpacity(0.2);
                         });
                         await displayTickets(map);
-                    if (journey_type == 'no_return') {console.log('no return');
-                        last_checked_journey_type = $(this).attr("id");
-                        getCityConnections(query_date,previous_marker,trip_type,time_restriction);
+                        if (journey_type === 'no_return') {console.log('no return');
+                            last_checked_journey_type = $(this).attr("id");
+                            getCityConnections(query_date,previous_marker,trip_type,time_restriction);
                         }
-                    else { if(journey_type == 'one_day') {
-                        let return_option = $("input[name='oneday_type']:checked").attr("id");
-                        console.log(return_option)
-                        last_checked_journey_type = $(this).attr("id");
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                    } else {
-                        last_checked_journey_type = $('#selected_date').val();
-                        let return_option = buildQueryDate($('#return_date').val());
-                        getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
-                    };
-                    };
-                };
+                        else {
+                            if(journey_type === 'one_day') {
+                                let return_option = $("input[name='oneday_type']:checked").attr("id");
+                                console.log(return_option)
+                                last_checked_journey_type = $(this).attr("id");
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
+                            } else {
+                                last_checked_journey_type = $('#selected_date').val();
+                                let return_option = buildQueryDate($('#return_date').val());
+                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option)
+                            }
+                        }
+                    }
+                    setTimeout(function(){
+                        // start working right after selecting destination
+                        eventMaker();
+                    }, 100);
+                }
             }, 1000);
-        };
+        }
     });
 
     $(document).on('change','#destination_select',function() {
-        let query_date = buildQueryDate($('#selected_date').val());
-        let weather_restriction = $("input[name='weather']:checked").attr("id");
-        let time_restriction = $("input[name='time']:checked").attr("id");
-        let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value')
+        $("#se-loading-function").css({"display" : "block"});
+        const eventMaker = async () => {
+
+        }
+        setTimeout(function(){
+            // start working right after selecting destination
+            eventMaker();
+        }, 100);
+        let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value');
         let found = false
         if(typeof human_click === 'undefined'){
             if(typeof previous_marker !== 'undefined'){
                 tripLayer.eachLayer(function (layer) {
-                        layer.remove();
-                        });
+                    layer.remove();
+                });
                 markerLayer.eachLayer(function (layer) {
-                        layer.setOpacity(0.2);
-                        });
-            };
-            human_click = undefined,
-                markerLayer.eachLayer(function (layer) {
-                    if (destination_id == layer.options.id && found == false) {
-                        console.log(layer);
-                        onDestinationChange(layer);
-                        found = true;
-                    }});
-        };
+                    layer.setOpacity(0.2);
+                });
+            }
+            human_click = undefined;
+            markerLayer.eachLayer(function (layer) {
+                if (destination_id == layer.options.id && found == false) {
+                    console.log(layer);
+                    onDestinationChange(layer);
+                    found = true;
+                }
+            });
+        }
     });
 
     function onDestinationChange(event) {
@@ -292,59 +329,69 @@ $(document).ready(function(){
             } else {
                 let return_option = buildQueryDate($('#return_date').val());
                 getRoundTrip(query_marker, trip_type, time_restriction, return_option)
-            };
-            };
+            }
+            }
         }
     }
 
 
     function ondbClick(event) {
-        //clear previous elements
-        clear_selection();
-        //make it visible
-        event.sourceTarget.setOpacity(1);
-        //store marker
-        previous_marker = event.sourceTarget;
-        //fly to selected marker
-        map.flyTo(event.sourceTarget.getLatLng(),6.5,{'animate':true});
-        let date = new Date();
-        //close all popups
-        event.target.closePopup();
-        event.sourceTarget.setIcon(L.icon({"iconSize": [25, 25], "iconUrl": "images/icons/station.png"}));
-        let query_date = buildQueryDate($('#selected_date').val());
-        let query_marker = event.sourceTarget;
-        let time_restriction = $("input[name='trip']:checked").attr("id");
-        let trip_type = $("input[name='trip_type']:checked").attr("id");
-        let journey_type = $("input[name='journey_type']:checked").attr("id");
-        displayTickets(map)
-        if (journey_type == 'no_return') {
-            console.log('no return');
-            getCityConnections(query_date, query_marker, trip_type, time_restriction);
-
-        } else {
-            if (journey_type == 'one_day') {
-                let return_option = $("input[name='oneday_type']:checked").attr("id");
-                getRoundTrip(query_marker, trip_type, time_restriction, return_option);
+        console.log("[ondbClick] Enter in event method");
+        $("#se-loading-function").css({"display" : "block"});
+        const eventMaker = async () => {
+            //clear previous elements
+            clear_selection();
+            //make it visible
+            event.sourceTarget.setOpacity(1);
+            //store marker
+            previous_marker = event.sourceTarget;
+            //fly to selected marker
+            map.flyTo(event.sourceTarget.getLatLng(),6.5,{'animate':true});
+            let date = new Date();
+            //close all popups
+            event.target.closePopup();
+            event.sourceTarget.setIcon(L.icon({"iconSize": [25, 25], "iconUrl": "images/icons/station.png"}));
+            let query_date = buildQueryDate($('#selected_date').val());
+            let query_marker = event.sourceTarget;
+            let time_restriction = $("input[name='trip']:checked").attr("id");
+            let trip_type = $("input[name='trip_type']:checked").attr("id");
+            let journey_type = $("input[name='journey_type']:checked").attr("id");
+            displayTickets(map)
+            var timer = 0;
+            if (journey_type === 'no_return') {
+                console.log('no return');
+                getCityConnections(query_date, query_marker, trip_type, time_restriction);
             } else {
-                let return_option = buildQueryDate($('#return_date').val());
-                getRoundTrip(query_marker, trip_type, time_restriction, return_option)
+                if (journey_type === 'one_day') {
+                    let return_option = $("input[name='oneday_type']:checked").attr("id");
+                    getRoundTrip(query_marker, trip_type, time_restriction, return_option);
+                } else {
+                    let return_option = buildQueryDate($('#return_date').val());
+                    getRoundTrip(query_marker, trip_type, time_restriction, return_option)
+                }
+            }
+
+            if (event.originalEvent !== undefined) {
+                human_click = true;
+                $('#destination_select').val(event.sourceTarget.options.city).change();
+                human_click = undefined;
+
             }
         }
-
-        if (event.originalEvent !== undefined) {
-            human_click = true;
-            $('#destination_select').val(event.sourceTarget.options.city).change();
-            human_click = undefined;
-
-        }
+        setTimeout(function(){
+            // start working right after selecting destination
+            eventMaker();
+        }, 100);
     }
 
     function onClick(event) {
         if($('#' + event.sourceTarget.options.id).length > 0) {
             var element = document.getElementById(event.sourceTarget.options.id)
             element.scrollIntoView();
-        } else {console.log('The element does not exist')};
-    };
+        } else {
+            console.log('The element does not exist')
+        }
+    }
 
     function add_station(city_id,city_data){
         var marker_destination = L.marker(
@@ -381,28 +428,6 @@ $(document).ready(function(){
         });
         map.fitBounds(markerLayer.getBounds());
     });
-
-
-
-    function createTrainlineLink(departure_time,departure_iata,arrival_iata){
-        //build trainline link
-        let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
-            .replace('%depiata',departure_iata)
-            .replace('%arriata',arrival_iata)
-            .replace('%date',(departure_time).slice(-2));
-
-        return link;
-    }
-
-    function compare( a, b ) {
-        if ( a.duration < b.duration ){
-            return -1;
-        }
-        if ( a.duration > b.duration ){
-            return 1;
-        }
-        return 0;
-    }
 
 });
 
