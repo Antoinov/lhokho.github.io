@@ -94,13 +94,13 @@ $(document).ready(function(){
     var map =  mapsPlaceholder[0];
 
     //work on change event
-    $("#destination_select").change(function(event) {
+    /*$("#destination_select").change(function(event) {
         var id = $(this).children(":selected").attr("id");
         let city_id = id.replace(/\D/g,'');
         if (event.originalEvent !== undefined) {
             focus_station(city_id,markerLayer);
         }
-    });
+    });*/
 
     $('#selected_date').change(function() {
     let query_date = buildQueryDate($('#selected_date').val());
@@ -239,7 +239,7 @@ $(document).ready(function(){
         let query_date = buildQueryDate($('#selected_date').val());
         let weather_restriction = $("input[name='weather']:checked").attr("id");
         let time_restriction = $("input[name='time']:checked").attr("id");
-        let destination_id = $('#destination_select').val();
+        let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value')
         let found = false
         if(typeof human_click === 'undefined'){
             if(typeof previous_marker !== 'undefined'){
@@ -299,7 +299,6 @@ $(document).ready(function(){
 
 
     function ondbClick(event) {
-        console.log(event);
         //clear previous elements
         clear_selection();
         //make it visible
@@ -321,6 +320,7 @@ $(document).ready(function(){
         if (journey_type == 'no_return') {
             console.log('no return');
             getCityConnections(query_date, query_marker, trip_type, time_restriction);
+
         } else {
             if (journey_type == 'one_day') {
                 let return_option = $("input[name='oneday_type']:checked").attr("id");
@@ -333,7 +333,7 @@ $(document).ready(function(){
 
         if (event.originalEvent !== undefined) {
             human_click = true;
-            $('#destination_select').val(event.sourceTarget.options.id).change();
+            $('#destination_select').val(event.sourceTarget.options.city).change();
             human_click = undefined;
 
         }

@@ -159,7 +159,9 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 
 //Get connections (One way)
 async function getCityConnections(date, marker,trip_type,time_restriction) {
-    if (L.Browser.mobile) {$('#sidebarCollapse').click();}
+    await setTimeout(function () {$("#se-loading-function").css({"display" : "block"});},100);
+    //if (L.Browser.mobile) {$('#sidebarCollapse').click();}
+    $('#sidebarCollapse').click();
     //retrieve relevant data
     let departure_id = marker.options.id;
     let direct_only = trip_type;
@@ -235,13 +237,14 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
             });
         });
         await drawDirectTrip(trips);
-        await drawIndirectTrip(all_indirect_trips,destination_list)
+        await drawIndirectTrip(all_indirect_trips,destination_list).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
     } else {
-        await drawDirectTrip(trips)
+        await drawDirectTrip(trips).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
     }
 }
 
 async function getRoundTrip(marker, trip_type, time_restriction, return_option) {
+    await setTimeout(function () {$("#se-loading-function").css({"display" : "block"});},100);
     if (L.Browser.mobile) {$('#sidebarCollapse').click();}
     //retrieve relevant data
     let departure_id = marker.options.id;
@@ -357,7 +360,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             })
             });
             oneday_trips = new Set(oneday_trips);
-            drawOneDayTrip(oneday_trips);
+            drawOneDayTrip(oneday_trips).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
             }
             else {if(return_option == 'medium_journey') {
             destination_list.forEach(function (destination) {
@@ -391,7 +394,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             })
             });
             oneday_trips = new Set(oneday_trips);
-            drawOneDayTrip(oneday_trips);
+            drawOneDayTrip(oneday_trips).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
             }
             else {if(return_option == 'long_journey') {
             destination_list.forEach(function (destination) {
@@ -425,7 +428,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             })
             });
             oneday_trips = new Set(oneday_trips);
-            drawOneDayTrip(oneday_trips);
+            drawOneDayTrip(oneday_trips).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
             }
             // For direct/indirect return on specific date
             else {
@@ -447,7 +450,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                 trips = trips.filter(trip => return_list.includes(trip.arrival_id));
                 console.log(trips);
                 await drawDirectTrip(trips);
-                await drawDirectReturn(direct_return_base,return_list);
+                await drawDirectReturn(direct_return_base,return_list).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});;
                 } else {
                let all_indirect_returns = [];
                destination_list.forEach( await function(destination) {
@@ -520,7 +523,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         await drawDirectTrip(trips);
                         await drawIndirectTrip(all_indirect_trips,temp_destination_list);
                         await drawDirectReturn(direct_return_base,return_list);
-                        await drawIndirectReturn(all_indirect_returns,return_list);
+                        await drawIndirectReturn(all_indirect_returns,return_list).then(function () {$("#se-loading-function").delay(1000).fadeOut(1000);});
                         };
             };
             }};

@@ -14,8 +14,8 @@ if (isMobileDisplay) {screen.orientation.lock('landscape');}
 function populate_menu(city_name,city_index) {
     let city_html = $('<li><a id="link_' + city_index + '" style="width: 100.0%; height: 100.0%;" href="destination.html?city=' + city_index + '" target="_blank""><br>' + city_name + '<br></a></li>')[0];
     $("#destSubmenu").append(city_html);
-    let city_option = $('<option id="opt_' + city_index + '" value="'+city_index+'" >'+city_name+'</option>')[0];
-    $("#destination_select").append(city_option);
+    let city_option = '<option id="opt_' + city_index + '" value="'+city_name+'" data-value="'+city_index+'" ></option>'
+    $("#destination_browser").append(city_option);
 }
 
 $(document).ready(function() {
