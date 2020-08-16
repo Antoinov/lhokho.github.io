@@ -38,7 +38,7 @@ $(document).ready(function() {
     
     $("#myModal").modal('show');
     
-    $('#sidebarCollapse').on('click', function () {
+    $('#sidebarCollapse').on('click touchstart', function () {
         $('#sidebar').toggleClass('active');
     });
     const div = $('#trip_toggle');
