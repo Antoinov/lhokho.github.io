@@ -6,6 +6,7 @@ var last_checked_trip_time = undefined;
 var last_checked_journey_type = undefined;
 var trips = [];
 var stations = [];
+var mobile = false;
 
 
 $(document).ready(function(){
@@ -640,11 +641,11 @@ async function drawDirectTrip(trips){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        map.flyToBounds(fg.getBounds());
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                 });
             })
         }
-        map.fitBounds(fg.getBounds());
+        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
     } else {
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
@@ -790,13 +791,13 @@ async function drawIndirectTrip(indirect_trips,destination_list){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        map.flyToBounds(fg.getBounds());
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                     });
                 });
             console.log(value);
         }
 
-        map.fitBounds(fg.getBounds());
+        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
 
     }
     console.log('Fin Exé DrawIndirect');
@@ -804,6 +805,7 @@ async function drawIndirectTrip(indirect_trips,destination_list){
 
 async function drawDirectReturn(trips,hide_list){
     console.log("Début Exé DrawDirect Return");
+    let map =  mapsPlaceholder[0];
     let return_map = new Map();
     trips.forEach(function(trip){
     let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
@@ -813,7 +815,11 @@ async function drawDirectReturn(trips,hide_list){
                 }
         return_map.get(trip.arrival_id).push(trip)
     }})
-
+    let markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+        });
+    let fg = L.featureGroup(markers);
     for (let [key, value] of return_map) {
             value
                 .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
@@ -861,6 +867,7 @@ async function drawDirectReturn(trips,hide_list){
                                 layer.setOpacity(0.8);
                             }
                         });
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                 });
             });
     }
@@ -870,6 +877,7 @@ console.log("Fin Exé DrawDirect Return");
 
 async function drawIndirectReturn(indirect_trips,hide_list){
     console.log('Debut Exé DrawIndirect Returns');
+    let map =  mapsPlaceholder[0];
     let indirect_return_map = new Map();
     indirect_trips.forEach(function(indirect_trip){
         let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
@@ -884,6 +892,11 @@ async function drawIndirectReturn(indirect_trips,hide_list){
 
     }
     });
+    let markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+        });
+    let fg = L.featureGroup(markers);
     for (let [key, value] of indirect_return_map) {
             //console.log(value);
             value
@@ -943,6 +956,7 @@ async function drawIndirectReturn(indirect_trips,hide_list){
                                 layer.setOpacity(0.8);
                             }
                         });
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                     });
                 });
             // console.log(value);
@@ -954,6 +968,7 @@ console.log('Fin Exé DrawIndirect Returns');
 
 async function drawOneDayTrip(trips) {
     console.log("Début Exé Draw one-day trips");
+    let map =  mapsPlaceholder[0];
     let oneday_map = new Map();
     var destination_list = [];
     if (trips.size != 0){
@@ -994,6 +1009,19 @@ async function drawOneDayTrip(trips) {
                 oneday_map.get(trip.arrival_id).push(trip)
             }
         })
+        let markers = []
+        markerLayer.eachLayer(function (layer) {
+                if (destination_list.includes(layer.options.id) == false) {
+                    layer.setOpacity(0.4);
+                    layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+                } else {
+                    layer.setOpacity(0.8);
+                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
+                    markers.push(layer)
+                }
+                if (layer.options.id == trips.values().next().value.departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"})); markers.push(layer)}
+        });
+        let fg = L.featureGroup(markers);
         for (let [key, value] of oneday_map) {
                 value
                     .sort((a, b) => (Number(a.time_on_site) > Number(b.time_on_site))? 1 : -1)
@@ -1047,6 +1075,7 @@ async function drawOneDayTrip(trips) {
                                 dashArray: '10, 10',
                             });
                             tripLayer.addLayer(polyline);
+                            map.flyToBounds([current_coords]);
                             markerLayer.eachLayer(function (layer) {
                                     if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
                                         layer.setOpacity(0.1);
@@ -1062,19 +1091,10 @@ async function drawOneDayTrip(trips) {
                                     layer.setOpacity(0.8);
                                 }
                             });
+                            if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                         });
                     })
         }
-        markerLayer.eachLayer(function (layer) {
-                if (destination_list.includes(layer.options.id) == false) {
-                    layer.setOpacity(0.4);
-                    layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-                } else {
-                    layer.setOpacity(0.8);
-                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
-                }
-                if (layer.options.id == trips.values().next().value.departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
-        });
     } else {
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
