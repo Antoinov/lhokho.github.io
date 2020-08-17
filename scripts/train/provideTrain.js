@@ -656,6 +656,13 @@ async function drawDirectTrip(trips,isLastDrawMethod){
         if (typeof tripLayer !== 'undefined') {
                 tripLayer.clearLayers();
         };
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
+            } else {
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            }
+        })
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
            '<h5 class="card-img-overlay" role="tab">' +
@@ -1116,6 +1123,16 @@ async function drawOneDayTrip(trips,isLastDrawMethod) {
                 })
         }
     } else {
+        if (typeof tripLayer !== 'undefined') {
+                tripLayer.clearLayers();
+        }
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
+            } else {
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            }
+        })
         let category_html = '<li class="card">' +
             '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
             '<h5 class="card-img-overlay" role="tab">' +
