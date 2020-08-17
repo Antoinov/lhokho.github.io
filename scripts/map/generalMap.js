@@ -308,7 +308,7 @@ $(document).ready(function(){
         //store marker
         previous_marker = event;
         //fly to selected marker
-        map.flyTo(event.getLatLng(),6.5,{'animate':true});
+        //map.flyTo(event.getLatLng(),6,{'animate':true});
         let date = new Date();
         if(isActiveSearch){
             //close all popups
@@ -348,7 +348,7 @@ $(document).ready(function(){
             //store marker
             previous_marker = event.sourceTarget;
             //fly to selected marker
-            map.flyTo(event.sourceTarget.getLatLng(),6.5,{'animate':true});
+            //map.flyTo(event.sourceTarget.getLatLng(),6.5,{'animate':true});
             let date = new Date();
             //close all popups
             event.target.closePopup();

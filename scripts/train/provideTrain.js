@@ -653,6 +653,9 @@ async function drawDirectTrip(trips,isLastDrawMethod){
         }
         if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
     } else {
+        if (typeof tripLayer !== 'undefined') {
+                tripLayer.clearLayers();
+        };
         let category_html = '<li class="card">' +
            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
            '<h5 class="card-img-overlay" role="tab">' +
@@ -743,7 +746,7 @@ async function drawIndirectTrip(indirect_trips,destination_list,isLastDrawMethod
 
 
         for (let [key, value] of indirect_trip_map) {
-            console.log(value);
+            //console.log(value);
             value
                 .sort((a, b) => (Number(a.origine_departure.split(':')[0]) > Number(b.origine_departure.split(':')[0]) ? 1 : -1))
                 .forEach(indirect_trip => {
@@ -803,7 +806,7 @@ async function drawIndirectTrip(indirect_trips,destination_list,isLastDrawMethod
                         if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
                     });
                 });
-            console.log(value);
+            //console.log(value);
         }
 
         if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
@@ -976,52 +979,6 @@ async function drawIndirectReturn(indirect_trips,hide_list,isLastDrawMethod){
                 });
             // console.log(value);
         }
-
-console.log('Fin Exé DrawIndirect Returns');
-
-                $('#sub' + indirect_trip.origine_id).append(ticket_html);
-                $('#' + identify_ticket).bind('mouseenter', function () {
-                    let current_coords = new Array();
-                    current_coords.push(indirect_trip.origine_coords);
-                    current_coords.push(indirect_trip.departure_coords);
-                    var polyline = new CustomPolyline(current_coords, {
-                        id: 'fl_line' + identify_ticket,
-                        color: 'black',
-                        weight: 2,
-                        opacity: 1,
-                        dashArray: '10, 10',
-                    });
-                    tripLayer.addLayer(polyline);
-                    current_coords = new Array();
-                    current_coords.push(indirect_trip.departure_coords);
-                    current_coords.push(indirect_trip.arrival_coords);
-                    var polyline = new CustomPolyline(current_coords, {
-                        id: 'sl_line' + identify_ticket,
-                        color: '#0affb4',
-                        weight: 2,
-                        opacity: 1,
-                        dashArray: '10, 10',
-                    });
-                    tripLayer.addLayer(polyline);
-                    map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
-                    markerLayer.eachLayer(function (layer) {
-                        if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
-                            layer.setOpacity(0.1);
-                        }
-                    });
-                });
-                $('#' + identify_ticket).bind('mouseleave', function () {
-                    if (typeof tripLayer !== 'undefined') {
-                        tripLayer.clearLayers();
-                    };
-                    markerLayer.eachLayer(function (layer) {
-                        if (hide_list.includes(layer.options.id) == true) {
-                            layer.setOpacity(0.8);
-                        }
-                    });
-                    if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
-
-                });
         // console.log(value);
 
     if (isLastDrawMethod) {
