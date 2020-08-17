@@ -266,8 +266,9 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('change','#destination_select',function() {
+    $(document).on('change keypress','#destination_select',function() {
         $("#se-loading-function").css({"display" : "block"});
+        $("#destination_select").blur();
         const eventMaker = async () => {
 
         }
