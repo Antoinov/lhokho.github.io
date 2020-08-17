@@ -269,33 +269,34 @@ $(document).ready(function(){
     $(document).on('change keypress','#destination_select',function() {
         $("#se-loading-function").css({"display" : "block"});
         $("#destination_select").blur();
+        $('#sidebarCollapse').click();
         const eventMaker = async () => {
-
+            let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value');
+            let found = false
+            if(typeof human_click === 'undefined'){
+                if(typeof previous_marker !== 'undefined'){
+                    tripLayer.eachLayer(function (layer) {
+                        layer.remove();
+                    });
+                    markerLayer.eachLayer(function (layer) {
+                        layer.setOpacity(0.2);
+                    });
+                }
+                human_click = undefined;
+                markerLayer.eachLayer(function (layer) {
+                    if (destination_id == layer.options.id && found == false) {
+                        console.log(layer);
+                        onDestinationChange(layer);
+                        found = true;
+                    }
+                });
+            }
         }
         setTimeout(function(){
             // start working right after selecting destination
             eventMaker();
         }, 100);
-        let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value');
-        let found = false
-        if(typeof human_click === 'undefined'){
-            if(typeof previous_marker !== 'undefined'){
-                tripLayer.eachLayer(function (layer) {
-                    layer.remove();
-                });
-                markerLayer.eachLayer(function (layer) {
-                    layer.setOpacity(0.2);
-                });
-            }
-            human_click = undefined;
-            markerLayer.eachLayer(function (layer) {
-                if (destination_id == layer.options.id && found == false) {
-                    console.log(layer);
-                    onDestinationChange(layer);
-                    found = true;
-                }
-            });
-        }
+
     });
 
     function onDestinationChange(event) {
