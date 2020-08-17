@@ -266,37 +266,41 @@ $(document).ready(function(){
         }
     });
 
-    $(document).on('change keypress','#destination_select',function() {
-        $("#se-loading-function").css({"display" : "block"});
-        $("#destination_select").blur();
-        $('#sidebarCollapse').click();
-        const eventMaker = async () => {
-            let destination_id = $('#destination_browser [value="' + $('#destination_select').val() + '"]').data('value');
-            let found = false
-            if(typeof human_click === 'undefined'){
-                if(typeof previous_marker !== 'undefined'){
-                    tripLayer.eachLayer(function (layer) {
-                        layer.remove();
-                    });
+    $(document).on('change enterKey','#destination_select',function() {
+        let val = $('#destination_select').val().charAt(0).toUpperCase() + $('#destination_select').val().slice(1)
+        console.log(val)
+        let obj = $("#destination_browser").find("option[value='" + val + "']");
+        console.log(obj)
+        if(obj != null && obj.length > 0) {
+            $("#se-loading-function").css({"display" : "block"});
+            $("#destination_select").blur();
+            const eventMaker = async () => {
+                let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
+                let found = false
+                if(typeof human_click === 'undefined'){
+                    if(typeof previous_marker !== 'undefined'){
+                        tripLayer.eachLayer(function (layer) {
+                            layer.remove();
+                        });
+                        markerLayer.eachLayer(function (layer) {
+                            layer.setOpacity(0.2);
+                        });
+                    }
+                    human_click = undefined;
                     markerLayer.eachLayer(function (layer) {
-                        layer.setOpacity(0.2);
+                        if (destination_id == layer.options.id && found == false) {
+                            console.log(layer);
+                            onDestinationChange(layer);
+                            found = true;
+                        }
                     });
                 }
-                human_click = undefined;
-                markerLayer.eachLayer(function (layer) {
-                    if (destination_id == layer.options.id && found == false) {
-                        console.log(layer);
-                        onDestinationChange(layer);
-                        found = true;
-                    }
-                });
             }
+            setTimeout(function(){
+                // start working right after selecting destination
+                eventMaker();
+            }, 100);
         }
-        setTimeout(function(){
-            // start working right after selecting destination
-            eventMaker();
-        }, 100);
-
     });
 
     function onDestinationChange(event) {

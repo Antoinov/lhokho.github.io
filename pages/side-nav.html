@@ -7,7 +7,7 @@
         <strong>LK</strong>
     </div>
     <ul class="list-unstyled CTAs">
-        <form id="trip_form">
+        <form id="trip_form" onsubmit="return false">
             <div data-toggle="tooltip" data-placement="top" title="Selectionnez une date de départ" class="form-group">
                 <input class="form-control" type="date" value="" id="selected_date">
             </div>
@@ -97,7 +97,7 @@
             </div>
             <div class="form-group">
                 <label data-toggle="tooltip" data-placement="top" title="Selectionnez une gare de départ" class="mr-sm-2">Departure</label>
-                <input list="destination_browser" type="text" onfocus="this.value=''" autoComplete="off" class="form-control" id="destination_select" value="Departure ..."/>
+                <input list="destination_browser" type="text" onfocus="this.value=''" autoComplete="on" class="form-control" id="destination_select" value="Departure ..."/>
                     <datalist id="destination_browser">
                     </datalist>
             </div>
