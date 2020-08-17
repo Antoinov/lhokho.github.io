@@ -268,9 +268,7 @@ $(document).ready(function(){
 
     $(document).on('change enterKey','#destination_select',function() {
         let val = $('#destination_select').val().charAt(0).toUpperCase() + $('#destination_select').val().slice(1)
-        console.log(val)
         let obj = $("#destination_browser").find("option[value='" + val + "']");
-        console.log(obj)
         if(obj != null && obj.length > 0) {
             $("#se-loading-function").css({"display" : "block"});
             $("#destination_select").blur();
