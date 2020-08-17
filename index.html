@@ -67,12 +67,12 @@
                             <p>Ce portail vous permettra de cherchez vos billets à partir de la base des données SNCF mis à disposition sur le site OpenData.</p>
                             <p>Vous pourrez ensuite selectionner une gare et une date de départ (et un retour potentiel) selon différent critères...</p>
                             <h5 class="modal-title">Faire une recherche</h5>
-                            <p>Rendez-vous sur la navigation à gauche de votre écran ou selectionnez directement une gare depuis la carte des destination (votre date sera alors par défaut celle du lendemain).</p>
+                            <p>Rendez-vous sur la navigation à gauche de votre écran ou selectionnez directement par un double-clic une gare depuis la carte des destination (votre date sera alors par défaut celle du lendemain).</p>
                             <h5 class="modal-title">Types de pointeurs</h5>
                             <p>Sur la carte il existe différent marqueurs symbolisant les états des gares...</p>
                             <div class="card text-center">
                                 <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs">
+                                    <ul class="nav nav-tabs card-header-tabs justify-content-center">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" id="departure-tab" href="#markerDeparture" role="tab" aria-controls="home" aria-selected="true">Départ</a>
                                         </li>
@@ -86,35 +86,54 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="markerDeparture" role="tabpanel" aria-labelledby="departure-tab">img 1</div>
-                                        <div class="tab-pane fade" id="markerConnexion" role="tabpanel" aria-labelledby="connexion-tab">img 2 </div>
-                                        <div class="tab-pane fade" id="markerOther" role="tabpanel" aria-labelledby="other-tab">img 3 </div>
+                                        <div class="tab-pane fade show active" id="markerDeparture" role="tabpanel" aria-labelledby="departure-tab">
+                                            <img src="images/icons/placeholder.png" width="20" height="20"/>
+                                        </div>
+                                        <div class="tab-pane fade" id="markerConnexion" role="tabpanel" aria-labelledby="connexion-tab">
+                                            <img src="images/icons/indirect_pin.png" width="20" height="20"/>
+                                        </div>
+                                        <div class="tab-pane fade" id="markerOther" role="tabpanel" aria-labelledby="other-tab">
+                                            <img src="images/icons/circle.png" width="15" height="15"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <br>
                             <h5 class="modal-title">Types de trajets</h5>
-                            <p>Les trajets s'afficheront dans une fenêtre résumée sur la droite de votre écran avec une barre de recherche. Il suffit de taper le nom de la ville dans laquelle vous souhaitez aller ! Les trajets apparaissent sur la carte de la manière suivante:</p>
+                            <p>Les trajets s'afficheront dans une fenêtre résumée sur la droite de votre écran avec une barre de recherche. Il suffit de taper le nom de la ville dans laquelle vous souhaitez aller ! Les trajets apparaissent de la manière suivante:</p>
                             <div class="card text-center">
                                 <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs">
+                                    <ul class="nav nav-tabs card-header-tabs justify-content-center">
                                         <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" id="direct-sec-tab" href="#sectionDir" role="tab" aria-controls="sectionDir" aria-selected="true">Départ</a>
+                                            <a class="nav-link active" data-toggle="tab" id="direct-sec-tab" href="#sectionDir" role="tab" aria-controls="sectionDir" aria-selected="true">Trajets directs</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" id="indirect-sec-tab" href="#sectionIndir" role="tab" aria-controls="sectionDir" aria-selected="false" >Connexion existantes</a>
+                                            <a class="nav-link" data-toggle="tab" id="indirect-sec-tab" href="#sectionIndir" role="tab" aria-controls="sectionDir" aria-selected="false" >Trajets indirects</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" id="oneday-sec-tab" href="#sectionOD" role="tab" aria-controls="sectionDir" aria-selected="false" >Voyage en un jour</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="card-body">
                                     <div class="tab-content" id="sectionContent">
-                                        <div class="tab-pane fade show active" id="sectionDir" role="tabpanel" aria-labelledby="direct-sec-tab">img 1</div>
-                                        <div class="tab-pane fade" id="sectionIndir" role="tabpanel" aria-labelledby="indirect-sec-tab">img 2 </div>
+                                        <div class="tab-pane fade show active" id="sectionDir" role="tabpanel" aria-labelledby="direct-sec-tab">
+                                            <img src="images/modals/explanation_direct.png" width="100%" height="100%"/>
+                                        </div>
+                                        <div class="tab-pane fade" id="sectionIndir" role="tabpanel" aria-labelledby="indirect-sec-tab">
+                                            <img src="images/modals/explanation_indirect.png" width="100%" height="100%"/>
+                                        </div>
+                                        <div class="tab-pane fade" id="sectionOD" role="tabpanel" aria-labelledby="oneday-sec-tab">
+                                            <img src="images/modals/explanation_oneday.png" width="100%" height="100%"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <br>
+                            <h5 class="modal-title">Tout compris ? Prêt à partir en voyage ?</h5>
+                            <p>Site à visée non commerciale. Tout les données sont tirées de sources libres et ouvertes, <a style="font-weight:bold;" href="https://ressources.data.sncf.com/explore">propriétés de la SNCF</a>. Pour plus de détails, n'hésitez pas à <a style="font-weight:bold;" href="mailto:lhoumeau.maxime@gmail.com">contacter</a> les créateurs. </p>
                         </div>
-                        <h5 class="modal-title">Tout compris ? Prêt à partir en voyage ?</h5>
-                        <p>Site à visée non commerciale. Tout les données sont tirées de sources libres et ouvertes, <a style="font-weight:bold;" href="https://ressources.data.sncf.com/explore">propriétés de la SNCF</a>. Pour plus de détails, n'hésitez pas à <a style="font-weight:bold;" href="mailto:lhoumeau.maxime@gmail.com">contacter</a> les créateurs. </p>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">C'est parti !</button>
                         </div>
