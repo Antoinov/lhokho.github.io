@@ -287,7 +287,7 @@ $(document).ready(function(){
                     human_click = undefined;
                     markerLayer.eachLayer(function (layer) {
                         if (destination_id == layer.options.id && found == false) {
-                            console.log(layer);
+                            //console.log(layer);
                             onDestinationChange(layer);
                             found = true;
                         }
