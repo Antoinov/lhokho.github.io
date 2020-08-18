@@ -360,7 +360,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        oneday_trips.push(first_leg);
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
                     }
                 })
             })
@@ -394,7 +394,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        oneday_trips.push(first_leg);
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
                     }
                 })
             })
@@ -429,7 +429,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         first_leg.sl_duration = second_leg.duration;
                         first_leg.travel_time = first_leg.duration + second_leg.duration;
                         first_leg.time_on_site = TravelTime;
-                        oneday_trips.push(first_leg);
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
                     }
                 })
             })
