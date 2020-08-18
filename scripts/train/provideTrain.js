@@ -91,7 +91,6 @@ async function getReturnRecords(date) {
     var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
         '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
         '&refine.date=%date'.replace('%date', date) //format: YYYY-MM-DD
-    console.log(query)
     $.ajaxSetup({
         async: false
     });
@@ -138,7 +137,7 @@ async function getReturnRecords(date) {
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
         });
-        console.log(return_base)
+
         return return_base;
 
     });
@@ -168,7 +167,6 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
     let control_trip_type = trip_type;
     //get direct trip
     let trips = findTripsFromDepartureID(departure_id);
-    console.log(time_restriction);
     if (time_restriction != "unknown_trip" ) {trips = trips.filter(trip => trip.duration <= time_restriction)};
     var destination_list = [];
     trips.forEach(function(trip){
@@ -451,11 +449,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                 if (isIn == false) {
                     return_list.push(trip.departure_id);
                 };})
-            console.log(destination_list);
-            console.log(return_list);
-            console.log(trips);
             trips = trips.filter(trip => return_list.includes(trip.arrival_id));
-            console.log(trips);
             await drawDirectTrip(trips,false);
             await drawDirectReturn(direct_return_base,return_list,true);
         } else {
@@ -651,7 +645,13 @@ async function drawDirectTrip(trips,isLastDrawMethod){
                 });
             })
         }
-        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
     } else {
         if (typeof tripLayer !== 'undefined') {
                 tripLayer.clearLayers();
@@ -816,7 +816,13 @@ async function drawIndirectTrip(indirect_trips,destination_list,isLastDrawMethod
             //console.log(value);
         }
 
-        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
 
     }
     if (isLastDrawMethod) {
@@ -889,7 +895,13 @@ async function drawDirectReturn(trips,hide_list,isLastDrawMethod){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {
+                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        } else {
+                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        };
                 });
             });
     }
@@ -981,7 +993,13 @@ async function drawIndirectReturn(indirect_trips,hide_list,isLastDrawMethod){
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {
+                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        } else {
+                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        };
                     });
                 });
             // console.log(value);
@@ -1118,10 +1136,17 @@ async function drawOneDayTrip(trips,isLastDrawMethod) {
                                 layer.setOpacity(0.8);
                             }
                         });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]});map.zoomIn(0.01)} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]});map.zoomIn(0.01)};
                     });
                 })
         }
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
     } else {
         if (typeof tripLayer !== 'undefined') {
                 tripLayer.clearLayers();
