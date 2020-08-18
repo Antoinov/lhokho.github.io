@@ -57,139 +57,139 @@
     });
 </script>
 <body>
-    <div class="wrapper">
-        <div id="side-nav"></div>
-        <div class="se-pre-con"></div>
-        <div class="se-loading-function" id="se-loading-function"></div>
-        <div id="content">
-            <!-- START CONTENT  -->
-            <div class="map" id="map" ></div>
+<div class="wrapper">
+    <div id="side-nav"></div>
+    <div class="se-pre-con"></div>
+    <div class="se-loading-function" id="se-loading-function"></div>
+    <div id="content">
+        <!-- START CONTENT  -->
+        <div class="map" id="map" ></div>
 
-            <!-- Explanation modal-->
-            <div id="myModal" class="modal fade " role="dialog" >
-                <div class="modal-dialog modal-lg">
+        <!-- Explanation modal-->
+        <div id="myModal" class="modal fade " role="dialog" >
+            <div class="modal-dialog modal-lg">
 
-                    <!-- Modal content-->
-                    <div class="modal-content" >
-                        <div class="modal-header">
-                            <h4 class="modal-title">Comment lancer la lhokho ?</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Bienvenue sur Lhokho !</p>
-                            <p>Ce portail vous permettra de cherchez vos billets à partir de la base des données SNCF mise à disposition sur le site OpenData.</p>
-                            <p>Vous pourrez ensuite selectionner une gare et une date de départ (et un retour potentiel) selon différent critères...</p>
-                            <p>Pour un Max de précision dans la disponibilité réelle des billets nous vous conseillons d'utiliser le site en début de journée.</p>
-                            <h5 class="modal-title">Faire une recherche</h5>
-                            <p>Rendez-vous sur la navigation à gauche de votre écran ou selectionnez directement par un double-clic une gare depuis la carte des destination (votre date sera alors par défaut celle du lendemain).</p>
-                            <h5 class="modal-title">Types de pointeurs</h5>
-                            <p>Sur la carte il existe différent marqueurs symbolisant les états des gares...</p>
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs justify-content-center">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" id="departure-tab" href="#markerDeparture" role="tab" aria-controls="home" aria-selected="true">Départ</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" id="connexion-tab" href="#markerConnexion" role="tab" aria-controls="home" aria-selected="true" >Connexion existantes</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " data-toggle="tab" id="other-tab" href="#markerOther" role="tab" aria-controls="home" aria-selected="true">Autres stations</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-body">
-                                    <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="markerDeparture" role="tabpanel" aria-labelledby="departure-tab">
-                                            <img src="images/icons/placeholder.png" width="20" height="20"/>
-                                        </div>
-                                        <div class="tab-pane fade" id="markerConnexion" role="tabpanel" aria-labelledby="connexion-tab">
-                                            <img src="images/icons/indirect_pin.png" width="20" height="20"/>
-                                        </div>
-                                        <div class="tab-pane fade" id="markerOther" role="tabpanel" aria-labelledby="other-tab">
-                                            <img src="images/icons/circle.png" width="15" height="15"/>
-                                        </div>
+                <!-- Modal content-->
+                <div class="modal-content" >
+                    <div class="modal-header">
+                        <h4 class="modal-title">Comment lancer la lhokho ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bienvenue sur Lhokho !</p>
+                        <p>Ce portail vous permettra de cherchez vos billets à partir de la base des données SNCF mise à disposition sur le site OpenData.</p>
+                        <p>Vous pourrez ensuite selectionner une gare et une date de départ (et un retour potentiel) selon différent critères...</p>
+                        <p>Pour un Max de précision dans la disponibilité réelle des billets nous vous conseillons d'utiliser le site en début de journée.</p>
+                        <h5 class="modal-title">Faire une recherche</h5>
+                        <p>Rendez-vous sur la navigation à gauche de votre écran ou selectionnez directement par un double-clic une gare depuis la carte des destination (votre date sera alors par défaut celle du lendemain).</p>
+                        <h5 class="modal-title">Types de pointeurs</h5>
+                        <p>Sur la carte il existe différent marqueurs symbolisant les états des gares...</p>
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" id="departure-tab" href="#markerDeparture" role="tab" aria-controls="home" aria-selected="true">Départ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" id="connexion-tab" href="#markerConnexion" role="tab" aria-controls="home" aria-selected="true" >Connexion existantes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " data-toggle="tab" id="other-tab" href="#markerOther" role="tab" aria-controls="home" aria-selected="true">Autres stations</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="markerDeparture" role="tabpanel" aria-labelledby="departure-tab">
+                                        <img src="images/icons/placeholder.png" width="20" height="20"/>
+                                    </div>
+                                    <div class="tab-pane fade" id="markerConnexion" role="tabpanel" aria-labelledby="connexion-tab">
+                                        <img src="images/icons/indirect_pin.png" width="20" height="20"/>
+                                    </div>
+                                    <div class="tab-pane fade" id="markerOther" role="tabpanel" aria-labelledby="other-tab">
+                                        <img src="images/icons/circle.png" width="15" height="15"/>
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <h5 class="modal-title">Types de trajets</h5>
-                            <p>Les trajets s'afficheront dans une fenêtre résumée sur la droite de votre écran avec une barre de recherche. Il suffit de taper le nom de la ville dans laquelle vous souhaitez aller ! Les trajets apparaissent de la manière suivante:</p>
-                            <div class="card text-center">
-                                <div class="card-header">
-                                    <ul class="nav nav-tabs card-header-tabs justify-content-center">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" data-toggle="tab" id="direct-sec-tab" href="#sectionDir" role="tab" aria-controls="sectionDir" aria-selected="true">Trajets directs</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" id="indirect-sec-tab" href="#sectionIndir" role="tab" aria-controls="sectionDir" aria-selected="false" >Trajets indirects</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" id="oneday-sec-tab" href="#sectionOD" role="tab" aria-controls="sectionDir" aria-selected="false" >Voyage en un jour</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-body">
-                                    <div class="tab-content" id="sectionContent">
-                                        <div class="tab-pane fade show active" id="sectionDir" role="tabpanel" aria-labelledby="direct-sec-tab">
-                                            <img src="images/modals/explanation_direct.png" width="100%" height="100%"/>
-                                        </div>
-                                        <div class="tab-pane fade" id="sectionIndir" role="tabpanel" aria-labelledby="indirect-sec-tab">
-                                            <img src="images/modals/explanation_indirect.png" width="100%" height="100%"/>
-                                        </div>
-                                        <div class="tab-pane fade" id="sectionOD" role="tabpanel" aria-labelledby="oneday-sec-tab">
-                                            <img src="images/modals/explanation_oneday.png" width="100%" height="100%"/>
-                                        </div>
+                        </div>
+                        <br>
+                        <h5 class="modal-title">Types de trajets</h5>
+                        <p>Les trajets s'afficheront dans une fenêtre résumée sur la droite de votre écran avec une barre de recherche. Il suffit de taper le nom de la ville dans laquelle vous souhaitez aller ! Les trajets apparaissent de la manière suivante:</p>
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs justify-content-center">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" id="direct-sec-tab" href="#sectionDir" role="tab" aria-controls="sectionDir" aria-selected="true">Trajets directs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" id="indirect-sec-tab" href="#sectionIndir" role="tab" aria-controls="sectionDir" aria-selected="false" >Trajets indirects</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" id="oneday-sec-tab" href="#sectionOD" role="tab" aria-controls="sectionDir" aria-selected="false" >Voyage en un jour</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="tab-content" id="sectionContent">
+                                    <div class="tab-pane fade show active" id="sectionDir" role="tabpanel" aria-labelledby="direct-sec-tab">
+                                        <img src="images/modals/explanation_direct.png" width="100%" height="100%"/>
+                                    </div>
+                                    <div class="tab-pane fade" id="sectionIndir" role="tabpanel" aria-labelledby="indirect-sec-tab">
+                                        <img src="images/modals/explanation_indirect.png" width="100%" height="100%"/>
+                                    </div>
+                                    <div class="tab-pane fade" id="sectionOD" role="tabpanel" aria-labelledby="oneday-sec-tab">
+                                        <img src="images/modals/explanation_oneday.png" width="100%" height="100%"/>
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <h5 class="modal-title">Tout compris ? Prêt à partir en voyage ?</h5>
-                            <p>Site crée à visée non commerciale. Toutes les données sont tirées de sources libres et ouvertes, <a style="font-weight:bold;" href="https://ressources.data.sncf.com/explore">propriétées de la SNCF</a>. Pour plus de détails, n'hésitez pas à <a style="font-weight:bold;" href="mailto:lhoumeau.maxime@gmail.com">contacter</a> les créateurs. </p>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">C'est parti !</button>
-                        </div>
+                        <br>
+                        <h5 class="modal-title">Tout compris ? Prêt à partir en voyage ?</h5>
+                        <p>Site crée à visée non commerciale. Toutes les données sont tirées de sources libres et ouvertes, <a style="font-weight:bold;" href="https://ressources.data.sncf.com/explore">propriétées de la SNCF</a>. Pour plus de détails, n'hésitez pas à <a style="font-weight:bold;" href="mailto:lhoumeau.maxime@gmail.com">contacter</a> les créateurs. </p>
                     </div>
 
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">C'est parti !</button>
+                    </div>
                 </div>
-            </div>
-            <!-- STOP CONTENT  -->
-        </div>
-    </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
-    <!-- Add Other Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
-    <!-- Leaflet JS -->
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
-            integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
-            crossorigin=""></script>
-    <!-- script to load utils -->
-    <script src="scripts/utils.js"></script>
-    <!-- script to init some navigation elements -->
-    <script src="scripts/initDisplay.js"></script>
-    <!-- script to connect to firebase -->
-    <script src="scripts/firebase/connectFirebase.js"></script>
-    <script src="scripts/train/displayLocalTrain.js"></script>
-    <script src="scripts/weather/weather.js"></script>
-    <!-- script to init leaflet map -->
-    <script src="scripts/bar/barLayer.js"></script>
-    <script src="scripts/map/initMap.js"></script>
-    <script src="scripts/train/provideTrain.js"></script>
-    <script defer src="scripts/map/generalMap.js"></script>
+            </div>
+        </div>
+        <!-- STOP CONTENT  -->
+    </div>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+<!-- Add Other Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.4.1.js" ></script>
+<!-- Popper.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.js"></script>
+<!-- Leaflet JS -->
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
+        integrity="sha512-MQlyPV+ol2lp4KodaU/Xmrn+txc1TP15pOBF/2Sfre7MRsA/pB4Vy58bEqe9u7a7DczMLtU5wT8n7OblJepKbg=="
+        crossorigin=""></script>
+<!-- script to load utils -->
+<script src="scripts/utils.js"></script>
+<!-- script to init some navigation elements -->
+<script src="scripts/initDisplay.js"></script>
+<!-- script to connect to firebase -->
+<script src="scripts/firebase/connectFirebase.js"></script>
+<script src="scripts/train/displayLocalTrain.js"></script>
+<script src="scripts/weather/weather.js"></script>
+<!-- script to init leaflet map -->
+<script src="scripts/bar/barLayer.js"></script>
+<script src="scripts/map/initMap.js"></script>
+<script src="scripts/train/provideTrain.js"></script>
+<script defer src="scripts/map/generalMap.js"></script>
 </body>
 
 </html>
