@@ -101,8 +101,7 @@ $(document).ready(function(){
             focus_station(city_id,markerLayer);
         }
     });*/
-
-    $('#selected_date').change(function() {
+    $(document).on('change','#selected_date',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let trip_type = $("input[name='trip_type']:checked").attr("id");
         let time_restriction = $("input[name='trip']:checked").attr("id");
@@ -143,7 +142,7 @@ $(document).ready(function(){
         }
     });
 
-    $('#trip_type').change(function(){
+    $(document).on('change','#trip_type',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let trip_type = $("input[name='trip_type']:checked").attr("id");
         let time_restriction = $("input[name='trip']:checked").attr("id");
@@ -182,8 +181,7 @@ $(document).ready(function(){
             }, 1000);
         }
     });
-
-    $('#time_buttons').change(function() {
+    $(document).on('change','#time_buttons',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let trip_type = $("input[name='trip_type']:checked").attr("id");
         let time_restriction = $("input[name='trip']:checked").attr("id");
@@ -221,8 +219,7 @@ $(document).ready(function(){
             }, 1000);
         }
     });
-
-    $('input[name="oneday_type"], #return_date, #no_return').change(function() {
+    $(document).on('change','input[name="oneday_type"], #return_date, #no_return',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let trip_type = $("input[name='trip_type']:checked").attr("id");
         let time_restriction = $("input[name='trip']:checked").attr("id");
