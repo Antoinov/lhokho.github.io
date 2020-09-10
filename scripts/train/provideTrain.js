@@ -38,9 +38,9 @@ async function getTrainRecords(date) {
         async: false
     });
     $.getJSON(query, function (response) {
+        // Create base to check if a train is crossing the station on a selected day
+        let activity_station_base = [];
         response['records'].forEach(function(result){
-            // Create base to check if a train is crossing the station on a selected day
-            let activity_station_base = [];
             let trip = {};
             //define trip date
             trip.day = result.fields.date;
@@ -69,6 +69,9 @@ async function getTrainRecords(date) {
                     })
                     return acc;
                 }, [])[0];
+                if (activity_station_base.includes(result.fields.origine_iata) == false) {
+                        activity_station_base.push(result.fields.origine_iata);
+                }
                 if(typeof arrival_station !== 'undefined'){
                     trip.arrival_city = arrival_station.city;
                     trip.arrival_iata = result.fields.destination_iata;
@@ -81,8 +84,14 @@ async function getTrainRecords(date) {
                     trips.push(trip);
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
-
         });
+        markerLayer.eachLayer(function (layer) {
+            if (activity_station_base.includes(layer.options.iata) == false) {
+                layer.getElement().style.display = 'none';
+            } else {
+                layer.getElement().style.display = 'block';
+            }
+        })
         return trips;
     });
 };
@@ -140,7 +149,6 @@ async function getReturnRecords(date) {
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
         });
-
         return return_base;
 
     });
@@ -588,7 +596,7 @@ async function drawDirectTrip(trips,isLastDrawMethod){
         });
         markers = [];
         markerLayer.eachLayer(function (layer) {
-            if (destination_list.includes(layer.options.id) == false) {
+            if (destination_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
                 layer.setOpacity(0.4);
                 layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
             } else {
@@ -1059,7 +1067,7 @@ async function drawOneDayTrip(trips,isLastDrawMethod) {
         })
         let markers = []
         markerLayer.eachLayer(function (layer) {
-            if (destination_list.includes(layer.options.id) == false) {
+            if (destination_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
                 layer.setOpacity(0.4);
                 layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
             } else {
