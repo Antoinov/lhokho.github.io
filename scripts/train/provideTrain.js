@@ -1,4 +1,5 @@
 // Global variable to store tgv max trip
+var specific_indirect_station = [0, 8];
 var last_checked_time = undefined;
 var last_checked_return = undefined;
 var last_checked_trip_type = undefined;
@@ -205,7 +206,12 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                     dt2.setMinutes(minutes);
                     // Difftime is the connection time
                     let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
-                    if (Difftime > 10 && Difftime < 90) {
+                    if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                        var minimum_Difftime = 40
+                    } else {
+                        var minimum_Difftime = 10
+                    }
+                    if (Difftime >= minimum_Difftime && Difftime <= 150) {
                         let dt3 = new Date();
                         let [hours, minutes] = indirect_trip.arrival_time.split(':');
                         dt3.setHours(+hours);
@@ -246,9 +252,14 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                 });
             });
         });
+        // Check if duplicates
+        trips = [... new Set(trips)]
+        all_indirect_trips = [... new Set(all_indirect_trips)]
         await drawDirectTrip(trips,false);
         await drawIndirectTrip(all_indirect_trips,destination_list,true);
     } else {
+        // Check if duplicates
+        trips = [... new Set(trips)]
         await drawDirectTrip(trips,true);
     }
 }
@@ -290,7 +301,12 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                     dt2.setMinutes(minutes);
                     // Difftime is the connection time
                     let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
-                    if (Difftime > 10 && Difftime < 90) {
+                    if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                        var minimum_Difftime = 40
+                    } else {
+                        var minimum_Difftime = 10
+                    }
+                    if (Difftime >= minimum_Difftime && Difftime <= 150) {
                         let dt3 = new Date();
                         let [hours, minutes] = indirect_trip.arrival_time.split(':');
                         dt3.setHours(+hours);
@@ -461,6 +477,9 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                     return_list.push(trip.departure_id);
                 };})
             trips = trips.filter(trip => return_list.includes(trip.arrival_id));
+            // Remove duplicates
+            trips = [... new Set(trips)];
+            direct_return_base = [... new Set(direct_return_base)];
             await drawDirectTrip(trips,false);
             await drawDirectReturn(direct_return_base,return_list,true);
         } else {
@@ -481,7 +500,12 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                         dt2.setMinutes(minutes);
                         // Difftime is the connection time
                         let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
-                        if (trip.arrival_id == indirect_trip.departure_id && Difftime > 10 && Difftime < 90) {
+                        if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                            var minimum_Difftime = 40
+                        } else {
+                            var minimum_Difftime = 10
+                        }
+                        if (trip.arrival_id == indirect_trip.departure_id && Difftime >= minimum_Difftime && Difftime <= 150) {
                             let dt3 = new Date();
                             let [hours, minutes] = indirect_trip.arrival_time.split(':');
                             dt3.setHours(+hours);
@@ -524,7 +548,10 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                     return_list.push(trip.departure_id);
                 };})
             // remove duplicates (reason why duplicate not found)
-            all_indirect_returns = new Set(all_indirect_returns);
+            trips = [... new Set(trips)];
+            all_indirect_trips = [... new Set(all_indirect_trips)];
+            direct_return_base = [... new Set(direct_return_base)];
+            all_indirect_returns = [... new Set(all_indirect_returns)];
             all_indirect_returns.forEach(function(trip){
                 let isIn = return_list.includes(trip.origine_id);
                 if (isIn == false) {
