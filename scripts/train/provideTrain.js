@@ -39,7 +39,9 @@ async function getTrainRecords(date) {
     });
     $.getJSON(query, function (response) {
         response['records'].forEach(function(result){
-            let trip = {};   
+            // Create base to check if a train is crossing the station on a selected day
+            let activity_station_base = [];
+            let trip = {};
             //define trip date
             trip.day = result.fields.date;
             //gather departure data
@@ -79,6 +81,7 @@ async function getTrainRecords(date) {
                     trips.push(trip);
                 } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
+
         });
         return trips;
     });
@@ -160,8 +163,8 @@ function findTrips(departure_iata,arrival_iata,nbStop){
 //Get connections (One way)
 async function getCityConnections(date, marker,trip_type,time_restriction) {
     if (L.Browser.mobile) {
-        $('#sidebarCollapse').click();
-    }
+        $('#sidebar').toggleClass('active')
+    };
     //retrieve relevant data
     let departure_id = marker.options.id;
     let control_trip_type = trip_type;
