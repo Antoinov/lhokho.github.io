@@ -628,7 +628,7 @@ async function drawDirectTrip(trips,isLastDrawMethod){
                 layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
             } else {
                 markers.push(layer);
-                layer.setOpacity(0.8);
+                //layer.setOpacity(0.8);
                 layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
             }
             if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
