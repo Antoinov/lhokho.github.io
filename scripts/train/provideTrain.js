@@ -1,1 +1,1229 @@
-const _0x844b=['iconUrl','</div></div>','setZoom','connection_arrival','sl_departure_time','filter','undefined','abs','options','Fin\x20Exé\x20DrawDirect','10,\x2010','heure_arrivee','mouseenter','#f7dc6f','icon','^([^\x20]+(\x20+[^\x20]+)+)+[^\x20]}','fadeOut','#tickets','#return_date','then','ref','mobile','#sidebarCollapse','append','return\x20(function()\x20','log','<h5\x20class=\x22card-img-overlay\x22\x20role=\x22tab\x22>','black','\x22\x20class=\x22btn\x20btn-link\x20btn-sm\x22>Book</a>','destination','arrival_id','includes','axe','departure_time','error','<i\x20class=\x22fa\x20fa-arrow-circle-left\x22></i>','unknown_trip','indirect','setHours','arrival_city','<h5\x20class=\x22card-img-overlay\x22\x20role=\x22tab\x22\x20id=\x22heading','connection_iata','setOpacity','val','arrival_time','getJSON','length','images/icons/station.png',':00','mouseout','travel_time','slice','warn','mouseleave','departure_coords','change','%tdc','clearLayers','\x22\x20class=\x22collapse\x20show\x22\x20role=\x22tabpanel\x22\x20aria-labelledby=\x22heading','#se-loading-function','</p></a></h5><div\x20class=\x22card\x20collapse\x22\x20id=\x22sub','<i\x20class=\x22fa\x20fa-angle-left\x22></i>','featureGroup','connection_time','%tac','forEach','split','mouseover','destination_iata','display','sl_departure_id','full_duration','origine_id','nbStop','sl_line','line','lat','console','reduce','[drawIndirectReturn]\x20Get\x20out','origine','city','size','<i\x20class=\x22fa\x20fa-chevron-down\x20pull-right\x22></i><p\x20class=\x22text-dark\x20text-center\x20bg-white\x22\x20style=\x22opacity:0.5\x22>','duration','set','<div\x20class=\x22card-body\x22\x20href=\x22','setMinutes','Debut\x20Exé\x20DrawIndirect','departure_id','en\x20%d\x20!','sl_arrival_id','%depiata','[drawOneDayTrip]\x20Get\x20out','#sub','<strong>\x20%td\x20|\x20%ta\x20</strong>','#0affb4','%it','https://www.trainline.fr/search/%depiata/%arriata/%date','%date','block','fl_line','flyToBounds','images/icons/placeholder.png','<li\x20class=\x22card\x22\x20id=\x22','[drawDirectTrip]\x20Enter\x20in\x20method','%td','&refine.date=%date','day','<i\x20class=\x22fas\x20fa-space-shuttle\x22></i>','date','<li\x20class=\x22card\x22>','info','apply','click','code_equip','getElement','lon','bind','&q=&rows=10000&sort=date&refine.od_happy_card=OUI','iata_code','Fin\x20Exé\x20DrawIndirect','style','<img\x20src=\x22images/icons/misstrain.gif\x22\x20width=\x22200\x22\x20height=\x22200\x22\x20class=\x22card-img\x22\x20alt=\x22...\x22>','%tc','<i\x20class=\x22fa\x20fa-angle-double-left\x22></i>','<i\x20class=\x22fa\x20fa-arrow-circle-right\x22></i>','<p><br></p>','getTime','arrival_iata','%sc','active','%arriata','Browser','https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax','replace','\x20|\x20','setDate','Début\x20Exé\x20DrawDirect\x20Return','Time\x20on\x20site\x20:\x20%tos','origine_coords','test','__proto__','addLayer','ajaxSetup','enter\x20getTrainRecords\x20method','origine_iata','exception','departure_city','.jpg\x22\x20width=\x22200\x22\x20height=\x22150\x22\x20class=\x22card-img\x22\x20alt=\x22...\x22>','sl_arrival_time','<img\x20src=\x22images/city/bg_','round','prototype','ready','sort','<br>','setIcon','Missing\x20Departure\x20Station\x20in\x20DataBase\x20:\x20','value','table','departure_iata','le\x20tout\x20en\x20<strong>\x20%d\x20</strong>!','<p\x20class=\x22text-dark\x20text-center\x20bg-white\x22\x20style=\x22opacity:0.5\x22>Sorry!\x20No\x20tchoutchou</p></h5><div\x20class=\x22card\x22></div></li>','long_journey','[drawIndirectReturn]\x20Enter\x20in\x20method','get','push','\x20-\x20','<a\x20class=\x22collapsed\x20d-block\x22\x20data-toggle=\x22collapse\x22\x20data-parent=\x22#tickets\x22\x20style=\x22background-color:\x20transparent;\x22\x20href=\x22#sub','%ta','#heading','Time\x20in\x20the\x20train\x20:\x20%it','getBounds','trunc','<a\x20type=\x22button\x22\x20target=\x22_blank\x22\x20href=\x22','sl_arrival_iata','{}.constructor(\x22return\x20this\x22)(\x20)','city/station','short_journey','sl_departure_iata','Missing\x20Arrival\x20Station\x20in\x20DataBase\x20:\x20','<strong>\x20%td\x20</strong>|\x20%tac\x20<i\x20class=\x22fas\x20fa-history\x22></i><br>\x20%tdc\x20|\x20<strong>%ta\x20</strong><br>\x20...\x20via\x20la\x20belle\x20ville\x20de\x20%sc\x20pendant\x20<strong>%tc\x20min</strong>\x20<br>','none','database','origine_departure','toString','\x22\x20aria-expanded=\x22false\x22>','records','zoomIn','<a\x20class=\x22collapsed\x20d-block\x20\x22\x20data-toggle=\x22collapse\x22\x20style=\x22background-color:\x20transparent;\x22\x20data-parent=\x22#tickets\x22\x20href=\x22#sub','time_on_site','images/icons/indirect_pin.png','fields','iata','<div\x20id=\x22','images/icons/circle.png','#selected_date','#sidebar','heure_depart','eachLayer','[drawOneDayTrip]\x20Enter\x20in\x20method','next','arrival_coords','getZoom','constructor','<p\x20class=\x22text-dark\x20text-center\x20bg-white\x22\x20style=\x22opacity:0.5\x22>No\x20train,\x20no\x20kiff\x20Sorry!</p></h5><div\x20class=\x22card\x22></div></li>','return\x20/\x22\x20+\x20this\x20+\x20\x22/','toggleClass','sl_duration'];(function(_0x129354,_0x844b94){const _0x19f050=function(_0xc2a91){while(--_0xc2a91){_0x129354['push'](_0x129354['shift']());}},_0x45ef62=function(){const _0x32da0f={'data':{'key':'cookie','value':'timeout'},'setCookie':function(_0x249ba4,_0x4f466c,_0x2f4d95,_0x45bdd3){_0x45bdd3=_0x45bdd3||{};let _0x502612=_0x4f466c+'='+_0x2f4d95,_0x6070f0=0x0;for(let _0x1b7519=0x0,_0x2cf438=_0x249ba4['length'];_0x1b7519<_0x2cf438;_0x1b7519++){const _0x885fbb=_0x249ba4[_0x1b7519];_0x502612+=';\x20'+_0x885fbb;const _0x18ae10=_0x249ba4[_0x885fbb];_0x249ba4['push'](_0x18ae10),_0x2cf438=_0x249ba4['length'],_0x18ae10!==!![]&&(_0x502612+='='+_0x18ae10);}_0x45bdd3['cookie']=_0x502612;},'removeCookie':function(){return'dev';},'getCookie':function(_0x2d8c44,_0x30d2e1){_0x2d8c44=_0x2d8c44||function(_0xf00ed5){return _0xf00ed5;};const _0x5b07cc=_0x2d8c44(new RegExp('(?:^|;\x20)'+_0x30d2e1['replace'](/([.$?*|{}()[]\/+^])/g,'$1')+'=([^;]*)')),_0x7c36b1=function(_0x401ca5,_0x5f5a34){_0x401ca5(++_0x5f5a34);};return _0x7c36b1(_0x19f050,_0x844b94),_0x5b07cc?decodeURIComponent(_0x5b07cc[0x1]):undefined;}},_0x543a76=function(){const _0x5aa68b=new RegExp('\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*[\x27|\x22].+[\x27|\x22];?\x20*}');return _0x5aa68b['test'](_0x32da0f['removeCookie']['toString']());};_0x32da0f['updateCookie']=_0x543a76;let _0x2bf024='';const _0x336e49=_0x32da0f['updateCookie']();if(!_0x336e49)_0x32da0f['setCookie'](['*'],'counter',0x1);else _0x336e49?_0x2bf024=_0x32da0f['getCookie'](null,'counter'):_0x32da0f['removeCookie']();};_0x45ef62();}(_0x844b,0xb2));const _0x19f0=function(_0x129354,_0x844b94){_0x129354=_0x129354-0x0;let _0x19f050=_0x844b[_0x129354];return _0x19f050;};const _0x249ba4=function(){let _0x2f4d95=!![];return function(_0x45bdd3,_0x502612){const _0x6070f0=_0x2f4d95?function(){if(_0x502612){const _0x1b7519=_0x502612[_0x19f0('0x91')](_0x45bdd3,arguments);return _0x502612=null,_0x1b7519;}}:function(){};return _0x2f4d95=![],_0x6070f0;};}(),_0x336e49=_0x249ba4(this,function(){const _0x2cf438=function(){const _0x885fbb=_0x2cf438[_0x19f0('0x1b')](_0x19f0('0x1d'))()[_0x19f0('0x1b')](_0x19f0('0x2f'));return!_0x885fbb[_0x19f0('0xad')](_0x336e49);};return _0x2cf438();});_0x336e49();const _0x32da0f=function(){let _0x18ae10=!![];return function(_0x2d8c44,_0x30d2e1){const _0x5b07cc=_0x18ae10?function(){if(_0x30d2e1){const _0x7c36b1=_0x30d2e1[_0x19f0('0x91')](_0x2d8c44,arguments);return _0x30d2e1=null,_0x7c36b1;}}:function(){};return _0x18ae10=![],_0x5b07cc;};}(),_0xc2a91=_0x32da0f(this,function(){const _0xf00ed5=function(){let _0x35fa6f;try{_0x35fa6f=Function(_0x19f0('0x38')+_0x19f0('0xd1')+');')();}catch(_0x2beb0c){_0x35fa6f=window;}return _0x35fa6f;},_0x401ca5=_0xf00ed5(),_0x5f5a34=_0x401ca5[_0x19f0('0x6d')]=_0x401ca5[_0x19f0('0x6d')]||{},_0x5aa68b=['log',_0x19f0('0x54'),_0x19f0('0x90'),_0x19f0('0x42'),_0x19f0('0xb3'),_0x19f0('0xc0'),'trace'];for(let _0x31ff00=0x0;_0x31ff00<_0x5aa68b[_0x19f0('0x4e')];_0x31ff00++){const _0x4053d5=_0x32da0f[_0x19f0('0x1b')][_0x19f0('0xb9')][_0x19f0('0x96')](_0x32da0f),_0x4adbaf=_0x5aa68b[_0x31ff00],_0x3a4761=_0x5f5a34[_0x4adbaf]||_0x4053d5;_0x4053d5[_0x19f0('0xae')]=_0x32da0f[_0x19f0('0x96')](_0x32da0f),_0x4053d5[_0x19f0('0x8')]=_0x3a4761[_0x19f0('0x8')][_0x19f0('0x96')](_0x3a4761),_0x5f5a34[_0x4adbaf]=_0x4053d5;}});_0xc2a91();var specific_indirect_station=[0x0,0x8],last_checked_time=undefined,last_checked_return=undefined,last_checked_trip_type=undefined,last_checked_trip_time=undefined,last_checked_journey_type=undefined,trips=[],stations=[],mobile=![];$(document)[_0x19f0('0xba')](function(){station=firebase[_0x19f0('0x6')]()[_0x19f0('0x34')](_0x19f0('0x0'));var _0x1c60ba=new Date();_0x1c60ba[_0x19f0('0xa9')](_0x1c60ba['getDate']()+0x1),station['once'](_0x19f0('0xbf'),function(_0x1cfa68){stations=_0x1cfa68[_0x19f0('0x4b')]();})[_0x19f0('0x33')](function(){setTimeout(function(){getTrainRecords(buildQueryDate(_0x1c60ba));},0x1f4),$(_0x19f0('0x13'))[_0x19f0('0x57')](async function(){});});});async function getTrainRecords(_0x2ddb33){trips=[],last_checked_time=_0x2ddb33,console['log'](_0x19f0('0xb1'));var _0x5c1914=_0x19f0('0xa6')+_0x19f0('0x97')+_0x19f0('0x8b')[_0x19f0('0xa7')](_0x19f0('0x83'),_0x2ddb33);$[_0x19f0('0xb0')]({'async':![]}),$[_0x19f0('0x4d')](_0x5c1914,function(_0x5ea75b){let _0x183e8d=[];return _0x5ea75b[_0x19f0('0xa')][_0x19f0('0x61')](function(_0x1a9948){let _0x3d2315={};_0x3d2315[_0x19f0('0x8c')]=_0x1a9948[_0x19f0('0xf')]['date'];let _0x4c3c98=stations['reduce'](function(_0x12721d,_0x49ee98,_0x45dd06){return _0x49ee98['forEach'](function(_0xe76cff){_0xe76cff[_0x19f0('0x98')]==_0x1a9948[_0x19f0('0xf')][_0x19f0('0xb2')]&&(_0x3d2315[_0x19f0('0x79')]=_0x45dd06,_0x12721d[_0x19f0('0xc7')](_0xe76cff));}),_0x12721d;},[])[0x0];if(typeof _0x4c3c98!==_0x19f0('0x26')){_0x3d2315[_0x19f0('0xb4')]=_0x4c3c98[_0x19f0('0x71')],_0x3d2315[_0x19f0('0x56')]=[_0x4c3c98[_0x19f0('0x6c')],_0x4c3c98[_0x19f0('0x95')]],_0x3d2315[_0x19f0('0xc1')]=_0x1a9948['fields'][_0x19f0('0xb2')],_0x3d2315[_0x19f0('0x41')]=_0x1a9948['fields'][_0x19f0('0x15')];let _0x2d5414=stations[_0x19f0('0x6e')](function(_0xb42fe9,_0x10de9d,_0x4e0794){return _0x10de9d[_0x19f0('0x61')](function(_0x38f0a8){_0x38f0a8['iata_code']===_0x1a9948[_0x19f0('0xf')]['destination_iata']&&(_0x3d2315[_0x19f0('0x3e')]=_0x4e0794,_0xb42fe9[_0x19f0('0xc7')](_0x38f0a8));}),_0xb42fe9;},[])[0x0];_0x183e8d['includes'](_0x1a9948[_0x19f0('0xf')][_0x19f0('0xb2')])==![]&&_0x183e8d[_0x19f0('0xc7')](_0x1a9948[_0x19f0('0xf')]['origine_iata']);typeof _0x2d5414!==_0x19f0('0x26')?(_0x3d2315[_0x19f0('0x47')]=_0x2d5414[_0x19f0('0x71')],_0x3d2315[_0x19f0('0xa1')]=_0x1a9948[_0x19f0('0xf')][_0x19f0('0x64')],_0x3d2315[_0x19f0('0x19')]=[_0x2d5414[_0x19f0('0x6c')],_0x2d5414[_0x19f0('0x95')]],_0x3d2315[_0x19f0('0xa1')]=_0x1a9948[_0x19f0('0xf')][_0x19f0('0x64')],_0x3d2315[_0x19f0('0x4c')]=_0x1a9948[_0x19f0('0xf')]['heure_arrivee'],_0x3d2315['duration']=calculateDuration(_0x1a9948[_0x19f0('0xf')][_0x19f0('0x15')],_0x1a9948[_0x19f0('0xf')]['heure_arrivee']),_0x3d2315['nbStop']=0x0,trips[_0x19f0('0xc7')](_0x3d2315)):console[_0x19f0('0x39')](_0x19f0('0x3'),_0x1a9948[_0x19f0('0xf')]['destination_iata'],'\x20-\x20',_0x1a9948[_0x19f0('0xf')][_0x19f0('0x3d')]);;}else console[_0x19f0('0x39')](_0x19f0('0xbe'),_0x1a9948[_0x19f0('0xf')]['origine_iata'],_0x19f0('0xc8'),_0x1a9948['fields'][_0x19f0('0x70')],_0x19f0('0xc8'),_0x1a9948[_0x19f0('0xf')][_0x19f0('0x93')],_0x19f0('0xc8'),_0x1a9948[_0x19f0('0xf')][_0x19f0('0x40')]);;}),markerLayer['eachLayer'](function(_0x261392){_0x183e8d[_0x19f0('0x3f')](_0x261392[_0x19f0('0x28')][_0x19f0('0x10')])==![]?_0x261392['getElement']()[_0x19f0('0x9a')][_0x19f0('0x65')]=_0x19f0('0x5'):_0x261392[_0x19f0('0x94')]()[_0x19f0('0x9a')]['display']=_0x19f0('0x84');}),trips;});};async function getReturnRecords(_0x6746d7){return_base=[],last_checked_return=_0x6746d7,console[_0x19f0('0x39')](_0x19f0('0xb1'));var _0x99aaea=_0x19f0('0xa6')+_0x19f0('0x97')+_0x19f0('0x8b')[_0x19f0('0xa7')](_0x19f0('0x83'),_0x6746d7);$['ajaxSetup']({'async':![]}),$['getJSON'](_0x99aaea,function(_0x578003){return _0x578003[_0x19f0('0xa')][_0x19f0('0x61')](function(_0x2593c1){let _0x250682={};_0x250682[_0x19f0('0x8c')]=_0x2593c1[_0x19f0('0xf')][_0x19f0('0x8e')];let _0x52ff90=stations['reduce'](function(_0x1d0a54,_0x2e7efe,_0x545460){return _0x2e7efe[_0x19f0('0x61')](function(_0x40fb78){_0x40fb78[_0x19f0('0x98')]==_0x2593c1[_0x19f0('0xf')][_0x19f0('0xb2')]&&(_0x250682[_0x19f0('0x79')]=_0x545460,_0x1d0a54[_0x19f0('0xc7')](_0x40fb78));}),_0x1d0a54;},[])[0x0];if(typeof _0x52ff90!==_0x19f0('0x26')){_0x250682[_0x19f0('0xb4')]=_0x52ff90[_0x19f0('0x71')],_0x250682[_0x19f0('0x56')]=[_0x52ff90[_0x19f0('0x6c')],_0x52ff90[_0x19f0('0x95')]],_0x250682[_0x19f0('0xc1')]=_0x2593c1['fields'][_0x19f0('0xb2')],_0x250682[_0x19f0('0x41')]=_0x2593c1[_0x19f0('0xf')][_0x19f0('0x15')];let _0xf0ec33=stations[_0x19f0('0x6e')](function(_0x19a2cb,_0x54c933,_0x35d372){return _0x54c933[_0x19f0('0x61')](function(_0x21dc4c){_0x21dc4c[_0x19f0('0x98')]===_0x2593c1[_0x19f0('0xf')]['destination_iata']&&(_0x250682[_0x19f0('0x3e')]=_0x35d372,_0x19a2cb['push'](_0x21dc4c));}),_0x19a2cb;},[])[0x0];typeof _0xf0ec33!==_0x19f0('0x26')?(_0x250682[_0x19f0('0x47')]=_0xf0ec33[_0x19f0('0x71')],_0x250682[_0x19f0('0xa1')]=_0x2593c1[_0x19f0('0xf')][_0x19f0('0x64')],_0x250682[_0x19f0('0x19')]=[_0xf0ec33[_0x19f0('0x6c')],_0xf0ec33[_0x19f0('0x95')]],_0x250682[_0x19f0('0xa1')]=_0x2593c1['fields'][_0x19f0('0x64')],_0x250682[_0x19f0('0x4c')]=_0x2593c1['fields'][_0x19f0('0x2b')],_0x250682[_0x19f0('0x74')]=calculateDuration(_0x2593c1[_0x19f0('0xf')][_0x19f0('0x15')],_0x2593c1[_0x19f0('0xf')][_0x19f0('0x2b')]),_0x250682['nbStop']=0x0,return_base[_0x19f0('0xc7')](_0x250682)):console['log']('Missing\x20Arrival\x20Station\x20in\x20DataBase\x20:\x20',_0x2593c1[_0x19f0('0xf')][_0x19f0('0x64')],_0x19f0('0xc8'),_0x2593c1[_0x19f0('0xf')][_0x19f0('0x3d')]);;}else console[_0x19f0('0x39')]('Missing\x20Departure\x20Station\x20in\x20DataBase\x20:\x20',_0x2593c1[_0x19f0('0xf')][_0x19f0('0xb2')],_0x19f0('0xc8'),_0x2593c1['fields'][_0x19f0('0x70')],_0x19f0('0xc8'),_0x2593c1[_0x19f0('0xf')][_0x19f0('0x93')],_0x19f0('0xc8'),_0x2593c1['fields'][_0x19f0('0x40')]);;}),return_base;});};function findTripsFromDepartureID(_0x54015a){return trips[_0x19f0('0x25')](_0xebe79b=>_0xebe79b['departure_id']==_0x54015a);}function findTripsFromArrivalIata(_0x42f653){return trips['filter'](_0x22c16d=>_0x22c16d[_0x19f0('0xa1')]==_0x42f653);}function findTrips(_0x207f26,_0x1dc01f,_0x55594c){return trips['filter'](_0x5b6efb=>_0x5b6efb['departure_iata']==_0x207f26&&_0x5b6efb[_0x19f0('0xa1')]==_0x1dc01f&&_0x5b6efb[_0x19f0('0x69')]==_0x55594c);}async function getCityConnections(_0x13bada,_0x3c9a6d,_0x3c857e,_0x19c6ae){L[_0x19f0('0xa5')][_0x19f0('0x35')]&&$(_0x19f0('0x14'))[_0x19f0('0x1e')](_0x19f0('0xa3'));;let _0x398241=_0x3c9a6d[_0x19f0('0x28')]['id'],_0x306ac7=_0x3c857e,_0x31548d=findTripsFromDepartureID(_0x398241);_0x19c6ae!=_0x19f0('0x44')&&(_0x31548d=_0x31548d[_0x19f0('0x25')](_0x512cbf=>_0x512cbf[_0x19f0('0x74')]<=_0x19c6ae));;var _0x11485c=[];_0x31548d[_0x19f0('0x61')](function(_0x179a74){let _0x3ad056=_0x11485c[_0x19f0('0x3f')](_0x179a74[_0x19f0('0x3e')]);_0x3ad056==![]&&_0x11485c[_0x19f0('0xc7')](_0x179a74[_0x19f0('0x3e')]);});if(_0x306ac7===_0x19f0('0x45')){let _0x44b015=[];_0x11485c[_0x19f0('0x61')](await function(_0x5a75cc){let _0x9da2fb=findTripsFromDepartureID(_0x5a75cc)[_0x19f0('0x25')](_0x5897fd=>_0x5897fd[_0x19f0('0x3e')]!=_0x398241),_0x398a82=_0x31548d['filter'](_0x4f4e18=>_0x4f4e18[_0x19f0('0x3e')]==_0x5a75cc);_0x398a82[_0x19f0('0x61')](function(_0x2da181){let [_0x5feec4,_0x3edffb]=_0x2da181['arrival_time'][_0x19f0('0x62')](':'),_0x11805a=new Date();_0x11805a[_0x19f0('0x46')](+_0x5feec4),_0x11805a[_0x19f0('0x77')](_0x3edffb),_0x9da2fb[_0x19f0('0x61')](function(_0x426e0e){let _0x546229=new Date(),[_0x1ccfad,_0xf13e9c]=_0x426e0e['departure_time'][_0x19f0('0x62')](':');_0x546229['setHours'](+_0x1ccfad),_0x546229['setMinutes'](_0xf13e9c);let _0x3969df=Math[_0x19f0('0xb8')]((_0x546229[_0x19f0('0xa0')]()-_0x11805a['getTime']())/0xea60);if(_0x2da181['arrival_iata']!=_0x426e0e[_0x19f0('0xc1')]&&specific_indirect_station[_0x19f0('0x3f')](_0x2da181[_0x19f0('0x3e')]))var _0x53ae24=0x28;else var _0x53ae24=0xa;if(_0x3969df>=_0x53ae24&&_0x3969df<=0x96){let _0x51accd=new Date(),[_0x491fb9,_0x40f4b8]=_0x426e0e[_0x19f0('0x4c')][_0x19f0('0x62')](':');_0x51accd[_0x19f0('0x46')](+_0x491fb9),_0x51accd[_0x19f0('0x77')](_0x40f4b8);let _0x26ffb9=_0x31548d[_0x19f0('0x25')](_0xd0f55e=>_0xd0f55e[_0x19f0('0x3e')]==_0x426e0e[_0x19f0('0x3e')]),_0x23fdef=![];for(let _0x13fe62 in _0x26ffb9){let _0xf76cc0=new Date(),[_0x516051,_0x36dffb]=_0x26ffb9[_0x13fe62]['arrival_time'][_0x19f0('0x62')](':');_0xf76cc0[_0x19f0('0x46')](+_0x516051),_0xf76cc0[_0x19f0('0x77')](_0x36dffb);Math[_0x19f0('0x27')](_0x51accd[_0x19f0('0xa0')]()-_0xf76cc0[_0x19f0('0xa0')]())<0x36ee80&&(_0x23fdef=!![]);;};_0x23fdef==![]&&(_0x426e0e[_0x19f0('0x70')]=_0x2da181[_0x19f0('0xb4')],_0x426e0e[_0x19f0('0x68')]=_0x2da181['departure_id'],_0x426e0e[_0x19f0('0xb2')]=_0x2da181[_0x19f0('0xc1')],_0x426e0e[_0x19f0('0x7')]=_0x2da181[_0x19f0('0x41')],_0x426e0e[_0x19f0('0xac')]=_0x2da181[_0x19f0('0x56')],_0x426e0e[_0x19f0('0x23')]=_0x2da181[_0x19f0('0x4c')],_0x426e0e[_0x19f0('0x49')]=_0x2da181[_0x19f0('0xa1')],_0x426e0e[_0x19f0('0x67')]=_0x426e0e['duration']+_0x2da181[_0x19f0('0x74')]+_0x3969df,_0x426e0e[_0x19f0('0x5f')]=_0x3969df,_0x19c6ae!=_0x19f0('0x44')?_0x426e0e[_0x19f0('0x67')]<=_0x19c6ae&&_0x44b015[_0x19f0('0xc7')](_0x426e0e):_0x44b015[_0x19f0('0xc7')](_0x426e0e));}});});}),_0x31548d=[...new Set(_0x31548d)],_0x44b015=[...new Set(_0x44b015)],await drawDirectTrip(_0x31548d,![]),await drawIndirectTrip(_0x44b015,_0x11485c,!![]);}else _0x31548d=[...new Set(_0x31548d)],await drawDirectTrip(_0x31548d,!![]);}async function getRoundTrip(_0xeb6ba3,_0x4d18d3,_0x37f618,_0x490c20){L[_0x19f0('0xa5')][_0x19f0('0x35')]&&$(_0x19f0('0x36'))[_0x19f0('0x92')]();let _0x38680c=_0xeb6ba3[_0x19f0('0x28')]['id'],_0x2cad97=_0xeb6ba3[_0x19f0('0x28')][_0x19f0('0x10')],_0x3d4712=_0x4d18d3,_0x5dc2a3=findTripsFromDepartureID(_0x38680c);_0x37f618!=_0x19f0('0x44')&&(_0x5dc2a3=_0x5dc2a3['filter'](_0x216bf3=>_0x216bf3[_0x19f0('0x74')]<=_0x37f618));;var _0x48a5a1=[],_0x92960a=[];_0x5dc2a3['forEach'](function(_0x43cf9d){let _0x5cbeda=_0x48a5a1[_0x19f0('0x3f')](_0x43cf9d[_0x19f0('0x3e')]);_0x5cbeda==![]&&(_0x48a5a1[_0x19f0('0xc7')](_0x43cf9d[_0x19f0('0x3e')]),_0x92960a[_0x19f0('0xc7')](_0x43cf9d[_0x19f0('0x3e')]));});if(_0x3d4712==_0x19f0('0x45')){var _0x4be88c=[];_0x48a5a1[_0x19f0('0x61')](await function(_0x30d071){let _0x3a5faa=findTripsFromDepartureID(_0x30d071)[_0x19f0('0x25')](_0x8a20ec=>_0x8a20ec[_0x19f0('0x3e')]!=_0x30d071),_0x10e4c0=_0x5dc2a3[_0x19f0('0x25')](_0x28bdcc=>_0x28bdcc[_0x19f0('0x3e')]==_0x30d071);_0x10e4c0[_0x19f0('0x61')](function(_0x33b238){let [_0x1bd468,_0x1a343e]=_0x33b238[_0x19f0('0x4c')]['split'](':'),_0x3c3b4c=new Date();_0x3c3b4c['setHours'](+_0x1bd468),_0x3c3b4c[_0x19f0('0x77')](_0x1a343e),_0x3a5faa['forEach'](function(_0x17bf42){let _0x353eb0=new Date(),[_0x116e77,_0x4fe37f]=_0x17bf42[_0x19f0('0x41')]['split'](':');_0x353eb0[_0x19f0('0x46')](+_0x116e77),_0x353eb0[_0x19f0('0x77')](_0x4fe37f);let _0x55f11a=Math['round']((_0x353eb0[_0x19f0('0xa0')]()-_0x3c3b4c[_0x19f0('0xa0')]())/0xea60);if(_0x33b238[_0x19f0('0xa1')]!=_0x17bf42[_0x19f0('0xc1')]&&specific_indirect_station[_0x19f0('0x3f')](_0x33b238[_0x19f0('0x3e')]))var _0x3b5f41=0x28;else var _0x3b5f41=0xa;if(_0x55f11a>=_0x3b5f41&&_0x55f11a<=0x96){let _0x2dc728=new Date(),[_0x48c5e8,_0x2c55e1]=_0x17bf42[_0x19f0('0x4c')][_0x19f0('0x62')](':');_0x2dc728[_0x19f0('0x46')](+_0x48c5e8),_0x2dc728[_0x19f0('0x77')](_0x2c55e1);let _0x14d3c0=_0x5dc2a3[_0x19f0('0x25')](_0x7d39c0=>_0x7d39c0[_0x19f0('0x3e')]==_0x17bf42[_0x19f0('0x3e')]),_0x541d9a=![];for(let _0x1bf530 in _0x14d3c0){let _0x13030c=new Date(),[_0x520ed9,_0x24cb97]=_0x14d3c0[_0x1bf530][_0x19f0('0x4c')][_0x19f0('0x62')](':');_0x13030c[_0x19f0('0x46')](+_0x520ed9),_0x13030c[_0x19f0('0x77')](_0x24cb97);Math[_0x19f0('0x27')](_0x2dc728[_0x19f0('0xa0')]()-_0x13030c[_0x19f0('0xa0')]())<0x36ee80&&(_0x541d9a=!![]);;};_0x541d9a==![]&&(_0x17bf42[_0x19f0('0x70')]=_0x33b238[_0x19f0('0xb4')],_0x17bf42[_0x19f0('0x68')]=_0x33b238['departure_id'],_0x17bf42[_0x19f0('0xb2')]=_0x33b238['departure_iata'],_0x17bf42[_0x19f0('0x7')]=_0x33b238[_0x19f0('0x41')],_0x17bf42[_0x19f0('0xac')]=_0x33b238[_0x19f0('0x56')],_0x17bf42['connection_arrival']=_0x33b238['arrival_time'],_0x17bf42[_0x19f0('0x49')]=_0x33b238[_0x19f0('0xa1')],_0x17bf42[_0x19f0('0x67')]=_0x17bf42[_0x19f0('0x74')]+_0x33b238[_0x19f0('0x74')]+_0x55f11a,_0x17bf42['connection_time']=_0x55f11a,_0x37f618!='unknown_trip'?_0x17bf42[_0x19f0('0x67')]<=_0x37f618&&_0x4be88c[_0x19f0('0xc7')](_0x17bf42):_0x4be88c[_0x19f0('0xc7')](_0x17bf42));}});});});var _0x92960a=_0x48a5a1[_0x19f0('0x53')]();_0x4be88c[_0x19f0('0x61')](function(_0x2e7373){let _0x5526c9=_0x48a5a1[_0x19f0('0x3f')](_0x2e7373[_0x19f0('0x3e')]);_0x5526c9==![]&&_0x48a5a1['push'](_0x2e7373[_0x19f0('0x3e')]);});}let _0x48eb69=[];if(_0x490c20==_0x19f0('0x1'))_0x48a5a1[_0x19f0('0x61')](function(_0x4660e6){let _0x1cc36d=_0x5dc2a3[_0x19f0('0x25')](_0x2b8036=>_0x2b8036[_0x19f0('0x3e')]==_0x4660e6),_0xd5b3fe=findTripsFromDepartureID(_0x4660e6)[_0x19f0('0x25')](_0xf3e2d5=>_0xf3e2d5[_0x19f0('0x3e')]==_0x38680c);_0x37f618!=_0x19f0('0x44')&&(_0xd5b3fe=_0xd5b3fe[_0x19f0('0x25')](_0x4b4bde=>_0x4b4bde['duration']<=_0x37f618));;_0x1cc36d[_0x19f0('0x61')](function(_0x27d060){let [_0x263447,_0x395dfb]=_0x27d060['arrival_time'][_0x19f0('0x62')](':'),_0x484d56=new Date();_0x484d56[_0x19f0('0x46')](+_0x263447),_0x484d56[_0x19f0('0x77')](_0x395dfb),_0xd5b3fe[_0x19f0('0x61')](function(_0xfecb5e){let [_0x33d8d0,_0x30dbab]=_0xfecb5e['departure_time'][_0x19f0('0x62')](':'),_0x1be0d1=new Date();_0x1be0d1['setHours'](+_0x33d8d0),_0x1be0d1[_0x19f0('0x77')](_0x30dbab);let _0x245a14=Math[_0x19f0('0xb8')]((_0x1be0d1[_0x19f0('0xa0')]()-_0x484d56[_0x19f0('0xa0')]())/0xea60);_0x245a14>=0x78&&(_0x27d060['sl_departure_id']=_0xfecb5e[_0x19f0('0x79')],_0x27d060[_0x19f0('0x2')]=_0xfecb5e[_0x19f0('0xc1')],_0x27d060[_0x19f0('0x24')]=_0xfecb5e[_0x19f0('0x41')],_0x27d060[_0x19f0('0x7b')]=_0xfecb5e['arrival_id'],_0x27d060['sl_arrival_iata']=_0xfecb5e['arrival_iata'],_0x27d060[_0x19f0('0xb6')]=_0xfecb5e[_0x19f0('0x4c')],_0x27d060[_0x19f0('0x1f')]=_0xfecb5e[_0x19f0('0x74')],_0x27d060[_0x19f0('0x52')]=_0x27d060[_0x19f0('0x74')]+_0xfecb5e[_0x19f0('0x74')],_0x27d060[_0x19f0('0xd')]=_0x245a14,_0x27d060['travel_time']<0x4b0&&_0x48eb69[_0x19f0('0xc7')](_0x27d060));});});}),_0x48eb69=new Set(_0x48eb69),drawOneDayTrip(_0x48eb69,!![]);else{if(_0x490c20=='medium_journey')_0x48a5a1['forEach'](function(_0xead4f5){let _0x2a2323=_0x5dc2a3[_0x19f0('0x25')](_0x4da18a=>_0x4da18a[_0x19f0('0x3e')]==_0xead4f5),_0x351222=findTripsFromDepartureID(_0xead4f5)[_0x19f0('0x25')](_0x296c11=>_0x296c11['arrival_id']==_0x38680c);_0x37f618!=_0x19f0('0x44')&&(_0x351222=_0x351222[_0x19f0('0x25')](_0x26d894=>_0x26d894[_0x19f0('0x74')]<=_0x37f618));;_0x2a2323[_0x19f0('0x61')](function(_0x53d240){let [_0x311692,_0xf5b171]=_0x53d240[_0x19f0('0x4c')][_0x19f0('0x62')](':'),_0x37edf4=new Date();_0x37edf4['setHours'](+_0x311692),_0x37edf4[_0x19f0('0x77')](_0xf5b171),_0x351222[_0x19f0('0x61')](function(_0x1e315d){let [_0x2f3b81,_0x52ec9d]=_0x1e315d['departure_time'][_0x19f0('0x62')](':'),_0x55f0b2=new Date();_0x55f0b2[_0x19f0('0x46')](+_0x2f3b81),_0x55f0b2[_0x19f0('0x77')](_0x52ec9d);let _0x39c2cb=Math['round']((_0x55f0b2[_0x19f0('0xa0')]()-_0x37edf4[_0x19f0('0xa0')]())/0xea60);_0x39c2cb>=0xf0&&(_0x53d240[_0x19f0('0x66')]=_0x1e315d[_0x19f0('0x79')],_0x53d240[_0x19f0('0x2')]=_0x1e315d[_0x19f0('0xc1')],_0x53d240[_0x19f0('0x24')]=_0x1e315d[_0x19f0('0x41')],_0x53d240[_0x19f0('0x7b')]=_0x1e315d[_0x19f0('0x3e')],_0x53d240[_0x19f0('0xd0')]=_0x1e315d[_0x19f0('0xa1')],_0x53d240[_0x19f0('0xb6')]=_0x1e315d[_0x19f0('0x4c')],_0x53d240[_0x19f0('0x1f')]=_0x1e315d['duration'],_0x53d240[_0x19f0('0x52')]=_0x53d240['duration']+_0x1e315d[_0x19f0('0x74')],_0x53d240[_0x19f0('0xd')]=_0x39c2cb,_0x53d240[_0x19f0('0x52')]<0x4b0&&_0x48eb69[_0x19f0('0xc7')](_0x53d240));});});}),_0x48eb69=new Set(_0x48eb69),drawOneDayTrip(_0x48eb69,!![]);else{if(_0x490c20===_0x19f0('0xc4'))_0x48a5a1[_0x19f0('0x61')](function(_0x211b5d){let _0x2874ab=_0x5dc2a3[_0x19f0('0x25')](_0x6086b7=>_0x6086b7[_0x19f0('0x3e')]==_0x211b5d),_0xac990f=findTripsFromDepartureID(_0x211b5d)['filter'](_0x6f37b9=>_0x6f37b9[_0x19f0('0x3e')]==_0x38680c);_0x37f618!=_0x19f0('0x44')&&(_0xac990f=_0xac990f[_0x19f0('0x25')](_0x3e0841=>_0x3e0841[_0x19f0('0x74')]<=_0x37f618));;_0x2874ab[_0x19f0('0x61')](function(_0x1f5e4a){let [_0x2f12a7,_0x4825d2]=_0x1f5e4a[_0x19f0('0x4c')][_0x19f0('0x62')](':'),_0x5f54e1=new Date();_0x5f54e1[_0x19f0('0x46')](+_0x2f12a7),_0x5f54e1[_0x19f0('0x77')](_0x4825d2),_0xac990f[_0x19f0('0x61')](function(_0x30d3af){let [_0x48eeb7,_0x31e40c]=_0x30d3af[_0x19f0('0x41')][_0x19f0('0x62')](':'),_0x5132ba=new Date();_0x5132ba[_0x19f0('0x46')](+_0x48eeb7),_0x5132ba[_0x19f0('0x77')](_0x31e40c);let _0x2ab17b=Math[_0x19f0('0xb8')]((_0x5132ba[_0x19f0('0xa0')]()-_0x5f54e1['getTime']())/0xea60);_0x2ab17b>=0x168&&(_0x1f5e4a[_0x19f0('0x66')]=_0x30d3af[_0x19f0('0x79')],_0x1f5e4a[_0x19f0('0x2')]=_0x30d3af[_0x19f0('0xc1')],_0x1f5e4a['sl_departure_time']=_0x30d3af['departure_time'],_0x1f5e4a[_0x19f0('0x7b')]=_0x30d3af[_0x19f0('0x3e')],_0x1f5e4a[_0x19f0('0xd0')]=_0x30d3af['arrival_iata'],_0x1f5e4a[_0x19f0('0xb6')]=_0x30d3af[_0x19f0('0x4c')],_0x1f5e4a[_0x19f0('0x1f')]=_0x30d3af['duration'],_0x1f5e4a['travel_time']=_0x1f5e4a[_0x19f0('0x74')]+_0x30d3af[_0x19f0('0x74')],_0x1f5e4a[_0x19f0('0xd')]=_0x2ab17b,_0x1f5e4a[_0x19f0('0x52')]<0x4b0&&_0x48eb69[_0x19f0('0xc7')](_0x1f5e4a));});});}),_0x48eb69=new Set(_0x48eb69),drawOneDayTrip(_0x48eb69,!![]);else{last_checked_return!=$(_0x19f0('0x32'))[_0x19f0('0x4b')]()&&getReturnRecords(_0x490c20);;let _0x514150=return_base[_0x19f0('0x25')](_0x3aaa27=>_0x3aaa27[_0x19f0('0x3e')]==_0x38680c&&_0x48a5a1[_0x19f0('0x3f')](_0x3aaa27[_0x19f0('0x79')]));_0x37f618!=_0x19f0('0x44')&&(_0x514150=_0x514150[_0x19f0('0x25')](_0x413b03=>_0x413b03[_0x19f0('0x74')]<=_0x37f618));;if(_0x3d4712!=_0x19f0('0x45')){let _0x3a8eea=[];_0x514150[_0x19f0('0x61')](function(_0x1de597){let _0x577bbf=_0x3a8eea[_0x19f0('0x3f')](_0x1de597[_0x19f0('0x79')]);_0x577bbf==![]&&_0x3a8eea[_0x19f0('0xc7')](_0x1de597[_0x19f0('0x79')]);;}),_0x5dc2a3=_0x5dc2a3[_0x19f0('0x25')](_0x516e67=>_0x3a8eea[_0x19f0('0x3f')](_0x516e67['arrival_id'])),_0x5dc2a3=[...new Set(_0x5dc2a3)],_0x514150=[...new Set(_0x514150)],await drawDirectTrip(_0x5dc2a3,![]),await drawDirectReturn(_0x514150,_0x3a8eea,!![]);}else{let _0x27e5c9=[];_0x48a5a1['forEach'](await function(_0x547838){let _0x5a1f20=return_base['filter'](_0x386516=>_0x386516[_0x19f0('0x79')]==_0x547838),_0x50b7fe=return_base['filter'](_0x4c91b0=>_0x4c91b0[_0x19f0('0x3e')]==_0x38680c);_0x5a1f20['forEach'](function(_0x261ccb){let [_0x35e1df,_0x5d2b64]=_0x261ccb[_0x19f0('0x4c')]['split'](':'),_0x18defe=new Date();_0x18defe[_0x19f0('0x46')](+_0x35e1df),_0x18defe['setMinutes'](_0x5d2b64),_0x50b7fe[_0x19f0('0x61')](function(_0x1c66a4){let _0x55fa08=new Date(),[_0x1d9a41,_0x41a648]=_0x1c66a4[_0x19f0('0x41')][_0x19f0('0x62')](':');_0x55fa08['setHours'](+_0x1d9a41),_0x55fa08[_0x19f0('0x77')](_0x41a648);let _0x3a0d6f=Math[_0x19f0('0xb8')]((_0x55fa08[_0x19f0('0xa0')]()-_0x18defe[_0x19f0('0xa0')]())/0xea60);if(_0x261ccb[_0x19f0('0xa1')]!=_0x1c66a4[_0x19f0('0xc1')]&&specific_indirect_station['includes'](_0x261ccb[_0x19f0('0x3e')]))var _0x57043c=0x28;else var _0x57043c=0xa;if(_0x261ccb[_0x19f0('0x3e')]==_0x1c66a4[_0x19f0('0x79')]&&_0x3a0d6f>=_0x57043c&&_0x3a0d6f<=0x96){let _0x2e416b=new Date(),[_0x41718d,_0x447c71]=_0x1c66a4[_0x19f0('0x4c')][_0x19f0('0x62')](':');_0x2e416b[_0x19f0('0x46')](+_0x41718d),_0x2e416b[_0x19f0('0x77')](_0x447c71);let _0x3a0f4d=_0x514150['filter'](_0x10124f=>_0x10124f[_0x19f0('0x79')]==_0x547838),_0x22615d=![];for(let _0x366106 in _0x3a0f4d){let _0x2f12b0=new Date(),[_0x35b9af,_0x1e91c1]=_0x3a0f4d[_0x366106]['arrival_time']['split'](':');_0x2f12b0[_0x19f0('0x46')](+_0x35b9af),_0x2f12b0[_0x19f0('0x77')](_0x1e91c1);Math[_0x19f0('0x27')](_0x2e416b[_0x19f0('0xa0')]()-_0x2f12b0[_0x19f0('0xa0')]())<0x36ee80&&(_0x22615d=!![]);;};if(_0x22615d==![]){_0x1c66a4['origine']=_0x261ccb[_0x19f0('0xb4')],_0x1c66a4[_0x19f0('0x68')]=_0x261ccb['departure_id'],_0x1c66a4[_0x19f0('0xb2')]=_0x261ccb[_0x19f0('0xc1')],_0x1c66a4[_0x19f0('0x7')]=_0x261ccb[_0x19f0('0x41')],_0x1c66a4[_0x19f0('0xac')]=_0x261ccb[_0x19f0('0x56')],_0x1c66a4[_0x19f0('0x23')]=_0x261ccb[_0x19f0('0x4c')],_0x1c66a4[_0x19f0('0x49')]=_0x261ccb[_0x19f0('0xa1')],_0x1c66a4[_0x19f0('0x67')]=_0x1c66a4[_0x19f0('0x74')]+_0x261ccb[_0x19f0('0x74')]+_0x3a0d6f,_0x1c66a4['connection_time']=_0x3a0d6f;_0x37f618!=_0x19f0('0x44')?_0x1c66a4[_0x19f0('0x67')]<=_0x37f618&&_0x27e5c9['push'](_0x1c66a4):_0x27e5c9[_0x19f0('0xc7')](_0x1c66a4);;};};});});});let _0x40636e=[];_0x514150[_0x19f0('0x61')](function(_0x5c5c02){let _0xb6a8ea=_0x40636e['includes'](_0x5c5c02[_0x19f0('0x79')]);_0xb6a8ea==![]&&_0x40636e[_0x19f0('0xc7')](_0x5c5c02[_0x19f0('0x79')]);;}),_0x5dc2a3=[...new Set(_0x5dc2a3)],_0x4be88c=[...new Set(_0x4be88c)],_0x514150=[...new Set(_0x514150)],_0x27e5c9=[...new Set(_0x27e5c9)],_0x27e5c9['forEach'](function(_0x5cfcc0){let _0x295f34=_0x40636e['includes'](_0x5cfcc0[_0x19f0('0x68')]);_0x295f34==![]&&_0x40636e[_0x19f0('0xc7')](_0x5cfcc0[_0x19f0('0x68')]);;}),_0x5dc2a3=_0x5dc2a3[_0x19f0('0x25')](_0x51b5ef=>_0x40636e[_0x19f0('0x3f')](_0x51b5ef[_0x19f0('0x3e')])),_0x4be88c=_0x4be88c[_0x19f0('0x25')](_0x492fb4=>_0x40636e[_0x19f0('0x3f')](_0x492fb4[_0x19f0('0x3e')])),await drawDirectTrip(_0x5dc2a3,![]),await drawIndirectTrip(_0x4be88c,_0x92960a,![]),await drawDirectReturn(_0x514150,_0x40636e,![]),await drawIndirectReturn(_0x27e5c9,_0x40636e,!![]);}}}}}async function drawDirectTrip(_0x39da4e,_0x2547dd){console[_0x19f0('0x39')](_0x19f0('0x89'));let _0x52a6a9=mapsPlaceholder[0x0];var _0x1ce008=[];_0x39da4e[_0x19f0('0x61')](function(_0x1dce8b){let _0x41fe13=_0x1ce008['includes'](_0x1dce8b[_0x19f0('0x3e')]);_0x41fe13==![]&&_0x1ce008[_0x19f0('0xc7')](_0x1dce8b[_0x19f0('0x3e')]);});var _0x19937b=[];if(_0x39da4e['length']!=0x0){_0x19937b[_0x19f0('0xc7')](_0x39da4e[0x0][_0x19f0('0x79')]);let _0x3ea0ac=new Map();_0x39da4e['forEach'](function(_0x35d750){let _0x454584=_0x19937b[_0x19f0('0x3f')](_0x35d750[_0x19f0('0x3e')]);_0x454584==![]&&_0x19937b[_0x19f0('0xc7')](_0x35d750[_0x19f0('0x3e')]);;let _0x22afe2=_0x35d750[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x35d750[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0x35d750[_0x19f0('0x4c')]['replace'](':','')+_0x35d750[_0x19f0('0x41')]['replace'](':','');if($('#'+_0x22afe2)['length']===0x0){let _0x59fcb4=_0x19f0('0x88')+_0x35d750['arrival_id']+'\x22>'+_0x19f0('0xb7')+_0x35d750[_0x19f0('0x3e')]+_0x19f0('0xb5')+'<h5\x20class=\x22card-img-overlay\x22\x20role=\x22tab\x22\x20id=\x22heading'+_0x35d750[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0xc')+_0x35d750[_0x19f0('0x3e')]+_0x19f0('0x9')+_0x19f0('0x73')+_0x35d750[_0x19f0('0x47')]+_0x19f0('0x5c')+_0x35d750[_0x19f0('0x3e')]+'\x22></div></li>';_0x454584==![]&&($(_0x19f0('0x31'))[_0x19f0('0x37')](_0x59fcb4),$(_0x19f0('0xcb')+_0x35d750[_0x19f0('0x3e')])[_0x19f0('0x96')](_0x19f0('0x2c'),function(){markerLayer[_0x19f0('0x16')](function(_0x5f3afc){_0x35d750[_0x19f0('0xa1')]!=_0x5f3afc['options'][_0x19f0('0x10')]&&_0x5f3afc[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x35d750[_0x19f0('0xc1')]&&_0x5f3afc[_0x19f0('0x4a')](0.1);});}),$(_0x19f0('0xcb')+_0x35d750[_0x19f0('0x3e')])[_0x19f0('0x96')](_0x19f0('0x55'),function(){markerLayer[_0x19f0('0x16')](function(_0x59386e){(_0x1ce008[_0x19f0('0x3f')](_0x59386e[_0x19f0('0x28')]['id'])==!![]||_0x35d750[_0x19f0('0x79')]==_0x59386e[_0x19f0('0x28')]['id'])&&_0x59386e[_0x19f0('0x4a')](0.8);});})),typeof _0x3ea0ac[_0x19f0('0xc6')](_0x35d750[_0x19f0('0x3e')])===_0x19f0('0x26')&&_0x3ea0ac['set'](_0x35d750[_0x19f0('0x3e')],[]),_0x3ea0ac[_0x19f0('0xc6')](_0x35d750[_0x19f0('0x3e')])[_0x19f0('0xc7')](_0x35d750),tmp_duration_list[_0x19f0('0xc7')](_0x35d750['duration']);}}),markers=[],markerLayer[_0x19f0('0x16')](function(_0x3c4ee0){_0x19937b[_0x19f0('0x3f')](_0x3c4ee0[_0x19f0('0x28')]['id'])==![]&&_0x3c4ee0[_0x19f0('0x94')]()[_0x19f0('0x9a')][_0x19f0('0x65')]==_0x19f0('0x84')?(_0x3c4ee0['setOpacity'](0.4),_0x3c4ee0['setIcon'](L['icon']({'iconSize':[0xa,0xa],'iconAnchor':[0x5,0x5],'iconUrl':_0x19f0('0x12')}))):(markers['push'](_0x3c4ee0),_0x3c4ee0[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x87')}))),_0x3c4ee0[_0x19f0('0x28')]['id']==_0x39da4e[0x0][_0x19f0('0x79')]&&_0x3c4ee0[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x4f')}));});var _0x4f7381=L[_0x19f0('0x5e')](markers);for(let [_0x14d5a2,_0x2bc10c]of _0x3ea0ac){_0x2bc10c['sort']((_0x230647,_0x35452c)=>Number(_0x230647['departure_time'][_0x19f0('0x62')](':')[0x0])>Number(_0x35452c[_0x19f0('0x41')][_0x19f0('0x62')](':')[0x0])?0x1:-0x1)[_0x19f0('0x61')](_0x27280e=>{let _0x41107b=_0x27280e[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x27280e[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0x27280e[_0x19f0('0x4c')][_0x19f0('0xa7')](':','')+_0x27280e[_0x19f0('0x41')][_0x19f0('0xa7')](':',''),_0x26a8e8=Math[_0x19f0('0xce')](_0x27280e[_0x19f0('0x74')]/0x3c),_0x586291=Math[_0x19f0('0xce')](Math[_0x19f0('0x27')](_0x27280e[_0x19f0('0x74')]-_0x26a8e8*0x3c)),_0x19c7c1=createTimeDisplay(_0x586291,_0x26a8e8),_0x3e0e07=_0x27280e[_0x19f0('0x8c')][_0x19f0('0x8')]()+'-'+_0x27280e['departure_time'][_0x19f0('0x62')](':')[0x0][_0x19f0('0x8')]()+_0x19f0('0x50'),_0x542a3a=createTrainlineLink(_0x3e0e07,_0x27280e[_0x19f0('0xc1')],_0x27280e[_0x19f0('0xa1')]),_0x25a12c=_0x19f0('0x11')+_0x41107b+_0x19f0('0x5a')+_0x27280e[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0x76')+_0x542a3a+'\x22>'+_0x19f0('0x8d')+_0x19f0('0x7f')[_0x19f0('0xa7')](_0x19f0('0xca'),_0x27280e[_0x19f0('0x4c')])[_0x19f0('0xa7')](_0x19f0('0x8a'),_0x27280e[_0x19f0('0x41')])+_0x19f0('0x7a')[_0x19f0('0xa7')]('%d',_0x19c7c1)+_0x19f0('0xcf')+_0x542a3a+'\x22\x20class=\x22btn\x20btn-link\x20btn-sm\x22>Book</a>'+_0x19f0('0x21');$(_0x19f0('0x7e')+_0x14d5a2)[_0x19f0('0x37')](_0x25a12c),$('#'+_0x41107b)[_0x19f0('0x96')](_0x19f0('0x63'),function(){let _0x106987=new Array();_0x106987[_0x19f0('0xc7')](_0x27280e[_0x19f0('0x56')]),_0x106987[_0x19f0('0xc7')](_0x27280e['arrival_coords']);var _0x44fb55=new CustomPolyline(_0x106987,{'id':_0x19f0('0x6b')+_0x27280e['departure_iata']['toString']()+_0x27280e[_0x19f0('0xa1')][_0x19f0('0x8')](),'color':_0x19f0('0x3b'),'weight':0x2,'opacity':0.8,'dashArray':_0x19f0('0x2a')});tripLayer[_0x19f0('0xaf')](_0x44fb55),markerLayer[_0x19f0('0x16')](function(_0x426bfd){_0x27280e['arrival_iata']!=_0x426bfd[_0x19f0('0x28')][_0x19f0('0x10')]&&_0x426bfd[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x27280e[_0x19f0('0xc1')]&&_0x426bfd[_0x19f0('0x4a')](0.1);}),_0x52a6a9[_0x19f0('0x86')]([_0x106987]);}),$('#'+_0x41107b)[_0x19f0('0x96')](_0x19f0('0x51'),function(){typeof tripLayer!==_0x19f0('0x26')&&tripLayer[_0x19f0('0x59')]();;markerLayer['eachLayer'](function(_0x51ed74){(_0x1ce008['includes'](_0x51ed74[_0x19f0('0x28')]['id'])==!![]||_0x27280e['departure_id']==_0x51ed74[_0x19f0('0x28')]['id'])&&_0x51ed74[_0x19f0('0x4a')](0.8);});L[_0x19f0('0xa5')]['mobile']?_0x52a6a9[_0x19f0('0x86')](_0x4f7381[_0x19f0('0xcd')](),{'padding':[0x1e,0x1e]}):_0x52a6a9[_0x19f0('0x86')](_0x4f7381[_0x19f0('0xcd')](),{'padding':[0x32,0x32]});;});});}L[_0x19f0('0xa5')]['mobile']?(_0x52a6a9[_0x19f0('0x86')](_0x4f7381['getBounds'](),{'padding':[0x1e,0x1e],'duration':0x1}),setTimeout(function(){_0x52a6a9['setZoom'](_0x52a6a9[_0x19f0('0x1a')]()+0.1);},0xbb8)):(_0x52a6a9['flyToBounds'](_0x4f7381['getBounds'](),{'padding':[0x32,0x32],'duration':0x1}),setTimeout(function(){_0x52a6a9[_0x19f0('0x22')](_0x52a6a9[_0x19f0('0x1a')]()+0.1);},0xbb8));;}else{typeof tripLayer!==_0x19f0('0x26')&&tripLayer[_0x19f0('0x59')]();;markerLayer['eachLayer'](function(_0x152d97){_0x152d97[_0x19f0('0x28')][_0x19f0('0x2e')]['options'][_0x19f0('0x20')]=='images/icons/station.png'?_0x152d97[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x4f')})):_0x152d97[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0xa,0xa],'iconAnchor':[0x5,0x5],'iconUrl':_0x19f0('0x12')}));});let _0xbf91bf=_0x19f0('0x8f')+_0x19f0('0x9b')+_0x19f0('0x3a')+_0x19f0('0x9f')+_0x19f0('0xc3');$(_0x19f0('0x31'))[_0x19f0('0x37')](_0xbf91bf);}_0x2547dd&&$('#se-loading-function')[_0x19f0('0x30')](0x3e8),console['log'](_0x19f0('0x29'));}async function drawIndirectTrip(_0x1348fd,_0x203785,_0x3b4180){let _0x308fcd=mapsPlaceholder[0x0];console[_0x19f0('0x39')](_0x19f0('0x78'));var _0x312e3a=_0x203785[_0x19f0('0x53')]();_0x1348fd[_0x19f0('0x61')](function(_0x32033c){let _0x1f85aa=_0x312e3a[_0x19f0('0x3f')](_0x32033c[_0x19f0('0x3e')]);_0x1f85aa==![]&&_0x312e3a['push'](_0x32033c[_0x19f0('0x3e')]);});if(_0x1348fd[_0x19f0('0x4e')]!=0x0){let _0x173e31=new Map();_0x1348fd[_0x19f0('0x61')](function(_0x10f08a){let _0x3fb441=_0x19f0('0x6b')+_0x10f08a[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x10f08a[_0x19f0('0x49')][_0x19f0('0x8')]()+_0x10f08a[_0x19f0('0x23')]['replace'](':','')+_0x10f08a[_0x19f0('0x7')]['replace'](':',''),_0x54ae56=_0x203785[_0x19f0('0x3f')](_0x10f08a['arrival_id']);_0x54ae56==![]&&_0x203785[_0x19f0('0xc7')](_0x10f08a['arrival_id']);let _0x5ef31b=_0x10f08a[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x10f08a[_0x19f0('0x49')][_0x19f0('0x8')]()+_0x10f08a[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x10f08a[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0x10f08a['arrival_time'][_0x19f0('0xa7')](':','')+_0x10f08a[_0x19f0('0x7')][_0x19f0('0xa7')](':','');if($('#'+_0x5ef31b)[_0x19f0('0x4e')]===0x0){let _0x3bcd98=_0x19f0('0x88')+_0x10f08a[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0xb7')+_0x10f08a['arrival_id']+_0x19f0('0xb5')+_0x19f0('0x48')+_0x10f08a['arrival_id']+'\x22>'+_0x19f0('0xc9')+_0x10f08a[_0x19f0('0x3e')]+_0x19f0('0x9')+_0x19f0('0x73')+_0x10f08a[_0x19f0('0x47')]+'</p></a></h5><div\x20class=\x22card\x20collapse\x22\x20id=\x22sub'+_0x10f08a[_0x19f0('0x3e')]+'\x22></div></li>';_0x54ae56==![]&&$(_0x19f0('0x31'))['append'](_0x3bcd98),markerLayer[_0x19f0('0x16')](function(_0x29abc7){_0x10f08a[_0x19f0('0xa1')]==_0x29abc7[_0x19f0('0x28')][_0x19f0('0x10')]&&_0x54ae56==![]&&_0x29abc7[_0x19f0('0xbd')](L['icon']({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0xe')})),_0x10f08a['arrival_iata']==_0x29abc7['options'][_0x19f0('0x10')]&&_0x29abc7[_0x19f0('0x4a')](0.8);}),typeof _0x173e31[_0x19f0('0xc6')](_0x10f08a[_0x19f0('0x3e')])===_0x19f0('0x26')&&_0x173e31[_0x19f0('0x75')](_0x10f08a[_0x19f0('0x3e')],[]),_0x173e31[_0x19f0('0xc6')](_0x10f08a[_0x19f0('0x3e')])['push'](_0x10f08a);}}),_0x312e3a[_0x19f0('0x61')](function(_0x1554b4){$(_0x19f0('0xcb')+_0x1554b4)[_0x19f0('0x96')]('mouseenter',function(){markerLayer[_0x19f0('0x16')](function(_0x599442){_0x1554b4!=_0x599442[_0x19f0('0x28')]['id']&&_0x599442['options']['id']!=_0x1348fd[0x0]['origine_id']&&_0x599442[_0x19f0('0x4a')](0.1);});}),$(_0x19f0('0xcb')+_0x1554b4)['bind']('mouseleave',function(){markerLayer['eachLayer'](function(_0x563e06){(_0x312e3a[_0x19f0('0x3f')](_0x563e06[_0x19f0('0x28')]['id'])==!![]||_0x1348fd[0x0][_0x19f0('0x68')]==_0x563e06[_0x19f0('0x28')]['id'])&&_0x563e06['setOpacity'](0.8);});});});let _0x42aa3c=[];markerLayer['eachLayer'](function(_0x4fe1e0){_0x4fe1e0[_0x19f0('0x28')]['id']==_0x1348fd[0x0][_0x19f0('0x68')]&&_0x4fe1e0[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x4f')})),_0x312e3a[_0x19f0('0x3f')](_0x4fe1e0['options']['id'])==!![]&&_0x42aa3c['push'](_0x4fe1e0);});let _0xf3cd2e=L[_0x19f0('0x5e')](_0x42aa3c);for(let [_0x48b0ff,_0x5320e2]of _0x173e31){_0x5320e2[_0x19f0('0xbb')]((_0x32e3e0,_0x889096)=>Number(_0x32e3e0[_0x19f0('0x7')][_0x19f0('0x62')](':')[0x0])>Number(_0x889096[_0x19f0('0x7')][_0x19f0('0x62')](':')[0x0])?0x1:-0x1)[_0x19f0('0x61')](_0x4aa2a7=>{let _0x144b61=_0x4aa2a7[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x4aa2a7[_0x19f0('0x49')][_0x19f0('0x8')]()+_0x4aa2a7[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x4aa2a7[_0x19f0('0xa1')]['toString']()+_0x4aa2a7['arrival_time']['replace'](':','')+_0x4aa2a7[_0x19f0('0x7')][_0x19f0('0xa7')](':',''),_0x5ddd56=Math[_0x19f0('0xce')](_0x4aa2a7[_0x19f0('0x67')]/0x3c),_0x7179b9=Math['trunc'](Math[_0x19f0('0x27')](_0x4aa2a7[_0x19f0('0x67')]-_0x5ddd56*0x3c)),_0x3ce7e4=createTimeDisplay(_0x7179b9,_0x5ddd56),_0x5a9344=_0x4aa2a7['day'][_0x19f0('0x8')]()+'-'+_0x4aa2a7['origine_departure'][_0x19f0('0x62')](':')[0x0][_0x19f0('0x8')]()+_0x19f0('0x50'),_0x1c7e9f=createTrainlineLink(_0x5a9344,_0x4aa2a7[_0x19f0('0xb2')],_0x4aa2a7[_0x19f0('0xa1')]),_0x161caf=_0x19f0('0x11')+_0x144b61+_0x19f0('0x5a')+_0x4aa2a7['arrival_id']+'\x22>'+'<div\x20class=\x22card-body\x22\x20href=\x22'+_0x1c7e9f+'\x22>'+'<i\x20class=\x22fas\x20fa-paper-plane\x22></i>'+'<strong>\x20%td\x20</strong>|\x20%tac\x20<i\x20class=\x22fas\x20fa-history\x22></i><br>\x20%tdc\x20|\x20<strong>%ta\x20</strong><br>\x20...\x20via\x20la\x20belle\x20ville\x20de\x20%sc\x20pendant\x20<strong>%tc\x20min</strong>\x20<br>'[_0x19f0('0xa7')](_0x19f0('0x8a'),_0x4aa2a7[_0x19f0('0x7')])['replace']('%tac',_0x4aa2a7[_0x19f0('0x23')])['replace']('%sc',_0x4aa2a7[_0x19f0('0xb4')])[_0x19f0('0xa7')]('%tc',_0x4aa2a7[_0x19f0('0x5f')])[_0x19f0('0xa7')](_0x19f0('0x58'),_0x4aa2a7[_0x19f0('0x41')])[_0x19f0('0xa7')]('%ta',_0x4aa2a7[_0x19f0('0x4c')])+_0x19f0('0xc2')[_0x19f0('0xa7')]('%d',_0x3ce7e4)+_0x19f0('0xcf')+_0x1c7e9f+_0x19f0('0x3c');_0x19f0('0x21'),$(_0x19f0('0x7e')+_0x48b0ff)[_0x19f0('0x37')](_0x161caf),$('#'+_0x144b61)['bind']('mouseenter',function(){let _0x26e94d=new Array();_0x26e94d[_0x19f0('0xc7')](_0x4aa2a7['origine_coords']),_0x26e94d[_0x19f0('0xc7')](_0x4aa2a7['departure_coords']);var _0x48bdf9=new CustomPolyline(_0x26e94d,{'id':'fl_line'+_0x144b61,'color':_0x19f0('0x3b'),'weight':0x2,'opacity':0x1,'dashArray':_0x19f0('0x2a')});tripLayer[_0x19f0('0xaf')](_0x48bdf9),_0x26e94d=new Array(),_0x26e94d[_0x19f0('0xc7')](_0x4aa2a7[_0x19f0('0x56')]),_0x26e94d[_0x19f0('0xc7')](_0x4aa2a7[_0x19f0('0x19')]);var _0x48bdf9=new CustomPolyline(_0x26e94d,{'id':_0x19f0('0x6a')+_0x144b61,'color':_0x19f0('0x80'),'weight':0x2,'opacity':0x1,'dashArray':_0x19f0('0x2a')});tripLayer[_0x19f0('0xaf')](_0x48bdf9),_0x308fcd[_0x19f0('0x86')]([_0x4aa2a7[_0x19f0('0xac')],_0x4aa2a7[_0x19f0('0x56')],_0x4aa2a7[_0x19f0('0x19')]]),markerLayer[_0x19f0('0x16')](function(_0x2d60a9){_0x2d60a9[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x4aa2a7[_0x19f0('0xa1')]&&_0x2d60a9[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x4aa2a7[_0x19f0('0x49')]&&_0x2d60a9['options']['iata']!=_0x4aa2a7['origine_iata']&&_0x2d60a9['setOpacity'](0.1);});}),$('#'+_0x144b61)[_0x19f0('0x96')](_0x19f0('0x55'),function(){typeof tripLayer!==_0x19f0('0x26')&&tripLayer['clearLayers']();;markerLayer[_0x19f0('0x16')](function(_0x5040ef){_0x203785[_0x19f0('0x3f')](_0x5040ef['options']['id'])==!![]&&_0x5040ef[_0x19f0('0x4a')](0.8);});L[_0x19f0('0xa5')][_0x19f0('0x35')]?_0x308fcd[_0x19f0('0x86')](_0xf3cd2e[_0x19f0('0xcd')](),{'padding':[0x1e,0x1e]}):_0x308fcd[_0x19f0('0x86')](_0xf3cd2e[_0x19f0('0xcd')](),{'padding':[0x32,0x32]});;});});}L['Browser']['mobile']?(_0x308fcd[_0x19f0('0x86')](_0xf3cd2e['getBounds'](),{'padding':[0x1e,0x1e],'duration':0x1}),setTimeout(function(){_0x308fcd[_0x19f0('0x22')](_0x308fcd['getZoom']()+0.1);},0xbb8)):(_0x308fcd['flyToBounds'](_0xf3cd2e[_0x19f0('0xcd')](),{'padding':[0x32,0x32],'duration':0x1}),setTimeout(function(){_0x308fcd[_0x19f0('0x22')](_0x308fcd[_0x19f0('0x1a')]()+0.1);},0xbb8));;}_0x3b4180&&$(_0x19f0('0x5b'))[_0x19f0('0x30')](0x3e8),console[_0x19f0('0x39')](_0x19f0('0x99'));}async function drawDirectReturn(_0x32ea63,_0x47e0ff,_0x3e1184){console[_0x19f0('0x39')](_0x19f0('0xaa'));let _0x3649db=mapsPlaceholder[0x0],_0x38b28f=new Map();_0x32ea63[_0x19f0('0x61')](function(_0x314cfd){let _0x29f886=_0x314cfd[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x314cfd[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0x314cfd[_0x19f0('0x4c')][_0x19f0('0xa7')](':','')+_0x314cfd[_0x19f0('0x41')][_0x19f0('0xa7')](':','');$('#'+_0x29f886)[_0x19f0('0x4e')]===0x0&&(typeof _0x38b28f[_0x19f0('0xc6')](_0x314cfd[_0x19f0('0x3e')])===_0x19f0('0x26')&&_0x38b28f[_0x19f0('0x75')](_0x314cfd[_0x19f0('0x3e')],[]),_0x38b28f['get'](_0x314cfd[_0x19f0('0x3e')])[_0x19f0('0xc7')](_0x314cfd));});let _0x306c7b=[];markerLayer[_0x19f0('0x16')](function(_0x491bfb){_0x47e0ff[_0x19f0('0x3f')](_0x491bfb[_0x19f0('0x28')]['id'])==!![]&&_0x306c7b[_0x19f0('0xc7')](_0x491bfb);});let _0x34234f=L[_0x19f0('0x5e')](_0x306c7b);for(let [_0x27d7dc,_0x1d9fb3]of _0x38b28f){_0x1d9fb3['sort']((_0x23a5d5,_0x271e8f)=>Number(_0x23a5d5[_0x19f0('0x41')][_0x19f0('0x62')](':')[0x0])>Number(_0x271e8f['departure_time'][_0x19f0('0x62')](':')[0x0])?0x1:-0x1)[_0x19f0('0x61')](_0x150bc7=>{let _0x3f5e7c=_0x150bc7[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x150bc7['arrival_iata'][_0x19f0('0x8')]()+_0x150bc7['arrival_time'][_0x19f0('0xa7')](':','')+_0x150bc7[_0x19f0('0x41')][_0x19f0('0xa7')](':',''),_0x23a57d=Math[_0x19f0('0xce')](_0x150bc7[_0x19f0('0x74')]/0x3c),_0x1d3c69=Math[_0x19f0('0xce')](Math[_0x19f0('0x27')](_0x150bc7[_0x19f0('0x74')]-_0x23a57d*0x3c)),_0x5d7090=createTimeDisplay(_0x1d3c69,_0x23a57d),_0x2ba31b=_0x150bc7[_0x19f0('0x8c')][_0x19f0('0x8')]()+'-'+_0x150bc7[_0x19f0('0x41')][_0x19f0('0x62')](':')[0x0][_0x19f0('0x8')]()+':00',_0x3bae8b=createTrainlineLink(_0x2ba31b,_0x150bc7['departure_iata'],_0x150bc7['arrival_iata']),_0x9e7cb8=_0x19f0('0x11')+_0x3f5e7c+_0x19f0('0x5a')+_0x150bc7[_0x19f0('0x79')]+'\x22>'+_0x19f0('0x76')+_0x3bae8b+'\x22>'+_0x19f0('0x9d')+_0x19f0('0x7f')['replace'](_0x19f0('0xca'),_0x150bc7[_0x19f0('0x4c')])[_0x19f0('0xa7')](_0x19f0('0x8a'),_0x150bc7[_0x19f0('0x41')])+_0x19f0('0x7a')['replace']('%d',_0x5d7090)+_0x19f0('0xcf')+_0x3bae8b+_0x19f0('0x3c')+_0x19f0('0x21');$(_0x19f0('0x7e')+_0x150bc7[_0x19f0('0x79')])[_0x19f0('0x37')](_0x9e7cb8),$('#'+_0x3f5e7c)[_0x19f0('0x96')](_0x19f0('0x63'),function(){let _0x446bed=new Array();_0x446bed[_0x19f0('0xc7')](_0x150bc7[_0x19f0('0x56')]),_0x446bed[_0x19f0('0xc7')](_0x150bc7['arrival_coords']);var _0x39699d=new CustomPolyline(_0x446bed,{'id':_0x19f0('0x6b')+_0x150bc7[_0x19f0('0xc1')]['toString']()+_0x150bc7[_0x19f0('0xa1')][_0x19f0('0x8')](),'color':_0x19f0('0x3b'),'weight':0x2,'opacity':0.8,'dashArray':'10,\x2010'});tripLayer[_0x19f0('0xaf')](_0x39699d),_0x3649db[_0x19f0('0x86')]([_0x446bed]),markerLayer['eachLayer'](function(_0x550944){_0x150bc7[_0x19f0('0xa1')]!=_0x550944[_0x19f0('0x28')][_0x19f0('0x10')]&&_0x550944[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x150bc7[_0x19f0('0xc1')]&&_0x550944[_0x19f0('0x4a')](0.1);});}),$('#'+_0x3f5e7c)[_0x19f0('0x96')](_0x19f0('0x51'),function(){typeof tripLayer!==_0x19f0('0x26')&&tripLayer['clearLayers']();;markerLayer[_0x19f0('0x16')](function(_0x5a7d8d){(_0x47e0ff[_0x19f0('0x3f')](_0x5a7d8d[_0x19f0('0x28')]['id'])==!![]||_0x150bc7['departure_id']==_0x5a7d8d[_0x19f0('0x28')]['id'])&&_0x5a7d8d['setOpacity'](0.8);});L[_0x19f0('0xa5')][_0x19f0('0x35')]?(_0x3649db[_0x19f0('0x86')](_0x34234f['getBounds'](),{'padding':[0x1e,0x1e],'duration':0x1}),setTimeout(function(){_0x3649db[_0x19f0('0x22')](_0x3649db['getZoom']()+0.1);},0xbb8)):(_0x3649db[_0x19f0('0x86')](_0x34234f[_0x19f0('0xcd')](),{'padding':[0x32,0x32],'duration':0x1}),setTimeout(function(){_0x3649db[_0x19f0('0x22')](_0x3649db[_0x19f0('0x1a')]()+0.1);},0xbb8));;});});}_0x3e1184&&$(_0x19f0('0x5b'))['fadeOut'](0x3e8),console['log']('Fin\x20Exé\x20DrawDirect\x20Return');}async function drawIndirectReturn(_0x2eb571,_0x4ca230,_0x5b7b1f){console['log'](_0x19f0('0xc5'));let _0x437e45=mapsPlaceholder[0x0],_0x4bcdff=new Map();_0x2eb571[_0x19f0('0x61')](function(_0x240c67){let _0x1bfbdc=_0x19f0('0x6b')+_0x240c67[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x240c67[_0x19f0('0x49')][_0x19f0('0x8')]()+_0x240c67[_0x19f0('0x23')][_0x19f0('0xa7')](':','')+_0x240c67[_0x19f0('0x7')][_0x19f0('0xa7')](':',''),_0xaafca6=_0x240c67[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x240c67['connection_iata']['toString']()+_0x240c67['departure_iata'][_0x19f0('0x8')]()+_0x240c67[_0x19f0('0xa1')]['toString']()+_0x240c67[_0x19f0('0x4c')][_0x19f0('0xa7')](':','')+_0x240c67[_0x19f0('0x7')][_0x19f0('0xa7')](':','');$('#'+_0xaafca6)[_0x19f0('0x4e')]===0x0&&(typeof _0x4bcdff[_0x19f0('0xc6')](_0x240c67['origine_id'])==='undefined'&&_0x4bcdff['set'](_0x240c67[_0x19f0('0x68')],[]),_0x4bcdff[_0x19f0('0xc6')](_0x240c67[_0x19f0('0x68')])['push'](_0x240c67));});let _0x45f487=[];markerLayer[_0x19f0('0x16')](function(_0x19fcb2){_0x4ca230[_0x19f0('0x3f')](_0x19fcb2[_0x19f0('0x28')]['id'])==!![]&&_0x45f487[_0x19f0('0xc7')](_0x19fcb2);});let _0x161f23=L[_0x19f0('0x5e')](_0x45f487);for(let [_0x19e695,_0x4555e0]of _0x4bcdff){_0x4555e0[_0x19f0('0xbb')]((_0x3abc84,_0x3394c2)=>Number(_0x3abc84[_0x19f0('0x7')][_0x19f0('0x62')](':')[0x0])>Number(_0x3394c2[_0x19f0('0x7')]['split'](':')[0x0])?0x1:-0x1)[_0x19f0('0x61')](_0x4e3786=>{let _0x2e0808=_0x4e3786[_0x19f0('0xb2')][_0x19f0('0x8')]()+_0x4e3786['connection_iata'][_0x19f0('0x8')]()+_0x4e3786[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x4e3786[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0x4e3786[_0x19f0('0x4c')][_0x19f0('0xa7')](':','')+_0x4e3786[_0x19f0('0x7')][_0x19f0('0xa7')](':',''),_0x57bf61=Math[_0x19f0('0xce')](_0x4e3786[_0x19f0('0x67')]/0x3c),_0x3bc955=Math[_0x19f0('0xce')](Math[_0x19f0('0x27')](_0x4e3786['full_duration']-_0x57bf61*0x3c)),_0x2f8c63=createTimeDisplay(_0x3bc955,_0x57bf61),_0x507d16=_0x4e3786[_0x19f0('0x8c')][_0x19f0('0x8')]()+'-'+_0x4e3786['origine_departure']['split'](':')[0x0]['toString']()+':00',_0x51121b=createTrainlineLink(_0x507d16,_0x4e3786[_0x19f0('0xb2')],_0x4e3786[_0x19f0('0xa1')]),_0x6ed2a9=_0x19f0('0x11')+_0x2e0808+'\x22\x20class=\x22collapse\x20show\x22\x20role=\x22tabpanel\x22\x20aria-labelledby=\x22heading'+_0x4e3786[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0x76')+_0x51121b+'\x22>'+_0x19f0('0x5d')+_0x19f0('0x4')['replace'](_0x19f0('0x8a'),_0x4e3786[_0x19f0('0x7')])['replace'](_0x19f0('0x60'),_0x4e3786['connection_arrival'])[_0x19f0('0xa7')](_0x19f0('0xa2'),_0x4e3786[_0x19f0('0xb4')])['replace'](_0x19f0('0x9c'),_0x4e3786[_0x19f0('0x5f')])[_0x19f0('0xa7')](_0x19f0('0x58'),_0x4e3786[_0x19f0('0x41')])[_0x19f0('0xa7')](_0x19f0('0xca'),_0x4e3786[_0x19f0('0x4c')])+_0x19f0('0xc2')['replace']('%d',_0x2f8c63)+_0x19f0('0xcf')+_0x51121b+_0x19f0('0x3c');'</div></div>',$(_0x19f0('0x7e')+_0x4e3786[_0x19f0('0x68')])[_0x19f0('0x37')](_0x6ed2a9),$('#'+_0x2e0808)[_0x19f0('0x96')](_0x19f0('0x2c'),function(){let _0x8d6ce7=new Array();_0x8d6ce7[_0x19f0('0xc7')](_0x4e3786['origine_coords']),_0x8d6ce7[_0x19f0('0xc7')](_0x4e3786[_0x19f0('0x56')]);var _0x35907b=new CustomPolyline(_0x8d6ce7,{'id':_0x19f0('0x85')+_0x2e0808,'color':_0x19f0('0x3b'),'weight':0x2,'opacity':0x1,'dashArray':_0x19f0('0x2a')});tripLayer[_0x19f0('0xaf')](_0x35907b),_0x8d6ce7=new Array(),_0x8d6ce7[_0x19f0('0xc7')](_0x4e3786['departure_coords']),_0x8d6ce7[_0x19f0('0xc7')](_0x4e3786[_0x19f0('0x19')]);var _0x35907b=new CustomPolyline(_0x8d6ce7,{'id':_0x19f0('0x6a')+_0x2e0808,'color':_0x19f0('0x80'),'weight':0x2,'opacity':0x1,'dashArray':'10,\x2010'});tripLayer['addLayer'](_0x35907b),_0x437e45[_0x19f0('0x86')]([_0x4e3786[_0x19f0('0xac')],_0x4e3786['departure_coords'],_0x4e3786[_0x19f0('0x19')]]),markerLayer[_0x19f0('0x16')](function(_0x5a7391){_0x5a7391[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x4e3786[_0x19f0('0xa1')]&&_0x5a7391[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x4e3786[_0x19f0('0x49')]&&_0x5a7391[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x4e3786['origine_iata']&&_0x5a7391[_0x19f0('0x4a')](0.1);});}),$('#'+_0x2e0808)['bind'](_0x19f0('0x55'),function(){typeof tripLayer!=='undefined'&&tripLayer[_0x19f0('0x59')]();;markerLayer[_0x19f0('0x16')](function(_0x18d347){_0x4ca230[_0x19f0('0x3f')](_0x18d347[_0x19f0('0x28')]['id'])==!![]&&_0x18d347[_0x19f0('0x4a')](0.8);});L[_0x19f0('0xa5')]['mobile']?(_0x437e45[_0x19f0('0x86')](_0x161f23[_0x19f0('0xcd')](),{'padding':[0x1e,0x1e],'duration':0x1}),setTimeout(function(){_0x437e45[_0x19f0('0x22')](_0x437e45[_0x19f0('0x1a')]()+0.1);},0xbb8)):(_0x437e45[_0x19f0('0x86')](_0x161f23['getBounds'](),{'padding':[0x32,0x32],'duration':0x1}),setTimeout(function(){_0x437e45[_0x19f0('0x22')](_0x437e45[_0x19f0('0x1a')]()+0.1);},0xbb8));;});});}_0x5b7b1f&&$(_0x19f0('0x5b'))[_0x19f0('0x30')](0x3e8),console['log'](_0x19f0('0x6f'));}async function drawOneDayTrip(_0x39d5ff,_0x1ecad2){console[_0x19f0('0x39')](_0x19f0('0x17'));let _0x10c077=mapsPlaceholder[0x0],_0x21387e=new Map();var _0xab8689=[];if(_0x39d5ff[_0x19f0('0x72')]!=0x0){_0x39d5ff['forEach'](function(_0xc586b9){let _0x1921b7=_0xab8689[_0x19f0('0x3f')](_0xc586b9['arrival_id']);_0x1921b7==![]&&_0xab8689[_0x19f0('0xc7')](_0xc586b9[_0x19f0('0x3e')]);;let _0x72e6=_0xc586b9[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0xc586b9[_0x19f0('0xa1')][_0x19f0('0x8')]()+_0xc586b9['arrival_time'][_0x19f0('0xa7')](':','')+_0xc586b9[_0x19f0('0x41')][_0x19f0('0xa7')](':',''),_0x263a13=_0x19f0('0x88')+_0xc586b9[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0xb7')+_0xc586b9[_0x19f0('0x3e')]+_0x19f0('0xb5')+_0x19f0('0x48')+_0xc586b9[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0xc')+_0xc586b9[_0x19f0('0x3e')]+_0x19f0('0x9')+'<i\x20class=\x22fa\x20fa-chevron-down\x20pull-right\x22></i><p\x20class=\x22text-dark\x20text-center\x20bg-white\x22\x20style=\x22opacity:0.5\x22>'+_0xc586b9[_0x19f0('0x47')]+'</p></a></h5><div\x20class=\x22card\x20collapse\x22\x20id=\x22sub'+_0xc586b9[_0x19f0('0x3e')]+'\x22></div></li>';_0x1921b7==![]&&($(_0x19f0('0x31'))[_0x19f0('0x37')](_0x263a13),$(_0x19f0('0xcb')+_0xc586b9[_0x19f0('0x3e')])[_0x19f0('0x96')]('mouseenter',function(){markerLayer[_0x19f0('0x16')](function(_0x1cb760){_0xc586b9[_0x19f0('0xa1')]!=_0x1cb760[_0x19f0('0x28')][_0x19f0('0x10')]&&_0x1cb760[_0x19f0('0x28')][_0x19f0('0x10')]!=_0xc586b9['departure_iata']&&_0x1cb760[_0x19f0('0x4a')](0.1);});}),$(_0x19f0('0xcb')+_0xc586b9[_0x19f0('0x3e')])[_0x19f0('0x96')](_0x19f0('0x55'),function(){markerLayer[_0x19f0('0x16')](function(_0x2d7d1c){(_0xab8689['includes'](_0x2d7d1c[_0x19f0('0x28')]['id'])==!![]||_0xc586b9[_0x19f0('0x79')]==_0x2d7d1c[_0x19f0('0x28')]['id'])&&_0x2d7d1c[_0x19f0('0x4a')](0.8);});})),$('#'+_0x72e6)[_0x19f0('0x4e')]===0x0&&(typeof _0x21387e[_0x19f0('0xc6')](_0xc586b9[_0x19f0('0x3e')])===_0x19f0('0x26')&&_0x21387e[_0x19f0('0x75')](_0xc586b9[_0x19f0('0x3e')],[]),_0x21387e[_0x19f0('0xc6')](_0xc586b9[_0x19f0('0x3e')])['push'](_0xc586b9));});let _0x4b73d3=[];markerLayer[_0x19f0('0x16')](function(_0x536dae){_0xab8689[_0x19f0('0x3f')](_0x536dae[_0x19f0('0x28')]['id'])==![]&&_0x536dae[_0x19f0('0x94')]()[_0x19f0('0x9a')][_0x19f0('0x65')]==_0x19f0('0x84')?(_0x536dae[_0x19f0('0x4a')](0.4),_0x536dae[_0x19f0('0xbd')](L['icon']({'iconSize':[0xa,0xa],'iconAnchor':[0x5,0x5],'iconUrl':_0x19f0('0x12')}))):(_0x536dae['setOpacity'](0.8),_0x536dae['setIcon'](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x87')})),_0x4b73d3[_0x19f0('0xc7')](_0x536dae)),_0x536dae[_0x19f0('0x28')]['id']==_0x39d5ff['values']()[_0x19f0('0x18')]()[_0x19f0('0xbf')][_0x19f0('0x79')]&&(_0x536dae[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':'images/icons/station.png'})),_0x4b73d3[_0x19f0('0xc7')](_0x536dae));});let _0x5f5074=L['featureGroup'](_0x4b73d3);for(let [_0x52571f,_0xdf3354]of _0x21387e){_0xdf3354[_0x19f0('0xbb')]((_0x588a18,_0x58d0f5)=>Number(_0x588a18[_0x19f0('0xd')])>Number(_0x58d0f5[_0x19f0('0xd')])?0x1:-0x1)[_0x19f0('0x61')](_0x192241=>{let _0x4dc56c=_0x192241[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x192241['arrival_iata'][_0x19f0('0x8')]()+_0x192241[_0x19f0('0x4c')][_0x19f0('0xa7')](':','')+_0x192241[_0x19f0('0x41')][_0x19f0('0xa7')](':','')+_0x192241[_0x19f0('0xb6')]['replace'](':','')+_0x192241[_0x19f0('0x24')][_0x19f0('0xa7')](':',''),_0x434898=Math[_0x19f0('0xce')](_0x192241[_0x19f0('0x74')]/0x3c),_0x5f461b=Math[_0x19f0('0xce')](Math['abs'](_0x192241[_0x19f0('0x74')]-_0x434898*0x3c)),_0x2ba59b=createTimeDisplay(_0x5f461b,_0x434898),_0x20d06a=_0x192241[_0x19f0('0x8c')][_0x19f0('0x8')]()+'-'+_0x192241[_0x19f0('0x41')][_0x19f0('0x62')](':')[0x0][_0x19f0('0x8')]()+_0x19f0('0x50'),_0x38d657=createTrainlineLink(_0x20d06a,_0x192241[_0x19f0('0xc1')],_0x192241[_0x19f0('0xa1')]),_0x5560a3=Math[_0x19f0('0xce')](_0x192241[_0x19f0('0x1f')]/0x3c),_0x41b826=Math['trunc'](Math[_0x19f0('0x27')](_0x192241['sl_duration']-_0x5560a3*0x3c)),_0xc9b4d3=createTimeDisplay(_0x41b826,_0x5560a3),_0x5c02d7=_0x192241['day'][_0x19f0('0x8')]()+'-'+_0x192241['sl_departure_time'][_0x19f0('0x62')](':')[0x0][_0x19f0('0x8')]()+':00',_0x6dbb55=createTrainlineLink(_0x5c02d7,_0x192241[_0x19f0('0x2')],_0x192241[_0x19f0('0xd0')]),_0x5b6fc3=Math[_0x19f0('0xce')](_0x192241[_0x19f0('0xd')]/0x3c),_0x1b196a=Math[_0x19f0('0xce')](Math[_0x19f0('0x27')](_0x192241['time_on_site']-_0x5b6fc3*0x3c)),_0x4db2a2=createTimeDisplay(_0x1b196a,_0x5b6fc3),_0x4f6a8c=Math['trunc'](_0x192241[_0x19f0('0x52')]/0x3c),_0x543783=Math['trunc'](Math[_0x19f0('0x27')](_0x192241[_0x19f0('0x52')]-_0x4f6a8c*0x3c)),_0x45b66f=createTimeDisplay(_0x543783,_0x4f6a8c),_0x190ebe=_0x19f0('0x11')+_0x4dc56c+_0x19f0('0x5a')+_0x192241[_0x19f0('0x3e')]+'\x22>'+_0x19f0('0x76')+_0x38d657+'\x22>'+_0x19f0('0x9e')+_0x19f0('0x7f')['replace'](_0x19f0('0xca'),_0x192241['arrival_time'])[_0x19f0('0xa7')](_0x19f0('0x8a'),_0x192241['departure_time'])+'en\x20%d\x20!'[_0x19f0('0xa7')]('%d',_0x2ba59b)+_0x19f0('0xcf')+_0x38d657+_0x19f0('0x3c')+_0x19f0('0xbc')+_0x19f0('0x43')+'<strong>\x20%td\x20|\x20%ta\x20</strong>'['replace'](_0x19f0('0xca'),_0x192241[_0x19f0('0xb6')])['replace']('%td',_0x192241[_0x19f0('0x24')])+_0x19f0('0x7a')[_0x19f0('0xa7')]('%d',_0xc9b4d3)+_0x19f0('0xcf')+_0x6dbb55+_0x19f0('0x3c')+_0x19f0('0xbc')+_0x19f0('0xab')['replace']('%tos',_0x4db2a2)+_0x19f0('0xa8')+_0x19f0('0xcc')[_0x19f0('0xa7')](_0x19f0('0x81'),_0x45b66f)+_0x19f0('0x21');$(_0x19f0('0x7e')+_0x192241[_0x19f0('0x3e')])[_0x19f0('0x37')](_0x190ebe),$('#'+_0x4dc56c)[_0x19f0('0x96')](_0x19f0('0x2c'),function(){let _0x4f99eb=new Array();_0x4f99eb[_0x19f0('0xc7')](_0x192241[_0x19f0('0x56')]),_0x4f99eb['push'](_0x192241[_0x19f0('0x19')]);var _0x3770e3=new CustomPolyline(_0x4f99eb,{'id':_0x19f0('0x6b')+_0x192241[_0x19f0('0xc1')][_0x19f0('0x8')]()+_0x192241[_0x19f0('0xa1')][_0x19f0('0x8')](),'color':_0x19f0('0x2d'),'weight':0x2,'opacity':0.8,'dashArray':'10,\x2010'});tripLayer['addLayer'](_0x3770e3),_0x10c077['flyToBounds']([_0x4f99eb]),markerLayer[_0x19f0('0x16')](function(_0x790b86){_0x192241['arrival_iata']!=_0x790b86[_0x19f0('0x28')][_0x19f0('0x10')]&&_0x790b86[_0x19f0('0x28')][_0x19f0('0x10')]!=_0x192241[_0x19f0('0xc1')]&&_0x790b86['setOpacity'](0.1);});}),$('#'+_0x4dc56c)['bind'](_0x19f0('0x55'),function(){typeof tripLayer!=='undefined'&&tripLayer[_0x19f0('0x59')]();;markerLayer[_0x19f0('0x16')](function(_0xc9890b){(_0xab8689[_0x19f0('0x3f')](_0xc9890b['options']['id'])==!![]||_0x192241[_0x19f0('0x79')]==_0xc9890b['options']['id'])&&_0xc9890b[_0x19f0('0x4a')](0.8);});L[_0x19f0('0xa5')][_0x19f0('0x35')]?(_0x10c077['flyToBounds'](_0x5f5074[_0x19f0('0xcd')](),{'padding':[0x96,0x96]}),_0x10c077[_0x19f0('0xb')](0.01)):(_0x10c077[_0x19f0('0x86')](_0x5f5074[_0x19f0('0xcd')](),{'padding':[0x32,0x32]}),_0x10c077[_0x19f0('0xb')](0.01));;});});}L[_0x19f0('0xa5')][_0x19f0('0x35')]?(_0x10c077[_0x19f0('0x86')](_0x5f5074['getBounds'](),{'padding':[0x1e,0x1e],'duration':0x1}),setTimeout(function(){_0x10c077[_0x19f0('0x22')](_0x10c077[_0x19f0('0x1a')]()+0.1);},0xbb8)):(_0x10c077[_0x19f0('0x86')](_0x5f5074[_0x19f0('0xcd')](),{'padding':[0x32,0x32],'duration':0x1}),setTimeout(function(){_0x10c077[_0x19f0('0x22')](_0x10c077[_0x19f0('0x1a')]()+0.1);},0xbb8));;}else{typeof tripLayer!==_0x19f0('0x26')&&tripLayer[_0x19f0('0x59')]();markerLayer[_0x19f0('0x16')](function(_0x59bffd){_0x59bffd[_0x19f0('0x28')]['icon'][_0x19f0('0x28')][_0x19f0('0x20')]=='images/icons/station.png'?_0x59bffd[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0x14,0x14],'iconAnchor':[0xa,0xa],'iconUrl':_0x19f0('0x4f')})):_0x59bffd[_0x19f0('0xbd')](L[_0x19f0('0x2e')]({'iconSize':[0xa,0xa],'iconAnchor':[0x5,0x5],'iconUrl':_0x19f0('0x12')}));});let _0x203c89=_0x19f0('0x8f')+_0x19f0('0x9b')+_0x19f0('0x3a')+_0x19f0('0x9f')+_0x19f0('0x1c');$(_0x19f0('0x31'))[_0x19f0('0x37')](_0x203c89);}_0x1ecad2&&$(_0x19f0('0x5b'))['fadeOut'](0x3e8),console[_0x19f0('0x39')](_0x19f0('0x7d'));}function createTrainlineLink(_0x380de7,_0x59f77e,_0x523bb9){let _0x217727=_0x19f0('0x82')['replace'](_0x19f0('0x7c'),_0x59f77e)[_0x19f0('0xa7')](_0x19f0('0xa4'),_0x523bb9)[_0x19f0('0xa7')](_0x19f0('0x83'),_0x380de7);return _0x217727;}function createTimeDisplay(_0x5ab138,_0x17dc19){return _0x17dc19===0x0?('0'+_0x5ab138)['slice'](-0x2)+'m':('0'+_0x17dc19)[_0x19f0('0x53')](-0x2)+'h'+('0'+_0x5ab138)[_0x19f0('0x53')](-0x2)+'m';}
+// Global variable to store tgv max trip
+var specific_indirect_station = [0, 8];
+var last_checked_time = undefined;
+var last_checked_return = undefined;
+var last_checked_trip_type = undefined;
+var last_checked_trip_time = undefined;
+var last_checked_journey_type = undefined;
+var trips = [];
+var stations = [];
+var mobile = false;
+
+
+$(document).ready(function(){
+    station = firebase.database().ref("city/station");
+    //default loading of next day trip
+    var currentTime = new Date();
+    currentTime.setDate(currentTime.getDate() + 1)
+    station.once("value", function (dataset) {
+        stations = dataset.val();
+    }).then(function(){
+        setTimeout(function () {
+            getTrainRecords(buildQueryDate(currentTime));
+        }, 500);
+
+        //update trip on date change (MOVE TO GENERALMAP.JS)
+        $('#selected_date').change(async function() {});
+    });
+});
+
+// Get API SNCF records
+async function getTrainRecords(date) {
+    trips = [];
+    last_checked_time = date;
+    console.log("enter getTrainRecords method");
+    var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+        '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
+        '&refine.date=%date'.replace('%date', date); //format: YYYY-MM-DD
+    $.ajaxSetup({
+        async: false
+    });
+    $.getJSON(query, function (response) {
+        // Create base to check if a train is crossing the station on a selected day
+        let activity_station_base = [];
+        response['records'].forEach(function(result){
+            let trip = {};
+            //define trip date
+            trip.day = result.fields.date;
+            //gather departure data
+            let departure_station = stations.reduce(function(acc, curr, index) {
+                curr.forEach(function(stat){
+                    if (stat.iata_code == result.fields.origine_iata) {
+                        trip.departure_id = index;
+                        acc.push(stat);
+                    }
+                })
+                return acc;
+            }, [])[0];
+            if(typeof departure_station !== 'undefined'){
+                trip.departure_city = departure_station.city;
+                trip.departure_coords = [departure_station.lat, departure_station.lon];
+                trip.departure_iata = result.fields.origine_iata;
+                trip.departure_time = result.fields.heure_depart;
+                //gather arrival data
+                let arrival_station = stations.reduce(function(acc, curr, index) {
+                    curr.forEach(function(stat){
+                        if (stat.iata_code === result.fields.destination_iata) {
+                            trip.arrival_id = index;
+                            acc.push(stat);
+                        }
+                    })
+                    return acc;
+                }, [])[0];
+                if (activity_station_base.includes(result.fields.origine_iata) == false) {
+                        activity_station_base.push(result.fields.origine_iata);
+                }
+                if(typeof arrival_station !== 'undefined'){
+                    trip.arrival_city = arrival_station.city;
+                    trip.arrival_iata = result.fields.destination_iata;
+                    trip.arrival_coords = [arrival_station.lat, arrival_station.lon];
+                    trip.arrival_iata = result.fields.destination_iata;
+                    trip.arrival_time = result.fields.heure_arrivee;
+                    //additional trip info
+                    trip.duration = calculateDuration(result.fields.heure_depart,result.fields.heure_arrivee);
+                    trip.nbStop = 0;
+                    trips.push(trip);
+                } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
+            } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
+        });
+        markerLayer.eachLayer(function (layer) {
+            if (activity_station_base.includes(layer.options.iata) == false) {
+                layer.getElement().style.display = 'none';
+            } else {
+                layer.getElement().style.display = 'block';
+            }
+        })
+        return trips;
+    });
+};
+
+async function getReturnRecords(date) {
+    return_base = [];
+    last_checked_return = date;
+    console.log("enter getTrainRecords method");
+    var query = 'https://data.sncf.com/api/records/1.0/search/?dataset=tgvmax' +
+        '&q=&rows=10000&sort=date&refine.od_happy_card=OUI' +
+        '&refine.date=%date'.replace('%date', date) //format: YYYY-MM-DD
+    $.ajaxSetup({
+        async: false
+    });
+    $.getJSON(query, function (response) {
+        response['records'].forEach(function(result){
+            let ret = {};
+            //define trip date
+            ret.day = result.fields.date;
+            //gather departure data
+            let departure_station = stations.reduce(function(acc, curr, index) {
+                curr.forEach(function(stat){
+                    if (stat.iata_code == result.fields.origine_iata) {
+                        ret.departure_id = index;
+                        acc.push(stat);
+                    }
+                })
+                return acc;
+            }, [])[0];
+            if(typeof departure_station !== 'undefined'){
+                ret.departure_city = departure_station.city;
+                ret.departure_coords = [departure_station.lat, departure_station.lon];
+                ret.departure_iata = result.fields.origine_iata;
+                ret.departure_time = result.fields.heure_depart;
+                //gather arrival data
+                let arrival_station = stations.reduce(function(acc, curr, index) {
+                    curr.forEach(function(stat){
+                        if (stat.iata_code === result.fields.destination_iata) {
+                            ret.arrival_id = index;
+                            acc.push(stat);
+                        }
+                    })
+                    return acc;
+                }, [])[0];
+                if(typeof arrival_station !== 'undefined'){
+                    ret.arrival_city = arrival_station.city;
+                    ret.arrival_iata = result.fields.destination_iata;
+                    ret.arrival_coords = [arrival_station.lat, arrival_station.lon];
+                    ret.arrival_iata = result.fields.destination_iata;
+                    ret.arrival_time = result.fields.heure_arrivee;
+                    //additional trip info
+                    ret.duration = calculateDuration(result.fields.heure_depart,result.fields.heure_arrivee);
+                    ret.nbStop = 0;
+                    return_base.push(ret);
+                } else {console.log('Missing Arrival Station in DataBase : ', result.fields.destination_iata, ' - ', result.fields.destination)};
+            } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
+        });
+        return return_base;
+
+    });
+};
+
+function findTripsFromDepartureID(departure_id){
+    return trips.filter(trip => trip.departure_id == departure_id);
+}
+
+function findTripsFromArrivalIata(arrival_iata){
+    return trips.filter(trip => trip.arrival_iata == arrival_iata);
+}
+
+function findTrips(departure_iata,arrival_iata,nbStop){
+    return trips.filter(trip => trip.departure_iata == departure_iata
+        && trip.arrival_iata == arrival_iata
+        && trip.nbStop == nbStop);
+}
+
+//Get connections (One way)
+async function getCityConnections(date, marker,trip_type,time_restriction) {
+    if (L.Browser.mobile) {
+        $('#sidebar').toggleClass('active')
+    };
+    //retrieve relevant data
+    let departure_id = marker.options.id;
+    let control_trip_type = trip_type;
+    //get direct trip
+    let trips = findTripsFromDepartureID(departure_id);
+    if (time_restriction != "unknown_trip" ) {trips = trips.filter(trip => trip.duration <= time_restriction)};
+    var destination_list = [];
+    trips.forEach(function(trip){
+    let isIn = destination_list.includes(trip.arrival_id);
+    if (isIn == false) {
+            destination_list.push(trip.arrival_id);
+            // console.log(destination_list)
+    }});
+    // get non direct trip if allowed
+    if (control_trip_type === "indirect") {
+        let all_indirect_trips = [];
+        destination_list.forEach( await function(destination) {
+            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != departure_id);
+            let current = trips.filter(trip => trip.arrival_id == destination);
+            current.forEach(function (trip) {
+                let [hours, minutes] = trip.arrival_time.split(':');
+                let dt1 = new Date();
+                dt1.setHours(+hours);
+                dt1.setMinutes(minutes);
+                indirect_trips.forEach(function(indirect_trip){
+                    // Check if no better direct alternative
+                    let dt2 = new Date();
+                    let [hours, minutes] = indirect_trip.departure_time.split(':');
+                    dt2.setHours(+hours);
+                    dt2.setMinutes(minutes);
+                    // Difftime is the connection time
+                    let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                    if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                        var minimum_Difftime = 40
+                    } else {
+                        var minimum_Difftime = 10
+                    }
+                    if (Difftime >= minimum_Difftime && Difftime <= 150) {
+                        let dt3 = new Date();
+                        let [hours, minutes] = indirect_trip.arrival_time.split(':');
+                        dt3.setHours(+hours);
+                        dt3.setMinutes(minutes);
+                        let check = trips.filter(trip => trip.arrival_id == indirect_trip.arrival_id);
+                        // console.log(check);
+                        let alternative = false;
+                        for (let i in check) {
+                            let dt4 = new Date();
+                            let [hours, minutes] = check[i].arrival_time.split(':');
+                            dt4.setHours(+hours);
+                            dt4.setMinutes(minutes);
+                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                                // console.log('Better alternative found - Exit loop');
+                                // console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
+                                alternative = true;
+                            };
+                            // console.log(alternative)
+                        };
+                        if (alternative == false) {
+                            indirect_trip.origine = trip.departure_city;
+                            indirect_trip.origine_id = trip.departure_id;
+                            indirect_trip.origine_iata = trip.departure_iata;
+                            indirect_trip.origine_departure = trip.departure_time;
+                            indirect_trip.origine_coords = trip.departure_coords;
+                            indirect_trip.connection_arrival = trip.arrival_time;
+                            indirect_trip.connection_iata = trip.arrival_iata;
+                            indirect_trip.full_duration = indirect_trip.duration + trip.duration + Difftime;
+                            indirect_trip.connection_time = Difftime;
+                            if (time_restriction != "unknown_trip" ) {
+                                if (indirect_trip.full_duration <= time_restriction){
+                                    all_indirect_trips.push(indirect_trip)}
+                            } else {
+                                all_indirect_trips.push(indirect_trip);
+                            }
+                        }
+                    }
+                });
+            });
+        });
+        // Check if duplicates
+        trips = [... new Set(trips)]
+        all_indirect_trips = [... new Set(all_indirect_trips)]
+        await drawDirectTrip(trips,false);
+        await drawIndirectTrip(all_indirect_trips,destination_list,true);
+    } else {
+        // Check if duplicates
+        trips = [... new Set(trips)]
+        await drawDirectTrip(trips,true);
+    }
+}
+
+async function getRoundTrip(marker, trip_type, time_restriction, return_option) {
+    if (L.Browser.mobile) {$('#sidebarCollapse').click();}
+    //retrieve relevant data
+    let departure_id = marker.options.id;
+    let departure_iata = marker.options.iata;
+    let direct_only = trip_type;
+    //get direct trip
+    let trips = findTripsFromDepartureID(departure_id);
+    if (time_restriction != "unknown_trip" ) {trips = trips.filter(trip => trip.duration <= time_restriction)};
+    var destination_list = [];
+    var temp_destination_list = [];
+    trips.forEach(function(trip){
+        let isIn = destination_list.includes(trip.arrival_id);
+        if (isIn == false) {
+            destination_list.push(trip.arrival_id);
+            temp_destination_list.push(trip.arrival_id);
+            // console.log(destination_list)
+        }});
+    // get non direct trip if allowed
+    if (direct_only == 'indirect') {
+        var all_indirect_trips = [];
+        destination_list.forEach( await function(destination) {
+            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
+            let current = trips.filter(trip => trip.arrival_id == destination);
+            current.forEach(function (trip) {
+                let [hours, minutes] = trip.arrival_time.split(':');
+                let dt1 = new Date();
+                dt1.setHours(+hours);
+                dt1.setMinutes(minutes);
+                indirect_trips.forEach(function(indirect_trip){
+                    // Check if no better direct alternative
+                    let dt2 = new Date();
+                    let [hours, minutes] = indirect_trip.departure_time.split(':');
+                    dt2.setHours(+hours);
+                    dt2.setMinutes(minutes);
+                    // Difftime is the connection time
+                    let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                    if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                        var minimum_Difftime = 40
+                    } else {
+                        var minimum_Difftime = 10
+                    }
+                    if (Difftime >= minimum_Difftime && Difftime <= 150) {
+                        let dt3 = new Date();
+                        let [hours, minutes] = indirect_trip.arrival_time.split(':');
+                        dt3.setHours(+hours);
+                        dt3.setMinutes(minutes);
+                        let check = trips.filter(trip => trip.arrival_id == indirect_trip.arrival_id);
+                        // console.log(check);
+                        let alternative = false;
+                        for (let i in check) {
+                            let dt4 = new Date();
+                            let [hours, minutes] = check[i].arrival_time.split(':');
+                            dt4.setHours(+hours);
+                            dt4.setMinutes(minutes);
+                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                                // console.log('Better alternative found - Exit loop');
+                                // console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
+                                alternative = true;
+                            };
+                            // console.log(alternative)
+                        };
+                        if (alternative == false) {
+                            indirect_trip.origine = trip.departure_city;
+                            indirect_trip.origine_id = trip.departure_id;
+                            indirect_trip.origine_iata = trip.departure_iata;
+                            indirect_trip.origine_departure = trip.departure_time;
+                            indirect_trip.origine_coords = trip.departure_coords;
+                            indirect_trip.connection_arrival = trip.arrival_time;
+                            indirect_trip.connection_iata = trip.arrival_iata;
+                            indirect_trip.full_duration = indirect_trip.duration + trip.duration + Difftime;
+                            indirect_trip.connection_time = Difftime;
+                            if (time_restriction != "unknown_trip" ) {
+                                if (indirect_trip.full_duration <= time_restriction){
+                                    all_indirect_trips.push(indirect_trip);
+                                }
+                            } else {
+                                all_indirect_trips.push(indirect_trip);
+                            }
+                            // console.log(indirect_trip.arrival_city, ' depuis ', indirect_trip.departure_city, ' ', trip.departure_time,'-',trip.arrival_time,'-',indirect_trip.departure_time,'-',indirect_trip.arrival_time)
+                        }
+                    }
+                });
+            });
+        });
+        // Concatenate all direct/indirect destination for return calculation
+        var temp_destination_list = destination_list.slice();
+        all_indirect_trips.forEach(function(trip){
+            let isIn = destination_list.includes(trip.arrival_id);
+            if (isIn == false) {
+                destination_list.push(trip.arrival_id);
+            }})
+    }
+
+    let oneday_trips = [];
+    if (return_option == 'short_journey') {
+        destination_list.forEach(function (destination) {
+            let first_legs = trips.filter(trip => trip.arrival_id == destination)
+            let second_legs = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id == departure_id);
+            if (time_restriction != "unknown_trip" ) {second_legs = second_legs.filter(trip => trip.duration <= time_restriction)};
+            first_legs.forEach(function (first_leg) {
+                let [hours, minutes] = first_leg.arrival_time.split(':');
+                let dt1 = new Date();
+                dt1.setHours(+hours);
+                dt1.setMinutes(minutes);
+                second_legs.forEach(function (second_leg) {
+                    let [hours, minutes] = second_leg.departure_time.split(':');
+                    let dt2 = new Date();
+                    dt2.setHours(+hours);
+                    dt2.setMinutes(minutes);
+                    let TravelTime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                    if (TravelTime >= 120 ) {
+                        first_leg.sl_departure_id = second_leg.departure_id;
+                        first_leg.sl_departure_iata = second_leg.departure_iata;
+                        first_leg.sl_departure_time = second_leg.departure_time;
+                        first_leg.sl_arrival_id = second_leg.arrival_id;
+                        first_leg.sl_arrival_iata = second_leg.arrival_iata;
+                        first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
+                        first_leg.travel_time = first_leg.duration + second_leg.duration;
+                        first_leg.time_on_site = TravelTime;
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
+                    }
+                })
+            })
+        });
+        oneday_trips = new Set(oneday_trips);
+        drawOneDayTrip(oneday_trips,true);
+    }
+    else {if(return_option == 'medium_journey') {
+        destination_list.forEach(function (destination) {
+            let first_legs = trips.filter(trip => trip.arrival_id == destination)
+            let second_legs = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id == departure_id);
+            if (time_restriction != "unknown_trip" ) {second_legs = second_legs.filter(trip => trip.duration <= time_restriction)};
+            first_legs.forEach(function (first_leg) {
+                let [hours, minutes] = first_leg.arrival_time.split(':');
+                let dt1 = new Date();
+                dt1.setHours(+hours);
+                dt1.setMinutes(minutes);
+                second_legs.forEach(function (second_leg) {
+                    let [hours, minutes] = second_leg.departure_time.split(':');
+                    let dt2 = new Date();
+                    dt2.setHours(+hours);
+                    dt2.setMinutes(minutes);
+                    let TravelTime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                    if (TravelTime >= 240) {
+                        first_leg.sl_departure_id = second_leg.departure_id;
+                        first_leg.sl_departure_iata = second_leg.departure_iata;
+                        first_leg.sl_departure_time = second_leg.departure_time;
+                        first_leg.sl_arrival_id = second_leg.arrival_id;
+                        first_leg.sl_arrival_iata = second_leg.arrival_iata;
+                        first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
+                        first_leg.travel_time = first_leg.duration + second_leg.duration;
+                        first_leg.time_on_site = TravelTime;
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
+                    }
+                })
+            })
+        });
+        oneday_trips = new Set(oneday_trips);
+        drawOneDayTrip(oneday_trips,true);
+    }
+    else {
+        if(return_option === 'long_journey') {
+        destination_list.forEach(function (destination) {
+            let first_legs = trips.filter(trip => trip.arrival_id == destination)
+            let second_legs = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id == departure_id);
+            if (time_restriction != "unknown_trip" ) {second_legs = second_legs.filter(trip => trip.duration <= time_restriction)};
+            first_legs.forEach(function (first_leg) {
+                let [hours, minutes] = first_leg.arrival_time.split(':');
+                let dt1 = new Date();
+                dt1.setHours(+hours);
+                dt1.setMinutes(minutes);
+                second_legs.forEach(function (second_leg) {
+                    let [hours, minutes] = second_leg.departure_time.split(':');
+                    let dt2 = new Date();
+                    dt2.setHours(+hours);
+                    dt2.setMinutes(minutes);
+                    let TravelTime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                    if (TravelTime >= 360) {
+                        first_leg.sl_departure_id = second_leg.departure_id;
+                        first_leg.sl_departure_iata = second_leg.departure_iata;
+                        first_leg.sl_departure_time = second_leg.departure_time;
+                        first_leg.sl_arrival_id = second_leg.arrival_id;
+                        first_leg.sl_arrival_iata = second_leg.arrival_iata;
+                        first_leg.sl_arrival_time = second_leg.arrival_time;
+                        first_leg.sl_duration = second_leg.duration;
+                        first_leg.travel_time = first_leg.duration + second_leg.duration;
+                        first_leg.time_on_site = TravelTime;
+                        if (first_leg.travel_time < 1200) {oneday_trips.push(first_leg)}
+                    }
+                })
+            })
+        });
+        oneday_trips = new Set(oneday_trips);
+        drawOneDayTrip(oneday_trips,true);
+    }
+    // For direct/indirect return on specific date
+    else {
+        if(last_checked_return != $('#return_date').val()){
+            getReturnRecords(return_option)};
+        let direct_return_base = return_base.filter(trip => trip.arrival_id == departure_id && destination_list.includes(trip.departure_id));
+        if (time_restriction != "unknown_trip" ) {direct_return_base = direct_return_base.filter(trip => trip.duration <= time_restriction)};
+        if (direct_only != "indirect") {
+            // Check if return exist before drawing tickets
+            let return_list = [];
+            direct_return_base.forEach(function(trip){
+                let isIn = return_list.includes(trip.departure_id);
+                if (isIn == false) {
+                    return_list.push(trip.departure_id);
+                };})
+            trips = trips.filter(trip => return_list.includes(trip.arrival_id));
+            // Remove duplicates
+            trips = [... new Set(trips)];
+            direct_return_base = [... new Set(direct_return_base)];
+            await drawDirectTrip(trips,false);
+            await drawDirectReturn(direct_return_base,return_list,true);
+        } else {
+            let all_indirect_returns = [];
+            destination_list.forEach( await function(destination) {
+                let first_leg = return_base.filter(trip => trip.departure_id == destination);
+                let second_leg = return_base.filter(trip => trip.arrival_id == departure_id);
+                first_leg.forEach(function (trip) {
+                    let [hours, minutes] = trip.arrival_time.split(':');
+                    let dt1 = new Date();
+                    dt1.setHours(+hours);
+                    dt1.setMinutes(minutes);
+                    second_leg.forEach(function(indirect_trip){
+                        // Check if no better direct alternative
+                        let dt2 = new Date();
+                        let [hours, minutes] = indirect_trip.departure_time.split(':');
+                        dt2.setHours(+hours);
+                        dt2.setMinutes(minutes);
+                        // Difftime is the connection time
+                        let Difftime = Math.round((dt2.getTime() - dt1.getTime()) / 60000);
+                        if (trip.arrival_iata != indirect_trip.departure_iata && specific_indirect_station.includes(trip.arrival_id)) {
+                            var minimum_Difftime = 40
+                        } else {
+                            var minimum_Difftime = 10
+                        }
+                        if (trip.arrival_id == indirect_trip.departure_id && Difftime >= minimum_Difftime && Difftime <= 150) {
+                            let dt3 = new Date();
+                            let [hours, minutes] = indirect_trip.arrival_time.split(':');
+                            dt3.setHours(+hours);
+                            dt3.setMinutes(minutes);
+                            let check = direct_return_base.filter(trip => trip.departure_id == destination);
+                            let alternative = false;
+                            for (let i in check) {
+                                let dt4 = new Date();
+                                let [hours, minutes] = check[i].arrival_time.split(':');
+                                dt4.setHours(+hours);
+                                dt4.setMinutes(minutes);
+                                if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                                    //console.log('Better alternative found - Exit loop');
+                                    //console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
+                                    alternative = true;
+                                };
+                                // console.log(alternative)
+                            };
+                            if (alternative == false) {
+                                indirect_trip.origine = trip.departure_city;
+                                indirect_trip.origine_id = trip.departure_id;
+                                indirect_trip.origine_iata = trip.departure_iata;
+                                indirect_trip.origine_departure = trip.departure_time;
+                                indirect_trip.origine_coords = trip.departure_coords;
+                                indirect_trip.connection_arrival = trip.arrival_time;
+                                indirect_trip.connection_iata = trip.arrival_iata;
+                                indirect_trip.full_duration = indirect_trip.duration + trip.duration + Difftime;
+                                indirect_trip.connection_time = Difftime;
+                                if (time_restriction != "unknown_trip" ) {if (indirect_trip.full_duration <= time_restriction){all_indirect_returns.push(indirect_trip);}} else {all_indirect_returns.push(indirect_trip);};
+                                // console.log(indirect_trip.arrival_city, ' depuis ', indirect_trip.departure_city, ' ', trip.departure_time,'-',trip.arrival_time,'-',indirect_trip.departure_time,'-',indirect_trip.arrival_time)
+                            };
+                        };
+                    });
+                });
+            });
+            let return_list = [];
+            direct_return_base.forEach(function(trip){
+                let isIn = return_list.includes(trip.departure_id);
+                if (isIn == false) {
+                    return_list.push(trip.departure_id);
+                };})
+            // remove duplicates (reason why duplicate not found)
+            trips = [... new Set(trips)];
+            all_indirect_trips = [... new Set(all_indirect_trips)];
+            direct_return_base = [... new Set(direct_return_base)];
+            all_indirect_returns = [... new Set(all_indirect_returns)];
+            all_indirect_returns.forEach(function(trip){
+                let isIn = return_list.includes(trip.origine_id);
+                if (isIn == false) {
+                    return_list.push(trip.origine_id);
+                };})
+            trips = trips.filter(trip => return_list.includes(trip.arrival_id));
+            all_indirect_trips = all_indirect_trips.filter(indirect_trip => return_list.includes(indirect_trip.arrival_id));
+            await drawDirectTrip(trips,false);
+            await drawIndirectTrip(all_indirect_trips,temp_destination_list,false);
+            await drawDirectReturn(direct_return_base,return_list,false);
+            await drawIndirectReturn(all_indirect_returns,return_list,true);
+        }
+    }
+    }}
+}
+
+async function drawDirectTrip(trips,isLastDrawMethod){
+    console.log("[drawDirectTrip] Enter in method");
+    let map =  mapsPlaceholder[0];
+    // list to know which marker show / hide while mouse on
+    var hide_list = [];
+    trips.forEach(function(trip){
+        let isIn = hide_list.includes(trip.arrival_id);
+        if (isIn == false) {
+            hide_list.push(trip.arrival_id);
+        }
+    });
+    var destination_list = [];
+    if (trips.length != 0){
+        destination_list.push(trips[0].departure_id);
+        let trip_map = new Map();
+        trips.forEach(function(trip){
+            let isIn = destination_list.includes(trip.arrival_id);
+            if (isIn == false) {
+                destination_list.push(trip.arrival_id);
+            };
+            let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+            if ($("#" + identify_ticket).length === 0) {
+
+                let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                    '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                    '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                    '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+
+                if (isIn == false) {
+                    $("#tickets").append(category_html);
+                    $('#heading' + trip.arrival_id).bind('mouseenter', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+                    $('#heading' + trip.arrival_id).bind('mouseleave', function () {
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                    });
+                }
+                if( typeof trip_map.get(trip.arrival_id) === 'undefined'){
+                    trip_map.set(trip.arrival_id,[]);
+                }
+                trip_map.get(trip.arrival_id).push(trip)
+                tmp_duration_list.push(trip.duration);
+            }
+        });
+        markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (destination_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
+                layer.setOpacity(0.4);
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            } else {
+                markers.push(layer);
+                //layer.setOpacity(0.8);
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
+            }
+            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
+        });
+        var fg = L.featureGroup(markers);
+        for (let [key, value] of trip_map) {
+            value
+                .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
+                .forEach(trip => {
+                let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+                let hours = Math.trunc(trip.duration / (60))
+                let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
+                let display  = createTimeDisplay(minute,hours);
+                let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
+                let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
+                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
+                    '<div class="card-body" href="' + tl_url + '">' +
+                    '<i class="fas fa-space-shuttle"></i>' +
+                    '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
+                    'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
+                    '</div></div>'
+                $('#sub' + key).append(ticket_html)
+                $('#' + identify_ticket).bind('mouseover', function () {
+                    let current_coords = new Array();
+                    current_coords.push(trip.departure_coords);
+                    current_coords.push(trip.arrival_coords);
+                    var polyline = new CustomPolyline(current_coords, {
+                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
+                        color: 'black',
+                        weight: 2,
+                        opacity: 0.8,
+                        dashArray: '10, 10'
+                    });
+                    tripLayer.addLayer(polyline);
+                    markerLayer.eachLayer(function (layer) {
+                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                    });
+                    map.flyToBounds([current_coords])
+                });
+                $('#' + identify_ticket).bind('mouseout', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                });
+            })
+        }
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
+    } else {
+        if (typeof tripLayer !== 'undefined') {
+                tripLayer.clearLayers();
+        };
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
+            } else {
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            }
+        })
+        let category_html = '<li class="card">' +
+           '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
+           '<h5 class="card-img-overlay" role="tab">' +
+           '<p><br></p>' +
+           '<p class="text-dark text-center bg-white" style="opacity:0.5">Sorry! No tchoutchou</p></h5><div class="card"></div></li>'
+        $("#tickets").append(category_html);
+      }
+
+    if (isLastDrawMethod) {
+        $("#se-loading-function").fadeOut(1000);
+    }
+    console.log("Fin Exé DrawDirect");
+}
+
+async function drawIndirectTrip(indirect_trips,destination_list,isLastDrawMethod){
+    let map =  mapsPlaceholder[0];
+    console.log('Debut Exé DrawIndirect');
+    // Check if IndirectTrips isn't empty
+    var hide_list = destination_list.slice();
+    indirect_trips.forEach(function(trip){
+            let isIn = hide_list.includes(trip.arrival_id);
+            if (isIn == false) {
+                hide_list.push(trip.arrival_id);
+            }
+    });
+    if (indirect_trips.length != 0){
+        let indirect_trip_map = new Map();
+        indirect_trips.forEach(function(indirect_trip){
+            let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+            let isIn = destination_list.includes(indirect_trip.arrival_id);
+            if (isIn == false) {
+                destination_list.push(indirect_trip.arrival_id);
+            }
+            let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+
+            if ($("#" + identify_ticket).length === 0) {
+
+
+                let category_html = '<li class="card" id="' + indirect_trip.arrival_id + '">' +
+                    '<img src="images/city/bg_'+ indirect_trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                    '<h5 class="card-img-overlay" role="tab" id="heading' + indirect_trip.arrival_id + '">' +
+                    '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" style="background-color: transparent;" href="#sub' + indirect_trip.arrival_id + '" aria-expanded="false">' +
+                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + indirect_trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + indirect_trip.arrival_id + '"></div></li>'
+
+                if (isIn == false) {
+                    $("#tickets").append(category_html);}
+
+
+
+                markerLayer.eachLayer(function (layer) {
+                    if (indirect_trip.arrival_iata == layer.options.iata && isIn == false) {
+                        layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}))
+                    }
+                    if (indirect_trip.arrival_iata == layer.options.iata) {
+                        layer.setOpacity(0.8);
+                    }
+                });
+                //if trip list doesn't exist for this arrival id
+                if( typeof indirect_trip_map.get(indirect_trip.arrival_id) === 'undefined'){
+                    indirect_trip_map.set(indirect_trip.arrival_id,[]);
+                }
+                indirect_trip_map.get(indirect_trip.arrival_id).push(indirect_trip)
+            }
+        });
+        hide_list.forEach(function(id) {
+            $('#heading' + id).bind('mouseenter', function () {
+                markerLayer.eachLayer(function (layer) {
+                    if (id != layer.options.id && layer.options.id != indirect_trips[0].origine_id) {
+                        layer.setOpacity(0.1);
+                    }
+                });
+            });
+            $('#heading' + id).bind('mouseleave', function () {
+                markerLayer.eachLayer(function (layer) {
+                    if (hide_list.includes(layer.options.id) == true || indirect_trips[0].origine_id == layer.options.id) {
+                        layer.setOpacity(0.8);
+                    }
+                });
+            });
+        })
+
+        let markers = [];
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
+            if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+        });
+        let fg = L.featureGroup(markers);
+
+
+        for (let [key, value] of indirect_trip_map) {
+            //console.log(value);
+            value
+                .sort((a, b) => (Number(a.origine_departure.split(':')[0]) > Number(b.origine_departure.split(':')[0]) ? 1 : -1))
+                .forEach(indirect_trip => {
+                    let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+                    let hours = Math.trunc(indirect_trip.full_duration / (60))
+                    let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
+                    let display  = createTimeDisplay(minute,hours);
+                    let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
+                    let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
+
+                    let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
+                        '<div class="card-body" href="' + tl_url + '">' +
+                        '<i class="fas fa-paper-plane"></i>' +
+                        '<strong> %td </strong>| %tac <i class="fas fa-history"></i><br> %tdc | <strong>%ta </strong><br> ... via la belle ville de %sc pendant <strong>%tc min</strong> <br>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%sc', indirect_trip.departure_city).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
+                        'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
+                    '</div></div>'
+                    $('#sub' + key).append(ticket_html);
+                    $('#' + identify_ticket).bind('mouseenter', function () {
+                        let current_coords = new Array();
+                        current_coords.push(indirect_trip.origine_coords);
+                        current_coords.push(indirect_trip.departure_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'fl_line' + identify_ticket,
+                            color: 'black',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
+                        current_coords = new Array();
+                        current_coords.push(indirect_trip.departure_coords);
+                        current_coords.push(indirect_trip.arrival_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'sl_line' + identify_ticket,
+                            color: '#0affb4',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
+                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
+                        markerLayer.eachLayer(function (layer) {
+                            if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+                    $('#' + identify_ticket).bind('mouseleave', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (destination_list.includes(layer.options.id) == true) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                    });
+                });
+            //console.log(value);
+        }
+
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
+
+    }
+    if (isLastDrawMethod) {
+        $("#se-loading-function").fadeOut(1000);
+    }
+    console.log('Fin Exé DrawIndirect');
+}
+
+async function drawDirectReturn(trips,hide_list,isLastDrawMethod){
+    console.log("Début Exé DrawDirect Return");
+    let map =  mapsPlaceholder[0];
+    let return_map = new Map();
+    trips.forEach(function(trip){
+        let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+        if ($("#" + identify_ticket).length === 0) {
+            if( typeof return_map.get(trip.arrival_id) === 'undefined'){
+                return_map.set(trip.arrival_id,[]);
+            }
+            return_map.get(trip.arrival_id).push(trip)
+        }})
+    let markers = [];
+    markerLayer.eachLayer(function (layer) {
+        if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+    });
+    let fg = L.featureGroup(markers);
+    for (let [key, value] of return_map) {
+        value
+            .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
+            .forEach(trip => {
+                let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+                let hours = Math.trunc(trip.duration / (60))
+                let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
+                let display  = createTimeDisplay(minute,hours);
+                let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
+                let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
+
+                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.departure_id + '">' +
+                    '<div class="card-body" href="' + tl_url + '">' +
+                    '<i class="fa fa-angle-double-left"></i>' +
+                    '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
+                    'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
+                    '</div></div>'
+
+                $('#sub' + trip.departure_id).append(ticket_html);
+                $('#' + identify_ticket).bind('mouseover', function () {
+                    let current_coords = new Array();
+                    current_coords.push(trip.departure_coords);
+                    current_coords.push(trip.arrival_coords);
+                    var polyline = new CustomPolyline(current_coords, {
+                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
+                        color: 'black',
+                        weight: 2,
+                        opacity: 0.8,
+                        dashArray: '10, 10',
+                    });
+                    tripLayer.addLayer(polyline);
+                    map.flyToBounds([current_coords])
+                    markerLayer.eachLayer(function (layer) {
+                        if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                            layer.setOpacity(0.1);
+                        }
+                    });
+                });
+                $('#' + identify_ticket).bind('mouseout', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                        if (L.Browser.mobile) {
+                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        } else {
+                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        };
+                });
+            });
+    }
+    //fade out loader after display
+    if (isLastDrawMethod) {
+        $("#se-loading-function").fadeOut(1000);
+    }
+    console.log("Fin Exé DrawDirect Return");
+}
+
+async function drawIndirectReturn(indirect_trips,hide_list,isLastDrawMethod){
+    console.log('[drawIndirectReturn] Enter in method');
+    let map =  mapsPlaceholder[0];
+    let indirect_return_map = new Map();
+    indirect_trips.forEach(function(indirect_trip){
+        let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+
+        let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+
+        if ($("#" + identify_ticket).length === 0) {
+            if( typeof indirect_return_map.get(indirect_trip.origine_id) === 'undefined'){
+                indirect_return_map.set(indirect_trip.origine_id,[]);
+            }
+            indirect_return_map.get(indirect_trip.origine_id).push(indirect_trip)
+
+        }
+    });
+    let markers = [];
+    markerLayer.eachLayer(function (layer) {
+        if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
+    });
+    let fg = L.featureGroup(markers);
+    for (let [key, value] of indirect_return_map) {
+        //console.log(value);
+        value
+            .sort((a, b) => (Number(a.origine_departure.split(':')[0]) > Number(b.origine_departure.split(':')[0]) ? 1 : -1))
+            .forEach(indirect_trip => {
+                let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
+                let hours = Math.trunc(indirect_trip.full_duration / (60))
+                let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
+                let display  = createTimeDisplay(minute,hours);
+                let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
+                let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
+
+                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
+                    '<div class="card-body" href="' + tl_url + '">' +
+                    '<i class="fa fa-angle-left"></i>' +
+                    '<strong> %td </strong>| %tac <i class="fas fa-history"></i><br> %tdc | <strong>%ta </strong><br> ... via la belle ville de %sc pendant <strong>%tc min</strong> <br>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%sc', indirect_trip.departure_city).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
+                    'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
+                '</div></div>'
+
+                    $('#sub' + indirect_trip.origine_id).append(ticket_html);
+                    $('#' + identify_ticket).bind('mouseenter', function () {
+                        let current_coords = new Array();
+                        current_coords.push(indirect_trip.origine_coords);
+                        current_coords.push(indirect_trip.departure_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'fl_line' + identify_ticket,
+                            color: 'black',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
+                        current_coords = new Array();
+                        current_coords.push(indirect_trip.departure_coords);
+                        current_coords.push(indirect_trip.arrival_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'sl_line' + identify_ticket,
+                            color: '#0affb4',
+                            weight: 2,
+                            opacity: 1,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
+                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
+                        markerLayer.eachLayer(function (layer) {
+                            if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+                    $('#' + identify_ticket).bind('mouseleave', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (hide_list.includes(layer.options.id) == true) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                        if (L.Browser.mobile) {
+                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        } else {
+                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+                        };
+                    });
+                });
+            // console.log(value);
+        }
+        // console.log(value);
+
+    if (isLastDrawMethod) {
+        $("#se-loading-function").fadeOut(1000);
+    }
+    console.log('[drawIndirectReturn] Get out');
+}
+
+async function drawOneDayTrip(trips,isLastDrawMethod) {
+    console.log('[drawOneDayTrip] Enter in method');
+    let map =  mapsPlaceholder[0];
+    let oneday_map = new Map();
+    var destination_list = [];
+    if (trips.size != 0){
+        trips.forEach(function(trip){
+            let isTripLineAlreadyDrawn = destination_list.includes(trip.arrival_id);
+            if (isTripLineAlreadyDrawn == false) {
+                destination_list.push(trip.arrival_id);
+            };
+            //set up weather acceptance to true
+            let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
+            let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+            if (isTripLineAlreadyDrawn == false) {
+                $("#tickets").append(category_html);
+                $('#heading' + trip.arrival_id).bind('mouseenter', function () {
+                    markerLayer.eachLayer(function (layer) {
+                        if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                            layer.setOpacity(0.1);
+                        }
+                    });
+                });
+                $('#heading' + trip.arrival_id).bind('mouseleave', function () {
+                    markerLayer.eachLayer(function (layer) {
+                        if (destination_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                            layer.setOpacity(0.8);
+                        }
+                    });
+                });
+            }
+            if ($("#" + identify_ticket).length === 0) {
+                if( typeof oneday_map.get(trip.arrival_id) === 'undefined'){
+                    oneday_map.set(trip.arrival_id,[]);
+                }
+                oneday_map.get(trip.arrival_id).push(trip)
+            }
+        })
+        let markers = []
+        markerLayer.eachLayer(function (layer) {
+            if (destination_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
+                layer.setOpacity(0.4);
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            } else {
+                layer.setOpacity(0.8);
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
+                markers.push(layer)
+            }
+            if (layer.options.id == trips.values().next().value.departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"})); markers.push(layer)}
+        });
+        let fg = L.featureGroup(markers);
+        for (let [key, value] of oneday_map) {
+            value
+                .sort((a, b) => (Number(a.time_on_site) > Number(b.time_on_site))? 1 : -1)
+                .forEach(trip => {
+                    let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '') + trip.sl_arrival_time.replace(':', '') + trip.sl_departure_time.replace(':', '')
+                    //Display time first way
+                    let hours = Math.trunc(trip.duration/ (60))
+                    //console.log(hours)
+                    let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
+                    //console.log(minute)
+                    let display = createTimeDisplay(minute,hours);
+                    let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
+                    let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
+
+                    // Display time second way
+                    let sl_hours = Math.trunc(trip.sl_duration / (60))
+                    let sl_minute = Math.trunc(Math.abs(trip.sl_duration - sl_hours * 60));
+                    let sl_display = createTimeDisplay(sl_minute,sl_hours);
+
+                    let sl_processed_date = trip.day.toString() + '-' + trip.sl_departure_time.split(':')[0].toString() + ':00';
+                    let sl_tl_url = createTrainlineLink(sl_processed_date, trip.sl_departure_iata, trip.sl_arrival_iata);
+
+                    // Display time on site & in the train
+                    let tos_hours = Math.trunc(trip.time_on_site / (60))
+                    let tos_minute = Math.trunc(Math.abs(trip.time_on_site - tos_hours * 60));
+                    let tos_display = createTimeDisplay(tos_minute,tos_hours);
+
+                    let it_hours = Math.trunc(trip.travel_time / (60))
+                    let it_minute = Math.trunc(Math.abs(trip.travel_time - it_hours * 60));
+                    let it_display = createTimeDisplay(it_minute,it_hours);
+                    let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
+                        '<div class="card-body" href="' + tl_url + '">' +
+                        '<i class="fa fa-arrow-circle-right"></i>' +
+                        '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
+                        'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
+                        '<i class="fa fa-arrow-circle-left"></i>' +
+                        '<strong> %td | %ta </strong>'.replace('%ta', trip.sl_arrival_time).replace('%td', trip.sl_departure_time) +
+                        'en %d !'.replace('%d', sl_display) + '<a type="button" target="_blank" href="' + sl_tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
+                        'Time on site : %tos'.replace('%tos',tos_display) + " | " + 'Time in the train : %it'.replace('%it',it_display) +
+                        '</div></div>'
+                    $('#sub' + trip.arrival_id).append(ticket_html);
+                    $('#' + identify_ticket).bind('mouseenter', function () {
+                        let current_coords = new Array();
+                        current_coords.push(trip.departure_coords);
+                        current_coords.push(trip.arrival_coords);
+                        var polyline = new CustomPolyline(current_coords, {
+                            id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
+                            color: '#f7dc6f',
+                            weight: 2,
+                            opacity: 0.8,
+                            dashArray: '10, 10',
+                        });
+                        tripLayer.addLayer(polyline);
+                        map.flyToBounds([current_coords]);
+                        markerLayer.eachLayer(function (layer) {
+                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
+                                layer.setOpacity(0.1);
+                            }
+                        });
+                    });
+                    $('#' + identify_ticket).bind('mouseleave', function () {
+                        if (typeof tripLayer !== 'undefined') {
+                            tripLayer.clearLayers();
+                        };
+                        markerLayer.eachLayer(function (layer) {
+                            if (destination_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
+                                layer.setOpacity(0.8);
+                            }
+                        });
+                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]});map.zoomIn(0.01)} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]});map.zoomIn(0.01)};
+                    });
+                })
+        }
+        if (L.Browser.mobile) {
+            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        } else {
+            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
+            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
+        };
+    } else {
+        if (typeof tripLayer !== 'undefined') {
+                tripLayer.clearLayers();
+        }
+        markerLayer.eachLayer(function (layer) {
+            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
+                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
+            } else {
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            }
+        })
+        let category_html = '<li class="card">' +
+            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
+            '<h5 class="card-img-overlay" role="tab">' +
+            '<p><br></p>' +
+            '<p class="text-dark text-center bg-white" style="opacity:0.5">No train, no kiff Sorry!</p></h5><div class="card"></div></li>'
+        $("#tickets").append(category_html);
+    }
+    //fade out loader
+    if (isLastDrawMethod) {
+        $("#se-loading-function").fadeOut(1000);
+    }
+    console.log('[drawOneDayTrip] Get out');
+}
+
+function createTrainlineLink(departure_time,departure_iata,arrival_iata){
+    //build trainline link
+    let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
+        .replace('%depiata',departure_iata)
+        .replace('%arriata',arrival_iata)
+        .replace('%date',(departure_time));
+
+    return link;
+}
+
+function createTimeDisplay(minutes,hours){
+    if(hours === 0){
+        return ("0" + minutes).slice(-2) + "m";
+    }else{
+        return ("0" + hours).slice(-2) + "h" + ("0" + minutes).slice(-2) + "m";
+    }
+}
