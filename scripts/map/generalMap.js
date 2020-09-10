@@ -398,7 +398,7 @@ $(document).ready(function(){
         var marker_destination = L.marker(
             [city_data.lat,city_data.lon],
             {"id":city_id ,"city":city_data.city, "iata":city_data.iata_code}
-        ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.8).bindTooltip(city_data.city,{permanent: false, direction: 'right'})
+        ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.6).bindTooltip(city_data.city,{permanent: false, direction: 'right'})
 
         marker_destination.on({
             click: function() {
