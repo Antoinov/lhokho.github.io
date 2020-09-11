@@ -64,7 +64,9 @@ $(document).ready(function(){
         }
 
         markerLayer.eachLayer(function (layer) {
-            layer.setOpacity(0.2);
+            if(layer.options.cluster == undefined) {
+                layer.setOpacity(0.2);
+            }
         });
         tmp_duration_list = [0];
 
@@ -395,36 +397,81 @@ $(document).ready(function(){
     }
 
     function add_station(city_id,city_data){
-        var marker_destination = L.marker(
-            [city_data.lat,city_data.lon],
-            {"id":city_id ,"city":city_data.city, "iata":city_data.iata_code}
-        ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.6).bindTooltip(city_data.city,{permanent: false, direction: 'right'})
-
-        marker_destination.on({
-            click: function() {
-                this.openPopup();
+        if (city_data.length > 1) {
+        let markers = L.markerClusterGroup({
+            id: city_id,
+            city: city_data[0].city,
+            cluster: true,
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false,
+            iconCreateFunction: function(cluster) {
+                console.log(cluster)
+                return L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
             }
+        });
+        markers.on('clusterdblclick', ondbClick).on('clusterclick',onClick).on('clustermouseover', function(ev) {
+            ev.propagatedFrom.bindTooltip(city_data[0].city,{permanent: false, direction: 'right'}).openTooltip();
+        }).on('clustermouseout', function(ev) {
+            ev.propagatedFrom.unbindTooltip();
+        });
+        city_data.forEach(function (station) {
+            var marker_destination = L.marker(
+                [station.lat,station.lon],
+                {"id":city_id ,"city":station.city, "iata":station.iata_code}
+            ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.6).bindTooltip(station.city,{permanent: false, direction: 'right'})
+
+            marker_destination.on({
+                click: function() {
+                    this.openPopup();
+                }
+            })
+
+            //change when adapted to mobile website
+            if (L.Browser.mobile) {
+                var custom_icon = L.icon({"iconSize": [10,10], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
+                marker_destination.setIcon(custom_icon);
+            }else{
+                var custom_icon = L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
+                marker_destination.setIcon(custom_icon);
+            }
+            markers.addLayer(marker_destination);
         })
+            console.log(city_id);
+            console.log(markers);
+            markerLayer.addLayer(markers)
+        } else {
+            city_data.forEach(function (station) {
+            var marker_destination = L.marker(
+                [station.lat,station.lon],
+                {"id":city_id ,"city":station.city, "iata":station.iata_code}
+            ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.6).bindTooltip(station.city,{permanent: false, direction: 'right'})
 
-        //change when adapted to mobile website
-        if (L.Browser.mobile) {
-            var custom_icon = L.icon({"iconSize": [10,10], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
-            marker_destination.setIcon(custom_icon);
-        }else{
-            var custom_icon = L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
-            marker_destination.setIcon(custom_icon);
+            marker_destination.on({
+                click: function() {
+                    this.openPopup();
+                }
+            })
+
+            //change when adapted to mobile website
+            if (L.Browser.mobile) {
+                var custom_icon = L.icon({"iconSize": [10,10], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
+                marker_destination.setIcon(custom_icon);
+            }else{
+                var custom_icon = L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
+                marker_destination.setIcon(custom_icon);
+            }
+            markerLayer.addLayer(marker_destination);
+        })
         }
-
-        markerLayer.addLayer(marker_destination);
     }
 
 
     station.once('value').then(function(datakey){
         let idx = 0;
         datakey.forEach(function(data){
-            data.val().forEach(function (station) {
-                add_station(idx,station,station.iata_code);
-            })
+            data = data.val()
+            add_station(idx,data)
             idx = idx +1;
         });
         map.fitBounds(markerLayer.getBounds());
