@@ -417,18 +417,14 @@ $(document).ready(function(){
 
         markerLayer.addLayer(marker_destination);
     }
-
-
-    station.once('value').then(function(datakey){
         let idx = 0;
-        datakey.forEach(function(data){
-            data.val().forEach(function (station) {
+        station.forEach(function(data){
+            data.forEach(function (station) {
                 add_station(idx,station,station.iata_code);
             })
             idx = idx +1;
         });
         map.fitBounds(markerLayer.getBounds());
-    });
 
 });
 
