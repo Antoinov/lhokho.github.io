@@ -70,8 +70,8 @@ async function getTrainRecords(date) {
                     })
                     return acc;
                 }, [])[0];
-                if (activity_station_base.includes(result.fields.origine_iata) == false) {
-                        activity_station_base.push(result.fields.origine_iata);
+                if (activity_station_base.includes(trip.departure_id) == false) {
+                        activity_station_base.push(trip.departure_id);
                 }
                 if(typeof arrival_station !== 'undefined'){
                     trip.arrival_city = arrival_station.city;
@@ -87,7 +87,7 @@ async function getTrainRecords(date) {
             } else {console.log('Missing Departure Station in DataBase : ', result.fields.origine_iata, ' - ', result.fields.origine,' - ', result.fields.code_equip, ' - ', result.fields.axe) };
         });
         markerLayer.eachLayer(function (layer) {
-            if (activity_station_base.includes(layer.options.iata) == false) {
+            if (activity_station_base.includes(layer.options.id) == false) {
                 layer.getElement().style.display = 'none';
             } else {
                 layer.getElement().style.display = 'block';

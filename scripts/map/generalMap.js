@@ -398,23 +398,7 @@ $(document).ready(function(){
 
     function add_station(city_id,city_data){
         if (city_data.length > 1) {
-        let markers = L.markerClusterGroup({
-            id: city_id,
-            city: city_data[0].city,
-            cluster: true,
-            spiderfyOnMaxZoom: false,
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: false,
-            iconCreateFunction: function(cluster) {
-                console.log(cluster)
-                return L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
-            }
-        });
-        markers.on('clusterdblclick', ondbClick).on('clusterclick',onClick).on('clustermouseover', function(ev) {
-            ev.propagatedFrom.bindTooltip(city_data[0].city,{permanent: false, direction: 'right'}).openTooltip();
-        }).on('clustermouseout', function(ev) {
-            ev.propagatedFrom.unbindTooltip();
-        });
+        let markers = L.featureGroup();
         city_data.forEach(function (station) {
             var marker_destination = L.marker(
                 [station.lat,station.lon],
@@ -426,8 +410,12 @@ $(document).ready(function(){
                     this.openPopup();
                 }
             })
-
-            //change when adapted to mobile website
+            markers.addLayer(marker_destination);
+        })
+            var marker_destination = L.marker(
+                [markers.getBounds().getCenter().lat,markers.getBounds().getCenter().lng],
+                {"id":city_id ,"city":city_data[0].city}
+            ).on('dblclick', ondbClick).on('click',onClick).setOpacity(0.6).bindTooltip(city_data[0].city,{permanent: false, direction: 'right'})
             if (L.Browser.mobile) {
                 var custom_icon = L.icon({"iconSize": [10,10], "iconAnchor": [15,15], "iconUrl":"images/icons/placeholder.png"});
                 marker_destination.setIcon(custom_icon);
@@ -435,11 +423,7 @@ $(document).ready(function(){
                 var custom_icon = L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"});
                 marker_destination.setIcon(custom_icon);
             }
-            markers.addLayer(marker_destination);
-        })
-            console.log(city_id);
-            console.log(markers);
-            markerLayer.addLayer(markers)
+        markerLayer.addLayer(marker_destination)
         } else {
             city_data.forEach(function (station) {
             var marker_destination = L.marker(
