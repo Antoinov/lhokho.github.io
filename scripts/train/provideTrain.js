@@ -6,24 +6,27 @@ var last_checked_trip_type = undefined;
 var last_checked_trip_time = undefined;
 var last_checked_journey_type = undefined;
 var trips = [];
-var stations = [];
+var station = [];
 var mobile = false;
 
 
 $(document).ready(function(){
-    station = firebase.database().ref("city/station");
-    //default loading of next day trip
-    var currentTime = new Date();
-    currentTime.setDate(currentTime.getDate() + 1)
-    station.once("value", function (dataset) {
-        stations = dataset.val();
-    }).then(function(){
+    $.ajaxSetup({
+        async: false
+    });
+    $.getJSON("./static/lhokho-station-export.json", function(json) {
+        station = json;
+    }).then(function(station){
+        console.log(station)
+        //default loading of next day trip
+        var currentTime = new Date();
+        currentTime.setDate(currentTime.getDate() + 1)
         setTimeout(function () {
-            getTrainRecords(buildQueryDate(currentTime));
+                getTrainRecords(buildQueryDate(currentTime));
         }, 500);
-        
-        //update trip on date change (MOVE TO GENERALMAP.JS)
-        $('#selected_date').change(async function() {});
+
+            //update trip on date change (MOVE TO GENERALMAP.JS)
+            $('#selected_date').change(async function() {});
     });
 });
 
@@ -46,7 +49,7 @@ async function getTrainRecords(date) {
             //define trip date
             trip.day = result.fields.date;
             //gather departure data
-            let departure_station = stations.reduce(function(acc, curr, index) {
+            let departure_station = station.reduce(function(acc, curr, index) {
                 curr.forEach(function(stat){
                     if (stat.iata_code == result.fields.origine_iata) {
                         trip.departure_id = index;
@@ -61,7 +64,7 @@ async function getTrainRecords(date) {
                 trip.departure_iata = result.fields.origine_iata;
                 trip.departure_time = result.fields.heure_depart;
                 //gather arrival data
-                let arrival_station = stations.reduce(function(acc, curr, index) {
+                let arrival_station = station.reduce(function(acc, curr, index) {
                     curr.forEach(function(stat){
                         if (stat.iata_code === result.fields.destination_iata) {
                             trip.arrival_id = index;

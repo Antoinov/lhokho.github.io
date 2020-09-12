@@ -64,9 +64,7 @@ $(document).ready(function(){
         }
 
         markerLayer.eachLayer(function (layer) {
-            if(layer.options.cluster == undefined) {
-                layer.setOpacity(0.2);
-            }
+            layer.setOpacity(0.2);
         });
         tmp_duration_list = [0];
 
@@ -449,17 +447,14 @@ $(document).ready(function(){
         })
         }
     }
-
-
-    station.once('value').then(function(datakey){
         let idx = 0;
-        datakey.forEach(function(data){
-            data = data.val()
-            add_station(idx,data)
+        station.forEach(function(data){
+            data.forEach(function (station) {
+                add_station(idx,station,station.iata_code);
+            })
             idx = idx +1;
         });
         map.fitBounds(markerLayer.getBounds());
-    });
 
 });
 
