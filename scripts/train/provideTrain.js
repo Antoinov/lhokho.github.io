@@ -116,7 +116,7 @@ async function getReturnRecords(date) {
             //define trip date
             ret.day = result.fields.date;
             //gather departure data
-            let departure_station = stations.reduce(function(acc, curr, index) {
+            let departure_station = station.reduce(function(acc, curr, index) {
                 curr.forEach(function(stat){
                     if (stat.iata_code == result.fields.origine_iata) {
                         ret.departure_id = index;
@@ -131,7 +131,7 @@ async function getReturnRecords(date) {
                 ret.departure_iata = result.fields.origine_iata;
                 ret.departure_time = result.fields.heure_depart;
                 //gather arrival data
-                let arrival_station = stations.reduce(function(acc, curr, index) {
+                let arrival_station = station.reduce(function(acc, curr, index) {
                     curr.forEach(function(stat){
                         if (stat.iata_code === result.fields.destination_iata) {
                             ret.arrival_id = index;
