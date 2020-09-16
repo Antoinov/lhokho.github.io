@@ -110,7 +110,7 @@ $(document).ready(function(){
         let journey_type = $("input[name='journey_type']:checked").attr("id");
         if(last_checked_time !== $('#selected_date').val()){
             setTimeout(async function () {
-                delay(500);
+                delay(400);
                 await getTrainRecords(query_date);
                 if(typeof previous_marker !== 'undefined'){
                     $("#se-loading-function").css({"display" : "block"});
@@ -140,7 +140,7 @@ $(document).ready(function(){
                         eventMaker();
                     }, 100);
                 }
-            }, 1000);
+            }, 400);
         }
     });
 

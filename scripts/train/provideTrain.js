@@ -22,7 +22,7 @@ $(document).ready(function(){
         currentTime.setDate(currentTime.getDate() + 1)
         setTimeout(function () {
                 getTrainRecords(buildQueryDate(currentTime));
-        }, 500);
+        }, 100);
 
             //update trip on date change (MOVE TO GENERALMAP.JS)
             $('#selected_date').change(async function() {});
@@ -196,7 +196,11 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
             let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != departure_id);
             let current = trips.filter(trip => trip.arrival_id == destination);
             current.forEach(function (trip) {
-                let [hours, minutes] = trip.arrival_time.split(':');
+                let [hours, minutes] = trip.departure_time.split(':');
+                let dt0 = new Date();
+                dt0.setHours(+hours);
+                dt0.setMinutes(minutes);
+                [hours, minutes] = trip.arrival_time.split(':');
                 let dt1 = new Date();
                 dt1.setHours(+hours);
                 dt1.setMinutes(minutes);
@@ -226,7 +230,11 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
                             let [hours, minutes] = check[i].arrival_time.split(':');
                             dt4.setHours(+hours);
                             dt4.setMinutes(minutes);
-                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                            let dt5 = new Date();
+                            [hours, minutes] = check[i].departure_time.split(':');
+                            dt5.setHours(+hours);
+                            dt5.setMinutes(minutes);
+                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000) || (Math.abs(dt5.getTime() - dt0.getTime()) < 3600000)) {
                                 // console.log('Better alternative found - Exit loop');
                                 // console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
                                 alternative = true;
@@ -255,14 +263,14 @@ async function getCityConnections(date, marker,trip_type,time_restriction) {
             });
         });
         // Check if duplicates
-        trips = [... new Set(trips)]
-        all_indirect_trips = [... new Set(all_indirect_trips)]
+        trips = Array.from(new Set(trips.map(JSON.stringify))).map(JSON.parse);
+        all_indirect_trips = Array.from(new Set(all_indirect_trips.map(JSON.stringify))).map(JSON.parse);
         //await drawDirectTrip(trips,false);
         //await drawIndirectTrip(all_indirect_trips,destination_list,true);
         await drawTrips(trips, all_indirect_trips)
     } else {
         // Check if duplicates
-        trips = [... new Set(trips)]
+        trips = Array.from(new Set(trips.map(JSON.stringify))).map(JSON.parse);
         //await drawDirectTrip(trips,true);
         await drawTrips(trips);
     }
@@ -293,7 +301,11 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
             let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
             let current = trips.filter(trip => trip.arrival_id == destination);
             current.forEach(function (trip) {
-                let [hours, minutes] = trip.arrival_time.split(':');
+                let [hours, minutes] = trip.departure_time.split(':');
+                let dt0 = new Date();
+                dt0.setHours(+hours);
+                dt0.setMinutes(minutes);
+                [hours, minutes] = trip.arrival_time.split(':');
                 let dt1 = new Date();
                 dt1.setHours(+hours);
                 dt1.setMinutes(minutes);
@@ -323,7 +335,11 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                             let [hours, minutes] = check[i].arrival_time.split(':');
                             dt4.setHours(+hours);
                             dt4.setMinutes(minutes);
-                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                            let dt5 = new Date();
+                            [hours, minutes] = check[i].departure_time.split(':');
+                            dt5.setHours(+hours);
+                            dt5.setMinutes(minutes);
+                            if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000) || (Math.abs(dt5.getTime() - dt0.getTime()) < 3600000)) {
                                 // console.log('Better alternative found - Exit loop');
                                 // console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
                                 alternative = true;
@@ -482,8 +498,8 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                 };})
             trips = trips.filter(trip => return_list.includes(trip.arrival_id));
             // Remove duplicates
-            trips = [... new Set(trips)];
-            direct_return_base = [... new Set(direct_return_base)];
+            trips = Array.from(new Set(trips.map(JSON.stringify))).map(JSON.parse);
+            direct_return_base = Array.from(new Set(direct_return_base.map(JSON.stringify))).map(JSON.parse);
             //await drawDirectTrip(trips,false);
             //await drawDirectReturn(direct_return_base,return_list,true);
             await drawTrips(trips,undefined,direct_return_base)
@@ -493,7 +509,11 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                 let first_leg = return_base.filter(trip => trip.departure_id == destination);
                 let second_leg = return_base.filter(trip => trip.arrival_id == departure_id);
                 first_leg.forEach(function (trip) {
-                    let [hours, minutes] = trip.arrival_time.split(':');
+                    let [hours, minutes] = trip.departure_time.split(':');
+                    let dt0 = new Date();
+                    dt0.setHours(+hours);
+                    dt0.setMinutes(minutes);
+                    [hours, minutes] = trip.arrival_time.split(':');
                     let dt1 = new Date();
                     dt1.setHours(+hours);
                     dt1.setMinutes(minutes);
@@ -522,7 +542,11 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                                 let [hours, minutes] = check[i].arrival_time.split(':');
                                 dt4.setHours(+hours);
                                 dt4.setMinutes(minutes);
-                                if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000)) {
+                                let dt5 = new Date();
+                                [hours, minutes] = check[i].departure_time.split(':');
+                                dt5.setHours(+hours);
+                                dt5.setMinutes(minutes);
+                                if ((Math.abs(dt3.getTime() - dt4.getTime()) < 3600000) || (Math.abs(dt5.getTime() - dt0.getTime()) < 3600000)) {
                                     //console.log('Better alternative found - Exit loop');
                                     //console.log('alternative directe existante à : ', check[i].departure_city, '-', check[i].arrival_city, ' ', check[i].departure_time, '-', check[i].arrival_time, ' au lieu de : ', trip.departure_city, '-', indirect_trip.departure_city, '-', indirect_trip.arrival_city , ' ', trip.departure_time, '-', trip.arrival_time, '-', indirect_trip.departure_time, '-', indirect_trip.arrival_time);
                                     alternative = true;
@@ -553,10 +577,10 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
                     return_list.push(trip.departure_id);
                 };})
             // remove duplicates (reason why duplicate not found)
-            trips = [... new Set(trips)];
-            all_indirect_trips = [... new Set(all_indirect_trips)];
-            direct_return_base = [... new Set(direct_return_base)];
-            all_indirect_returns = [... new Set(all_indirect_returns)];
+            trips = Array.from(new Set(trips.map(JSON.stringify))).map(JSON.parse);
+            all_indirect_trips = Array.from(new Set(all_indirect_trips.map(JSON.stringify))).map(JSON.parse);
+            direct_return_base = Array.from(new Set(direct_return_base.map(JSON.stringify))).map(JSON.parse);
+            all_indirect_returns = Array.from(new Set(all_indirect_returns.map(JSON.stringify))).map(JSON.parse);
             all_indirect_returns.forEach(function(trip){
                 let isIn = return_list.includes(trip.origine_id);
                 if (isIn == false) {
@@ -806,7 +830,6 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                 return a.flow - b.flow;
             })
                 .forEach(trip => {
-                    console.log(trip)
                     $('#sub' + key).append(trip.ticket_html)
                     if (trip.type == 'direct') {
                         $('#' + trip.identify_ticket).bind('mouseover', function () {
@@ -891,649 +914,6 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
         }
     })
     $("#se-loading-function").fadeOut(1000);
-}
-
-async function drawDirectTrip(trips,isLastDrawMethod){
-    console.log("[drawDirectTrip] Enter in method");
-    let map =  mapsPlaceholder[0];
-    // list to know which marker show / hide while mouse on
-    var hide_list = [];
-    trips.forEach(function(trip){
-        let isIn = hide_list.includes(trip.arrival_id);
-        if (isIn == false) {
-            hide_list.push(trip.arrival_id);
-        }
-
-    });
-    var destination_list = [];
-    if (trips.length != 0){
-        destination_list.push(trips[0].departure_id);
-        let trip_map = new Map();
-        trips.forEach(function(trip){
-            let isIn = destination_list.includes(trip.arrival_id);
-            if (isIn == false) {
-                destination_list.push(trip.arrival_id);
-            };
-            let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
-            if ($("#" + identify_ticket).length === 0) {
-
-                let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
-                    '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
-                    '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
-                    '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
-
-                if (isIn == false) {
-                    $("#tickets").append(category_html);
-                    $('#heading' + trip.arrival_id).bind('mouseenter', function () {
-                        markerLayer.eachLayer(function (layer) {
-                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                        });
-                    });
-                    $('#heading' + trip.arrival_id).bind('mouseleave', function () {
-                        markerLayer.eachLayer(function (layer) {
-                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                    });
-                }
-                if( typeof trip_map.get(trip.arrival_id) === 'undefined'){
-                    trip_map.set(trip.arrival_id,[]);
-                }
-                trip_map.get(trip.arrival_id).push(trip)
-                tmp_duration_list.push(trip.duration);
-            }
-        });
-        markers = [];
-        markerLayer.eachLayer(function (layer) {
-            if (hide_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
-                layer.setOpacity(0.4);
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-            } else {
-                markers.push(layer);
-                layer.setOpacity(0.8);
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
-            }
-            if (layer.options.id == trips[0].departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
-        });
-        var fg = L.featureGroup(markers);
-        for (let [key, value] of trip_map) {
-            value
-                .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
-                .forEach(trip => {
-                let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
-                let hours = Math.trunc(trip.duration / (60))
-                let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
-                let display  = createTimeDisplay(minute,hours);
-                let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
-                let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
-                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
-                    '<div class="card-body" href="' + tl_url + '">' +
-                    '<i class="fas fa-space-shuttle"></i>' +
-                    '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
-                    'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
-                    '</div></div>'
-                $('#sub' + key).append(ticket_html)
-                $('#' + identify_ticket).bind('mouseover', function () {
-                    let current_coords = new Array();
-                    current_coords.push(trip.departure_coords);
-                    current_coords.push(trip.arrival_coords);
-                    var polyline = new CustomPolyline(current_coords, {
-                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
-                        color: 'black',
-                        weight: 2,
-                        opacity: 0.8,
-                        dashArray: '10, 10'
-                    });
-                    tripLayer.addLayer(polyline);
-                    markerLayer.eachLayer(function (layer) {
-                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                    });
-                    map.flyToBounds([current_coords])
-                });
-                $('#' + identify_ticket).bind('mouseout', function () {
-                        if (typeof tripLayer !== 'undefined') {
-                            tripLayer.clearLayers();
-                        };
-                        markerLayer.eachLayer(function (layer) {
-                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
-                });
-            })
-        }
-        if (L.Browser.mobile) {
-            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        } else {
-            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        };
-    } else {
-        if (typeof tripLayer !== 'undefined') {
-                tripLayer.clearLayers();
-        };
-        markerLayer.eachLayer(function (layer) {
-            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
-            } else {
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-            }
-        })
-        let category_html = '<li class="card">' +
-           '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
-           '<h5 class="card-img-overlay" role="tab">' +
-           '<p><br></p>' +
-           '<p class="text-dark text-center bg-white" style="opacity:0.5">Sorry! No tchoutchou</p></h5><div class="card"></div></li>'
-        $("#tickets").append(category_html);
-      }
-
-    if (isLastDrawMethod) {
-        $("#se-loading-function").fadeOut(1000);
-    }
-    console.log("Fin Exé DrawDirect");
-}
-
-async function drawIndirectTrip(indirect_trips,destination_list,isLastDrawMethod){
-    let map =  mapsPlaceholder[0];
-    console.log('Debut Exé DrawIndirect');
-    // Check if IndirectTrips isn't empty
-    var hide_list = destination_list.slice();
-    indirect_trips.forEach(function(trip){
-            let isIn = hide_list.includes(trip.arrival_id);
-            if (isIn == false) {
-                hide_list.push(trip.arrival_id);
-            }
-    });
-    if (indirect_trips.length != 0){
-        let indirect_trip_map = new Map();
-        indirect_trips.forEach(function(indirect_trip){
-            let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-            let isIn = destination_list.includes(indirect_trip.arrival_id);
-            if (isIn == false) {
-                destination_list.push(indirect_trip.arrival_id);
-            }
-            let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-
-            if ($("#" + identify_ticket).length === 0) {
-
-
-                let category_html = '<li class="card" id="' + indirect_trip.arrival_id + '">' +
-                    '<img src="images/city/bg_'+ indirect_trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
-                    '<h5 class="card-img-overlay" role="tab" id="heading' + indirect_trip.arrival_id + '">' +
-                    '<a class="collapsed d-block" data-toggle="collapse" data-parent="#tickets" style="background-color: transparent;" href="#sub' + indirect_trip.arrival_id + '" aria-expanded="false">' +
-                    '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + indirect_trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + indirect_trip.arrival_id + '"></div></li>'
-
-                if (isIn == false) {
-                    $("#tickets").append(category_html);}
-
-
-
-                markerLayer.eachLayer(function (layer) {
-                    if (indirect_trip.arrival_iata == layer.options.iata && isIn == false) {
-                        layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}))
-                    }
-                    if (indirect_trip.arrival_iata == layer.options.iata) {
-                        layer.setOpacity(0.8);
-                    }
-                });
-                //if trip list doesn't exist for this arrival id
-                if( typeof indirect_trip_map.get(indirect_trip.arrival_id) === 'undefined'){
-                    indirect_trip_map.set(indirect_trip.arrival_id,[]);
-                }
-                indirect_trip_map.get(indirect_trip.arrival_id).push(indirect_trip)
-            }
-        });
-        hide_list.forEach(function(id) {
-            $('#heading' + id).bind('mouseenter', function () {
-                markerLayer.eachLayer(function (layer) {
-                    if (id != layer.options.id && layer.options.id != indirect_trips[0].origine_id) {
-                        layer.setOpacity(0.1);
-                    }
-                });
-            });
-            $('#heading' + id).bind('mouseleave', function () {
-                markerLayer.eachLayer(function (layer) {
-                    if (hide_list.includes(layer.options.id) == true || indirect_trips[0].origine_id == layer.options.id) {
-                        layer.setOpacity(0.8);
-                    }
-                });
-            });
-        })
-
-        let markers = [];
-        markerLayer.eachLayer(function (layer) {
-            if (layer.options.id == indirect_trips[0].origine_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))}
-            if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
-        });
-        let fg = L.featureGroup(markers);
-
-
-        for (let [key, value] of indirect_trip_map) {
-            //console.log(value);
-            value
-                .sort((a, b) => (Number(a.origine_departure.split(':')[0]) > Number(b.origine_departure.split(':')[0]) ? 1 : -1))
-                .forEach(indirect_trip => {
-                    let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-                    let hours = Math.trunc(indirect_trip.full_duration / (60))
-                    let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
-                    let display  = createTimeDisplay(minute,hours);
-                    let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
-                    let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
-
-                    let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
-                        '<div class="card-body" href="' + tl_url + '">' +
-                        '<i class="fas fa-paper-plane"></i>' +
-                        '<strong> %td </strong>| %tac <i class="fas fa-history"></i><br> %tdc | <strong>%ta </strong><br> ... via la belle ville de %sc pendant <strong>%tc min</strong> <br>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%sc', indirect_trip.departure_city).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
-                        'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
-                        '</div></div>'
-                    $('#sub' + key).append(ticket_html);
-                    $('#' + identify_ticket).bind('mouseenter', function () {
-                        let current_coords = new Array();
-                        current_coords.push(indirect_trip.origine_coords);
-                        current_coords.push(indirect_trip.departure_coords);
-                        var polyline = new CustomPolyline(current_coords, {
-                            id: 'fl_line' + identify_ticket,
-                            color: 'black',
-                            weight: 2,
-                            opacity: 1,
-                            dashArray: '10, 10',
-                        });
-                        tripLayer.addLayer(polyline);
-                        current_coords = new Array();
-                        current_coords.push(indirect_trip.departure_coords);
-                        current_coords.push(indirect_trip.arrival_coords);
-                        var polyline = new CustomPolyline(current_coords, {
-                            id: 'sl_line' + identify_ticket,
-                            color: '#0affb4',
-                            weight: 2,
-                            opacity: 1,
-                            dashArray: '10, 10',
-                        });
-                        tripLayer.addLayer(polyline);
-                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
-                        markerLayer.eachLayer(function (layer) {
-                            if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                        });
-                    });
-                    $('#' + identify_ticket).bind('mouseleave', function () {
-                        if (typeof tripLayer !== 'undefined') {
-                            tripLayer.clearLayers();
-                        };
-                        markerLayer.eachLayer(function (layer) {
-                            if (destination_list.includes(layer.options.id) == true) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
-                    });
-                });
-            //console.log(value);
-        }
-
-        if (L.Browser.mobile) {
-            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        } else {
-            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        };
-
-    }
-    if (isLastDrawMethod) {
-        $("#se-loading-function").fadeOut(1000);
-    }
-    console.log('Fin Exé DrawIndirect');
-}
-
-async function drawDirectReturn(trips,hide_list,isLastDrawMethod){
-    console.log("Début Exé DrawDirect Return");
-    let map =  mapsPlaceholder[0];
-    let return_map = new Map();
-    trips.forEach(function(trip){
-        let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
-        if ($("#" + identify_ticket).length === 0) {
-            if( typeof return_map.get(trip.arrival_id) === 'undefined'){
-                return_map.set(trip.arrival_id,[]);
-            }
-            return_map.get(trip.arrival_id).push(trip)
-        }})
-    let markers = [];
-    markerLayer.eachLayer(function (layer) {
-        if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
-    });
-    let fg = L.featureGroup(markers);
-    for (let [key, value] of return_map) {
-        value
-            .sort((a, b) => (Number(a.departure_time.split(':')[0]) > Number(b.departure_time.split(':')[0]))? 1 : -1)
-            .forEach(trip => {
-                let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
-                let hours = Math.trunc(trip.duration / (60))
-                let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
-                let display  = createTimeDisplay(minute,hours);
-                let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
-                let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
-
-                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.departure_id + '">' +
-                    '<div class="card-body" href="' + tl_url + '">' +
-                    '<i class="fa fa-angle-double-left"></i>' +
-                    '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
-                    'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' +
-                    '</div></div>'
-
-                $('#sub' + trip.departure_id).append(ticket_html);
-                $('#' + identify_ticket).bind('mouseover', function () {
-                    let current_coords = new Array();
-                    current_coords.push(trip.departure_coords);
-                    current_coords.push(trip.arrival_coords);
-                    var polyline = new CustomPolyline(current_coords, {
-                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
-                        color: 'black',
-                        weight: 2,
-                        opacity: 0.8,
-                        dashArray: '10, 10',
-                    });
-                    tripLayer.addLayer(polyline);
-                    map.flyToBounds([current_coords])
-                    markerLayer.eachLayer(function (layer) {
-                        if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
-                            layer.setOpacity(0.1);
-                        }
-                    });
-                });
-                $('#' + identify_ticket).bind('mouseout', function () {
-                        if (typeof tripLayer !== 'undefined') {
-                            tripLayer.clearLayers();
-                        };
-                        markerLayer.eachLayer(function (layer) {
-                            if (hide_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                        if (L.Browser.mobile) {
-                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
-                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-                        } else {
-                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
-                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-                        };
-                });
-            });
-    }
-    //fade out loader after display
-    if (isLastDrawMethod) {
-        $("#se-loading-function").fadeOut(1000);
-    }
-    console.log("Fin Exé DrawDirect Return");
-}
-
-async function drawIndirectReturn(indirect_trips,hide_list,isLastDrawMethod){
-    console.log('[drawIndirectReturn] Enter in method');
-    let map =  mapsPlaceholder[0];
-    let indirect_return_map = new Map();
-    indirect_trips.forEach(function(indirect_trip){
-        let origin_ticket = 'line' + indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.connection_arrival.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-
-        let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-
-        if ($("#" + identify_ticket).length === 0) {
-            if( typeof indirect_return_map.get(indirect_trip.origine_id) === 'undefined'){
-                indirect_return_map.set(indirect_trip.origine_id,[]);
-            }
-            indirect_return_map.get(indirect_trip.origine_id).push(indirect_trip)
-
-        }
-    });
-    let markers = [];
-    markerLayer.eachLayer(function (layer) {
-        if (hide_list.includes(layer.options.id) == true) {markers.push(layer)}
-    });
-    let fg = L.featureGroup(markers);
-    for (let [key, value] of indirect_return_map) {
-        //console.log(value);
-        value
-            .sort((a, b) => (Number(a.origine_departure.split(':')[0]) > Number(b.origine_departure.split(':')[0]) ? 1 : -1))
-            .forEach(indirect_trip => {
-                let identify_ticket = indirect_trip.origine_iata.toString() + indirect_trip.connection_iata.toString() + indirect_trip.departure_iata.toString() + indirect_trip.arrival_iata.toString() + indirect_trip.arrival_time.replace(':', '') + indirect_trip.origine_departure.replace(':', '');
-                let hours = Math.trunc(indirect_trip.full_duration / (60))
-                let minute = Math.trunc(Math.abs(indirect_trip.full_duration - hours * 60));
-                let display  = createTimeDisplay(minute,hours);
-                let processed_date = indirect_trip.day.toString() + '-' + indirect_trip.origine_departure.split(':')[0].toString() + ':00';
-                let tl_url = createTrainlineLink(processed_date, indirect_trip.origine_iata, indirect_trip.arrival_iata);
-
-                let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + indirect_trip.arrival_id + '">' +
-                    '<div class="card-body" href="' + tl_url + '">' +
-                    '<i class="fa fa-angle-left"></i>' +
-                    '<strong> %td </strong>| %tac <i class="fas fa-history"></i><br> %tdc | <strong>%ta </strong><br> ... via la belle ville de %sc pendant <strong>%tc min</strong> <br>'.replace('%td', indirect_trip.origine_departure).replace('%tac', indirect_trip.connection_arrival).replace('%sc', indirect_trip.departure_city).replace('%tc', indirect_trip.connection_time).replace('%tdc', indirect_trip.departure_time).replace('%ta', indirect_trip.arrival_time)+
-                    'le tout en <strong> %d </strong>!'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>'
-                '</div></div>'
-
-                    $('#sub' + indirect_trip.origine_id).append(ticket_html);
-                    $('#' + identify_ticket).bind('mouseenter', function () {
-                        let current_coords = new Array();
-                        current_coords.push(indirect_trip.origine_coords);
-                        current_coords.push(indirect_trip.departure_coords);
-                        var polyline = new CustomPolyline(current_coords, {
-                            id: 'fl_line' + identify_ticket,
-                            color: 'black',
-                            weight: 2,
-                            opacity: 1,
-                            dashArray: '10, 10',
-                        });
-                        tripLayer.addLayer(polyline);
-                        current_coords = new Array();
-                        current_coords.push(indirect_trip.departure_coords);
-                        current_coords.push(indirect_trip.arrival_coords);
-                        var polyline = new CustomPolyline(current_coords, {
-                            id: 'sl_line' + identify_ticket,
-                            color: '#0affb4',
-                            weight: 2,
-                            opacity: 1,
-                            dashArray: '10, 10',
-                        });
-                        tripLayer.addLayer(polyline);
-                        map.flyToBounds([indirect_trip.origine_coords,indirect_trip.departure_coords,indirect_trip.arrival_coords])
-                        markerLayer.eachLayer(function (layer) {
-                            if (layer.options.iata != indirect_trip.arrival_iata && layer.options.iata != indirect_trip.connection_iata && layer.options.iata != indirect_trip.origine_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                        });
-                    });
-                    $('#' + identify_ticket).bind('mouseleave', function () {
-                        if (typeof tripLayer !== 'undefined') {
-                            tripLayer.clearLayers();
-                        };
-                        markerLayer.eachLayer(function (layer) {
-                            if (hide_list.includes(layer.options.id) == true) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                        if (L.Browser.mobile) {
-                            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
-                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-                        } else {
-                            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
-                            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-                        };
-                    });
-                });
-            // console.log(value);
-        }
-        // console.log(value);
-
-    if (isLastDrawMethod) {
-        $("#se-loading-function").fadeOut(1000);
-    }
-    console.log('[drawIndirectReturn] Get out');
-}
-
-async function drawOneDayTrip(trips,isLastDrawMethod) {
-    console.log('[drawOneDayTrip] Enter in method');
-    let map =  mapsPlaceholder[0];
-    let oneday_map = new Map();
-    var destination_list = [];
-    if (trips.size != 0){
-        trips.forEach(function(trip){
-            let isTripLineAlreadyDrawn = destination_list.includes(trip.arrival_id);
-            if (isTripLineAlreadyDrawn == false) {
-                destination_list.push(trip.arrival_id);
-            };
-            //set up weather acceptance to true
-            let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
-            let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
-                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
-                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
-                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
-            if (isTripLineAlreadyDrawn == false) {
-                $("#tickets").append(category_html);
-                $('#heading' + trip.arrival_id).bind('mouseenter', function () {
-                    markerLayer.eachLayer(function (layer) {
-                        if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
-                            layer.setOpacity(0.1);
-                        }
-                    });
-                });
-                $('#heading' + trip.arrival_id).bind('mouseleave', function () {
-                    markerLayer.eachLayer(function (layer) {
-                        if (destination_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
-                            layer.setOpacity(0.8);
-                        }
-                    });
-                });
-            }
-            if ($("#" + identify_ticket).length === 0) {
-                if( typeof oneday_map.get(trip.arrival_id) === 'undefined'){
-                    oneday_map.set(trip.arrival_id,[]);
-                }
-                oneday_map.get(trip.arrival_id).push(trip)
-            }
-        })
-        let markers = []
-        markerLayer.eachLayer(function (layer) {
-            if (destination_list.includes(layer.options.id) == false && layer.getElement().style.display == 'block') {
-                layer.setOpacity(0.4);
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-            } else {
-                layer.setOpacity(0.8);
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}))
-                markers.push(layer)
-            }
-            if (layer.options.id == trips.values().next().value.departure_id) {layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"})); markers.push(layer)}
-        });
-        let fg = L.featureGroup(markers);
-        for (let [key, value] of oneday_map) {
-            value
-                .sort((a, b) => (Number(a.time_on_site) > Number(b.time_on_site))? 1 : -1)
-                .forEach(trip => {
-                    let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '') + trip.sl_arrival_time.replace(':', '') + trip.sl_departure_time.replace(':', '')
-                    //Display time first way
-                    let hours = Math.trunc(trip.duration/ (60))
-                    //console.log(hours)
-                    let minute = Math.trunc(Math.abs(trip.duration - hours * 60));
-                    //console.log(minute)
-                    let display = createTimeDisplay(minute,hours);
-                    let processed_date = trip.day.toString() + '-' + trip.departure_time.split(':')[0].toString() + ':00';
-                    let tl_url = createTrainlineLink(processed_date, trip.departure_iata, trip.arrival_iata);
-
-                    // Display time second way
-                    let sl_hours = Math.trunc(trip.sl_duration / (60))
-                    let sl_minute = Math.trunc(Math.abs(trip.sl_duration - sl_hours * 60));
-                    let sl_display = createTimeDisplay(sl_minute,sl_hours);
-
-                    let sl_processed_date = trip.day.toString() + '-' + trip.sl_departure_time.split(':')[0].toString() + ':00';
-                    let sl_tl_url = createTrainlineLink(sl_processed_date, trip.sl_departure_iata, trip.sl_arrival_iata);
-
-                    // Display time on site & in the train
-                    let tos_hours = Math.trunc(trip.time_on_site / (60))
-                    let tos_minute = Math.trunc(Math.abs(trip.time_on_site - tos_hours * 60));
-                    let tos_display = createTimeDisplay(tos_minute,tos_hours);
-
-                    let it_hours = Math.trunc(trip.travel_time / (60))
-                    let it_minute = Math.trunc(Math.abs(trip.travel_time - it_hours * 60));
-                    let it_display = createTimeDisplay(it_minute,it_hours);
-                    let ticket_html = '<div id="' + identify_ticket + '" class="collapse show" role="tabpanel" aria-labelledby="heading' + trip.arrival_id + '">' +
-                        '<div class="card-body" href="' + tl_url + '">' +
-                        '<i class="fa fa-arrow-circle-right"></i>' +
-                        '<strong> %td | %ta </strong>'.replace('%ta', trip.arrival_time).replace('%td', trip.departure_time) +
-                        'en %d !'.replace('%d', display) + '<a type="button" target="_blank" href="' + tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
-                        '<i class="fa fa-arrow-circle-left"></i>' +
-                        '<strong> %td | %ta </strong>'.replace('%ta', trip.sl_arrival_time).replace('%td', trip.sl_departure_time) +
-                        'en %d !'.replace('%d', sl_display) + '<a type="button" target="_blank" href="' + sl_tl_url + '" class="btn btn-link btn-sm">Book</a>' + '<br>' +
-                        'Time on site : %tos'.replace('%tos',tos_display) + " | " + 'Time in the train : %it'.replace('%it',it_display) +
-                        '</div></div>'
-                    $('#sub' + trip.arrival_id).append(ticket_html);
-                    $('#' + identify_ticket).bind('mouseenter', function () {
-                        let current_coords = new Array();
-                        current_coords.push(trip.departure_coords);
-                        current_coords.push(trip.arrival_coords);
-                        var polyline = new CustomPolyline(current_coords, {
-                            id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
-                            color: '#f7dc6f',
-                            weight: 2,
-                            opacity: 0.8,
-                            dashArray: '10, 10',
-                        });
-                        tripLayer.addLayer(polyline);
-                        map.flyToBounds([current_coords]);
-                        markerLayer.eachLayer(function (layer) {
-                            if (trip.arrival_iata != layer.options.iata && layer.options.iata != trip.departure_iata) {
-                                layer.setOpacity(0.1);
-                            }
-                        });
-                    });
-                    $('#' + identify_ticket).bind('mouseleave', function () {
-                        if (typeof tripLayer !== 'undefined') {
-                            tripLayer.clearLayers();
-                        };
-                        markerLayer.eachLayer(function (layer) {
-                            if (destination_list.includes(layer.options.id) == true || trip.departure_id == layer.options.id) {
-                                layer.setOpacity(0.8);
-                            }
-                        });
-                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [150,150]});map.zoomIn(0.01)} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]});map.zoomIn(0.01)};
-                    });
-                })
-        }
-        if (L.Browser.mobile) {
-            map.flyToBounds(fg.getBounds(),{padding: [30,30], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        } else {
-            map.flyToBounds(fg.getBounds(),{padding: [50,50], duration: 1})
-            setTimeout(function(){ map.setZoom(map.getZoom() + 0.1);}, 3000);
-        };
-    } else {
-        if (typeof tripLayer !== 'undefined') {
-                tripLayer.clearLayers();
-        }
-        markerLayer.eachLayer(function (layer) {
-            if (layer.options.icon.options.iconUrl == "images/icons/station.png") {
-                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/station.png"}))
-            } else {
-                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-            }
-        })
-        let category_html = '<li class="card">' +
-            '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
-            '<h5 class="card-img-overlay" role="tab">' +
-            '<p><br></p>' +
-            '<p class="text-dark text-center bg-white" style="opacity:0.5">No train, no kiff Sorry!</p></h5><div class="card"></div></li>'
-        $("#tickets").append(category_html);
-    }
-    //fade out loader
-    if (isLastDrawMethod) {
-        $("#se-loading-function").fadeOut(1000);
-    }
-    console.log('[drawOneDayTrip] Get out');
 }
 
 function createTrainlineLink(departure_time,departure_iata,arrival_iata){
