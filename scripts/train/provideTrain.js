@@ -20,6 +20,7 @@ $(document).ready(function(){
         //default loading of next day trip
         var currentTime = new Date();
         currentTime.setDate(currentTime.getDate() + 1)
+        $('#se-pre-con').css({'display' : 'block'})
         setTimeout(function () {
                 getTrainRecords(buildQueryDate(currentTime));
         }, 100);
@@ -31,6 +32,7 @@ $(document).ready(function(){
 
 // Get API SNCF records
 async function getTrainRecords(date) {
+
     trips = [];
     last_checked_time = date;
     console.log("enter getTrainRecords method");
@@ -97,6 +99,7 @@ async function getTrainRecords(date) {
         })
         return trips;
     });
+
 };
 
 async function getReturnRecords(date) {

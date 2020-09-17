@@ -16,7 +16,23 @@ function populate_menu(city_name,city_index) {
     let city_option = '<option id="opt_' + city_index + '" value="'+city_name+'" data-value="'+city_index+'" ></option>'
     $("#destination_browser").append(city_option);
 }
+function GetCookie(name) {
+        var arg=name+"=";
+        var alen=arg.length;
+        var clen=document.cookie.length;
+        var i=0;
 
+        while (i<clen) {
+            var j=i+alen;
+                if (document.cookie.substring(i,j)==arg)
+                    return "here";
+                i=document.cookie.indexOf(" ",i)+1;
+                if (i==0)
+                    break;
+        }
+
+        return null;
+}
 $(document).ready(function() {
     
     $('#myModal').on('show.bs.modal', function (e) {
@@ -34,8 +50,19 @@ $(document).ready(function() {
         $('#btnLogin').hide();
         $('#btnGuest').hide();
     }*/
-    
-    $("#myModal").modal('show');
+    $(function() {
+        var visit=GetCookie("COOKIE1");
+
+        if (visit!=null){
+            console.log("test")
+            $('#myModal').modal().toggleClass();
+            $('.modal-backdrop').toggleClass();
+        }
+        var expire=new Date();
+        expire=new Date(expire.getTime()+3600000);
+        document.cookie="COOKIE1=here; expires="+expire;
+    })
+
     
     $('#sidebarCollapse').on('click touch', function () {
         $('#sidebar').toggleClass('active');
