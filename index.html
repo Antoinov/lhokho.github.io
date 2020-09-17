@@ -51,10 +51,6 @@
     //paste this code under the head tag or in a separate js file.
     // Wait for window load
 
-    $(document).ready(function() {
-        // Animate loader off screen
-        $(".se-pre-con").delay(2000).fadeOut(1500);
-    });
 </script>
 <body>
     <div class="wrapper">
@@ -179,8 +175,6 @@
             crossorigin=""></script>
     <!-- script to load utils -->
     <script src="scripts/utils.js"></script>
-    <!-- script to init some navigation elements -->
-    <script src="scripts/initDisplay.js"></script>
     <!-- script to connect to firebase -->
     <script src="scripts/firebase/connectFirebase.js"></script>
     <script src="scripts/train/displayLocalTrain.js"></script>
@@ -189,6 +183,7 @@
     <script src="scripts/bar/barLayer.js"></script>
     <script src="scripts/map/initMap.js"></script>
     <script src="scripts/train/provideTrain.js"></script>
+    <script src="scripts/initDisplay.js"></script>
     <script defer src="scripts/map/generalMap.js"></script>
 </body>
 

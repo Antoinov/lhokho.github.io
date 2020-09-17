@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     $("#myModal").modal('show');
 
-    $('#sidebarCollapse').on('click touch', function () {
+    $('#sidebarCollapse').on('click touchstart', function () {
         $('#sidebar').toggleClass('active');
     });
     const div = $('#trip_toggle');
@@ -80,17 +80,16 @@ $(document).ready(function() {
     });
 
     //Retrieve information about stop stations and city
-    firebase.database().ref().child('city/station').once('value').then(function(datakey){
-        count = 0;
-        datakey.forEach(function(data){
-            city_name = data.val()[0].city;
+    count = 0;
+    setTimeout(function () {
+        station.forEach(function(data){
+            console.log(count);
+            city_name = data[0].city;
             populate_menu(city_name,count);
             count = count + 1;
         });
-        if(datakey.length > 0 ){
-            $("#destSubmenu").scrollTop($('ul > li:nth-child(2)').position().top);
-        }
-    });
+    }, 100);
+
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })

@@ -273,8 +273,8 @@ $(document).ready(function(){
             $("#destination_select").blur();
             const eventMaker = async () => {
                 let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
-                let found = false
-                if(human_click == 'undefined'){
+                let found = false;
+                if(typeof human_click === 'undefined'){
                     if(typeof previous_marker !== 'undefined'){
                         tripLayer.eachLayer(function (layer) {
                             layer.remove();
@@ -291,6 +291,8 @@ $(document).ready(function(){
                             found = true;
                         }
                     });
+                } else {
+                    human_click = undefined;
                 }
             }
             setTimeout(function(){
@@ -301,6 +303,7 @@ $(document).ready(function(){
     });
 
     function onDestinationChange(event) {
+        console.log('test')
         let isActiveSearch = true;
         //clear previous elements
         clear_selection();
@@ -379,7 +382,6 @@ $(document).ready(function(){
             if (event.originalEvent !== undefined) {
                 human_click = true;
                 $('#destination_select').val(event.sourceTarget.options.city).change();
-                human_click = undefined;
 
             }
         }
