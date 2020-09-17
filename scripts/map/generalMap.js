@@ -308,6 +308,7 @@ $(document).ready(function(){
         event.setOpacity(1);
         //store marker
         previous_marker = event;
+        last_checked_departure = event.sourceTarget.options.id;
         //fly to selected marker
         //map.flyTo(event.getLatLng(),6,{'animate':true});
         let date = new Date();
