@@ -609,11 +609,11 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
     let trip_map = new Map();
     let markers = [];
     let origin_station = false;
-    let train_found = undefined;
+    let train_found = true;
     let departure_station = undefined;
     // Set the different trips category
     if (direct_trips != undefined) {
-        if (direct_trips.lenght > 0) {
+        if (direct_trips.length > 0) {
             departure_station = direct_trips[0].departure_id;
             direct_trips.forEach(function(trip){
                 if( typeof destination_list.get(trip.arrival_id) === 'undefined'){
@@ -658,7 +658,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
             });
         } else {
             train_found = false;
-            departure_station = last_checked_departure
+            departure_station = last_checked_departure;
         }
     }
     if (indirect_trips != undefined) {
@@ -750,7 +750,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
         });
     }
     if (oneday_trips != undefined) {
-        if (oneday_trips.lenght > 0) {
+        if (oneday_trips.length > 0) {
             departure_station = oneday_trips[0].departure_id;
             oneday_trips.forEach(function(trip){
                 if( typeof destination_list.get(trip.arrival_id) === 'undefined'){
@@ -819,7 +819,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
     var fg = L.featureGroup(markers);
 
     // DRAW PART
-    if (train_found == undefined) {
+    if (train_found == true) {
         for (let [key, value] of destination_list) {
             value.forEach(trip => {
                     $("#tickets").append(trip);

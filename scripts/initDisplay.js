@@ -50,7 +50,7 @@ $(document).ready(function() {
         $('#btnLogin').hide();
         $('#btnGuest').hide();
     }*/
-    $(function() {
+/*    $(function() {
         var visit=GetCookie("COOKIE1");
 
         if (visit!=null){
@@ -61,9 +61,10 @@ $(document).ready(function() {
         var expire=new Date();
         expire=new Date(expire.getTime()+150000);
         document.cookie="COOKIE1=here; expires="+expire;
-    })
+    })*/
 
-    
+    $("#myModal").modal('show');
+
     $('#sidebarCollapse').on('click touch', function () {
         $('#sidebar').toggleClass('active');
     });

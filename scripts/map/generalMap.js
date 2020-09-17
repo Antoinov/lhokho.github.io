@@ -274,7 +274,7 @@ $(document).ready(function(){
             const eventMaker = async () => {
                 let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
                 let found = false
-                if(typeof human_click === 'undefined'){
+                if(human_click == 'undefined'){
                     if(typeof previous_marker !== 'undefined'){
                         tripLayer.eachLayer(function (layer) {
                             layer.remove();
@@ -308,7 +308,7 @@ $(document).ready(function(){
         event.setOpacity(1);
         //store marker
         previous_marker = event;
-        last_checked_departure = event.sourceTarget.options.id;
+        last_checked_departure = event.options.id
         //fly to selected marker
         //map.flyTo(event.getLatLng(),6,{'animate':true});
         let date = new Date();
@@ -349,7 +349,7 @@ $(document).ready(function(){
             event.sourceTarget.setOpacity(1);
             //store marker
             previous_marker = event.sourceTarget;
-            last_checked_departure = event.sourceTarget.options.id
+            last_checked_departure = event.sourceTarget.options.id;
             //fly to selected marker
             //map.flyTo(event.sourceTarget.getLatLng(),6.5,{'animate':true});
             let date = new Date();
