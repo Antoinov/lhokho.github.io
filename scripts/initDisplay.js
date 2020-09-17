@@ -59,7 +59,7 @@ $(document).ready(function() {
             $('.modal-backdrop').toggleClass();
         }
         var expire=new Date();
-        expire=new Date(expire.getTime()+3600000);
+        expire=new Date(expire.getTime()+150000);
         document.cookie="COOKIE1=here; expires="+expire;
     })
 
