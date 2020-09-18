@@ -103,47 +103,19 @@ $(document).ready(function(){
             focus_station(city_id,markerLayer);
         }
     });*/
+
+
     $(document).on('change','#selected_date',function() {
         let query_date = buildQueryDate($('#selected_date').val());
-        let trip_type = $("input[name='trip_type']:checked").attr("id");
-        let time_restriction = $("input[name='trip']:checked").attr("id");
-        let journey_type = $("input[name='journey_type']:checked").attr("id");
-        if(last_checked_time !== $('#selected_date').val()){
+        if(typeof previous_marker === 'undefined' && last_checked_time !== $('#selected_date').val()){
             setTimeout(async function () {
                 delay(400);
                 await getTrainRecords(query_date);
-                if(typeof previous_marker !== 'undefined'){
-                    $("#se-loading-function").css({"display" : "block"});
-                    const eventMaker = async () => {
-                        tripLayer.eachLayer(function (layer) {
-                            layer.remove();
-                        });
-                        markerLayer.eachLayer(function (layer) {
-                            layer.setOpacity(0.2);
-                        });
-                        await displayTickets(map);
-                        if (journey_type === 'no_return') {console.log('no return');
-                            getCityConnections(query_date,previous_marker,trip_type,time_restriction);
-                        }
-                        else {
-                            if(journey_type === 'one_day') {
-                                let return_option = $("input[name='oneday_type']:checked").attr("id");
-                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                            } else {
-                                let return_option = buildQueryDate($('#return_date').val());
-                                getRoundTrip(previous_marker, trip_type, time_restriction, return_option);
-                            }
-                        }
-                    }
-                    setTimeout(function(){
-                        // start working right after selecting destination
-                        eventMaker();
-                    }, 100);
-                }
             }, 400);
         }
     });
 
+    /*/
     $(document).on('change','#trip_type',function() {
         let query_date = buildQueryDate($('#selected_date').val());
         let trip_type = $("input[name='trip_type']:checked").attr("id");
@@ -264,8 +236,51 @@ $(document).ready(function(){
             }, 1000);
         }
     });
+    /*/
 
-    $(document).on('change enterKey','#destination_select',function() {
+    $(document).on('click','#search_btn',function() {
+        if ($('#destination_select').val() != "On part d'où ?") {
+            let val = $('#destination_select').val().charAt(0).toUpperCase() + $('#destination_select').val().slice(1)
+            let obj = $("#destination_browser").find("option[value='" + val + "']");
+            if(obj != null && obj.length > 0) {
+                $("#se-loading-function").css({"display" : "block"});
+                $("#destination_select").blur();
+                const eventMaker = async () => {
+                    if(last_checked_time !== $('#selected_date').val()){
+                                setTimeout(async function () {
+                                    delay(400);
+                                    await getTrainRecords(query_date);
+                                }, 100)
+                    }
+                    let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
+                    let found = false;
+                    if(typeof previous_marker !== 'undefined'){
+                            tripLayer.eachLayer(function (layer) {
+                                layer.remove();
+                            });
+                            markerLayer.eachLayer(function (layer) {
+                                layer.setOpacity(0.2);
+                            });
+                    }
+                    markerLayer.eachLayer(function (layer) {
+                        if (destination_id == layer.options.id && found == false) {
+                                //console.log(layer);
+                                onDestinationChange(layer);
+                                found = true;
+                        }
+                    });
+                }
+                setTimeout(function(){
+                    // start working right after selecting destination
+                    eventMaker();
+                }, 100);
+            }
+        } else {
+            alert("Merci de renseigner une destination");
+        }
+    });
+
+    /*/$(document).on('change enterKey','#destination_select',function() {
         let val = $('#destination_select').val().charAt(0).toUpperCase() + $('#destination_select').val().slice(1)
         let obj = $("#destination_browser").find("option[value='" + val + "']");
         if(obj != null && obj.length > 0) {
@@ -300,7 +315,7 @@ $(document).ready(function(){
                 eventMaker();
             }, 100);
         }
-    });
+    }); /*/
 
     function onDestinationChange(event) {
         console.log('test')

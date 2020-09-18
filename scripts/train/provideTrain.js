@@ -723,7 +723,6 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
             trip.type = 'direct';
             trip.flow = 1;
             trip.sorting_hour = trip.departure_time.split(':')[0];
-            console.log(trip)
             trip_map.get(trip.departure_id).push(trip);
         });
     }

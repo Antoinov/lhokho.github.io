@@ -83,7 +83,6 @@ $(document).ready(function() {
     count = 0;
     setTimeout(function () {
         station.forEach(function(data){
-            console.log(count);
             city_name = data[0].city;
             populate_menu(city_name,count);
             count = count + 1;
