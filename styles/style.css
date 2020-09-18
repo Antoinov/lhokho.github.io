@@ -56,6 +56,14 @@ span {
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
+#title {
+        display: none;
+}
+#logo {
+        width: fit-content;
+        max-width: 100%;
+}
+
 #side-bar {
     display: flex;
     height: 100%;
@@ -73,6 +81,9 @@ span {
     background: #57585f;
     color: #fff;
     transition: all 0.3s;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top: 3%;
 }
 
 #sidebar.active {
@@ -88,6 +99,9 @@ span {
 
 #sidebar.active .sidebar-header strong {
     display: block;
+}
+#sidebar.active .sidebar-header #logo {
+    display: none;
 }
 
 .sidebar-header:hover { background-color: #57585f !important; }
@@ -123,7 +137,7 @@ span {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
+    /* padding: 10px; */
     background: #57585f;
 }
 
@@ -177,7 +191,7 @@ ul ul a {
 }
 
 ul.CTAs {
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 ul.CTAs a {
@@ -216,12 +230,12 @@ a.article:hover {
 
 .modal-header {
      color: white;
-     background-color: #57585f;  
+     background-color: #57585f;
  }
 
  .modal-button {
     color: white;
-    background-color: #57585f;  
+    background-color: #57585f;
 }
 
 .example-open .modal-backdrop {background-color:#57585f;}
@@ -347,13 +361,17 @@ a.article:hover {
     display : none;
     }
 
+    #logo {
+            display: none;
+    }
     #sidebar.active .sidebar-header{
         text-align: center;
         background: #57585f;
         padding: 15%;
         max-width: 5em;
         display: block;
-    };
+    }
+
     .form-group {
         margin-bottom: 1%;
     }
@@ -398,20 +416,32 @@ a.article:hover {
 }
 
 @media only screen and (max-width: 700px) and (orientation:portrait) {
+    #title {
+        display: none;
+    }
+    #logo {
+        width: fit-content;
+        max-width: 100%;
+    }
     #sidebar {
         height: 100%;
-        min-width: 21vh;
-        max-width: 21vh;
+        min-width: 100%;
+        padding-right: 5%;
+        padding-left: 5%;
+        display: table;
     }
     #sidebar.active {
         min-width: 12vh;
         max-width: 12vh;
     }
     #sidebar .sidebar-header {
-        padding: 15px;
+        display: block;
+        padding: 5%;
         background: #57585f;
-        margin-bottom: 30%;
-        padding-top: 30%;
+        /* margin-bottom: 30%; */
+    }
+    #sidebar.active .sidebar-header #logo {
+        display: none;
     }
     .input-group-btn {
         margin-bottom:10%;
@@ -628,7 +658,7 @@ if it's not present, don't show loader */
     /* Start the shake animation and make the animation last for 0.5 seconds */
     animation: shake 0.5s;
     /* When the animation is finished, start again */
-    animation-iteration-count: 2; 
+    animation-iteration-count: 2;
 }
 
 .info_select:hover { color:#010050; background-color:#57585f;border-radius: 15px; opacity:0.5; }

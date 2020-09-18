@@ -3,7 +3,7 @@
 <!-- Sidebar html content -->
 <nav id="sidebar">
     <div class="sidebar-header" id="sidebarCollapse">
-        <h3>LhoKho <img src="images/icons/logo.png" width="40%" height="40%"></h3>
+        <h3 id="title">LhoKho</h3> <img id="logo" src="images/icons/logo.png">
         <strong>LK</strong>
     </div>
     <ul class="list-unstyled CTAs">
@@ -37,7 +37,7 @@
                 });
             </script>
             <div class="input-group-btn">
-                <label data-toggle="tooltip" data-placement="top" title="Selectionnez la durée du trajet souhaitée" class="mr-sm-2">Durée du voyage </label>
+                <label data-toggle="tooltip" data-placement="top" title="Selectionnez la durée du trajet souhaitée" class="mr-sm-2">Durée du voyage ...</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="time_buttons">
                     <label data-toggle="tooltip" data-placement="bottom" title="Moins de 2h"  class="btn btn-outline-secondary text-white">
                         <input type="radio" name="trip" id="120" autocomplete="off"> < 2H
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="input-group-btn" id="trip_type_box">
-                <label data-toggle="tooltip" data-placement="top" title="Selectionnez la méthode de calcul"  class="mr-sm-2">Challenge</label>
+                <label data-toggle="tooltip" data-placement="top" title="Selectionnez la méthode de calcul"  class="mr-sm-2">Type de trajet ...</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="trip_type">
                     <label data-toggle="tooltip" data-placement="bottom" title="Uniquement les trajets sans arrêts" class="btn btn-outline-secondary active text-white">
                         <input type="radio" name="trip_type" id="direct" autocomplete="off" checked> Direct
@@ -63,7 +63,7 @@
             </div>
 
             <div class="input-group-btn" id="journey_type">
-                <label data-toggle="tooltip" data-placement="top" title="Selectionnez un retour possible" class="mr-sm-2">Return</label>
+                <label data-toggle="tooltip" data-placement="top" title="Selectionnez un retour possible" class="mr-sm-2">Retour ...</label>
                 <div class="btn-group-toggle btn-block" data-toggle="buttons" id="journey_type">
                     <label data-toggle="tooltip" data-placement="bottom" title="Retour non souhaité (par défaut)" class="btn btn-outline-secondary active text-white">
                         <input type="radio" name="journey_type" id="no_return" autocomplete="off" checked>
@@ -96,11 +96,12 @@
                     </div>
             </div>
             <div class="form-group">
-                <label data-toggle="tooltip" data-placement="top" title="Selectionnez une gare de départ" class="mr-sm-2">Departure</label>
-                <input list="destination_browser" type="text" onfocus="this.value=''" autoComplete="on" class="form-control" id="destination_select" value="Departure ..."/>
+                <label data-toggle="tooltip" data-placement="top" title="Selectionnez une gare de départ" class="mr-sm-2">Ville de départ</label>
+                <input list="destination_browser" type="text" onfocus="this.value=''" autoComplete="on" class="form-control" id="destination_select" value="On part d'où ?"/>
                     <datalist id="destination_browser">
                     </datalist>
             </div>
+            <button id="search_btn" data-toggle="tooltip" title="Cliquez ici pour démarrer la recherche" type="button" class="btn btn-primary btn-lg btn-block"><i class="fas fa-search"></i></button>
         </form>
     </ul>
     <div data-toggle="tooltip" data-placement="top" title="Obtenir des informations concernant la carte..." class="sidebar-header" id="infoCollapse">
