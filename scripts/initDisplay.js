@@ -88,7 +88,7 @@ $(document).ready(function() {
             populate_menu(city_name,count);
             count = count + 1;
         });
-    }, 100);
+    }, 300);
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
