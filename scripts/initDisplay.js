@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     $("#myModal").modal('show');
 
-    $('#sidebarCollapse').on('click touchstart', function () {
+    $('#sidebarCollapse').on('click touchend', function () {
         $('#sidebar').toggleClass('active');
     });
     const div = $('#trip_toggle');
