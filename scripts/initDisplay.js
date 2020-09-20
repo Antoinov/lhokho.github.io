@@ -65,7 +65,7 @@ $(document).ready(function() {
 
     $("#myModal").modal('show');
 
-    $('#sidebarCollapse').on('click touchend', function () {
+    $('#sidebarCollapse').on('click touchstart', function () {
         $('#sidebar').toggleClass('active');
     });
     const div = $('#trip_toggle');
@@ -87,7 +87,7 @@ $(document).ready(function() {
             populate_menu(city_name,count);
             count = count + 1;
         });
-    }, 300);
+    }, 400);
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
