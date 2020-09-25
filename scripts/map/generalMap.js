@@ -246,29 +246,51 @@ $(document).ready(function(){
                 $("#se-loading-function").css({"display" : "block"});
                 $("#destination_select").blur();
                 const eventMaker = async () => {
-                    if(last_checked_time !== $('#selected_date').val()){
+                    if(last_checked_time != $('#selected_date').val()){
+                                //console.log('Test 1');
+                                let query_date = buildQueryDate($('#selected_date').val());
                                 setTimeout(async function () {
                                     delay(400);
                                     await getTrainRecords(query_date);
-                                }, 100)
-                    }
-                    let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
-                    let found = false;
-                    if(typeof previous_marker !== 'undefined'){
-                            tripLayer.eachLayer(function (layer) {
-                                layer.remove();
-                            });
-                            markerLayer.eachLayer(function (layer) {
-                                layer.setOpacity(0.2);
-                            });
-                    }
-                    markerLayer.eachLayer(function (layer) {
-                        if (destination_id == layer.options.id && found == false) {
-                                //console.log(layer);
-                                onDestinationChange(layer);
-                                found = true;
+                                    //console.log('Test 2');
+                                    let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
+                                    let found = false;
+                                    if(typeof previous_marker !== 'undefined'){
+                                            tripLayer.eachLayer(function (layer) {
+                                                layer.remove();
+                                            });
+                                            markerLayer.eachLayer(function (layer) {
+                                                layer.setOpacity(0.2);
+                                            });
+                                    }
+                                    markerLayer.eachLayer(function (layer) {
+                                        if (destination_id == layer.options.id && found == false) {
+                                                //console.log(layer);
+                                                onDestinationChange(layer);
+                                                found = true;
+                                        }
+                                    });
+                                }, 1000)
+                    } else {
+                        //console.log('Test 1 bis')
+                        let destination_id = $('#destination_browser [value="' + val + '"]').data('value');
+                        let found = false;
+                        if(typeof previous_marker !== 'undefined'){
+                                tripLayer.eachLayer(function (layer) {
+                                    layer.remove();
+                                });
+                                markerLayer.eachLayer(function (layer) {
+                                    layer.setOpacity(0.2);
+                                });
                         }
-                    });
+                        markerLayer.eachLayer(function (layer) {
+                            if (destination_id == layer.options.id && found == false) {
+                                    //console.log(layer);
+                                    onDestinationChange(layer);
+                                    found = true;
+                            }
+                        });
+                    }
                 }
                 setTimeout(function(){
                     // start working right after selecting destination
@@ -318,7 +340,6 @@ $(document).ready(function(){
     }); /*/
 
     function onDestinationChange(event) {
-        console.log('test')
         let isActiveSearch = true;
         //clear previous elements
         clear_selection();
