@@ -34,7 +34,6 @@ $(document).ready(function(){
 
 // Get API SNCF records
 async function getTrainRecords(date) {
-
     trips = [];
     last_checked_time = date;
     console.log("enter getTrainRecords method");
@@ -303,7 +302,7 @@ async function getRoundTrip(marker, trip_type, time_restriction, return_option) 
     if (direct_only == 'indirect') {
         var all_indirect_trips = [];
         destination_list.forEach( await function(destination) {
-            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != destination);
+            let indirect_trips = findTripsFromDepartureID(destination).filter(trip => trip.arrival_id != departure_id);
             let current = trips.filter(trip => trip.arrival_id == destination);
             current.forEach(function (trip) {
                 let [hours, minutes] = trip.departure_time.split(':');
