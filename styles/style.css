@@ -416,13 +416,6 @@ a.article:hover {
 }
 
 @media only screen and (max-width: 700px) and (orientation:portrait) {
-    #title {
-        display: none;
-    }
-    #logo {
-        width: fit-content;
-        max-width: 100%;
-    }
     #sidebar {
         height: 100%;
         min-width: 100%;
