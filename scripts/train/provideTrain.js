@@ -9,6 +9,7 @@ var last_checked_journey_type = undefined;
 var trips = [];
 var station = [];
 var mobile = false;
+var weather_type = "weather_false";
 
 
 $(document).ready(function(){
@@ -610,6 +611,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
     let markers = [];
     let origin_station = false;
     let train_found = true;
+    let filter_sun = undefined;
     let departure_station = undefined;
     // Set the different trips category
     if (direct_trips != undefined) {
@@ -617,25 +619,58 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
             departure_station = direct_trips[0].departure_id;
             direct_trips.forEach(function(trip){
                 if( typeof destination_list.get(trip.arrival_id) === 'undefined'){
-                        destination_list.set(trip.arrival_id,[]);
                         trip_map.set(trip.arrival_id,[]);
-                        let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                        if (weather_type == 'weather_true' || weather_type == 'weather_sun') {
+                                    GetWeather(trip.arrival_id,trip.arrival_coords[0],trip.arrival_coords[1]).then(function (object) {
+                                          var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                                                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                                                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                                                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                                          if (weather_type == 'weather_sun') {
+                                            if (object.type == '01d' || object.type == '02d') {
+                                                destination_list.set(trip.arrival_id,[]);
+                                                destination_list.get(trip.arrival_id).push(category_html);
+                                                filter_sun = true;
+                                            } else {
+                                                filter_sun = false;
+                                            }
+                                          } else {
+                                            destination_list.set(trip.arrival_id,[]);
+                                            destination_list.get(trip.arrival_id).push(category_html);
+                                          }
+                                          markerLayer.eachLayer(function (layer) {
+                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                    layer.setOpacity(0.8);
+                                                    markers.push(layer);
+                                                }
+                                                if (layer.options.id == departure_station && origin_station == false) {
+                                                    markers.push(layer);
+                                                    origin_station = true;
+                                                }
+                                          });
+                                    })
+                        } else {
+                            var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                                 '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                                 '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
                                 '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
-                        destination_list.get(trip.arrival_id).push(category_html)
-                        markerLayer.eachLayer(function (layer) {
-                            if (trip.arrival_id == layer.options.id) {
-                                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
-                                layer.setOpacity(0.8);
-                                markers.push(layer);
-                            }
-                            if (layer.options.id == departure_station && origin_station == false) {
-                                markers.push(layer);
-                                origin_station = true;
-                            }
-                        });
+                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                            destination_list.set(trip.arrival_id,[]);
+                            destination_list.get(trip.arrival_id).push(category_html);
+                            markerLayer.eachLayer(function (layer) {
+                                if (trip.arrival_id == layer.options.id) {
+                                       layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                       layer.setOpacity(0.8);
+                                       markers.push(layer);
+                                }
+                                if (layer.options.id == departure_station && origin_station == false) {
+                                       markers.push(layer);
+                                       origin_station = true;
+                                }
+                            });
+                        }
                 }
                 let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '');
                 let hours = Math.trunc(trip.duration / (60))
@@ -665,22 +700,60 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
         indirect_trips.forEach(function(trip){
             if( typeof destination_list.get(trip.arrival_id) === 'undefined'){
                     let destination = [];
-                    destination_list.set(trip.arrival_id,[]);
                     trip_map.set(trip.arrival_id,[]);
                     destination.arrival_id = trip.arrival_id;
-                    category_html = '<li class="card" id="' + trip.arrival_id + '">' +
-                                        '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
-                                        '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
-                                        '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                                        '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
-                    destination_list.get(trip.arrival_id).push(category_html)
-                    markerLayer.eachLayer(function (layer) {
-                        if (trip.arrival_id == layer.options.id) {
-                            layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}))
-                            layer.setOpacity(0.8);
-                            markers.push(layer);
-                        }
-                    });
+                    trip_map.set(trip.arrival_id,[]);
+                    if (weather_type == 'weather_true' || weather_type == 'weather_sun') {
+                                    GetWeather(trip.arrival_id,trip.arrival_coords[0],trip.arrival_coords[1]).then(function (object) {
+                                          var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                                                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                                                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                                                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                                          if (weather_type == 'weather_sun') {
+                                            if (object.type == '01d' || object.type == '02d') {
+                                                destination_list.set(trip.arrival_id,[]);
+                                                destination_list.get(trip.arrival_id).push(category_html);
+                                                filter_sun = true;
+                                            } else {
+                                                filter_sun = false;
+                                            }
+                                          } else {
+                                            destination_list.set(trip.arrival_id,[]);
+                                            destination_list.get(trip.arrival_id).push(category_html);
+                                          }
+                                          markerLayer.eachLayer(function (layer) {
+                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                    layer.setOpacity(0.8);
+                                                    markers.push(layer);
+                                                }
+                                                if (layer.options.id == departure_station && origin_station == false) {
+                                                    markers.push(layer);
+                                                    origin_station = true;
+                                                }
+                                          });
+                                    })
+                    } else {
+                            var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                            destination_list.set(trip.arrival_id,[]);
+                            destination_list.get(trip.arrival_id).push(category_html);
+                            markerLayer.eachLayer(function (layer) {
+                                if (trip.arrival_id == layer.options.id) {
+                                       layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                       layer.setOpacity(0.8);
+                                       markers.push(layer);
+                                }
+                                if (layer.options.id == departure_station && origin_station == false) {
+                                       markers.push(layer);
+                                       origin_station = true;
+                                }
+                            });
+                    }
             }
             let identify_ticket = trip.origine_iata.toString() + trip.connection_iata.toString() + trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.origine_departure.replace(':', '');
             let hours = Math.trunc(trip.full_duration / (60))
@@ -753,25 +826,58 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
             departure_station = oneday_trips[0].departure_id;
             oneday_trips.forEach(function(trip){
                 if( typeof destination_list.get(trip.arrival_id) === 'undefined'){
-                        destination_list.set(trip.arrival_id,[]);
                         trip_map.set(trip.arrival_id,[]);
-                        let category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                        if (weather_type == 'weather_true' || weather_type == 'weather_sun') {
+                                    GetWeather(trip.arrival_id,trip.arrival_coords[0],trip.arrival_coords[1]).then(function (object) {
+                                          var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
+                                                '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
+                                                '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
+                                                '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
+                                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                                          if (weather_type == 'weather_sun') {
+                                            if (object.type == '01d' || object.type == '02d') {
+                                                destination_list.set(trip.arrival_id,[]);
+                                                destination_list.get(trip.arrival_id).push(category_html);
+                                                filter_sun = true;
+                                            } else {
+                                                filter_sun = false;
+                                            }
+                                          } else {
+                                            destination_list.set(trip.arrival_id,[]);
+                                            destination_list.get(trip.arrival_id).push(category_html);
+                                          }
+                                          markerLayer.eachLayer(function (layer) {
+                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                    layer.setOpacity(0.8);
+                                                    markers.push(layer);
+                                                }
+                                                if (layer.options.id == departure_station && origin_station == false) {
+                                                    markers.push(layer);
+                                                    origin_station = true;
+                                                }
+                                          });
+                                    })
+                        } else {
+                            var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
                                 '<img src="images/city/bg_'+ trip.arrival_id +'.jpg" width="200" height="150" class="card-img" alt="...">' +
                                 '<h5 class="card-img-overlay" role="tab" id="heading' + trip.arrival_id + '">' +
                                 '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
-                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center bg-white" style="opacity:0.5">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
-                        destination_list.get(trip.arrival_id).push(category_html)
-                        markerLayer.eachLayer(function (layer) {
-                            if (trip.arrival_id == layer.options.id) {
-                                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
-                                layer.setOpacity(0.8);
-                                markers.push(layer);
-                            }
-                            if (layer.options.id == departure_station && origin_station == false) {
-                                markers.push(layer);
-                                origin_station = true;
-                            }
-                        });
+                                '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
+                            destination_list.set(trip.arrival_id,[]);
+                            destination_list.get(trip.arrival_id).push(category_html);
+                            markerLayer.eachLayer(function (layer) {
+                                if (trip.arrival_id == layer.options.id) {
+                                       layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                       layer.setOpacity(0.8);
+                                       markers.push(layer);
+                                }
+                                if (layer.options.id == departure_station && origin_station == false) {
+                                       markers.push(layer);
+                                       origin_station = true;
+                                }
+                            });
+                        }
                 }
                 let identify_ticket = trip.departure_iata.toString() + trip.arrival_iata.toString() + trip.arrival_time.replace(':', '') + trip.departure_time.replace(':', '') + trip.sl_arrival_time.replace(':', '') + trip.sl_departure_time.replace(':', '')
                 //Display time first way
@@ -818,6 +924,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
     var fg = L.featureGroup(markers);
 
     // DRAW PART
+    setTimeout(function (){
     if (train_found == true) {
         for (let [key, value] of destination_list) {
             value.forEach(trip => {
@@ -935,6 +1042,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
         }
     })
     $("#se-loading-function").fadeOut(1000);
+    }, 500)
 }
 
 function createTrainlineLink(departure_time,departure_iata,arrival_iata){

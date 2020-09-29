@@ -238,6 +238,10 @@ $(document).ready(function(){
     });
     /*/
 
+    $(document).on('change','#one_day, #specific_date, #no_return',function() {
+
+    })
+
     $(document).on('click','#search_btn',function() {
         if ($('#destination_select').val() != "On part d'où ?") {
             let val = $('#destination_select').val().charAt(0).toUpperCase() + $('#destination_select').val().slice(1)
@@ -358,7 +362,10 @@ $(document).ready(function(){
             //retrieve date from form
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event;
-            let weather_restriction = $("input[name='weather']:checked").attr("id");
+            if ($('#specific_date').is(':checked')) {
+                $('#weather_false').prop('checked', true);
+            }
+            weather_type = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='trip']:checked").attr("id");
             let trip_type = $("input[name='trip_type']:checked").attr("id");
             let journey_type = $("input[name='journey_type']:checked").attr("id");
@@ -397,6 +404,10 @@ $(document).ready(function(){
             event.sourceTarget.setIcon(L.icon({"iconSize": [25, 25], "iconUrl": "images/icons/station.png"}));
             let query_date = buildQueryDate($('#selected_date').val());
             let query_marker = event.sourceTarget;
+            if ($('#specific_date').is(':checked')) {
+                $('#weather_false').prop('checked', true);
+            }
+            weather_type = $("input[name='weather']:checked").attr("id");
             let time_restriction = $("input[name='trip']:checked").attr("id");
             let trip_type = $("input[name='trip_type']:checked").attr("id");
             let journey_type = $("input[name='journey_type']:checked").attr("id");

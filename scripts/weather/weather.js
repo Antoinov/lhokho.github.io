@@ -211,4 +211,38 @@ function queryAndStoreWeather(city_id,weather_raw_data, data_list) {
     }
 }
 
+async function GetWeather(city_id, lat, lon) {
+    var object = undefined;
+    var today = Math.round(((new Date()).getTime())/1000);
+    let current = ($('#selected_date').val()).split('-');
+    var selected_date = (new Date('August 19, 1975 13:00:00')).setFullYear(current[0],current[1]-1,current[2])/1000;
+    if (Math.abs(selected_date - today) < 691200) {
+        return new Promise(resolve => {
+            console.log('Method called - Collect Weather Data');
+            console.log(lat, lon)
+            var url = 'https://api.openweathermap.org/data/2.5/onecall?lat=%lat&lon=%lon&lang=fr&appid=5e0c07d2d939d7a1cbaadf4d6d0ee1bf&units=metric'
+                .replace('%lat', lat.toString())
+                .replace('%lon', lon.toString())
+            $.ajaxSetup({
+                async: false
+            })
+            $.getJSON(url, function (data) {
+                data = data.daily.find(el => el.dt === selected_date);
+                let src_url = 'https://openweathermap.org/img/wn/%s.png'.replace('%s', (data['weather'][0]['icon']).toString());
+                object = {'date': selected_date, 'temp' : Math.round(data['temp']['day']) + '°','icon':src_url, 'br': '<br>', 'type' : (data['weather'][0]['icon']).toString()}
+            })
+            const waiter = async () => {
+                            while(typeof object === 'undefined'){
+                                console.log('waiting to gather data from api...')
+                                await delay(100);
+                            }
+                            resolve(object);
+                        };
+            waiter();
+        })
+    } else {
+        object = {'date': '', 'temp' : '','icon': '', 'br':'', 'type' : ''};
+        return object
+    }
+}
 
