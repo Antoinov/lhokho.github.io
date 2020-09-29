@@ -95,6 +95,23 @@
                         <div><input class="form-control" type="date" value="" id="return_date"></div>
                     </div>
             </div>
+            <div class="input-group-btn" id="weather_box">
+                <label data-toggle="tooltip" data-placement="top" title="Souhaitez-vous connaître la météo à destination ?"  class="mr-sm-2">Météo ... (Béta)</label>
+                <div class="btn-group-toggle btn-block" data-toggle="buttons" id="weather_type">
+                    <label data-toggle="tooltip" data-placement="bottom" title="Desactiver le paramètre méteo" class="btn btn-outline-secondary active text-white">
+                        <input type="radio" name="weather" id="weather_false" autocomplete="off" checked>
+                        <i class="fas fa-times-circle"></i>
+                    </label>
+                    <label data-toggle="tooltip" data-placement="bottom" title="Disposer des informations météo" class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="weather" id="weather_true" autocomplete="off">
+                        <i class="fas fa-question"></i>
+                    </label>
+                    <label data-toggle="tooltip" data-placement="bottom" title="Destination soleil !" class="btn btn-outline-secondary text-white">
+                        <input type="radio" name="weather" id="weather_sun" autocomplete="off">
+                        <i class="fas fa-sun"></i>
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
                 <label data-toggle="tooltip" data-placement="top" title="Selectionnez une gare de départ" class="mr-sm-2">Ville de départ</label>
                 <input list="destination_browser" type="text" onfocus="this.value=''" autoComplete="on" class="form-control" id="destination_select" value="On part d'où ?"/>
