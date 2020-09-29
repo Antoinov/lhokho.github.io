@@ -724,7 +724,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                                           }
                                           markerLayer.eachLayer(function (layer) {
                                                 if (trip.arrival_id == layer.options.id && filter_sun == true) {
-                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}));
                                                     layer.setOpacity(0.8);
                                                     markers.push(layer);
                                                 }
@@ -744,7 +744,7 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                             destination_list.get(trip.arrival_id).push(category_html);
                             markerLayer.eachLayer(function (layer) {
                                 if (trip.arrival_id == layer.options.id) {
-                                       layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                       layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}));
                                        layer.setOpacity(0.8);
                                        markers.push(layer);
                                 }
