@@ -61,7 +61,8 @@ span {
 }
 #logo {
         width: fit-content;
-        max-width: 100%;
+        max-width: 80%;
+        margin-left: 7%;
 }
 
 #side-bar {
@@ -83,7 +84,7 @@ span {
     transition: all 0.3s;
     padding-right: 5%;
     padding-left: 5%;
-    padding-top: 3%;
+    /*/padding-top: 3%; /*/
 }
 
 #sidebar.active {
@@ -246,6 +247,7 @@ a.article:hover {
     padding: 0px;
     min-height: 100vh;
     transition: all 0.3s;
+    display: contents;
 }
 .stick {
     position: fixed;
@@ -849,6 +851,6 @@ input:checked + .slider:before {
 }
 
 .city-card{
-    background: rgba(255, 255, 255, 0.5) !important;
+    background: rgb(255, 255, 255, 0.5) !important;
 }
 

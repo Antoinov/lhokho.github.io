@@ -628,28 +628,40 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                                                 '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
                                                 '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
                                           if (weather_type == 'weather_sun') {
-                                            if (object.type == '01d' || object.type == '02d') {
+                                                if (object.type == '01d' || object.type == '02d') {
+                                                    destination_list.set(trip.arrival_id,[]);
+                                                    destination_list.get(trip.arrival_id).push(category_html);
+                                                    filter_sun = true;
+                                                    markerLayer.eachLayer(function (layer) {
+                                                        if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                            layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                            layer.setOpacity(0.8);
+                                                            markers.push(layer);
+                                                        }
+                                                        if (layer.options.id == departure_station && origin_station == false) {
+                                                            markers.push(layer);
+                                                            origin_station = true;
+                                                        }
+                                                    });
+                                                } else {
+                                                    filter_sun = false;
+                                                }
+                                          } else {
                                                 destination_list.set(trip.arrival_id,[]);
                                                 destination_list.get(trip.arrival_id).push(category_html);
-                                                filter_sun = true;
-                                            } else {
-                                                filter_sun = false;
-                                            }
-                                          } else {
-                                            destination_list.set(trip.arrival_id,[]);
-                                            destination_list.get(trip.arrival_id).push(category_html);
+                                                markerLayer.eachLayer(function (layer) {
+                                                            if (trip.arrival_id == layer.options.id) {
+                                                                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                                layer.setOpacity(0.8);
+                                                                markers.push(layer);
+                                                            }
+                                                            if (layer.options.id == departure_station && origin_station == false) {
+                                                                markers.push(layer);
+                                                                origin_station = true;
+                                                            }
+                                                });
                                           }
-                                          markerLayer.eachLayer(function (layer) {
-                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
-                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
-                                                    layer.setOpacity(0.8);
-                                                    markers.push(layer);
-                                                }
-                                                if (layer.options.id == departure_station && origin_station == false) {
-                                                    markers.push(layer);
-                                                    origin_station = true;
-                                                }
-                                          });
+
                                     })
                         } else {
                             var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
@@ -711,28 +723,39 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                                                 '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
                                                 '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
                                           if (weather_type == 'weather_sun') {
-                                            if (object.type == '01d' || object.type == '02d') {
+                                                if (object.type == '01d' || object.type == '02d') {
+                                                    destination_list.set(trip.arrival_id,[]);
+                                                    destination_list.get(trip.arrival_id).push(category_html);
+                                                    filter_sun = true;
+                                                    markerLayer.eachLayer(function (layer) {
+                                                            if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}));
+                                                                layer.setOpacity(0.8);
+                                                                markers.push(layer);
+                                                            }
+                                                            if (layer.options.id == departure_station && origin_station == false) {
+                                                                markers.push(layer);
+                                                                origin_station = true;
+                                                            }
+                                                    });
+                                                } else {
+                                                filter_sun = false;
+                                                }
+                                          } else {
                                                 destination_list.set(trip.arrival_id,[]);
                                                 destination_list.get(trip.arrival_id).push(category_html);
-                                                filter_sun = true;
-                                            } else {
-                                                filter_sun = false;
-                                            }
-                                          } else {
-                                            destination_list.set(trip.arrival_id,[]);
-                                            destination_list.get(trip.arrival_id).push(category_html);
+                                                markerLayer.eachLayer(function (layer) {
+                                                       if (trip.arrival_id == layer.options.id) {
+                                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}));
+                                                                    layer.setOpacity(0.8);
+                                                                    markers.push(layer);
+                                                       }
+                                                       if (layer.options.id == departure_station && origin_station == false) {
+                                                                    markers.push(layer);
+                                                                    origin_station = true;
+                                                       }
+                                                });
                                           }
-                                          markerLayer.eachLayer(function (layer) {
-                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
-                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/indirect_pin.png"}));
-                                                    layer.setOpacity(0.8);
-                                                    markers.push(layer);
-                                                }
-                                                if (layer.options.id == departure_station && origin_station == false) {
-                                                    markers.push(layer);
-                                                    origin_station = true;
-                                                }
-                                          });
                                     })
                     } else {
                             var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
@@ -835,28 +858,40 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
                                                 '<a class="collapsed d-block " data-toggle="collapse" style="background-color: transparent;" data-parent="#tickets" href="#sub' + trip.arrival_id + '" aria-expanded="false">' +
                                                 '<i class="fa fa-chevron-down pull-right"></i><p class="text-dark text-center city-card">' + trip.arrival_city + object.br + '<img src="' + object.icon + '">' + object.temp + '</p></a></h5><div class="card collapse" id="sub' + trip.arrival_id + '"></div></li>'
                                           if (weather_type == 'weather_sun') {
-                                            if (object.type == '01d' || object.type == '02d') {
-                                                destination_list.set(trip.arrival_id,[]);
-                                                destination_list.get(trip.arrival_id).push(category_html);
-                                                filter_sun = true;
+                                                if (object.type == '01d' || object.type == '02d') {
+                                                    destination_list.set(trip.arrival_id,[]);
+                                                    destination_list.get(trip.arrival_id).push(category_html);
+                                                    filter_sun = true;
+                                                    markerLayer.eachLayer(function (layer) {
+                                                        if (trip.arrival_id == layer.options.id && filter_sun == true) {
+                                                            layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                            layer.setOpacity(0.8);
+                                                            markers.push(layer);
+                                                        }
+                                                        if (layer.options.id == departure_station && origin_station == false) {
+                                                            markers.push(layer);
+                                                            origin_station = true;
+                                                        }
+                                                    });
                                             } else {
                                                 filter_sun = false;
                                             }
                                           } else {
-                                            destination_list.set(trip.arrival_id,[]);
-                                            destination_list.get(trip.arrival_id).push(category_html);
+                                                destination_list.set(trip.arrival_id,[]);
+                                                destination_list.get(trip.arrival_id).push(category_html);
+                                                markerLayer.eachLayer(function (layer) {
+                                                            if (trip.arrival_id == layer.options.id) {
+                                                                layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
+                                                                layer.setOpacity(0.8);
+                                                                markers.push(layer);
+                                                            }
+                                                            if (layer.options.id == departure_station && origin_station == false) {
+                                                                markers.push(layer);
+                                                                origin_station = true;
+                                                            }
+                                                });
                                           }
-                                          markerLayer.eachLayer(function (layer) {
-                                                if (trip.arrival_id == layer.options.id && filter_sun == true) {
-                                                    layer.setIcon(L.icon({"iconSize": [20,20], "iconAnchor": [10,10], "iconUrl":"images/icons/placeholder.png"}));
-                                                    layer.setOpacity(0.8);
-                                                    markers.push(layer);
-                                                }
-                                                if (layer.options.id == departure_station && origin_station == false) {
-                                                    markers.push(layer);
-                                                    origin_station = true;
-                                                }
-                                          });
+
                                     })
                         } else {
                             var category_html = '<li class="card" id="' + trip.arrival_id + '">' +
@@ -925,123 +960,132 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
 
     // DRAW PART
     setTimeout(function (){
-    if (train_found == true) {
-        for (let [key, value] of destination_list) {
-            value.forEach(trip => {
-                    $("#tickets").append(trip);
-                    $('#heading' + key).bind('mouseenter', function () {
-                            markerLayer.eachLayer(function (layer) {
-                                if (key != layer.options.id && layer.options.id != departure_station) {
-                                    layer.setOpacity(0.1);
-                                }
-                            });
-                    });
-                    $('#heading' + key).bind('mouseleave', function () {
-                            markerLayer.eachLayer(function (layer) {
-                                if (destination_list.has(layer.options.id) == true || layer.options.id == departure_station) {
-                                    layer.setOpacity(0.8);
-                                }
-                            });
-                    });
-            });
-        }
-        for (let [key, value] of trip_map) {
-            value.sort((a, b) => (Number(a.sorting_hour) > Number(b.sorting_hour))? 1 : -1)
-                .sort(function (a, b) {
-                    return a.flow - b.flow;
-                })
-                    .forEach(trip => {
-                        $('#sub' + key).append(trip.ticket_html)
-                        if (trip.type == 'direct') {
-                            $('#' + trip.identify_ticket).bind('mouseover', function () {
-                                let current_coords = new Array();
-                                current_coords.push(trip.departure_coords);
-                                current_coords.push(trip.arrival_coords);
-                                var polyline = new CustomPolyline(current_coords, {
-                                    id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
-                                    color: 'black',
-                                    weight: 2,
-                                    opacity: 0.8,
-                                    dashArray: '10, 10'
-                                });
-                                tripLayer.addLayer(polyline);
+        if (train_found == true && destination_list.size > 0) {
+            for (let [key, value] of destination_list) {
+                value.forEach(trip => {
+                        $("#tickets").append(trip);
+                        $('#heading' + key).bind('mouseenter', function () {
                                 markerLayer.eachLayer(function (layer) {
-                                        if (trip.arrival_id != layer.options.id && layer.options.id != trip.departure_id) {
+                                    if (key != layer.options.id && layer.options.id != departure_station) {
+                                        layer.setOpacity(0.1);
+                                    }
+                                });
+                        });
+                        $('#heading' + key).bind('mouseleave', function () {
+                                markerLayer.eachLayer(function (layer) {
+                                    if (destination_list.has(layer.options.id) == true || layer.options.id == departure_station) {
+                                        layer.setOpacity(0.8);
+                                    }
+                                });
+                        });
+                });
+            }
+            for (let [key, value] of trip_map) {
+                value.sort((a, b) => (Number(a.sorting_hour) > Number(b.sorting_hour))? 1 : -1)
+                    .sort(function (a, b) {
+                        return a.flow - b.flow;
+                    })
+                        .forEach(trip => {
+                            $('#sub' + key).append(trip.ticket_html)
+                            if (trip.type == 'direct') {
+                                $('#' + trip.identify_ticket).bind('mouseover', function () {
+                                    let current_coords = new Array();
+                                    current_coords.push(trip.departure_coords);
+                                    current_coords.push(trip.arrival_coords);
+                                    var polyline = new CustomPolyline(current_coords, {
+                                        id: 'line' + trip.departure_iata.toString() + trip.arrival_iata.toString(),
+                                        color: 'black',
+                                        weight: 2,
+                                        opacity: 0.8,
+                                        dashArray: '10, 10'
+                                    });
+                                    tripLayer.addLayer(polyline);
+                                    markerLayer.eachLayer(function (layer) {
+                                            if (trip.arrival_id != layer.options.id && layer.options.id != trip.departure_id) {
+                                                layer.setOpacity(0.1);
+                                            }
+                                    });
+                                    map.flyToBounds([current_coords])
+                                });
+                                $('#' + trip.identify_ticket).bind('mouseout', function () {
+                                        if (typeof tripLayer !== 'undefined') {
+                                            tripLayer.clearLayers();
+                                        };
+                                        markerLayer.eachLayer(function (layer) {
+                                            if (destination_list.has(layer.options.id) == true || departure_station == layer.options.id) {
+                                                layer.setOpacity(0.8);
+                                            }
+                                        });
+                                        if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
+                                });
+                            } else {
+                                $('#' + trip.identify_ticket).bind('mouseenter', function () {
+                                    let current_coords = new Array();
+                                    current_coords.push(trip.origine_coords);
+                                    current_coords.push(trip.departure_coords);
+                                    var polyline = new CustomPolyline(current_coords, {
+                                        id: 'fl_line' + trip.identify_ticket,
+                                        color: 'black',
+                                        weight: 2,
+                                        opacity: 1,
+                                        dashArray: '10, 10',
+                                    });
+                                    tripLayer.addLayer(polyline);
+                                    current_coords = new Array();
+                                    current_coords.push(trip.departure_coords);
+                                    current_coords.push(trip.arrival_coords);
+                                    var polyline = new CustomPolyline(current_coords, {
+                                        id: 'sl_line' + trip.identify_ticket,
+                                        color: '#0affb4',
+                                        weight: 2,
+                                        opacity: 1,
+                                        dashArray: '10, 10',
+                                    });
+                                    tripLayer.addLayer(polyline);
+                                    map.flyToBounds([trip.origine_coords,trip.departure_coords,trip.arrival_coords])
+                                    markerLayer.eachLayer(function (layer) {
+                                        if (layer.options.id != trip.arrival_id && layer.options.id != trip.departure_id && layer.options.id != trip.origine_id) {
                                             layer.setOpacity(0.1);
                                         }
+                                    });
                                 });
-                                map.flyToBounds([current_coords])
-                            });
-                            $('#' + trip.identify_ticket).bind('mouseout', function () {
+                                $('#' + trip.identify_ticket).bind('mouseleave', function () {
                                     if (typeof tripLayer !== 'undefined') {
                                         tripLayer.clearLayers();
                                     };
                                     markerLayer.eachLayer(function (layer) {
-                                        if (destination_list.has(layer.options.id) == true || departure_station == layer.options.id) {
+                                        if (destination_list.has(layer.options.id) == true) {
                                             layer.setOpacity(0.8);
                                         }
                                     });
                                     if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
-                            });
-                        } else {
-                            $('#' + trip.identify_ticket).bind('mouseenter', function () {
-                                let current_coords = new Array();
-                                current_coords.push(trip.origine_coords);
-                                current_coords.push(trip.departure_coords);
-                                var polyline = new CustomPolyline(current_coords, {
-                                    id: 'fl_line' + trip.identify_ticket,
-                                    color: 'black',
-                                    weight: 2,
-                                    opacity: 1,
-                                    dashArray: '10, 10',
                                 });
-                                tripLayer.addLayer(polyline);
-                                current_coords = new Array();
-                                current_coords.push(trip.departure_coords);
-                                current_coords.push(trip.arrival_coords);
-                                var polyline = new CustomPolyline(current_coords, {
-                                    id: 'sl_line' + trip.identify_ticket,
-                                    color: '#0affb4',
-                                    weight: 2,
-                                    opacity: 1,
-                                    dashArray: '10, 10',
-                                });
-                                tripLayer.addLayer(polyline);
-                                map.flyToBounds([trip.origine_coords,trip.departure_coords,trip.arrival_coords])
-                                markerLayer.eachLayer(function (layer) {
-                                    if (layer.options.id != trip.arrival_id && layer.options.id != trip.departure_id && layer.options.id != trip.origine_id) {
-                                        layer.setOpacity(0.1);
-                                    }
-                                });
-                            });
-                            $('#' + trip.identify_ticket).bind('mouseleave', function () {
-                                if (typeof tripLayer !== 'undefined') {
-                                    tripLayer.clearLayers();
-                                };
-                                markerLayer.eachLayer(function (layer) {
-                                    if (destination_list.has(layer.options.id) == true) {
-                                        layer.setOpacity(0.8);
-                                    }
-                                });
-                                if (L.Browser.mobile) {map.flyToBounds(fg.getBounds(),{padding: [30,30]})} else {map.flyToBounds(fg.getBounds(),{padding: [50,50]})};
-                            });
-                        }
-                    });
+                            }
+                        });
+            }
+        } else {
+            if (weather_type == 'weather_sun') {
+                   let category_html = '<li class="card">' +
+                                       '<img src="images/icons/weather.gif" width="200" height="200" class="card-img" alt="...">' +
+                                       '<h5 class="card-img-overlay" role="tab">' +
+                                       '<p><br></p>' +
+                                       '<p class="text-dark text-center bg-white" style="opacity:0.5">Pas de soleil en vue !</p></h5><div class="card"></div></li>'
+                    $("#tickets").append(category_html);
+            } else {
+                   let category_html = '<li class="card">' +
+                                       '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
+                                       '<h5 class="card-img-overlay" role="tab">' +
+                                       '<p><br></p>' +
+                                       '<p class="text-dark text-center bg-white" style="opacity:0.5">Sorry! No tchoutchou</p></h5><div class="card"></div></li>'
+                    $("#tickets").append(category_html);
+            }
         }
-    } else {
-           let category_html = '<li class="card">' +
-                               '<img src="images/icons/misstrain.gif" width="200" height="200" class="card-img" alt="...">' +
-                               '<h5 class="card-img-overlay" role="tab">' +
-                               '<p><br></p>' +
-                               '<p class="text-dark text-center bg-white" style="opacity:0.5">Sorry! No tchoutchou</p></h5><div class="card"></div></li>'
-            $("#tickets").append(category_html);
-    }
-    markerLayer.eachLayer(function (layer) {
-        if (destination_list.has(layer.options.id) == false && layer.options.id != departure_station) {
-            layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
-        }
-    })
-    $("#se-loading-function").fadeOut(1000);
+        markerLayer.eachLayer(function (layer) {
+            if (destination_list.has(layer.options.id) == false && layer.options.id != departure_station) {
+                layer.setIcon(L.icon({"iconSize": [10,10], "iconAnchor": [5,5], "iconUrl":"images/icons/circle.png"}))
+            }
+        })
+        $("#se-loading-function").fadeOut(1000);
     }, 500)
 }
 
