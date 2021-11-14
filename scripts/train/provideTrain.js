@@ -939,7 +939,8 @@ async function drawTrips(direct_trips, indirect_trips, direct_return, indirect_r
 
 function createTrainlineLink(departure_time,departure_iata,arrival_iata){
     //build trainline link
-    let link = "https://www.trainline.fr/search/%depiata/%arriata/%date"
+    departure_time = departure_time.replace(':','%3A')
+    let link = "https://tp.media/r?marker=335906&trs=149059&p=3493&u=https%3A%2F%2Fwww.trainline.fr%2Fsearch%2F%depiata%2F%arriata%2F%date"
         .replace('%depiata',departure_iata)
         .replace('%arriata',arrival_iata)
         .replace('%date',(departure_time));
